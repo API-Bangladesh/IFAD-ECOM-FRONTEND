@@ -7,6 +7,15 @@ import GeneralPic from "../../../public/company/three.jpg";
 import MissionPic from "../../../public/company/four.jpg";
 import VissionPic from "../../../public/company/five.jpg";
 import ValuesPic from "../../../public/company/six.jpg";
+import { Container, Row } from "react-bootstrap";
+import MissionImage from "../../../public/mission.png";
+import VisionImage from "../../../public/vision.png";
+import ValuePicOne from "../../../public/values/1.png";
+import ValuePicTwo from "../../../public/values/2.png";
+import ValuePicThree from "../../../public/values/3.png";
+import ValuePicFour from "../../../public/values/4.png";
+import ValuePicFive from "../../../public/values/5.png";
+import ValuePicSix from "../../../public/values/6.png";
 
 const CompanyReview = () => {
 	return (
@@ -80,21 +89,185 @@ const CompanyReview = () => {
 							</div>
 						</div>
 
-						<div className="col-lg-12">
-							<div className="p-4">
-								<Image src={MissionPic} alt="" className="review-mission rounded-4" />
-							</div>
-						</div>
-						<div className="col-lg-12">
-							<div className="p-4">
-								<Image src={VissionPic} alt="" className=" rounded-4" />
-							</div>
-						</div>
+
 					</div>
 				</div>
-				<div className="">
-					<Image src={ValuesPic} alt="" className=" rounded-0" />
+
+			</section>
+			<section id="missionVission" className="values">
+				<div className="container">
+					<div className="row">
+						<div className="">
+							<div className="d-flex justify-content-between">
+								<div className="text-center">
+									<Image
+										src={MissionImage}
+										alt="vision"
+										height={150}
+										width={150}
+									/>
+								</div>
+								<h1 className="text-center text-capitalize font-poppins fw-bold pt-5 font-40">
+									our <span className="theme-color"> mission</span>
+								</h1>
+							</div>
+							<div className=" mission">
+								<div>
+									<p className="text-justify px-3 pb-5 font-20">
+										Our mission is to satisfy the need of the consumers by
+										offering them high quality products and solutios at the
+										right place at right value . We will do that by driving
+										continuous onnovations, process improvements, people
+										development while adding value for all stakeholders.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div className="">
+							<div className="d-flex justify-content-between">
+								<div className="text-center">
+									<Image
+										src={VisionImage}
+										alt="vision"
+										height={150}
+										width={150}
+									/>
+								</div>
+								<h1 className="text-center text-capitalize font-poppins fw-bold pt-5 font-40">
+									our <span className="theme-color"> vision</span>
+								</h1>
+							</div>
+							<div className=" mission">
+								<div>
+									<p className="text-justify px-3 pb-4 font-20	">
+										To delight consumers by providing high quality and affordable
+										products that creates happy and healthy lives.
+									</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
 				</div>
+			</section>
+
+			{/* value part */}
+			<section>
+				<Container className="pb-4">
+					<Row>
+						<h1 className="text-center text-capitalize font-poppins fw-bolder py-4 font-40">
+							our <span className="theme-color"> values</span>
+						</h1>
+						<div className="col-lg-7 d-flex justify-content-start value-items">
+							<div className="col-lg-1">
+								<Image
+									src={ValuePicOne}
+									alt=""
+									height={70}
+									width={70}
+									className="value-image"
+								/>
+							</div>
+							<div className="col-lg-11 d-flex align-items-center">
+								<p className="font-20 ps-3">
+									<span className="fw-bold logo-color">
+										Consumer/Customer Focus:{" "}
+									</span>
+									Keeping consumers at the forefront of all our actions and
+									decisions.
+								</p>
+							</div>
+						</div>
+						<div className="col-lg-7 d-flex justify-content-start value-items">
+							<div className="col-lg-1">
+								<Image
+									src={ValuePicTwo}
+									alt=""
+									height={70}
+									width={70}
+									className=""
+								/>
+							</div>
+							<div className="col-lg-11 d-flex align-items-center">
+								<p className="font-20 ps-3">
+									<span className="fw-bold logo-color">Innovative: </span>
+									Continuously innovate products to stay ahead of time.
+								</p>
+							</div>
+						</div>
+						<div className="col-lg-7 d-flex justify-content-start value-items">
+							<div className="col-lg-1">
+								<Image
+									src={ValuePicThree}
+									alt=""
+									height={70}
+									width={70}
+									className=""
+								/>
+							</div>
+							<div className="col-lg-11 d-flex align-items-center">
+								<p className="font-20 ps-3">
+									<span className="fw-bold logo-color">Quality First: </span>
+									Maintain highest quality standard of product services and
+									prople.
+								</p>
+							</div>
+						</div>
+
+						<div className="col-lg-7 d-flex justify-content-start value-items">
+							<div className="col-lg-1">
+								<Image
+									src={ValuePicFour}
+									alt=""
+									height={70}
+									width={70}
+									className=""
+								/>
+							</div>
+							<div className="col-lg-11 d-flex align-items-center">
+								<p className="font-20 ps-3">
+									<span className="fw-bold logo-color">Accountability: </span>
+									prople are empowered and accountable for deliverables
+								</p>
+							</div>
+						</div>
+						<div className="col-lg-7 d-flex justify-content-start value-items">
+							<div className="col-lg-1">
+								<Image
+									src={ValuePicFive}
+									alt=""
+									height={70}
+									width={70}
+									className=""
+								/>
+							</div>
+							<div className="col-lg-11 d-flex align-items-center">
+								<p className="font-20 ps-3">
+									<span className="fw-bold logo-color">Integrity: </span>
+									Maintain highest level of honesty and transparency.
+								</p>
+							</div>
+						</div>
+						<div className="col-lg-7 d-flex justify-content-start value-items">
+							<div className="col-lg-1">
+								<Image
+									src={ValuePicSix}
+									alt=""
+									height={70}
+									width={70}
+									className=""
+								/>
+							</div>
+							<div className="col-lg-11 d-flex align-items-center">
+								<p className="font-20 ps-3">
+									<span className="fw-bold logo-color">Passionate Team: </span>
+									Work as a winning collaborative and passionate team in driving
+									excellence.
+								</p>
+							</div>
+						</div>
+					</Row>
+				</Container>
 			</section>
 		</>
 	);

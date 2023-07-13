@@ -80,7 +80,9 @@ a {
 th,tr {
 	white-space: nowrap;
 }
-
+.theme-color{
+	color: #f5821f;
+}	
 
 /*===============
 overlay part start 
@@ -1043,6 +1045,13 @@ about part css start
 	width: 100%;
 	max-height: 300px;
 	object-fit: cover;
+}
+.value-items{
+	margin-left: 50%;
+	transform: translate(-50%);
+}
+.logo-color{
+	color: #D71921;
 }
 /*================
 about part css end
