@@ -3,15 +3,11 @@ import {BACKEND_URL} from "./constants";
 import {logout, token} from "./auth";
 
 const axiosClient = axios.create({
-    baseURL: BACKEND_URL,
-    headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-    },
-    withCredentials: true
+    baseURL: BACKEND_URL
 })
 
 setTimeout(() => {
-    axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token();
+     axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token();
 });
 
 axiosClient.interceptors.response.use((response) => {
