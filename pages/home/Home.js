@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import Banner from '../../components/Modules/banner/Banner';
 import Category from '../../components/Modules/category/Category';
 import ComboPack from '../../components/Modules/combopack/ComboPack';
@@ -52,7 +52,7 @@ import TopButton from '../../components/Modules/topbutton/TopButton'
 
 const Home = () => {
 	return (
-		<>
+		<Fragment>
 			<Banner />
 			<Category />
 			<ComboPack
@@ -140,7 +140,7 @@ const Home = () => {
 			{/* <FeatureProducts /> */}
 			<Brands/>
 			<TopButton/>
-		</>
+		</Fragment>
 	);
 };
 
