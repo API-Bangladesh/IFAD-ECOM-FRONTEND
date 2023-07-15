@@ -4,17 +4,18 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
+import { showErrorNotification, showSuccessNotification } from '../helper/notificationHelper';
+import axios from 'axios';
+import { token } from '../../../utils/auth';
 
 
 const UserInfo = () => {
 	const [formdata, setFormData] = useState({
-		img: "",
 		name: "",
-		email: "",
 		address: "",
-		dob: "",
+		date_of_birth: "",
 		gender: "",
-		number: "",
+		phone_number: "",
 	})
 
 	const handleChange = (e) => {
@@ -24,41 +25,38 @@ const UserInfo = () => {
 		})
 	};
 
-	const handleSubmit = async (e) => {
-		// const BASE_URL= 'http://192.168.68.149:4444/ecom';
+	const handleSubmit = async(e) =>{
 		e.preventDefault();
-		console.log(formdata);
-		setFormData({
-			img: "",
-			name: "",
-			email: "",
-			address: "",
-			dob: "",
-			gender: "",
-			number: "",
-		});
-		// try{
-		//   const response = await axios.post(`${BASE_URL}/endpoint`,{
-		//     companyName: formdata.companyName,
-		//     name: formdata.name,
-		//     email: formdata.email,
-		//     phone: formdata.phone,
-		//     comments: formdata.comments,
-		//   })
-		//     .then((res)=>{
-		//       console.log(res);
-		//     });
-		//     setFormData({
-		//       companyName:"",
-		//       name:"",
-		//       email:"",
-		//       phone:"",
-		//       comments:""
-		//     });
-		// }catch(err){
-		//   console.log(err.message);
-		// }
-	};
+		const data = {
+		  name: formdata.name,
+		  address: formdata.address,
+		  date_of_birth: formdata.date_of_birth,
+		  gender: formdata.gender,
+		  phone_number: formdata.phone_number,
+		};
+		const headers = {
+		  "Authorization": token(),
+		  "Content-Type": "application/json",
+		};
+		const BASE_URL = "http://192.168.11.93:8000/ecom"
+		try{
+		  await axios.put(`${BASE_URL}/customers/1`, data, { headers })
+			.then((res)=>{
+			  console.log(res.data);
+			  showSuccessNotification("", res.data.message);
+			});
+			setFormData({
+				name: "",
+				address: "",
+				date_of_birth: "",
+				gender: "",
+				phone_number: "",
+			});
+		}catch(err){
+		  console.log(err.message);
+		  showErrorNotification("Error!",err.message);
+		}
+	  }
 
 	return (
 		<>
@@ -74,7 +72,6 @@ const UserInfo = () => {
 								<Form.Control 
 								name="img"
 								type="file" 
-								onChange={handleChange}
 								className="rounded-0 form-deco" />
 							</Form.Group>
 						</Col>
@@ -82,15 +79,15 @@ const UserInfo = () => {
 
 							<Form.Group className="mb-3" controlId="formBasicEmail">
 								<Form.Label>Full Name <span className="text-danger"> *</span></Form.Label>
-								<Form.Control name="name" type="text" placeholder="Enter Full Name" onChange={handleChange} className="form-padd rounded-0 form-deco" required />
+								<Form.Control name="name" type="text" placeholder="Enter Full Name" value={formdata.name} onChange={handleChange} className="form-padd rounded-0 form-deco" required />
 							</Form.Group>
 							<Form.Group className="mb-3" controlId="formBasicEmail">
 								<Form.Label>Email<span className="text-danger"> *</span></Form.Label>
-								<Form.Control name="email" type="email" placeholder="Enter email" onChange={handleChange} className="form-padd rounded-0 form-deco" required />
+								<Form.Control name="email" type="email" placeholder="Enter email" className="form-padd rounded-0 form-deco" required />
 							</Form.Group>
 							<Form.Group className="mb-3" controlId="formBasicEmail">
 								<Form.Label>Address<span className="text-danger"> *</span></Form.Label>
-								<Form.Control name="address" type="text" placeholder="Enter your address" onChange={handleChange} className="form-padd rounded-0 form-deco" required />
+								<Form.Control name="address" type="text" placeholder="Enter your address" value={formdata.address}  onChange={handleChange} className="form-padd rounded-0 form-deco" required />
 							</Form.Group>
 							<Form.Group className="mb-3" controlId="formBasicEmail">
 								<Form.Label for="" className="form-label text-capitalize">
@@ -98,7 +95,8 @@ const UserInfo = () => {
 								</Form.Label>
 								<Form.Control
 									type="date"
-									name="dob"
+									name="date_of_birth"
+									value={formdata.date_of_birth} 
 									onChange={handleChange}
 									className="form-padd rounded-0 form-deco"
 									required
@@ -107,7 +105,7 @@ const UserInfo = () => {
 
 							<Form.Group className="mb-3">
 								<Form.Label>Gender</Form.Label>
-								<Form.Select name="gender" onChange={handleChange} aria-label="Default select example" className="form-padd rounded-0 form-deco">
+								<Form.Select name="gender" value={formdata.gender}  onChange={handleChange} aria-label="Default select example" className="form-padd rounded-0 form-deco">
 									<option> Select gender</option>
 									<option value="Male">Male</option>
 									<option value="Female">Female</option>
@@ -117,7 +115,7 @@ const UserInfo = () => {
 
 							<Form.Group className="mb-3" controlId="formBasicEmail">
 								<Form.Label>Phone number<span className="text-danger"> *</span></Form.Label>
-								<Form.Control name="number" type="number" placeholder="Enter number" onChange={handleChange} className="form-padd rounded-0 form-deco" required />
+								<Form.Control name="phone_number" type="number" placeholder="Enter number"  value={formdata.phone_number} onChange={handleChange} className="form-padd rounded-0 form-deco" required />
 							</Form.Group>
 							<Button type="submit" variant="primary" className="text-capitalize font-18 px-5 mb-4 user-sub-btn rounded-0 font-lato">submit</Button>{" "}
 						</Col>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,8 +6,60 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "next/image";
 import BtoBBanner from "../../../public/b2b.jpg";
+import axios from "axios"
+import { showSuccessNotification, showErrorNotification } from "../helper/notificationHelper"
 
 const BToB = () => {
+	const [formdata, setFormData] = useState({
+    name:"",
+	product_name:"",
+	product_code:"",
+	product_quantity:"",
+	contact_number:"",
+    email_address:"",
+  });
+
+  const handleChange = (e) =>{
+    setFormData({
+      ...formdata,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  const handleSubmit = async(e) =>{
+	e.preventDefault();
+    const data = {
+      name: formdata.name,
+	  product_name: formdata.product_name,
+	  product_code: formdata.product_code,
+	  product_quantity: formdata.product_quantity,
+      contact_number: formdata.contact_number,
+      email_address: formdata.email_address,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const BASE_URL = "http://192.168.11.93:8000/ecom"
+    try{
+      await axios.post(`${BASE_URL}/send-b2b-sale-form`, data, { headers })
+        .then((res)=>{
+          console.log(res.data);
+          showSuccessNotification("", res.data.message);
+        });
+        setFormData({
+          name:"",
+		  product_name:"",
+		  product_code:"",
+		  product_quantity:"",
+          contact_number:"",
+          email_address:"",
+        });
+    }catch(err){
+      console.log(err.message);
+      showErrorNotification("Error!",err.message);
+    }
+  }
+
 	return (
 		<>
 			<section>
@@ -30,40 +82,40 @@ const BToB = () => {
 								</p>
 							</div>
 							<div data-aos="fade-up">
-								<Form>
+								<Form onSubmit={handleSubmit}>
 									<Form.Group className="mb-3" controlId="">
 										<Form.Label>
 											Name <span className="text-danger">*</span>
 										</Form.Label>
-										<Form.Control type="text" placeholder="Enter email" className="rounded-0 btob-input" />
+										<Form.Control name="name" type="text" placeholder="Enter name" value={formdata.name} onChange={handleChange} className="rounded-0 btob-input" />
 									</Form.Group>
 									<Form.Group className="mb-3" controlId="">
 										<Form.Label>
-											Prodect Name <span className="text-danger">*</span>
+											Product Name <span className="text-danger">*</span>
 										</Form.Label>
-										<Form.Control type="text" placeholder="Enter Prodect Name" className="rounded-0 btob-input" />
+										<Form.Control name="product_name" type="text" placeholder="Enter Product Name" value={formdata.product_name} onChange={handleChange} className="rounded-0 btob-input" />
 									</Form.Group>
 									<Form.Group className="mb-3" controlId="">
-										<Form.Label>Prodect Code (if known)</Form.Label>
-										<Form.Control type="number" placeholder="Enter Prodect Code" className="rounded-0 btob-input" />
+										<Form.Label>Product Code (if known)</Form.Label>
+										<Form.Control name="product_code" type="number" placeholder="Enter Product Code" value={formdata.product_code} onChange={handleChange} className="rounded-0 btob-input" />
 									</Form.Group>
 									<Form.Group className="mb-3" controlId="">
 										<Form.Label>
-											Prodect quantity <span className="text-danger">*</span>
+											Product quantity <span className="text-danger">*</span>
 										</Form.Label>
-										<Form.Control type="number" placeholder="Enter Prodect quantity" className="rounded-0 btob-input" />
+										<Form.Control name="product_quantity" type="number" placeholder="Enter Prodect quantity" value={formdata.product_quantity} onChange={handleChange} className="rounded-0 btob-input" />
 									</Form.Group>
 									<Form.Group className="mb-3" controlId="">
 										<Form.Label>
 											Contact Number <span className="text-danger">*</span>
 										</Form.Label>
-										<Form.Control type="number" placeholder="Enter Contact Number" className="rounded-0 btob-input" />
+										<Form.Control name="contact_number" type="number" placeholder="Enter Contact Number" value={formdata.contact_number} onChange={handleChange} className="rounded-0 btob-input" />
 									</Form.Group>
 									<Form.Group className="mb-3" controlId="">
 										<Form.Label>
 											Email Address <span className="text-danger">*</span>
 										</Form.Label>
-										<Form.Control type="email" placeholder="Enter Email Address" className="rounded-0 btob-input" />
+										<Form.Control name="email_address" type="email" placeholder="Enter Email Address" value={formdata.email_address} onChange={handleChange} className="rounded-0 btob-input" />
 									</Form.Group>
 
 									<Button type="submit" className="btob-submit-btn rounded-0 mb-4 text-dark font-jost font-poppins">

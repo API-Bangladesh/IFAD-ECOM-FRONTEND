@@ -5,14 +5,15 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 // import { Router } from "next/router";
 import axios from "axios";
-// import { showErrorNotification, showSuccessTimerNotification } from "../helper/notificationHelper";
+import { token } from "../../../utils/auth";
+import { showErrorNotification, showSuccessTimerNotification } from "../helper/notificationHelper";
 
 
 const ChangePassword = () => {
   const [myPassword, setMyPassword] = useState({
-    oldPassword:"",
-    newPassword:"",
-    confirmPassword:""
+    current_password:"",
+    password:"",
+    password_confirmation:""
   });
 
   const handleChange = (e) =>{
@@ -23,30 +24,32 @@ const ChangePassword = () => {
   }
 
   const handleSubmit = async(e) =>{
-    const BASE_URL= 'http://192.168.68.149:4444/ecom';
+    const BASE_URL = "http://192.168.11.93:8000/ecom"
     e.preventDefault();
     const data = {
-      oldPassword: myPassword.oldPassword,
-      newPassword: myPassword.newPassword,
-      confirmPassword: myPassword.confirmPassword
+      current_password: myPassword.current_password,
+      password: myPassword.password,
+      password_confirmation: myPassword.password_confirmation
     };
     const headers = {
-      'Authorization': {ACCESS_TOKEN},
+      'Authorization': token(),
       'Content-Type':'application/json',
     };
 
     try{
-      const response = await axios.put(`${BASE_URL}/change-password`,data,{headers})
+      await axios.put(`${BASE_URL}/change-password`,data,{headers})
         .then((res)=>{
-          console.log(res);
+          console.log(res.data);
+          showSuccessTimerNotification("",res.data.message);
         });
         setMyPassword({
-          oldPassword:"",
-          newPassword:"",
-          confirmPassword:""
+          current_password:"",
+          password:"",
+          password_confirmation:""
         });
     }catch(err){
       console.log(err.message);
+      showErrorNotification("Error", err.message);
     }
   }
 
@@ -59,7 +62,8 @@ const ChangePassword = () => {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Old Password</Form.Label>
               <Form.Control 
-              name='oldPassword'
+              name='current_password'
+              value={myPassword.current_password}
               type="password"
               className="rounded-0 form-deco form-padd"
               onChange={handleChange}/>
@@ -67,7 +71,8 @@ const ChangePassword = () => {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>new Password</Form.Label>
               <Form.Control 
-              name='newPassword' 
+              name='password'
+              value={myPassword.password}
               type="password" 
               className="rounded-0 form-deco form-padd"
               onChange={handleChange}/>
@@ -75,7 +80,8 @@ const ChangePassword = () => {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>confirm Password</Form.Label>
               <Form.Control 
-              name='confirmPassword' 
+              name='password_confirmation'
+              value={myPassword.password_confirmation}
               type="password" 
               className="rounded-0 form-deco form-padd"
               onChange={handleChange}/>
