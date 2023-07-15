@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Link from "next/link";
 import Slider from "react-slick";
 import Image from "next/image";
@@ -9,8 +9,22 @@ import CatImg4 from "../../../public/category/images4.png";
 import CatImg5 from "../../../public/category/images5.png";
 import CatImg6 from "../../../public/category/images6.png";
 import CatImg7 from "../../../public/category/images7.png";
+import {fetchCategories} from "../../../services/CategoryServices";
+import {getStoragePath} from "../../../utils/helpers";
 
 const Category = () => {
+	const [categories, setCategories] = useState([]);
+
+	useEffect(() => {
+		fetchCategories({
+			paginate: 'no'
+		}).then((response) => {
+			if (response?.data) {
+				setCategories(response.data);
+			}
+		});
+	}, []);
+
 	var settings = {
 		dots: true,
 		infinite: true,
@@ -47,101 +61,34 @@ const Category = () => {
 	};
 
 	return (
-		<>
+		<Fragment>
 			<section className="categories">
 				<div className="container p-0">
 					<h1 className="font-24 text-center font-inter pt-3 pb-3 mt-3 mb-3 text-stroke">Categories</h1>
 					<div className="row">
 						<Slider {...settings}>
-							<div className="col-lg-4 ">
-								<Link href="/allproducts/AllProducts">
-									<div className="position-relative mb-3 mx-2 img-demo">
-										<Image src={CatImg1} alt="Picture of the author" className="category-img-one" />
-										<div className="wavy-chips position-absolute">
-											<p className="position-absolute category-title text-center text-capitalize text-light font-30 fw-bold">
-												wavy chips
-											</p>
-										</div>
+							{categories.map((category, key) => {
+								return (
+									<div className="col-lg-4" key={key}>
+										<Link href={`category/${category.id}`}>
+											<div className="position-relative mb-3 mx-2 img-demo">
+												<img src={getStoragePath('category-image/' + category.image)}
+													 alt={category.name} className="category-img-one"/>
+												<div className="wavy-chips position-absolute">
+													<p className="position-absolute category-title text-center text-capitalize text-light font-30 fw-bold">
+														{category.name}
+													</p>
+												</div>
+											</div>
+										</Link>
 									</div>
-								</Link>
-							</div>
-							<div className="col-lg-4 ">
-								<Link href="/allproducts/AllProducts">
-									<div className="position-relative mb-3 mx-2">
-										<Image src={CatImg2} alt="Picture of the author" className="category-img-one" />
-										<div className="wavy-chips position-absolute">
-											<p className="position-absolute category-title text-center text-capitalize text-light font-30 fw-bold">
-												mustard oil
-											</p>
-										</div>
-									</div>
-								</Link>
-							</div>
-							<div className="col-lg-4 ">
-								<Link href="/allproducts/AllProducts">
-									<div className="position-relative mb-3 mx-2">
-										<Image src={CatImg7} alt="Picture of the author" className="category-img-one" />
-										<div className="wavy-chips position-absolute">
-											<p className="position-absolute category-title text-center text-capitalize text-light font-30 fw-bold">
-												lachacha semai
-											</p>
-										</div>
-									</div>
-								</Link>
-							</div>
-							<div className="col-lg-4 ">
-								<Link href="/allproducts/AllProducts">
-									<div className="position-relative mb-3 mx-2">
-										<Image src={CatImg3} alt="Picture of the author" className="category-img-one" />
-										<div className="wavy-chips position-absolute">
-											<p className="position-absolute category-title text-center text-capitalize text-light font-30 fw-bold">
-												ifad moida
-											</p>
-										</div>
-									</div>
-								</Link>
-							</div>
-							<div className="col-lg-4 ">
-								<Link href="/allproducts/AllProducts">
-									<div className="position-relative mb-3 mx-2">
-										<Image src={CatImg4} alt="Picture of the author" className="category-img-one" />
-										<div className="wavy-chips position-absolute">
-											<p className="position-absolute category-title text-center text-capitalize text-light font-30 fw-bold">
-												eggy noodles
-											</p>
-										</div>
-									</div>
-								</Link>
-							</div>
-							<div className="col-lg-4 ">
-								<Link href="/allproducts/AllProducts">
-									<div className="position-relative mb-3 mx-2">
-										<Image src={CatImg5} alt="Picture of the author" className="category-img-one" />
-										<div className="wavy-chips position-absolute">
-											<p className="position-absolute category-title text-center text-capitalize text-light font-30 fw-bold">
-												snacky muffin
-											</p>
-										</div>
-									</div>
-								</Link>
-							</div>
-							<div className="col-lg-4 ">
-								<Link href="/allproducts/AllProducts">
-									<div className="position-relative mb-3 mx-2">
-										<Image src={CatImg6} alt="Picture of the author" className="category-img-one" />
-										<div className="wavy-chips position-absolute">
-											<p className="position-absolute category-title text-center text-capitalize text-light font-30 fw-bold">
-												soft & care
-											</p>
-										</div>
-									</div>
-								</Link>
-							</div>
+								)
+							})}
 						</Slider>
 					</div>
 				</div>
 			</section>
-		</>
+		</Fragment>
 	);
 };
 
