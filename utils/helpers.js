@@ -1,4 +1,4 @@
-import {APP_NAME, APP_URL, BACKEND_URL} from "./constants";
+import {APP_NAME, APP_URL, BACKEND_URL, STORAGE_URL} from "./constants";
 import Router from "next/router";
 import Swal from "sweetalert2";
 import React from "react";
@@ -86,12 +86,12 @@ export const makeInputErrors = (error, setErrors) => {
  * @param path
  * @returns {string}
  */
-export const getApiImagePath = (path) => {
-    if (_.isEmpty(path)) {
-        return '/img/no-image.png';
+export const getStoragePath = (path) => {
+    if (_.isEmpty(!path)) {
+        return '/no-image.png';
     }
 
-    return BACKEND_URL + '/storage/' + path;
+    return STORAGE_URL + '/storage/' + path;
 }
 
 /**

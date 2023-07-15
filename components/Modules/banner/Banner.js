@@ -29,7 +29,6 @@ const Banner = () => {
           ))}
         </Carousel>
       </div>
-
   );
 };
 

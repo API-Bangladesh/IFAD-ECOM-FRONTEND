@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import Banner from '../../components/Modules/banner/Banner';
 import Category from '../../components/Modules/category/Category';
 import ComboPack from '../../components/Modules/combopack/ComboPack';
@@ -49,13 +49,27 @@ import AddBanner from '../../components/Modules/addslider/AddBanner';
 // Brands
 import Brands from '../../components/Modules/brands/Brands'
 import TopButton from '../../components/Modules/topbutton/TopButton'
+import {fetchCategories} from "../../services/CategoryServices";
 
 const Home = () => {
+	const [categories, setCategories] = useState([]);
+
+	useEffect(() => {
+		fetchCategories({
+			paginate: 'no',
+			limit: 1
+		}).then((response) => {
+			if (response?.data) {
+				setCategories(response.data);
+			}
+		});
+	}, []);
+
 	return (
 		<Fragment>
 			<Banner />
 			<Category />
-			<ComboPack
+			{/*<ComboPack
 				title="combo pack"
 				image={ComboImgOne}
 				image2={ComboImgTwo}
@@ -74,69 +88,23 @@ const Home = () => {
 				producttitle2="Safe n Doft "
 				producttitle3="Orange Dlight"
 				offerbanner={DiscountBanner}
-			/>
-			<ComboPack
-				title="chips"
-				image={ChipsOne}
-				image2={ChipsTwo}
-				image3={ChipsThree}
-				producttitle="Wavy Chips"
-				producttitle2="BBQ Wavy Chips"
-				producttitle3="pillow chips"
-				offerbanner={ChipsBanner}
-			/>
-			<ComboPack
-				title="Biscuit & Bakery"
-				image={BiscuitOne}
-				image2={BiscuitTwo}
-				image3={BiscuitThree}
-				producttitle="Butter Delight"
-				producttitle2="Choco Delight"
-				producttitle3="Orange Delight"
-				offerbanner={BiscuitBanner}
-			/>
-			<ComboPack
-				title="grocery"
-				image={GroceryOne}
-				image2={GroceryTwo}
-				image3={GroceryThree}
-				producttitle="Ifad atta"
-				producttitle2="Ifad moida"
-				producttitle3="Ifad suji"
-				offerbanner={GroceryBanner}
-			/>
+			/>*/}
+
+			{categories.map((category, key) => {
+				return (
+					<ComboPack
+						key={key}
+						title={category.name}
+						categoryId={category.id}
+						categoryImage={category.image}
+					/>
+				)
+			})}
+
 			<AddBanner />
-			<ComboPack
-				title="Noodles"
-				image={NoodlesOne}
-				image2={NoodlesTwo}
-				image3={NoodlesThree}
-				producttitle="Eggy Noodles"
-				producttitle2="Eggy instant Noodles"
-				producttitle3="chicken Noodles"
-				offerbanner={NoodlesBanner}
-			/>
-			<ComboPack
-				title="snacks"
-				image={SnacksOne}
-				image2={SnacksTwo}
-				image3={SnacksThree}
-				producttitle="Strawberry Muffin"
-				producttitle2="Vanilla Muffin"
-				producttitle3="Jhal Chanachur"
-				offerbanner={SnacksBanner}
-			/>
-			<ComboPack
-				title="home care"
-				image={HomecareOne}
-				image2={HomecareTwo}
-				image3={HomecareThree}
-				producttitle="Dishoom "
-				producttitle2="Safe n Soft"
-				producttitle3="Uniq"
-				offerbanner={HomecareBanner}
-			/>
+
 			<AddBanner />
+
 			{/* <FeatureProducts /> */}
 			<Brands/>
 			<TopButton/>
