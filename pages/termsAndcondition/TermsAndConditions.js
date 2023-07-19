@@ -1,12 +1,12 @@
 import React from 'react'
 import Conditions from '../../components/Modules/termsCondition/Conditions'
-import TopButton from '../../components/Modules/topbutton/TopButton'
+import ScrollToTopButton from '../../components/common/ScrollToTopButton'
 
 const TermsAndConditions = () => {
   return (
     <>
       <Conditions/>
-      <TopButton/>
+      <ScrollToTopButton/>
     </>
   )
 }

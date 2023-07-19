@@ -1,4 +1,3 @@
-import Layout from './Layout';
 import '@/styles/globals.css'
 import '../styles/normalize.css';
 import '../styles/main.css';
@@ -17,6 +16,7 @@ import {Fragment, useEffect} from 'react';
 import "aos/dist/aos.css";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
+import Layout from "../layouts/Layout";
 
 export default function App({Component, pageProps}) {
 
@@ -35,8 +35,13 @@ export default function App({Component, pageProps}) {
         <SSRProvider>
           <Layout>
             <NextNProgress options={{easing: 'ease', speed: 500}}/>
+
             <Component {...pageProps} />
-            <ToastContainer autoClose={2500} position="bottom-right"/>
+
+            <ToastContainer
+                autoClose={2500}
+                position="bottom-right"
+            />
           </Layout>
         </SSRProvider>
       </Fragment>

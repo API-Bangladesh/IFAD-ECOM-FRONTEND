@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import Image from "next/image";
 import Payment2 from "../../public/payment2.png";
 import Api from "../../public/API-footer-logo.png";
@@ -9,7 +9,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 
 export default function Footer() {
   return (
-    <>
+    <Fragment>
       <section className="bg-dark text-white">
         <div className="container">
           <div className="row">
@@ -173,6 +173,6 @@ export default function Footer() {
           </Link>
         </div>
       </footer>
-    </>
+    </Fragment>
   );
 }

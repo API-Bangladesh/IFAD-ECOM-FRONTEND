@@ -1,12 +1,12 @@
 import React from 'react'
 import RefundPolcy from '../../components/Modules/refundpolicy/RefundPolicy'
-import TopButton from '../../components/Modules/topbutton/TopButton'
+import ScrollToTopButton from '../../components/common/ScrollToTopButton'
 
 const RefundPolicy = () => {
   return (
     <>
       <RefundPolcy/>
-      <TopButton/>
+      <ScrollToTopButton/>
     </>
   )
 }

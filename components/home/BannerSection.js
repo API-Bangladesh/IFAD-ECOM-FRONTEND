@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import Carousel from 'react-bootstrap/Carousel';
-import {fetchBanners} from "../../../services/BannerServices";
+import {fetchBanners} from "../../services/BannerServices";
 
-const Banner = () => {
+const BannerSection = () => {
 
   const [banners, setBanners] = useState([]);
 
@@ -32,4 +32,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default BannerSection;

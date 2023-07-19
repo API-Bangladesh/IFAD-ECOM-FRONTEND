@@ -1,13 +1,13 @@
 import React from "react";
 
 import CompanyReview from "../../components/Modules/companyreview/CompanyReview";
-import TopButton from "../../components/Modules/topbutton/TopButton";
+import ScrollToTopButton from "../../components/common/ScrollToTopButton";
 
 const Creview = () => {
   return (
     <>
       <CompanyReview />
-      <TopButton />
+      <ScrollToTopButton />
     </>
   );
 };

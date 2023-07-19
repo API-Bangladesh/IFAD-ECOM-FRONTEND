@@ -1,12 +1,12 @@
 import React from 'react'
 import Policy from '../../components/Modules/privacypolicy/Policy'
-import TopButton from '../../components/Modules/topbutton/TopButton'
+import ScrollToTopButton from '../../components/common/ScrollToTopButton'
 
 const PrivacyPolicy = () => {
   return (
     <>
       <Policy/>
-      <TopButton/>
+      <ScrollToTopButton/>
     </>
   )
 }

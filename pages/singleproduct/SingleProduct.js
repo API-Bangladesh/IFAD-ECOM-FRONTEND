@@ -1,12 +1,12 @@
 import React from 'react'
 import ViewProduct from '../../components/Modules/viewproduct/ViewProduct';
-import TopButton from '../../components/Modules/topbutton/TopButton'
+import ScrollToTopButton from '../../components/common/ScrollToTopButton'
 
 const SingleProduct = () => {
   return (
     <>
      <ViewProduct/>
-     <TopButton/>
+     <ScrollToTopButton/>
     </>
   )
 }

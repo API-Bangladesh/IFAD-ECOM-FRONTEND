@@ -1,13 +1,13 @@
 import React from 'react';
 import UserProfile from './../../components/Modules/userprofile/UserProfile';
-import TopButton from '../../components/Modules/topbutton/TopButton'
+import ScrollToTopButton from '../../components/common/ScrollToTopButton'
 
 
 const Profile = () => {
   return (
     <>
       <UserProfile/>
-      <TopButton/>
+      <ScrollToTopButton/>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Home from './home/Home'
 import {Fragment} from "react";
+import HomePage from "./home";
 
 const Index = () => {
 	return (
@@ -8,7 +8,8 @@ const Index = () => {
 			<Head>
 				<title>Home | </title>
 			</Head>
-			<Home/>
+
+			<HomePage/>
 		</Fragment>
 	);
 };

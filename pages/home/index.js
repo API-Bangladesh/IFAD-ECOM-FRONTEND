@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import Banner from '../../components/Modules/banner/Banner';
+import BannerSection from '../../components/home/BannerSection';
 import Category from '../../components/Modules/category/Category';
 import ComboPack from '../../components/Modules/combopack/ComboPack';
 // Combo Package
@@ -47,17 +47,19 @@ import AddBanner from '../../components/Modules/addslider/AddBanner';
 // import FeatureProducts from '../../components/Modules/featureProduct/FeatureProducts';
 
 // Brands
-import Brands from '../../components/Modules/brands/Brands'
-import TopButton from '../../components/Modules/topbutton/TopButton'
+import BrandSection from '../../components/home/BrandSection'
+import ScrollToTopButton from '../../components/common/ScrollToTopButton'
 import {fetchCategories} from "../../services/CategoryServices";
+import CategoryProductScroll from "../../components/home/CategoryProductScroll";
+import CategoryShowcase from "../../components/home/CategoryShowcase";
+import FeatureSection from "../../components/home/FeatureSection";
 
-const Home = () => {
+const HomePage = () => {
 	const [categories, setCategories] = useState([]);
 
 	useEffect(() => {
 		fetchCategories({
-			paginate: 'no',
-			limit: 1
+			paginate: 'no'
 		}).then((response) => {
 			if (response?.data) {
 				setCategories(response.data);
@@ -67,49 +69,25 @@ const Home = () => {
 
 	return (
 		<Fragment>
-			<Banner />
-			<Category />
-			{/*<ComboPack
-				title="combo pack"
-				image={ComboImgOne}
-				image2={ComboImgTwo}
-				image3={ComboImgThree}
-				producttitle="wavy chips"
-				producttitle2="wavy chips"
-				producttitle3="pollow chips"
-				offerbanner={ComboOffer}
-			/>
-			<ComboPack
-				title="discount products"
-				image={DiscountOne}
-				image2={DiscountTwo}
-				image3={DiscountThree}
-				producttitle="wavy chips"
-				producttitle2="Safe n Doft "
-				producttitle3="Orange Dlight"
-				offerbanner={DiscountBanner}
-			/>*/}
+			<BannerSection/>
+			<CategoryShowcase/>
 
 			{categories.map((category, key) => {
 				return (
-					<ComboPack
+					<CategoryProductScroll
 						key={key}
 						title={category.name}
 						categoryId={category.id}
-						categoryImage={category.image}
 					/>
 				)
 			})}
 
-			<AddBanner />
+			<BrandSection/>
+			<FeatureSection/>
 
-			<AddBanner />
-
-			{/* <FeatureProducts /> */}
-			<Brands/>
-			<TopButton/>
+			<ScrollToTopButton/>
 		</Fragment>
 	);
 };
 
-export default Home;
+export default HomePage;

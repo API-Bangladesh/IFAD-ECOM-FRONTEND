@@ -1,12 +1,13 @@
 import React, {Fragment, useEffect, useState} from "react";
 import Link from "next/link";
 import Slider from "react-slick";
-import {fetchCategories} from "../../../services/CategoryServices";
-import {getStoragePath} from "../../../utils/helpers";
+import {fetchCategories} from "../../services/CategoryServices";
+import {getStoragePath} from "../../utils/helpers";
 
-const Category = () => {
+const CategoryShowcase = () => {
 	const [categories, setCategories] = useState([]);
 
+	// fetch
 	useEffect(() => {
 		fetchCategories({
 			paginate: 'no'
@@ -84,4 +85,4 @@ const Category = () => {
 	);
 };
 
-export default Category;
+export default CategoryShowcase;

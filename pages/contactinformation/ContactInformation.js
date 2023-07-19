@@ -1,12 +1,12 @@
 import React from 'react'
 import Contact from '../../components/Modules/contact/Contact'
-import TopButton from '../../components/Modules/topbutton/TopButton'
+import ScrollToTopButton from '../../components/common/ScrollToTopButton'
 
 const ContactInformation = () => {
   return (
     <>
       <Contact/>
-      <TopButton/>
+      <ScrollToTopButton/>
     </>
   )
 }
