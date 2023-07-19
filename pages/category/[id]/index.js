@@ -17,12 +17,13 @@ const CategoryPage = () => {
     const router = useRouter();
     const {id} = router.query;
 
-    const [categories, setCategories] = useState(null);
+    const [categories, setCategories] = useState([]);
     const [inventories, setInventories] = useState([]);
+
     const [meta, setMeta] = useState({});
     const [page, setPage] = useState('');
 
-    // fetch categories
+    // fetch
     useEffect(() => {
         fetchCategories({
             paginate: 'no'
@@ -33,17 +34,33 @@ const CategoryPage = () => {
         });
     }, []);
 
-    // fetch inventories
-    useEffect(() => {
-        fetchInventoriesByCategory(id, {
-            paginate: 'yes'
-        }).then((response) => {
+    const fetchInventoriesByCategoryData = (id, params = {}) => {
+        fetchInventoriesByCategory(id, params).then((response) => {
             if (response?.data?.data) {
                 setInventories(response.data.data);
                 setMeta(response.data.meta);
             }
         });
+    }
+
+    // fetch
+    useEffect(() => {
+        if (id) {
+            fetchInventoriesByCategoryData(id, {
+                paginate: 'yes'
+            });
+        }
     }, [id]);
+
+    // paginate
+    useEffect(() => {
+        if (page && id) {
+            fetchInventoriesByCategoryData(id, {
+                page: page,
+                paginate: 'yes'
+            });
+        }
+    }, [page]);
 
     return (
         <section>

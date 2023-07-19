@@ -5,7 +5,7 @@ const NotFound = () => {
 	const router = useRouter();
 
 	return (
-		<div className="not-found py-5 px-3" style={{zIndex: '1200'}}>
+		<div className="not-found px-3" style={{zIndex: '1200', paddingTop: '140px', paddingBottom: '140px'}}>
 			<div className="container">
 				<div className="error-content text-center">
 					<h1 className="display-1 text-uppercase fw-bold error-title text-danger mb-2">Oops!</h1>
