@@ -5,7 +5,7 @@ import Tab from "react-bootstrap/Tab";
 import {Container} from "react-bootstrap";
 import UserInfoSection from "../../components/profile/UserInfoSection";
 
-const Profile = () => {
+const MyAccountPage = () => {
     return (
         <section>
             <Container>
@@ -67,4 +67,4 @@ const Profile = () => {
         </section>
     )
 }
-export default Profile
+export default MyAccountPage

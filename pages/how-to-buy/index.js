@@ -1,7 +1,7 @@
 import React from 'react'
 import BuyDetails from '../../components/Modules/howtobuy/HowToBuy'
 
-const HowToBuy = () => {
+const Index = () => {
   return (
     <>
       <BuyDetails/>
@@ -9,4 +9,4 @@ const HowToBuy = () => {
   )
 }
 
-export default HowToBuy
+export default Index

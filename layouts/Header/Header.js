@@ -17,13 +17,23 @@ import {CiUser} from "react-icons/ci";
 import OffCanvas from "./OffCanvas";
 import Overlay from "./Overlay";
 import {fetchCategories} from "../../services/CategoryServices";
+import {isLoggedIn, logout} from "../../utils/auth";
 
 export default function Header() {
+
 	const [storedToken, setStoredToken] = useState();
 	const [categories, setCategories] = useState([]);
+	const [reIsLoggedIn, setReIsLoggedIn] = useState(false);
+
+	useEffect(() => {
+		if (isLoggedIn()) {
+			setReIsLoggedIn(isLoggedIn());
+		}
+	}, [])
 
 	useEffect(() => {
 		setStoredToken(localStorage?.getItem("token"));
+
 
 		fetchCategories({
 			paginate: 'no'
@@ -44,7 +54,7 @@ export default function Header() {
 						<div>
 							<ul className="font-poppins manu-font-one text-white d-flex justify-content-end align-items-center py-1">
 								<li className="pe-3">
-									<Link href="/howtobuy/HowToBuy" className="text-light">
+									<Link href="/how-to-buy" className="text-light">
 										How to buy
 									</Link>
 								</li>
@@ -53,16 +63,36 @@ export default function Header() {
 										B2B Sales
 									</Link>
 								</li>
-								<li className="pe-3 login-modal">
-									<Link href="/auth/ogin" className="text-light">
-										login
-									</Link>
-								</li>
-								<li className="">
-									<Link href="/auth/register" className="text-light">
-										sign up
-									</Link>
-								</li>
+								{reIsLoggedIn ? (
+									<Fragment>
+										<li className="pe-3 login-modal">
+											<Link href="/my-account" className="text-light">
+												my account
+											</Link>
+										</li>
+										<li className="">
+											<Link href="/auth/logout" className="text-light" onClick={(e) => {
+												e.preventDefault()
+												logout();
+											}}>
+												logout
+											</Link>
+										</li>
+									</Fragment>
+								) : (
+									<Fragment>
+										<li className="pe-3 login-modal">
+											<Link href="/auth/login" className="text-light">
+												login
+											</Link>
+										</li>
+										<li className="">
+											<Link href="/auth/register" className="text-light">
+												sign up
+											</Link>
+										</li>
+									</Fragment>
+								)}
 							</ul>
 						</div>
 					</Container>
@@ -126,90 +156,6 @@ export default function Header() {
 					</div>
 				</Container>
 
-				{/*Navigation*/}
-				<section className="bg-dark btn-hover screen-opacity">
-					<Navbar bg="dark" expand="lg">
-						<Container className="px-0" fluid>
-							<div className="col-lg-3 col-md-3 me-0" href="#">
-								<NavDropdown
-									className="p-0 mx-auto rounded-0 w-100 "
-									title={
-										<span
-											className="text-white font-inter px-4 py-3 d-flex align-items-center categories">
-											<BiAlignLeft size={"15px"} className="me-2"/>
-											CATEGORIES
-										</span>
-									}
-									id="navbarScrollingDropdown"
-								>
-									{categories.map((category, key) => {
-										return (
-											<NavDropdown.Item key={key}
-															  className="text-uppercase all-icons text-dark px-4 py-2 d-block font-inter">
-												<Link href={`/category/${category.id}`} className="cate-drop">
-													{category.name}
-												</Link>
-											</NavDropdown.Item>
-										);
-									})}
-								</NavDropdown>
-							</div>
-							<div className="col-lg-9" href="#">
-								<Navbar.Toggle aria-controls="basic-navbar-nav"/>
-								<Navbar.Collapse id="basic-navbar-nav">
-									<Nav className="mx-auto py-0 font-inter manu-font manu-items">
-										<Nav.Link as={Link} href="/"
-												  className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
-											home
-										</Nav.Link>
-
-										<NavDropdown
-											className="p-0  rounded-0 about-btn"
-											title={
-												<span
-													className=" text-white text-inter py-2 font-14 me-3 d-flex all-side-icons align-items-center">about us</span>
-											}
-											id="navbarScrollingDropdown"
-										>
-											<NavDropdown.Item
-												className="text-capitalize all-icons text-dark px-4 py-2 d-block">
-												<Link href="/review/Creview" className="cate-drop">
-													Company Review
-												</Link>
-											</NavDropdown.Item>
-											<NavDropdown.Item
-												className="text-capitalize all-icons text-dark px-4 py-2 d-block">
-												<Link href="/bod/Bod" className="cate-drop">
-													Board of directors
-												</Link>
-											</NavDropdown.Item>
-										</NavDropdown>
-
-										<Nav.Link as={Link} href="/termsAndcondition/TermsAndConditions"
-												  className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
-											TERMS & CONDITION
-										</Nav.Link>
-										<Nav.Link as={Link} href="/privacypolicy/PrivacyPolicy"
-												  className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
-											PRIVACY POLICY
-										</Nav.Link>
-										<Nav.Link as={Link} href="/deliveryinformation/DeliveryInformation"
-												  className="d-flex align-items-center all-side-icons me-3 font-14 my-2">
-											DELIVERY
-										</Nav.Link>
-										<Nav.Link as={Link} href="/contactinformation/ContactInformation"
-												  className="d-flex align-items-center all-side-icons font-14 my-2">
-											contacts
-										</Nav.Link>
-									</Nav>
-								</Navbar.Collapse>
-							</div>
-
-						</Container>
-					</Navbar>
-				</section>
-
-
 				{/* for responsive screen */}
 				<section className="bg-dark btn-hover overlay-div">
 					<Navbar bg="dark" expand="lg">
@@ -229,7 +175,7 @@ export default function Header() {
 									{categories.map((category, key) => {
 										return (
 											<NavDropdown.Item key={key}
-												className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
+															  className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
 												<Link href={`category/${category.id}`} className="cate-drop">
 													{category.name}
 												</Link>

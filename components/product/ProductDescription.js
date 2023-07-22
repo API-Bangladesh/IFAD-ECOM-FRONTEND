@@ -1,17 +1,28 @@
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import StarRatings from "react-star-ratings";
-import {saveReview} from "../../services/ReviewServices";
+import {hasInventoryReviewAbility, saveReview} from "../../services/ReviewServices";
 import {tostify} from "../../utils/helpers";
 import {toast} from "react-toastify";
 
 const ProductDescription = ({inventory}) => {
 	const [key, setKey] = useState("home");
+	const [reviewAbility, setReviewAbility] = useState(false);
 
 	const [formData, setFormData] = useState({
 		comments: ''
 	});
+
+	useEffect(() => {
+		if (inventory?.id) {
+			hasInventoryReviewAbility(inventory.id).then((response) => {
+				if (response?.data?.capability) {
+					setReviewAbility(response.data.capability);
+				}
+			});
+		}
+	}, [inventory?.id])
 
 	const handleChange = (event) => {
 		event.preventDefault();
@@ -40,9 +51,9 @@ const ProductDescription = ({inventory}) => {
 		}
 
 		saveReview({
-			inventory_id: inventory?.id,
 			ratting_number: formData?.ratting_number,
 			comments: formData?.comments,
+			inventory_id: inventory?.id,
 		}).then((response) => {
 			tostify(toast, 'success', response);
 		});
@@ -62,68 +73,75 @@ const ProductDescription = ({inventory}) => {
 						{inventory?.product?.product_long_desc}
 					</div>
 				</Tab>
-				<Tab eventKey="review" title="Customer Review" className="pb-5 font-lato">
-					<div className="border-top border-warning  pt-3">
-						<div className="row">
-							<div className="col-lg-4">
-								<div className="d-flex justify-content-start w-100">
-									<h2 className="font-48 text-warning pe-2 fw-bold font-inter">5.0</h2>
-									<div className="">
-										<p className="text-capitalize ps-2">avarage rating</p>
-										<div className="d-flex justify-content-start align-items-center">
-											<StarRatings
-												rating={inventory?.star_ratting}
-												starRatedColor="orange"
-												numberOfStars={5}
-												starDimension={20}
-												starSpacing={0}
-												name='rating'
-											/>
-											<p className="text-secondary ps-2">
-												( {inventory?.reviews_count} review )
-											</p>
+
+				{reviewAbility && (
+					<Tab eventKey="review" title="Customer Review" className="pb-5 font-lato">
+						<div className="border-top border-warning  pt-3">
+							<div className="row">
+								<div className="col-lg-4">
+									<div className="d-flex justify-content-start w-100">
+										<h2 className="font-48 text-warning pe-2 fw-bold font-inter">5.0</h2>
+										<div className="">
+											<p className="text-capitalize ps-2">avarage rating</p>
+											<div className="d-flex justify-content-start align-items-center">
+												<StarRatings
+													rating={parseInt(inventory?.star_ratting || 0)}
+													starRatedColor="orange"
+													numberOfStars={5}
+													starDimension="20px"
+													starSpacing="0px"
+													name='rating'
+												/>
+												<p className="text-secondary ps-2">
+													( {inventory?.reviews_count || 0} review )
+												</p>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div className="col-lg-8">
-								<form onSubmit={(event) => handleSubmit(event)}>
-									<div className="">
-										<p className="text-capitalize font-16">
-											give your review *
-										</p>
+								<div className="col-lg-8">
+									<form onSubmit={(event) => handleSubmit(event)}>
+										<div className="">
+											<p className="text-capitalize font-16">
+												give your review *
+											</p>
 
-										<StarRatings
-											rating={2}
-											starRatedColor="orange"
-											starHoverColor="orange"
-											numberOfStars={5}
-											starDimension={20}
-											starSpacing={0}
-											name='rating'
-											changeRating={handleChangeRating}
-										/>
+											<StarRatings
+												rating={parseInt(formData?.ratting_number || 0)}
+												starRatedColor="orange"
+												starHoverColor="orange"
+												numberOfStars={5}
+												starDimension="40px"
+												starSpacing="2px"
+												name='rating'
+												changeRating={handleChangeRating}
+											/>
 
-										<label htmlFor="textarea" className="form-label font-16">
-											Your comment *
-										</label>
-										<div className="form-floating">
+											<br/>
+											<br/>
+
+											<label htmlFor="textarea" className="form-label font-16">
+												Your comment *
+											</label>
+											<div className="form-floating">
 												<textarea className="form-control rounded-0" name="comments"
+														  value={formData?.comments}
 														  placeholder="Leave a comment here" id="textarea"
 														  style={{height: "150px"}}
 														  onChange={(event) => handleChange(event)}>{formData?.comments}</textarea>
-											<label htmlFor="floatingTextarea2">Comments</label>
+												<label htmlFor="floatingTextarea2">Comments</label>
+											</div>
+											<button type="submit"
+													className="btn btn-primary submit-btn rounded-0 mt-3 px-5 py-2">
+												Submit
+											</button>
 										</div>
-										<button type="submit"
-												className="btn btn-primary submit-btn rounded-0 mt-3 px-5 py-2">
-											Submit
-										</button>
-									</div>
-								</form>
+									</form>
+								</div>
 							</div>
 						</div>
-					</div>
-				</Tab>
+					</Tab>
+				)}
 			</Tabs>
 		</Fragment>
 	);

@@ -1,10 +1,15 @@
-import React from "react";
+import React, {Fragment} from "react";
 import Link from "next/link";
 import Card from "react-bootstrap/Card";
 import {AiOutlineShoppingCart} from "react-icons/ai";
 import moment from "moment";
 
 const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, imagePath, viewLink, cssClasses}) => {
+
+    let myOfferStart = moment(offerStart)
+    let myOfferEnd = moment(offerEnd)
+    let isRunningOffer = moment.duration(myOfferEnd.diff(myOfferStart)).asDays() > 0;
+
     return (
         <Card className={`shadow rounded-0 ${cssClasses}`}>
             <div className="combo-img-bg position-relative">
@@ -22,14 +27,24 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, im
                     </a>
                 </Card.Title>
 
-                <del>
-                    <Card.Text className="text-center text-capitalize">
+                {isRunningOffer ? (
+                    <Fragment>
+                        <del>
+                            <Card.Text className="text-center text-capitalize">
+                                Price:- {salePrice}
+                            </Card.Text>
+                        </del>
+                        <Card.Text className="text-center pb-3 text-capitalize">
+                            offer Price:- {offerPrice}
+                        </Card.Text>
+                    </Fragment>
+                ) : (
+                    <Card.Text className="text-center pb-3 text-capitalize">
+                        <br/>
                         Price:- {salePrice}
                     </Card.Text>
-                </del>
-                <Card.Text className="text-center pb-3 text-capitalize">
-                    offer Price:- {offerPrice}
-                </Card.Text>
+                )}
+
                 <div className="d-flex justify-content-center">
                     <Link href="/checkout"
                           className="btn btn-success buy-now rounded-0 text-capitalize px-2 font-14 me-2 font-lato"

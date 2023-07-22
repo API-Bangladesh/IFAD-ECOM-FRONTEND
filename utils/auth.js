@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 import cookie from 'cookie'
-import {logoutClient} from "../services/AuthServices";
+import {logoutCustomer} from "../services/AuthServices";
 
 /**
  *
@@ -47,7 +47,7 @@ export const login = (token = '') => {
                 localStorage.setItem('redirectTo', '');
             });
         } else {
-            location.href = '/profile';
+            location.href = '/my-account';
         }
     }
 }
@@ -62,10 +62,10 @@ export const logout = async () => {
         sameSite: 'lax'
     });
 
-    logoutClient().then(r => r);
+    await logoutCustomer();
 
     if (typeof window !== 'undefined') {
-        location.href = '/auth/auth';
+        location.href = '/auth/login';
     }
 }
 

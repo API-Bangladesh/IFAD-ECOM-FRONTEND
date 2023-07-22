@@ -15,6 +15,8 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
 
+    const [errors, setErrors] = useState({});
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -22,7 +24,7 @@ const LoginPage = () => {
             email: email,
             password: password,
             remember: remember
-        }).then((response) => {
+        }, setErrors).then((response) => {
             if (response?.data?.data) {
                 const {customer, token} = response.data.data;
 

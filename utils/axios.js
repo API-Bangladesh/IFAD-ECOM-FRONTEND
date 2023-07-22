@@ -7,7 +7,7 @@ const axiosClient = axios.create({
 })
 
 setTimeout(() => {
-     axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + token();
+     axiosClient.defaults.headers.common['authorization'] = token();
 });
 
 axiosClient.interceptors.response.use((response) => {
