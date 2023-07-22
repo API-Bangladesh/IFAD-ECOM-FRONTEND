@@ -49,17 +49,17 @@ export default function Header() {
 									</Link>
 								</li>
 								<li className="pe-3">
-									<Link href="/b2b/BtoB" className="text-light">
+									<Link href="/b2b" className="text-light">
 										B2B Sales
 									</Link>
 								</li>
 								<li className="pe-3 login-modal">
-									<Link href="/login/Login" className="text-light">
+									<Link href="/auth/ogin" className="text-light">
 										login
 									</Link>
 								</li>
 								<li className="">
-									<Link href="/login/Registration" className="text-light">
+									<Link href="/auth/register" className="text-light">
 										sign up
 									</Link>
 								</li>
@@ -228,7 +228,7 @@ export default function Header() {
 								>
 									{categories.map((category, key) => {
 										return (
-											<NavDropdown.Item
+											<NavDropdown.Item key={key}
 												className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
 												<Link href={`category/${category.id}`} className="cate-drop">
 													{category.name}

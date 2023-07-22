@@ -2,7 +2,7 @@ import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
-import UserInfo from "./UserInfo";
+import UserInfoSection from "./UserInfoSection";
 import SaveList from "./SaveList";
 import Orders from "./Orders";
 import ChangePassword from "./ChangePassword";
@@ -40,7 +40,7 @@ const New=()=>{
                 <Col sm={9}>
                   <Tab.Content>
                     <Tab.Pane eventKey="first" className="text-capitalize font-16 font-lato">
-                      <UserInfo/>
+                      <UserInfoSection/>
                     </Tab.Pane>
                     <Tab.Pane eventKey="second" className="text-capitalize font-16 font-lato">
                       <SaveList/>

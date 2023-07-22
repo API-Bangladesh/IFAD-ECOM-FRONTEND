@@ -2,14 +2,10 @@ import {configureStore} from '@reduxjs/toolkit'
 import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from "redux-persist"
 import storage from "redux-persist/lib/storage";
 import {combineReducers} from "redux";
-import authReducer from "./slices/authSlice";
-import themeReducer from "./slices/themeSlice";
-import cartReducer from "./slices/cartSlice";
+import AuthReducer from "./slices/AuthSlice";
 
 const rootReducer = combineReducers({
-    auth: authReducer,
-    theme: themeReducer,
-    cart: cartReducer
+    auth: AuthReducer
 });
 
 const persistConfig = {

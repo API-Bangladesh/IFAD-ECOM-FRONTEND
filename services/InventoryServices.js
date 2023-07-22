@@ -34,6 +34,20 @@ export const fetchInventoriesByCategory = async (categoryId, params = {}) => {
  *
  * @returns {Promise<*>}
  */
+export const fetchDiscountedInventories = async (params = {}) => {
+    try {
+        return await axios.get(`/inventories/discounted`, {
+            params: params
+        });
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+/**
+ *
+ * @returns {Promise<*>}
+ */
 export const fetchInventory = async (id, params = {}) => {
     try {
         return await axios.get(`/inventories/${id}/show`, {

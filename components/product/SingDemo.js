@@ -4,9 +4,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import Image from "next/image";
-import ImageOne from "../../../public/products/product3.png";
-import ImageTwo from "../../../public/products/product1.png";
-import ImageThree from "../../../public/products/product4.png";
+import ImageOne from "../../public/products/product3.png";
+import ImageTwo from "../../public/products/product1.png";
+import ImageThree from "../../public/products/product4.png";
 
 const SingDemo = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);

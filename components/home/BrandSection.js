@@ -78,7 +78,7 @@ const BrandSection = () => {
 					<h1 className="text-uppercase pt-5 fw-bold text-center font-inter fs-1 pb-3">brands</h1>
 					<Slider {...settings}>
 						{brands.map((brand, key) => (
-							<div className="d-flex justify-content-center">
+							<div key={key} className="d-flex justify-content-center">
 								<img src={brand.image} alt={brand.name} className="pt-3 brands-size"/>
 							</div>
 						))}

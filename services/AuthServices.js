@@ -6,13 +6,12 @@ import {toast} from "react-toastify";
  *
  * @return {Promise<void>}
  */
-export const registerClient = async (data, setErrors, setIsLoading) => {
+export const registerCustomer = async (data, setErrors) => {
     try {
-        return await axios.post('/api/register', data);
+        return await axios.post('/register', data);
     } catch (error) {
         tostify(toast, 'error', error);
         makeInputErrors(error, setErrors);
-        setIsLoading(false);
     }
 }
 
@@ -20,13 +19,12 @@ export const registerClient = async (data, setErrors, setIsLoading) => {
  *
  * @return {Promise<void>}
  */
-export const loginClient = async (data, setErrors, setIsLoading) => {
+export const loginCustomer = async (data, setErrors) => {
     try {
-        return await axios.post('/api/login', data);
+        return await axios.post('/login', data);
     } catch (error) {
         tostify(toast, 'error', error);
         makeInputErrors(error, setErrors);
-        setIsLoading(false);
     }
 }
 
@@ -34,74 +32,9 @@ export const loginClient = async (data, setErrors, setIsLoading) => {
  *
  * @return {Promise<void>}
  */
-export const verifySecretLoginClient = async (data) => {
+export const logoutCustomer = async () => {
     try {
-        return await axios.post('/api/verify/secret/login', data);
-    } catch (error) {
-        tostify(toast, 'error', error);
-    }
-}
-
-/**
- *
- * @return {Promise<void>}
- */
-export const logoutClient = async () => {
-    try {
-        await axios.post('/api/logout');
-    } catch (error) {
-        tostify(toast, 'error', error);
-    }
-}
-
-/**
- *
- * @return {Promise<void>}
- */
-export const forgotPasswordClient = async (data, setErrors, setIsLoading) => {
-    try {
-        return await axios.post('/api/forgot-password', data);
-    } catch (error) {
-        tostify(toast, 'error', error);
-        makeInputErrors(error, setErrors);
-        setIsLoading(false);
-    }
-}
-
-/**
- *
- * @return {Promise<void>}
- */
-export const resetPasswordClient = async (data, setErrors, setIsLoading) => {
-    try {
-        return await axios.post('/api/reset-password', data);
-    } catch (error) {
-        tostify(toast, 'error', error);
-        makeInputErrors(error, setErrors);
-        setIsLoading(false);
-    }
-}
-
-/**
- *
- * @return {Promise<AxiosResponse<any>>}
- */
-export const verificationNotificationClient = async (setIsLoading) => {
-    try {
-        return await axios.post('/api/email/verification-notification');
-    } catch (error) {
-        tostify(toast, 'error', error);
-        setIsLoading(false);
-    }
-}
-
-/**
- *
- * @return {Promise<AxiosResponse<any>>}
- */
-export const verifyEmailClient = async (id, hash) => {
-    try {
-        return await axios.get(`/api/verify-email/${id}/${hash}`);
+        await axios.post('/logout');
     } catch (error) {
         tostify(toast, 'error', error);
     }

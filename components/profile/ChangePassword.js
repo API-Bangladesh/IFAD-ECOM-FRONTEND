@@ -5,8 +5,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 // import { Router } from "next/router";
 import axios from "axios";
-import { token } from "../../../utils/auth";
-import { showErrorNotification, showSuccessTimerNotification } from "../helper/notificationHelper";
 
 
 const ChangePassword = () => {

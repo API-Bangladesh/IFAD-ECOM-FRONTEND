@@ -47,7 +47,7 @@ export const login = (token = '') => {
                 localStorage.setItem('redirectTo', '');
             });
         } else {
-            location.href = '/dashboard';
+            location.href = '/profile';
         }
     }
 }
@@ -65,7 +65,7 @@ export const logout = async () => {
     logoutClient().then(r => r);
 
     if (typeof window !== 'undefined') {
-        location.href = '/auth/login';
+        location.href = '/auth/auth';
     }
 }
 

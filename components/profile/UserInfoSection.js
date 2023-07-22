@@ -4,12 +4,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
-import { showErrorNotification, showSuccessNotification } from '../helper/notificationHelper';
 import axios from 'axios';
-import { token } from '../../../utils/auth';
+import {showErrorNotification} from "../Modules/helper/notificationHelper";
 
 
-const UserInfo = () => {
+const UserInfoSection = () => {
 	const [formdata, setFormData] = useState({
 		name: "",
 		address: "",
@@ -125,4 +124,4 @@ const UserInfo = () => {
 		</>
 	);
 };
-export default UserInfo;
+export default UserInfoSection;

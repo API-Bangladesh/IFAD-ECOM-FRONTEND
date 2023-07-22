@@ -1,13 +1,4 @@
 import Row from "react-bootstrap/Row";
-import Image from "next/image";
-import Link from 'next/link'
-import OrderImg from "../../../public/products/product1.png"
-import OrderImg2 from "../../../public/products/product3.png"
-import OrderImg3 from "../../../public/products/product4.png"
-import Button from "react-bootstrap/Button"
-import { RxCross2 } from 'react-icons/rx';
-import { BiDollar } from 'react-icons/bi';
-import { token } from "../../../utils/auth";
 import { useEffect, useState } from "react";
 import axios from "axios";
 

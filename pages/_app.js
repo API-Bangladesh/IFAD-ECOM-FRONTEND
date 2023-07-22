@@ -17,6 +17,9 @@ import "aos/dist/aos.css";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
 import Layout from "../layouts/Layout";
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store, persistor} from "../store";
 
 export default function App({Component, pageProps}) {
 
@@ -36,7 +39,11 @@ export default function App({Component, pageProps}) {
           <Layout>
             <NextNProgress options={{easing: 'ease', speed: 500}}/>
 
+            <Provider store={store}>
+              <PersistGate loading={null} persistor={persistor}>
             <Component {...pageProps} />
+              </PersistGate>
+            </Provider>
 
             <ToastContainer
                 autoClose={2500}
