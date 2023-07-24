@@ -21,6 +21,7 @@ import {randomInt} from "next/dist/shared/lib/bloom-filter/utils";
 
 const SingleInventoryPage = () => {
     const dispatch = useDispatch();
+
     const router = useRouter();
     const {id} = router.query;
 
@@ -87,23 +88,50 @@ const SingleInventoryPage = () => {
         });
     };
 
-    const handleAddToCart = (event, inventory) => {
+    const handleAddToCart = (event, inventory, buyNow = false) => {
         event.preventDefault();
 
-        dispatch(SET_CART_ITEM({
-            id: randomInt(11111111, 999999999),
-            inventory_id: inventory.id,
-            quantity: quantity,
-            unit_price: inventory.unit_price,
-            total: quantity * inventory.unit_price,
+        try {
 
-            product_type: 'product',
-            product_title: inventory.title,
-            product_category_name: inventory?.product?.category?.name,
-            product_sub_category_name: inventory?.product?.sub_category?.name,
-            product_image: inventory?.product_images?.[0]?.image,
-            product_variations: '',
-        }));
+            if (!quantity) {
+                tostify(toast, 'warning', {
+                    message: "Quantity should't empty!"
+                });
+                return false;
+            }
+
+            dispatch(SET_CART_ITEM({
+                id: randomInt(11111111, 999999999),
+                inventory_id: inventory.id,
+                quantity: quantity,
+                unit_price: inventory.sale_price,
+                total: quantity * inventory.sale_price,
+
+                product_type: 'product',
+                product_sku: inventory.sku,
+                product_title: inventory.title,
+                product_category_name: inventory?.product?.category?.name,
+                product_sub_category_name: inventory?.product?.sub_category?.name,
+                product_image: inventory?.product_images?.[0]?.image,
+                product_variations: '',
+            }));
+
+            tostify(toast, 'success', {
+                message: "Added"
+            });
+
+            setQuantity(0);
+
+            if (buyNow) {
+                setTimeout(() => {
+                    router.push('/checkout');
+                }, 2000);
+            }
+        } catch (err) {
+            tostify(toast, 'warning', {
+                message: err.message
+            });
+        }
 
     }
 
@@ -182,12 +210,12 @@ const SingleInventoryPage = () => {
                                 </div>
                             )}
                             <div className="ms-2">
-                                <Link href="/payments/Payments"
-                                      type="button"
-                                      className="btn btn-success buy-btn rounded-0 text-capitalize px-4 font-lato"
+                                <button type="button"
+                                        className="btn btn-success buy-btn rounded-0 text-capitalize px-4 font-lato"
+                                        onClick={(event) => handleAddToCart(event, inventory, true)}
                                 >
                                     buy now
-                                </Link>
+                                </button>
                             </div>
                             <div className="ms-2">
                                 <button

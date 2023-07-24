@@ -14,7 +14,7 @@ import Image from "next/image";
 import Logo from "../../public/logo/LOGO.png";
 import {BiAlignLeft} from "react-icons/bi";
 import {CiUser} from "react-icons/ci";
-import OffCanvas from "./OffCanvas";
+import CartOverlys from "./CartOverlay";
 import Overlay from "./Overlay";
 import {fetchCategories} from "../../services/CategoryServices";
 import {isLoggedIn, logout} from "../../utils/auth";
@@ -150,7 +150,8 @@ export default function Header() {
 									</DropdownButton>
 								</>
 								}
-								<OffCanvas/>
+
+								<CartOverlys/>
 							</div>
 						</div>
 					</div>
