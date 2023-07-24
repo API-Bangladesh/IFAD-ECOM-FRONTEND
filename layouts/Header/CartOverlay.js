@@ -8,7 +8,7 @@ import TableImg from "../../public/products/product1.png";
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
 import {withRedux} from "../../utils/HOC/withRedux";
-import {REMOVE_CART_ITEM} from "../../store/slices/CartSlice";
+import {REMOVE_CART_ITEM, UPDATE_ITEM_QUANTITY} from "../../store/slices/CartSlice";
 import {tostify} from "../../utils/helpers";
 import {toast} from "react-toastify";
 
@@ -29,6 +29,25 @@ function CartOverlay() {
 
             tostify(toast, 'success', {
                 message: "Removed"
+            });
+        } catch (error) {
+            tostify(toast, 'error', {
+                message: error.message
+            });
+        }
+    }
+
+    const handleUpdateCartQuantity = (event, key) => {
+        event.preventDefault();
+
+        try {
+            dispatch(UPDATE_ITEM_QUANTITY({
+                key: key,
+                quantity: parseInt(event.target.value),
+            }))
+
+            tostify(toast, 'success', {
+                message: "Updated"
             });
         } catch (error) {
             tostify(toast, 'error', {
@@ -61,8 +80,14 @@ function CartOverlay() {
                                                 {item.product_title}
                                             </a>
                                         </p>
-                                        <p className="text-capitalize font-16 font-lato ps-3">
-                                            {item.quantity}&nbsp;&nbsp;x&nbsp;&nbsp;{item.unit_price}&nbsp;&nbsp;=&nbsp;&nbsp;{item.total}
+                                        <p className="text-capitalize font-16 font-lato ps-3 d-flex align-items-center">
+                                            <input className="form-control form-control-sm" style={{width: '50px'}}
+                                                   type="number" value={item.quantity} min="1"
+                                                   onChange={(event) => handleUpdateCartQuantity(event, key)}/>
+                                            &nbsp;&nbsp;x
+                                            &nbsp;&nbsp;{item.unit_price}
+                                            &nbsp;&nbsp;=
+                                            &nbsp;&nbsp;{item.total}
                                         </p>
                                     </div>
                                 </div>
@@ -79,9 +104,18 @@ function CartOverlay() {
                             <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
                                 sub-total : {cart.subTotal}
                             </h1>
-                            <p className="text-capitalize font-lato font-20 fw-bold text-center">
-                                total : {cart.subTotal}
-                            </p>
+                            {/*<h1 className="text-capitalize font-lato font-20 fw-bold text-center">
+                                Shipping Charge: {cart.shippingCharge}
+                            </h1>
+                            <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
+                                Discount: {cart.discount || 0}
+                            </h1>
+                            <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
+                                Tax : {cart.tax || 0}
+                            </h1>*/}
+                            <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
+                                total : {cart.total || 0}
+                            </h1>
                         </div>
                         <div className="mt-3 check-button d-flex justify-content-center">
                             <Link
