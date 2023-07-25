@@ -10,6 +10,7 @@ import axios from "axios"
 import {tostify} from "../../utils/helpers";
 import {toast} from "react-toastify";
 import {BACKEND_URL} from "../../utils/constants";
+import ReCAPTCHA from "../../components/common/ReCAPTCHA"
 
 const BToB = () => {
     const [formdata, setFormData] = useState({
@@ -20,6 +21,7 @@ const BToB = () => {
         contact_number: "",
         email_address: "",
     });
+    const [isVerified, setIsVerified] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
@@ -30,6 +32,11 @@ const BToB = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!isVerified) {
+            tostify(toast, 'error', {data: {message: 'reCaptcha submission failed'}});
+            return;
+        }
 
         const data = {
             name: formdata.name,
@@ -134,6 +141,10 @@ const BToB = () => {
                                     <Form.Control name="email_address" type="email"
                                                   placeholder="Enter Email Address" value={formdata.email_address}
                                                   onChange={handleChange} className="rounded-0 btob-input"/>
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="">
+                                    <ReCAPTCHA onVerify={setIsVerified} />
                                 </Form.Group>
 
                                 <Button type="submit"
