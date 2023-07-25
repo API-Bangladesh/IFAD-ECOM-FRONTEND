@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Form from "react-bootstrap/Form"
 import Image from "next/image"
+import {toast} from "react-toastify";
 import ContactBanner from "../../../public/contact.jpg"
 import { TiLocationOutline } from "react-icons/ti";
 import { MdOutlineEmail } from "react-icons/md";
@@ -14,6 +15,8 @@ import Button from "react-bootstrap/Button";
 // import { BACKEND_URL } from "../../../utils/constants"
 import axios from "axios"
 import { showSuccessNotification, showErrorNotification } from "../helper/notificationHelper"
+import { tostify } from "../../../utils/helpers";
+import ReCAPTCHA from "../../common/ReCAPTCHA"
 
 const Contact = () => {
   const [formdata, setFormData] = useState({
@@ -22,6 +25,7 @@ const Contact = () => {
     subject:"",
     message:""
   });
+  const [isVerified, setIsVerified] = useState(false);
 
   const handleChange = (e) =>{
     setFormData({
@@ -32,6 +36,13 @@ const Contact = () => {
 
 
   const handleSubmit = async(e) =>{
+    e.preventDefault();
+
+    if (!isVerified) {
+        tostify(toast, 'error', {data: {message: 'reCaptcha submission failed'}});
+        return;
+    }
+
     const data = {
       name: formdata.name,
       email: formdata.email,
@@ -41,7 +52,7 @@ const Contact = () => {
     const headers = {
       "Content-Type": "application/json",
     };
-    e.preventDefault();
+   
     const BASE_URL = "http://192.168.11.93:8000/ecom"
     try{
       await axios.post(`${BASE_URL}/send-contact-form`, data, { headers })
@@ -140,6 +151,11 @@ const Contact = () => {
                         />
                       </FloatingLabel>
                     </Form.Group>
+
+                    <Form.Group className="mb-2" controlId="">
+                        <ReCAPTCHA onVerify={setIsVerified} />
+                    </Form.Group>
+
                     <Button variant="primary" type="submit" className="contact-form-btn font-16 rounded-0 px-5 py-2 mt-2 mb-4">
                       Submit
                     </Button>

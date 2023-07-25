@@ -7,3 +7,5 @@ export const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.
 
 export const STORAGE_URL = process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000';
 export const IMAGE_STORAGE_URL = process.env.NEXT_PUBLIC_IMAGE_STORAGE_URL || 'http://127.0.0.1:8000';
+
+export const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LckK1EnAAAAAGISB8-xoX9xcKUJYiKVMbh6a05D';
