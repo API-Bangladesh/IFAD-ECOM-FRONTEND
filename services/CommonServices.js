@@ -22,3 +22,32 @@ export const fetchHomeBanners = async () => {
         tostify(toast, 'error', error);
     }
 }
+
+/**
+ *
+ * @returns {Promise<*>}
+ */
+
+export const fetchAboutInfo = async () => {
+    try {
+        return await axios.get(`${API_BASE_URL}/content-module/4`);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+export const fetchMissionVision = async () => {
+    try {
+        return await axios.get(`${API_BASE_URL}/content-module/21`);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+export const fetchValues = async () => {
+    try {
+        return await axios.get(`${API_BASE_URL}/content-module/20`);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
