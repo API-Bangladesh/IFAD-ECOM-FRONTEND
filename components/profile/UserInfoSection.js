@@ -4,8 +4,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
-import axios from 'axios';
-import {showErrorNotification} from "../Modules/helper/notificationHelper";
+import {showErrorNotification, showSuccessNotification} from "../Modules/helper/notificationHelper";
+import axios from "../../utils/axios";
 
 
 const UserInfoSection = () => {
@@ -26,6 +26,7 @@ const UserInfoSection = () => {
 
 	const handleSubmit = async(e) =>{
 		e.preventDefault();
+
 		const data = {
 		  name: formdata.name,
 		  address: formdata.address,
@@ -33,13 +34,9 @@ const UserInfoSection = () => {
 		  gender: formdata.gender,
 		  phone_number: formdata.phone_number,
 		};
-		const headers = {
-		  "Authorization": token(),
-		  "Content-Type": "application/json",
-		};
-		const BASE_URL = "http://192.168.11.93:8000/ecom"
+
 		try{
-		  await axios.put(`${BASE_URL}/customers/1`, data, { headers })
+		  await axios.put(`/customers`, data)
 			.then((res)=>{
 			  console.log(res.data);
 			  showSuccessNotification("", res.data.message);

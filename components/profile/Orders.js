@@ -1,67 +1,63 @@
 import Row from "react-bootstrap/Row";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
+import {BACKEND_URL} from "../../utils/constants";
 
 const Orders = () => {
-  const [myOrder, setMyOrder] = useState([]);
+    const [myOrder, setMyOrder] = useState([]);
 
-  	const fetchData = async() =>{
-		const BASE_URL = "http://192.168.11.93:8000/ecom"
-		const headers = {
-			"Authorization": token(),
-			"Content-Type": "application/json",
-		  };
-	try{
-		await axios.get(`${BASE_URL}/orders`, {headers})
-		.then((res)=>{
-			setMyOrder(res.data.data);
-			console.log(myOrder); 
-		})
-	}catch(err){
-		console.log(err.message);
-	}
-	};
+    const fetchData = async () => {
+        try {
+            await axios.get(`${BACKEND_URL}/orders`)
+                .then((res) => {
+                    setMyOrder(res.data.data);
+                    console.log(myOrder);
+                })
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 
-	useEffect(()=>{
-		fetchData(); 
-	},[]);
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-  return (
-    <>
-      <Row>
-        <h1 className="text-capitalize font-32 fw-bolder font-jost pb-4 ">Ordered Products</h1>
-       
-        <div className=" table-responsive" >
-          <table className="table mb-5 table-width">
-            <thead>
-              <tr>
-                <th scope="col" className="text-capitalize">Id</th>
-                <th scope="col" className="text-capitalize">Order Date</th>
-                <th scope="col" className="text-capitalize">Payment Status Id</th>
-                <th scope="col" className="text-capitalize">Order Status Id</th>
-                <th scope="col" className="text-capitalize">Grand Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-             {
-            myOrder.map((item)=>{
-              <>
-                  {/* <th scope="row" className="">
+    return (
+        <>
+            <Row>
+                <h1 className="text-capitalize font-32 fw-bolder font-jost pb-4 ">Ordered Products</h1>
+
+                <div className=" table-responsive">
+                    <table className="table mb-5 table-width">
+                        <thead>
+                        <tr>
+                            <th scope="col" className="text-capitalize">Id</th>
+                            <th scope="col" className="text-capitalize">Order Date</th>
+                            <th scope="col" className="text-capitalize">Payment Status Id</th>
+                            <th scope="col" className="text-capitalize">Order Status Id</th>
+                            <th scope="col" className="text-capitalize">Grand Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            {
+                                myOrder.map((item) => {
+                                    <>
+                                        {/* <th scope="row" className="">
                     <Image src={OrderImg} alt="" className="order-item-one" />
                   </th> */}
-                  <td className="order-list mt-3 text-capitalize">{item.id}</td>
-                  <td>{item.order_date}</td>
-                  <td>{item.payment_status_id}</td>
-                  <td>{item.order_status_id}</td>
-                  <td>{item.grand_total}</td>
-                  {/* <td>5000Tk</td> */}
-                  {/* <td className="text-center">
+                                        <td className="order-list mt-3 text-capitalize">{item.id}</td>
+                                        <td>{item.order_date}</td>
+                                        <td>{item.payment_status_id}</td>
+                                        <td>{item.order_status_id}</td>
+                                        <td>{item.grand_total}</td>
+                                        {/* <td>5000Tk</td> */}
+                                        {/* <td className="text-center">
                     <Button variant="success" className="order-icon-bg rounded-1 px-2 bg-success">
                       <BiDollar />
                     </Button>
                   </td> */}
-                  {/* <td>
+                                        {/* <td>
                     <div className="d-flex justify-content-start order-icons">
                       <Link href="/payments/Payments">
                         <Button variant="success" className="order-icon-bg rounded-1 px-2 bg-success me-2">
@@ -79,16 +75,16 @@ const Orders = () => {
                     </div>
   
                   </td> */}
-                </>
-                })
-              }
-              </tr>
-              </tbody>
-          </table> 
-        </div>
+                                    </>
+                                })
+                            }
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-      </Row>
-    </>
-  )
+            </Row>
+        </>
+    )
 }
 export default Orders
