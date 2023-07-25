@@ -3,9 +3,11 @@ import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, RE
 import storage from "redux-persist/lib/storage";
 import {combineReducers} from "redux";
 import AuthReducer from "./slices/AuthSlice";
+import CartReducer from "./slices/CartSlice";
 
 const rootReducer = combineReducers({
-    auth: AuthReducer
+    auth: AuthReducer,
+    cart: CartReducer,
 });
 
 const persistConfig = {

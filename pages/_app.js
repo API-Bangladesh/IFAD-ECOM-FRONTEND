@@ -23,34 +23,34 @@ import {store, persistor} from "../store";
 
 export default function App({Component, pageProps}) {
 
-  useEffect(() => {
-    AOS.init({
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-    });
-  }, []);
+    useEffect(() => {
+        AOS.init({
+            easing: "ease-out-cubic",
+            once: true,
+            offset: 50,
+        });
+    }, []);
 
-  // https://www.npmjs.com/package/nextjs-progressbar
+    // https://www.npmjs.com/package/nextjs-progressbar
 
-  return (
-      <Fragment>
-        <SSRProvider>
-          <Layout>
-            <NextNProgress options={{easing: 'ease', speed: 500}}/>
+    return (
+        <Fragment>
+            <SSRProvider>
+                <Layout>
+                    <NextNProgress options={{easing: 'ease', speed: 500}}/>
 
-            <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}>
-            <Component {...pageProps} />
-              </PersistGate>
-            </Provider>
+                    <Provider store={store}>
+                        <PersistGate loading={null} persistor={persistor}>
+                            <Component {...pageProps} />
+                        </PersistGate>
+                    </Provider>
 
-            <ToastContainer
-                autoClose={2500}
-                position="bottom-right"
-            />
-          </Layout>
-        </SSRProvider>
-      </Fragment>
-  )
+                    <ToastContainer
+                        autoClose={2500}
+                        position="bottom-right"
+                    />
+                </Layout>
+            </SSRProvider>
+        </Fragment>
+    )
 }

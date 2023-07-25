@@ -3,25 +3,51 @@ import ProductBanner from "../../../public/product.png";
 import Image from "next/image";
 import Link from "next/link";
 import {FaHeart} from "react-icons/fa";
-import SingDemo from "../../../components/product/SingDemo";
-import Counter from "../../../components/product/Counter";
+import ImageSection from "../../../components/product/ImageSection";
 import ProductDescription from "../../../components/product/ProductDescription";
 import {fetchInventory} from "../../../services/InventoryServices";
 import {useRouter} from "next/router";
 import StarRatings from "react-star-ratings";
 import moment from "moment";
-import {saveWishlist, syncWishlist, wishlistStatus} from "../../../services/WishlistServices";
+import {syncWishlist, wishlistStatus} from "../../../services/WishlistServices";
 import {tostify} from "../../../utils/helpers";
 import {toast} from "react-toastify";
 import {isLoggedIn} from "../../../utils/auth";
+import Button from "react-bootstrap/Button";
+import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
+import {useDispatch, useSelector} from "react-redux";
+import {SET_CART_ITEM} from "../../../store/slices/CartSlice";
+import {randomInt} from "next/dist/shared/lib/bloom-filter/utils";
 
 const SingleInventoryPage = () => {
+    const dispatch = useDispatch();
+
     const router = useRouter();
     const {id} = router.query;
+
+    const cart = useSelector((state) => state.cart);
 
     const [inventory, setInventory] = useState({});
     const [isRunningOffer, setIsRunningOffer] = useState(false);
     const [isWishlist, setIsWishlist] = useState(false);
+
+    const [quantity, setQuantity] = useState(0);
+
+    const incQuantity = (event) => {
+        event.preventDefault()
+        setQuantity(quantity + 1);
+    }
+
+    const decQuantity = (event) => {
+        event.preventDefault()
+
+        if (quantity > 0) {
+            setQuantity(sum - 1);
+        } else {
+            alert("sorry, Zero limit reached.")
+            setQuantity(0);
+        }
+    }
 
     useEffect(() => {
         if (id) {
@@ -62,6 +88,53 @@ const SingleInventoryPage = () => {
         });
     };
 
+    const handleAddToCart = (event, inventory, buyNow = false) => {
+        event.preventDefault();
+
+        try {
+
+            if (!quantity) {
+                tostify(toast, 'warning', {
+                    message: "Quantity should't empty!"
+                });
+                return false;
+            }
+
+            dispatch(SET_CART_ITEM({
+                id: randomInt(11111111, 999999999),
+                inventory_id: inventory.id,
+                quantity: quantity,
+                unit_price: inventory.sale_price,
+                total: quantity * inventory.sale_price,
+
+                product_type: 'product',
+                product_sku: inventory.sku,
+                product_title: inventory.title,
+                product_category_name: inventory?.product?.category?.name,
+                product_sub_category_name: inventory?.product?.sub_category?.name,
+                product_image: inventory?.product_images?.[0]?.image,
+                product_variations: '',
+            }));
+
+            tostify(toast, 'success', {
+                message: "Added"
+            });
+
+            setQuantity(0);
+
+            if (buyNow) {
+                setTimeout(() => {
+                    router.push('/checkout');
+                }, 2000);
+            }
+        } catch (err) {
+            tostify(toast, 'warning', {
+                message: err.message
+            });
+        }
+
+    }
+
     return (
         <section className="view-single-pro">
             <div className="product-banner">
@@ -71,7 +144,7 @@ const SingleInventoryPage = () => {
                 <div className="row">
                     <div className="col-lg-6 col-md-6">
                         <div className="mt-5">
-                            <SingDemo className="sec-height"/>
+                            <ImageSection inventory={inventory} className="sec-height"/>
                         </div>
                     </div>
 
@@ -111,7 +184,21 @@ const SingleInventoryPage = () => {
                         </div>
                         <div className="d-flex justify-content-start align-items-center counter mt-3">
                             <p className="text-capitalize pe-3 font-lato">quantity :</p>
-                            <Counter/>
+
+                            <div
+                                className="d-flex justify-content-between align-items-center border border-secondary rounded-0 counter">
+                                <Button onClick={(event) => decQuantity(event)} className="button-two border-0 ms-2">
+                                    <AiOutlineMinus className="text-dark minus-icon"/>
+                                </Button>
+
+                                <h2 className="px-4 font-14 count-padding">
+                                    {quantity}
+                                </h2>
+
+                                <Button onClick={(event) => incQuantity(event)} className="button-one border-0 me-2">
+                                    <AiOutlinePlus className="text-dark plus-icon"/>
+                                </Button>
+                            </div>
                         </div>
                         <div className="d-flex justify-content-start counter mt-4 mb-4">
                             {isLoggedIn() && (
@@ -123,17 +210,18 @@ const SingleInventoryPage = () => {
                                 </div>
                             )}
                             <div className="ms-2">
-                                <Link href="/payments/Payments"
-                                      type="button"
-                                      className="btn btn-success buy-btn rounded-0 text-capitalize px-4 font-lato"
+                                <button type="button"
+                                        className="btn btn-success buy-btn rounded-0 text-capitalize px-4 font-lato"
+                                        onClick={(event) => handleAddToCart(event, inventory, true)}
                                 >
                                     buy now
-                                </Link>
+                                </button>
                             </div>
                             <div className="ms-2">
                                 <button
                                     type="button"
                                     className="btn btn-warning buy-btn2 rounded-0 text-capitalize px-4 font-lato"
+                                    onClick={(event) => handleAddToCart(event, inventory)}
                                 >
                                     add to cart
                                 </button>
