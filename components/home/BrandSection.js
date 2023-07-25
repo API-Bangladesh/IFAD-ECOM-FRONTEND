@@ -21,6 +21,7 @@ import {IoIosPricetags} from "react-icons/io";
 import {Fragment, useEffect, useState} from "react";
 import {fetchBanners} from "../../services/BannerServices";
 import {fetchBrands} from "../../services/BrandServices";
+import {IMAGE_STORAGE_URL} from "../../utils/constants";
 
 const BrandSection = () => {
 
@@ -30,7 +31,7 @@ const BrandSection = () => {
 	useEffect(() => {
 		fetchBrands().then((response) => {
 			if (response?.data) {
-				setBrands(response.data);
+				setBrands(response.data[0]?.content_item);
 			}
 		});
 	}, []);
@@ -77,9 +78,9 @@ const BrandSection = () => {
 				<div className="row">
 					<h1 className="text-uppercase pt-5 fw-bold text-center font-inter fs-1 pb-3">brands</h1>
 					<Slider {...settings}>
-						{brands.map((brand, key) => (
+						{brands?.map((brand, key) => (
 							<div key={key} className="d-flex justify-content-center">
-								<img src={brand.image} alt={brand.name} className="pt-3 brands-size"/>
+								<img src={`${IMAGE_STORAGE_URL}/${brand.item_image}`} alt={brand.item_name} className="pt-3 brands-size"/>
 							</div>
 						))}
 					</Slider>
