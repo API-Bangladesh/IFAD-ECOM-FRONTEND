@@ -54,6 +54,7 @@ import CategoryProductScroll from "../../components/home/CategoryProductScroll";
 import CategoryShowcase from "../../components/home/CategoryShowcase";
 import FeatureSection from "../../components/home/FeatureSection";
 import DiscountedProductScroll from "../../components/home/DiscountedProductScroll";
+import {fetchHomeBanners} from "../../services/CommonServices";
 
 const HomePage = () => {
 	const [categories, setCategories] = useState([]);
@@ -68,6 +69,17 @@ const HomePage = () => {
 		});
 	}, []);
 
+	const [banners, setBanners] = useState([]);
+
+	// fetch
+	useEffect(() => {
+		fetchHomeBanners().then((response) => {
+			if (response?.data) {
+				setBanners(response.data[0]?.content_item);
+			}
+		});
+	}, []);
+
 	return (
 		<Fragment>
 			<BannerSection/>
@@ -76,6 +88,8 @@ const HomePage = () => {
 			<DiscountedProductScroll
 				title="Discounted Product"
 			/>
+
+			<AddBanner imagePath={banners[0]?.item_image} />
 
 			{categories.map((category, key) => {
 				return (
@@ -86,6 +100,8 @@ const HomePage = () => {
 					/>
 				)
 			})}
+
+			<AddBanner imagePath={banners[1]?.item_image} />
 
 			<BrandSection/>
 			<FeatureSection/>
