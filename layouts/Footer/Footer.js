@@ -1,12 +1,12 @@
 import React, {Fragment, useEffect, useState} from "react";
 import Image from "next/image";
-import Payment2 from "../../public/payment2.png";
 import Api from "../../public/API-footer-logo.png";
 import Link from "next/link";
 import {FaFacebookF, FaLinkedinIn, FaYoutube} from "react-icons/fa";
 import {AiOutlineInstagram} from "react-icons/ai";
 import {IoIosArrowRoundForward} from "react-icons/io";
 import {fetchSocial} from "../../services/CommonServices";
+import PaymentImage from "../../public/payment3.png";
 
 export default function Footer() {
   const [socials, setSocials] = useState([]);
@@ -96,6 +96,15 @@ export default function Footer() {
                         refund policy
                       </Link>
                     </li>
+                    <li className="text-capitalize footer-list">
+                      <Link
+                          href="/deliveryinformation/DeliveryInformation"
+                          className=" d-flex align-items-center account-hover"
+                      >
+                        <IoIosArrowRoundForward size={"20px"} />
+                        Delivery Information
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -143,7 +152,7 @@ export default function Footer() {
                   </h2>
                   <Link href="/" className="pt-3">
                     <Image
-                        src={Payment2}
+                        src={PaymentImage}
                         alt="Picture of the author"
                         className="payment-img mt-3 mb-3 rounded img-fluid"
                     />

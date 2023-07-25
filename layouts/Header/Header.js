@@ -158,7 +158,7 @@ export default function Header() {
 				</Container>
 
 				{/* for responsive screen */}
-				<section className="bg-dark btn-hover overlay-div">
+				<section className="bg-dark btn-hover screen-opacity">
 					<Navbar bg="dark" expand="lg">
 						<Container className="px-0" fluid>
 							<div className="col-lg-3 col-md-3 me-0" href="#">
@@ -176,8 +176,9 @@ export default function Header() {
 									{categories.map((category, key) => {
 										return (
 											<NavDropdown.Item key={key}
-															  className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
-												<Link href={`category/${category.id}`} className="cate-drop">
+															  className="m-0 p-0">
+												<Link href={`category/${category.id}`}
+													  className="cate-drop text-uppercase all-icons text-dark px-4 py-2 d-block font-inter">
 													{category.name}
 												</Link>
 											</NavDropdown.Item>
@@ -186,7 +187,54 @@ export default function Header() {
 								</NavDropdown>
 							</div>
 							<div className="col-lg-9" href="#">
-								<Overlay/>
+								<Navbar.Toggle aria-controls="basic-navbar-nav"/>
+								<Navbar.Collapse id="basic-navbar-nav">
+									<Nav className="mx-auto py-0 font-inter manu-font manu-items">
+										<Nav.Link as={Link} href="/"
+												  className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
+											home
+										</Nav.Link>
+
+										<NavDropdown
+											className="p-0 rounded-0 about-btn"
+											title={
+												<span
+													className=" text-white text-inter py-2 font-14 me-3 d-flex all-side-icons align-items-center">about us</span>
+											}
+											id="navbarScrollingDropdown"
+										>
+											<NavDropdown.Item
+												className="text-capitalize all-icons text-dark px-4 py-2 d-block">
+												<Link href="/review/Creview" className="cate-drop">
+													Who we are
+												</Link>
+											</NavDropdown.Item>
+											<NavDropdown.Item
+												className="text-capitalize all-icons text-dark px-4 py-2 d-block">
+												<Link href="/bod/Bod" className="cate-drop">
+													BOD and leadership
+												</Link>
+											</NavDropdown.Item>
+										</NavDropdown>
+
+										<Nav.Link as={Link} href="/termsAndcondition/TermsAndConditions"
+												  className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
+											TERMS & CONDITION
+										</Nav.Link>
+										<Nav.Link as={Link} href="/privacypolicy/PrivacyPolicy"
+												  className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
+											PRIVACY POLICY
+										</Nav.Link>
+										<Nav.Link as={Link} href="/deliveryinformation/DeliveryInformation"
+												  className="d-flex align-items-center all-side-icons me-3 font-14 my-2">
+											DELIVERY
+										</Nav.Link>
+										<Nav.Link as={Link} href="/contactinformation/ContactInformation"
+												  className="d-flex align-items-center all-side-icons font-14 my-2">
+											contacts
+										</Nav.Link>
+									</Nav>
+								</Navbar.Collapse>
 							</div>
 						</Container>
 					</Navbar>
