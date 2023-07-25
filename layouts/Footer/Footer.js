@@ -116,7 +116,7 @@ export default function Footer() {
                   <ul className="lh-lg font-lato account-list pt-3">
                     <li className="text-capitalize">
                       <Link
-                          href="/login/Login"
+                          href="/auth/login"
                           className=" d-flex align-items-center account-hover font-16"
                       >
                         <IoIosArrowRoundForward size={"20px"}/>
@@ -125,17 +125,17 @@ export default function Footer() {
                     </li>
                     <li className="text-capitalize">
                       <Link
-                          href="/"
+                          href="/checkout"
                           className=" d-flex align-items-center account-hover"
                       >
                         <IoIosArrowRoundForward size={"20px"}/>
-                        cart
+                        checkout
                       </Link>
                     </li>
 
                     <li className="text-capitalize">
                       <Link
-                          href="/profile/Profile"
+                          href="/my-account"
                           className=" d-flex align-items-center account-hover"
                       >
                         <IoIosArrowRoundForward size={"20px"}/>
