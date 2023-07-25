@@ -5,6 +5,9 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 // import { Router } from "next/router";
 import axios from "axios";
+import {token} from "../../utils/auth";
+import {showErrorNotification, showSuccessTimerNotification} from "../Modules/helper/notificationHelper";
+import {BACKEND_URL} from "../../utils/constants";
 
 
 const ChangePassword = () => {
@@ -22,7 +25,6 @@ const ChangePassword = () => {
   }
 
   const handleSubmit = async(e) =>{
-    const BASE_URL = "http://192.168.11.93:8000/ecom"
     e.preventDefault();
     const data = {
       current_password: myPassword.current_password,
@@ -35,7 +37,7 @@ const ChangePassword = () => {
     };
 
     try{
-      await axios.put(`${BASE_URL}/change-password`,data,{headers})
+      await axios.put(`${BACKEND_URL}/change-password`,data,{headers})
         .then((res)=>{
           console.log(res.data);
           showSuccessTimerNotification("",res.data.message);

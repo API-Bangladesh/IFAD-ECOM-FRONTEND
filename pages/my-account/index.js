@@ -1,9 +1,15 @@
+import React from "react";
 import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
 import {Container} from "react-bootstrap";
+
 import UserInfoSection from "../../components/profile/UserInfoSection";
+import SaveList from "../../components/profile/SaveList";
+import Orders from "../../components/profile/Orders";
+import ChangePassword from "../../components/profile/ChangePassword";
+import ChangeBilling from "../../components/profile/ChangeBilling";
 
 const MyAccountPage = () => {
     return (
@@ -46,7 +52,7 @@ const MyAccountPage = () => {
                                     <Tab.Pane eventKey="first" className="text-capitalize font-16 font-lato">
                                         <UserInfoSection/>
                                     </Tab.Pane>
-                                    {/*<Tab.Pane eventKey="second" className="text-capitalize font-16 font-lato">
+                                    <Tab.Pane eventKey="second" className="text-capitalize font-16 font-lato">
                                         <SaveList/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="three" className="text-capitalize font-16 font-lato">
@@ -57,7 +63,7 @@ const MyAccountPage = () => {
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="five" className="text-capitalize font-16 font-lato">
                                         <ChangeBilling/>
-                                    </Tab.Pane>*/}
+                                    </Tab.Pane>
                                 </Tab.Content>
                             </Col>
                         </Row>
@@ -67,4 +73,5 @@ const MyAccountPage = () => {
         </section>
     )
 }
-export default MyAccountPage
+
+export default MyAccountPage;
