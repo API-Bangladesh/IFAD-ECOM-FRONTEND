@@ -6,8 +6,8 @@ import UserInfoSection from "./UserInfoSection";
 import SaveList from "./SaveList";
 import Orders from "./Orders";
 import ChangePassword from "./ChangePassword";
-import ChangeBilling from "./ChangeBilling";
 import { Container } from "react-bootstrap";
+import React from "react";
 
 
 const New=()=>{
@@ -32,9 +32,6 @@ const New=()=>{
                     <Nav.Item>
                       <Nav.Link eventKey="four" className="text-capitalize rounded-0">change password</Nav.Link>
                     </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="five" className="text-capitalize rounded-0">change billing</Nav.Link>
-                    </Nav.Item>
                   </Nav>
                 </Col>
                 <Col sm={9}>
@@ -50,9 +47,6 @@ const New=()=>{
                     </Tab.Pane>
                     <Tab.Pane eventKey="four" className="text-capitalize font-16 font-lato">
                       <ChangePassword/>
-                    </Tab.Pane>
-                    <Tab.Pane eventKey="five" className="text-capitalize font-16 font-lato">
-                      <ChangeBilling/>
                     </Tab.Pane>
                   </Tab.Content>
                 </Col>

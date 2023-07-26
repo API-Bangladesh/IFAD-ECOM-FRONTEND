@@ -14,6 +14,7 @@ import ReCAPTCHA from "../../components/common/ReCAPTCHA"
 
 const BToB = () => {
     const [formdata, setFormData] = useState({
+        country_name: "",
         name: "",
         product_name: "",
         product_code: "",
@@ -39,6 +40,7 @@ const BToB = () => {
         }
 
         const data = {
+            country_name: formdata.country_name,
             name: formdata.name,
             product_name: formdata.product_name,
             product_code: formdata.product_code,
@@ -57,6 +59,7 @@ const BToB = () => {
             });
 
             setFormData({
+                country_name: "",
                 name: "",
                 product_name: "",
                 product_code: "",
@@ -95,6 +98,14 @@ const BToB = () => {
                         </div>
                         <div data-aos="fade-up">
                             <Form onSubmit={handleSubmit}>
+                                <Form.Group className="mb-3" controlId="">
+                                    <Form.Label>
+                                        Country Name <span className="text-danger">*</span>
+                                    </Form.Label>
+                                    <Form.Control name="country_name" type="text" placeholder="Enter country name"
+                                                  value={formdata.country_name} onChange={handleChange}
+                                                  className="rounded-0 btob-input"/>
+                                </Form.Group>
                                 <Form.Group className="mb-3" controlId="">
                                     <Form.Label>
                                         Name <span className="text-danger">*</span>
