@@ -50,6 +50,17 @@ const CartSlice = createSlice({
             const key = action.payload;
             state.items = state.items.filter((item, index) => index !== key);
             CALC_SUB_TOTAL(state);
+        },
+        RESET_CART: (state, action) => {
+            state.items = [];
+            state.subTotal = 0;
+            state.shippingCharge = 0;
+            state.discount = 0;
+            state.tax = 0;
+            state.grandTotal = 0;
+            state.billingAddress = "";
+            state.shippingAddress = "";
+            state.paymentMethodId = "";
         }
     }
 });
@@ -62,6 +73,6 @@ function CALC_SUB_TOTAL(state) {
     state.grandTotal = tmp;
 }
 
-export const {SET_CART_ITEM, UPDATE_ITEM_QUANTITY, UPDATE_PAYMENT_METHOD_ID, REMOVE_CART_ITEM, UPDATE_BILLING_ADDRESS, UPDATE_SHIPPING_ADDRESS} = CartSlice.actions
+export const {RESET_CART, SET_CART_ITEM, UPDATE_ITEM_QUANTITY, UPDATE_PAYMENT_METHOD_ID, REMOVE_CART_ITEM, UPDATE_BILLING_ADDRESS, UPDATE_SHIPPING_ADDRESS} = CartSlice.actions
 
 export default CartSlice.reducer;

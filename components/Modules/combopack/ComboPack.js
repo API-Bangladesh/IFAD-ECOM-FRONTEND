@@ -6,7 +6,7 @@ import {BsArrowRight} from "react-icons/bs";
 import Card from "react-bootstrap/Card";
 import {getStoragePath} from "../../../utils/helpers";
 import {fetchInventories, fetchInventoriesByCategory} from "../../../services/InventoryServices";
-import ProductCard from "../common/ProductCard";
+import ProductCard from "../../common/ProductCard";
 
 const ComboPack = ({title, categoryId, categoryImage}) => {
 

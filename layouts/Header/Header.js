@@ -205,31 +205,31 @@ export default function Header() {
 										>
 											<NavDropdown.Item
 												className="text-capitalize all-icons text-dark px-4 py-2 d-block">
-												<Link href="/review/Creview" className="cate-drop">
+												<Link href="/company-profile" className="cate-drop">
 													Who we are
 												</Link>
 											</NavDropdown.Item>
 											<NavDropdown.Item
 												className="text-capitalize all-icons text-dark px-4 py-2 d-block">
-												<Link href="/bod/Bod" className="cate-drop">
+												<Link href="/board-of-directors" className="cate-drop">
 													BOD and leadership
 												</Link>
 											</NavDropdown.Item>
 										</NavDropdown>
 
-										<Nav.Link as={Link} href="/termsAndcondition/TermsAndConditions"
+										<Nav.Link as={Link} href="/terms-and-conditions"
 												  className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
 											TERMS & CONDITION
 										</Nav.Link>
-										<Nav.Link as={Link} href="/privacypolicy/PrivacyPolicy"
+										<Nav.Link as={Link} href="/privacy-policy"
 												  className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
 											PRIVACY POLICY
 										</Nav.Link>
-										<Nav.Link as={Link} href="/deliveryinformation/DeliveryInformation"
+										<Nav.Link as={Link} href="/delivery-information"
 												  className="d-flex align-items-center all-side-icons me-3 font-14 my-2">
 											DELIVERY
 										</Nav.Link>
-										<Nav.Link as={Link} href="/contactinformation/ContactInformation"
+										<Nav.Link as={Link} href="/contact"
 												  className="d-flex align-items-center all-side-icons font-14 my-2">
 											contacts
 										</Nav.Link>

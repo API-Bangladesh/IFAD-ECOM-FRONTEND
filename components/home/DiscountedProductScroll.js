@@ -10,7 +10,7 @@ import {
     fetchInventories,
     fetchInventoriesByCategory
 } from "../../services/InventoryServices";
-import ProductCard from "../Modules/common/ProductCard";
+import ProductCard from "../common/ProductCard";
 
 const DiscountedProductScroll = ({title}) => {
 

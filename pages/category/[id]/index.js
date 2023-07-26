@@ -8,7 +8,7 @@ import Image from "next/image";
 import ProductBanner from "../../../public/product.png";
 import Link from "next/link";
 import {IoIosArrowRoundForward} from "react-icons/io";
-import ProductCard from "../../../components/Modules/common/ProductCard";
+import ProductCard from "../../../components/common/ProductCard";
 import {getStoragePath} from "../../../utils/helpers";
 import Pagination from "../../../components/Modules/pagination/Paginate";
 import CustomPagination from "../../../components/common/CustomPagination";

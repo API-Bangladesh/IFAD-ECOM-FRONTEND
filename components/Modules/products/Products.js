@@ -10,7 +10,7 @@ import {IoIosArrowRoundForward} from "react-icons/io";
 import Pagination from "../pagination/Paginate"
 import {AiOutlineShoppingCart} from "react-icons/ai";
 import axios from "axios";
-import ProductCard from "../common/ProductCard";
+import ProductCard from "../../common/ProductCard";
 import {getStoragePath} from "../../../utils/helpers";
 import {fetchCategories} from "../../../services/CategoryServices";
 import {fetchInventoriesByCategory} from "../../../services/InventoryServices";

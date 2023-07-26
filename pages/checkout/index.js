@@ -15,11 +15,17 @@ import {
     updateDefaultBillingAddress,
     updateDefaultShippingAddress
 } from "../../services/AddressServices";
-import {tostify} from "../../utils/helpers";
+import {getAddressToString, tostify} from "../../utils/helpers";
 import {toast} from "react-toastify";
 import {saveOrder} from "../../services/OrderServices";
 import {fetchPaymentMethods} from "../../services/PaymentMethodServices";
-import {UPDATE_BILLING_ADDRESS, UPDATE_PAYMENT_METHOD_ID, UPDATE_SHIPPING_ADDRESS} from "../../store/slices/CartSlice";
+import {
+    RESET_CART,
+    UPDATE_BILLING_ADDRESS,
+    UPDATE_PAYMENT_METHOD_ID,
+    UPDATE_SHIPPING_ADDRESS
+} from "../../store/slices/CartSlice";
+import {router} from "next/client";
 
 const Checkout = () => {
     const dispatch = useDispatch();
@@ -91,8 +97,8 @@ const Checkout = () => {
         event.preventDefault();
 
         saveOrder({
-            shipping_address: cart.shippingAddress,
-            billing_address: cart.billingAddress,
+            shipping_address: getAddressToString(cart.shippingAddress),
+            billing_address: getAddressToString(cart.billingAddress),
             cart: cart.items,
             sub_total: cart.subTotal,
             discount: cart.discount,
@@ -101,8 +107,12 @@ const Checkout = () => {
             grand_total: cart.grandTotal,
             payment_method_id: cart.paymentMethodId
         }).then((response) => {
-            if (response.status) {
+            if (response?.data?.status) {
                 tostify(toast, 'success', response);
+                dispatch(RESET_CART());
+                setTimeout(() => {
+                    router.push('/my-account');
+                }, 2500);
             }
         });
     }

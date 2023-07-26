@@ -11,7 +11,7 @@ import Orders from "../../components/profile/Orders";
 import ChangePassword from "../../components/profile/ChangePassword";
 import ChangeBilling from "../../components/profile/ChangeBilling";
 
-const MyAccountPage = () => {
+const myAccountPage = () => {
     return (
         <section>
             <Container>
@@ -74,4 +74,4 @@ const MyAccountPage = () => {
     )
 }
 
-export default MyAccountPage;
+export default myAccountPage;

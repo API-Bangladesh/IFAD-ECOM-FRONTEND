@@ -51,3 +51,11 @@ export const fetchValues = async () => {
         tostify(toast, 'error', error);
     }
 }
+
+export const sendContactForm = async (data) => {
+    try {
+        return await axios.post(`${API_BASE_URL}/send-contact-form`, data)
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}

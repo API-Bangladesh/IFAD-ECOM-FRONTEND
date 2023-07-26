@@ -208,3 +208,52 @@ export const toSentenceCase = (str) => {
 
     return firstChar + sentence.slice(1);
 }
+
+/**
+ *
+ * @param address
+ * @returns {string}
+ */
+export const getAddressToString = (address) => {
+
+    let addrArray = [];
+
+    if (address?.name) {
+        addrArray.push(address.name);
+    }
+
+    if (address?.address_line_1) {
+        addrArray.push(address.address_line_1);
+    }
+
+    if (address?.address_line_2) {
+        addrArray.push(address.address_line_2);
+    }
+
+    if (address?.division) {
+        addrArray.push(address.division.name);
+    }
+
+    if (address?.district) {
+        addrArray.push(address.district.name);
+    }
+
+    if (address?.upazila) {
+        addrArray.push(address.upazila.name);
+    }
+
+    if (address?.postcode) {
+        addrArray.push(address.postcode);
+    }
+
+    if (address?.phone) {
+        addrArray.push(address.phone);
+    }
+
+    if (address?.email) {
+        addrArray.push(address.email);
+    }
+
+    return addrArray.join(', ');
+
+}

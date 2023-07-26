@@ -1,7 +1,7 @@
 import React from "react";
-import DividerBanner from "../../../public/slidertwo.png"
+import DividerBanner from "../../public/slidertwo.png"
 import Image from "next/image"
-import {IMAGE_STORAGE_URL} from "../../../utils/constants";
+import {IMAGE_STORAGE_URL} from "../../utils/constants";
 
 const AddBanner = ({imagePath}) => {
 	return (
