@@ -6,7 +6,7 @@ import Tab from "react-bootstrap/Tab";
 import {Container} from "react-bootstrap";
 
 import UserInfoSection from "../../components/profile/UserInfoSection";
-import SaveList from "../../components/profile/SaveList";
+import Wishlist from "../../components/profile/Wishlist";
 import Orders from "../../components/profile/Orders";
 import ChangePassword from "../../components/profile/ChangePassword";
 import ChangeBilling from "../../components/profile/ChangeBilling";
@@ -53,7 +53,7 @@ const myAccountPage = () => {
                                         <UserInfoSection/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="second" className="text-capitalize font-16 font-lato">
-                                        <SaveList/>
+                                        <Wishlist/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="three" className="text-capitalize font-16 font-lato">
                                         <Orders/>

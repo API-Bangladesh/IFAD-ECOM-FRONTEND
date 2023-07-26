@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
 import UserInfoSection from "./UserInfoSection";
-import SaveList from "./SaveList";
+import Wishlist from "./Wishlist";
 import Orders from "./Orders";
 import ChangePassword from "./ChangePassword";
 import { Container } from "react-bootstrap";
@@ -40,7 +40,7 @@ const New=()=>{
                       <UserInfoSection/>
                     </Tab.Pane>
                     <Tab.Pane eventKey="second" className="text-capitalize font-16 font-lato">
-                      <SaveList/>
+                      <Wishlist/>
                     </Tab.Pane>
                     <Tab.Pane eventKey="three" className="text-capitalize font-16 font-lato">
                       <Orders/>

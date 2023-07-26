@@ -6,6 +6,20 @@ import {toast} from "react-toastify";
  *
  * @returns {Promise<*>}
  */
+export const fetchWishlist = async (params = {}) => {
+    try {
+        return await axios.get(`/wishlist`, {
+            params: params
+        });
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+/**
+ *
+ * @returns {Promise<*>}
+ */
 export const syncWishlist = async (data = {}) => {
     try {
         return await axios.post(`/wishlist/sync`, data);
@@ -21,6 +35,19 @@ export const syncWishlist = async (data = {}) => {
 export const wishlistStatus = async (inventoryId) => {
     try {
         return await axios.get(`/wishlist/inventories/${inventoryId}/status`);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+/**
+ *
+ * @param id
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export const deleteWishlist = async (id) => {
+    try {
+        return await axios.delete(`/wishlist/${id}`);
     } catch (error) {
         tostify(toast, 'error', error);
     }
