@@ -15,10 +15,25 @@ const CartSlice = createSlice({
     },
     reducers: {
         SET_CART_ITEM: (state, action) => {
-            let item = action.payload;
+            let newItem = action.payload;
 
             let items = [...state.items];
-            items.push(item);
+
+            const isExists = items.find((item) => {
+                return item.inventory_id === newItem.inventory_id;
+            });
+
+            if (isExists) {
+                items = items.filter((item) => {
+                    if (item.inventory_id === newItem.inventory_id) {
+                        item.quantity += newItem.quantity;
+                        item.total = item.quantity * item.unit_price;
+                        return item;
+                    }
+                });
+            } else {
+                items.push(newItem);
+            }
 
             state.items = items;
             CALC_SUB_TOTAL(state);
@@ -67,7 +82,7 @@ const CartSlice = createSlice({
 
 function CALC_SUB_TOTAL(state) {
     let tmp = 0;
-    state.items.map(item => tmp += item.total);
+    state.items.map((item) => tmp += item.total);
 
     state.subTotal = tmp;
     state.grandTotal = tmp;

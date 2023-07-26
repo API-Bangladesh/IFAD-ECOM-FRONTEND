@@ -77,7 +77,7 @@ function CartOverlay() {
                                     <div className="">
                                         <p className="text-capitalize font-16 font-lato ps-3">
                                             <a href={`/product/${item.inventory_id}`}>
-                                                {item.product_title}
+                                                {item.title}
                                             </a>
                                         </p>
                                         <p className="text-capitalize font-16 font-lato ps-3 d-flex align-items-center">
@@ -114,7 +114,7 @@ function CartOverlay() {
                                 Tax : {cart.tax || 0}
                             </h1>*/}
                             <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
-                                total : {cart.total || 0}
+                                total : {cart.grandTotal || 0}
                             </h1>
                         </div>
                         <div className="mt-3 check-button d-flex justify-content-center">

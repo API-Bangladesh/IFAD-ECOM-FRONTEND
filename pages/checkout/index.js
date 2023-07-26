@@ -382,7 +382,7 @@ const Checkout = () => {
                                         <tr>
                                             <th scope="row" className="fw-normal text-capitalize font-16 ">
                                                 <a href={`/product/${item.inventory_id}`}>
-                                                    {item.product_title}
+                                                    {item.title}
                                                 </a>
                                             </th>
                                             <td className="text-end">
@@ -415,7 +415,7 @@ const Checkout = () => {
                                     </div>*/}
                                     <div className="d-flex justify-content-center">
                                         <p className="font-lato text-warning text-capitalize font-20 pe-2">total :- </p>
-                                        <p className="font-20 theme-text">{cart.total || 0} Tk</p>
+                                        <p className="font-20 theme-text">{cart.grandTotal || 0} Tk</p>
                                     </div>
                                 </div>
                                 <div className="mt-3">
