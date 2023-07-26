@@ -1,7 +1,6 @@
 import React, {Fragment, useEffect, useState} from "react";
 import ProductBanner from "../../../public/product.png";
 import Image from "next/image";
-import Link from "next/link";
 import {FaHeart} from "react-icons/fa";
 import ImageSection from "../../../components/product/ImageSection";
 import ProductDescription from "../../../components/product/ProductDescription";
@@ -132,7 +131,6 @@ const SingleInventoryPage = () => {
                 message: err.message
             });
         }
-
     }
 
     return (

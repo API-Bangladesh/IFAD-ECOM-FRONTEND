@@ -1,14 +1,58 @@
 import React, {Fragment} from "react";
 import Link from "next/link";
 import Card from "react-bootstrap/Card";
-import {AiOutlineShoppingCart} from "react-icons/ai";
 import moment from "moment";
+import {tostify} from "../../utils/helpers";
+import {toast} from "react-toastify";
+import {SET_CART_ITEM} from "../../store/slices/CartSlice";
+import {randomInt} from "next/dist/shared/lib/bloom-filter/utils";
+import {useDispatch} from "react-redux";
+import {useRouter} from "next/router";
 
-const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, imagePath, viewLink, cssClasses}) => {
+const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sku, categoryName, subCategoryName, imagePath, viewLink, cssClasses}) => {
+    const dispatch = useDispatch();
+    const router = useRouter();
 
     let myOfferStart = moment(offerStart)
     let myOfferEnd = moment(offerEnd)
     let isRunningOffer = moment.duration(myOfferEnd.diff(myOfferStart)).asDays() > 0;
+
+    const handleAddToCart = (event, buyNow = false) => {
+        event.preventDefault();
+
+        try {
+            dispatch(SET_CART_ITEM({
+                id: randomInt(11111111, 999999999),
+                inventory_id: id,
+                quantity: 1,
+                unit_price: salePrice,
+                total: salePrice,
+
+                product_type: 'product',
+                product_sku: sku,
+                product_title: title,
+                product_category_name: categoryName,
+                product_sub_category_name: subCategoryName,
+                product_image: imagePath,
+                product_variations: '',
+            }));
+
+            tostify(toast, 'success', {
+                message: "Added"
+            });
+
+            if (buyNow) {
+                setTimeout(() => {
+                    router.push('/checkout');
+                }, 2000);
+            }
+        } catch (err) {
+            tostify(toast, 'warning', {
+                message: err.message
+            });
+        }
+
+    }
 
     return (
         <Card className={`shadow rounded-0 ${cssClasses}`}>
@@ -46,19 +90,18 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, im
                 )}
 
                 <div className="d-flex justify-content-center">
-                    <Link href="/checkout"
-                          className="btn btn-success buy-now rounded-0 text-capitalize px-2 font-14 me-2 font-lato"
+                    <button type="button"
+                            className="btn btn-success buy-btn rounded-0 text-capitalize px-4 font-lato"
+                            onClick={(event) => handleAddToCart(event, true)}
                     >
                         buy now
-                    </Link>
+                    </button>
                     <button
                         type="button"
-                        className="btn btn-success buy-add-btn rounded-0 text-capitalize px-2 font-14  font-lato"
+                        className="btn btn-warning buy-btn2 rounded-0 text-capitalize px-4 font-lato"
+                        onClick={(event) => handleAddToCart(event)}
                     >
-                        <div className="d-flex justify-content-between text-center font-14 pe-0">
-                            <AiOutlineShoppingCart className="pt-1 pe-1" size={"20px"}/>
-                            <span className="fw-normal font-lato ad-card-btn">add to cart</span>
-                        </div>
+                        add to cart
                     </button>
                 </div>
             </Card.Body>

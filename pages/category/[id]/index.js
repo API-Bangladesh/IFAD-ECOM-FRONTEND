@@ -1,5 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react'
-import Products from '../../../components/Modules/products/Products'
+import React, {useEffect, useState} from 'react'
 import ScrollToTopButton from '../../../components/common/ScrollToTopButton'
 import {useRouter} from "next/router";
 import {fetchCategories} from "../../../services/CategoryServices";
@@ -10,7 +9,6 @@ import Link from "next/link";
 import {IoIosArrowRoundForward} from "react-icons/io";
 import ProductCard from "../../../components/common/ProductCard";
 import {getStoragePath} from "../../../utils/helpers";
-import Pagination from "../../../components/Modules/pagination/Paginate";
 import CustomPagination from "../../../components/common/CustomPagination";
 
 const CategoryPage = () => {
