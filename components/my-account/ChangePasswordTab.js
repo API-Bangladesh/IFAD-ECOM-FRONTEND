@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -10,14 +10,14 @@ import {showErrorNotification, showSuccessTimerNotification} from "../Modules/he
 import {BACKEND_URL} from "../../utils/constants";
 
 
-const ChangePassword = () => {
+const ChangePasswordTab = () => {
   const [myPassword, setMyPassword] = useState({
-    current_password:"",
-    password:"",
-    password_confirmation:""
+    current_password: "",
+    password: "",
+    password_confirmation: ""
   });
 
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     setMyPassword({
       ...myPassword,
       [e.target.name]: e.target.value,
@@ -94,4 +94,4 @@ const ChangePassword = () => {
   )
 }
 
-export default ChangePassword
+export default ChangePasswordTab

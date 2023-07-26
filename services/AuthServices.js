@@ -44,3 +44,16 @@ export const logoutCustomer = async () => {
         tostify(toast, 'error', error);
     }
 }
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const updateCustomer = async (data, setErrors) => {
+    try {
+        return await axios.put(`/customers`, data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+        makeInputErrors(error, setErrors);
+    }
+}

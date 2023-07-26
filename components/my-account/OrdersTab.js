@@ -1,10 +1,8 @@
 import Row from "react-bootstrap/Row";
 import {useEffect, useState} from "react";
-import axios from "axios";
-import {BACKEND_URL} from "../../utils/constants";
 import {fetchOrders} from "../../services/OrderServices";
 
-const Orders = () => {
+const OrdersTab = () => {
     const [orders, setOrders] = useState([]);
 
     const fetchOrdersData = async () => {
@@ -39,7 +37,7 @@ const Orders = () => {
                         </thead>
                         <tbody>
                         {orders.map((item, key) => (
-                            <tr>
+                            <tr key={key}>
                                 <td className="order-list mt-3 text-capitalize">{item.id}</td>
                                 <td>{item.order_date}</td>
                                 <td>{item.payment_status_id}</td>
@@ -54,4 +52,4 @@ const Orders = () => {
         </>
     )
 }
-export default Orders
+export default OrdersTab

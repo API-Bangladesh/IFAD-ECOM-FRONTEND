@@ -2,21 +2,21 @@ import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
-import UserInfoSection from "./UserInfoSection";
-import Wishlist from "./Wishlist";
-import Orders from "./Orders";
-import ChangePassword from "./ChangePassword";
-import { Container } from "react-bootstrap";
+import UserInfoTab from "./UserInfoTab";
+import Wishlist from "./WishlistTab";
+import OrdersTab from "./OrdersTab";
+import ChangePasswordTab from "./ChangePasswordTab";
+import {Container} from "react-bootstrap";
 import React from "react";
 
 
-const New=()=>{
-  return(
-    <>
-    <section>
-        <Container>
-          <Col className="mt-5">
-            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+const New = () => {
+  return (
+      <>
+        <section>
+          <Container>
+            <Col className="mt-5">
+              <Tab.Container id="left-tabs-example" defaultActiveKey="first">
               <Row>
                 <Col sm={3}>
                   <Nav variant="pills" className="flex-column float-start font-16 font-lato font-lato ">
@@ -37,16 +37,16 @@ const New=()=>{
                 <Col sm={9}>
                   <Tab.Content>
                     <Tab.Pane eventKey="first" className="text-capitalize font-16 font-lato">
-                      <UserInfoSection/>
+                      <UserInfoTab/>
                     </Tab.Pane>
                     <Tab.Pane eventKey="second" className="text-capitalize font-16 font-lato">
                       <Wishlist/>
                     </Tab.Pane>
                     <Tab.Pane eventKey="three" className="text-capitalize font-16 font-lato">
-                      <Orders/>
+                      <OrdersTab/>
                     </Tab.Pane>
                     <Tab.Pane eventKey="four" className="text-capitalize font-16 font-lato">
-                      <ChangePassword/>
+                      <ChangePasswordTab/>
                     </Tab.Pane>
                   </Tab.Content>
                 </Col>

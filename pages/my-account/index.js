@@ -4,14 +4,12 @@ import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
 import {Container} from "react-bootstrap";
+import UserInfoTab from "../../components/my-account/UserInfoTab";
+import WishlistTab from "../../components/my-account/WishlistTab";
+import OrdersTab from "../../components/my-account/OrdersTab";
+import ChangePasswordTab from "../../components/my-account/ChangePasswordTab";
 
-import UserInfoSection from "../../components/profile/UserInfoSection";
-import Wishlist from "../../components/profile/Wishlist";
-import Orders from "../../components/profile/Orders";
-import ChangePassword from "../../components/profile/ChangePassword";
-import ChangeBilling from "../../components/profile/ChangeBilling";
-
-const myAccountPage = () => {
+const MyAccountPage = () => {
     return (
         <section>
             <Container>
@@ -40,29 +38,21 @@ const myAccountPage = () => {
                                             change password
                                         </Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="five" className="text-capitalize rounded-0">
-                                            change billing
-                                        </Nav.Link>
-                                    </Nav.Item>
                                 </Nav>
                             </Col>
                             <Col sm={9}>
                                 <Tab.Content>
                                     <Tab.Pane eventKey="first" className="text-capitalize font-16 font-lato">
-                                        <UserInfoSection/>
+                                        <UserInfoTab/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="second" className="text-capitalize font-16 font-lato">
-                                        <Wishlist/>
+                                        <WishlistTab/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="three" className="text-capitalize font-16 font-lato">
-                                        <Orders/>
+                                        <OrdersTab/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="four" className="text-capitalize font-16 font-lato">
-                                        <ChangePassword/>
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="five" className="text-capitalize font-16 font-lato">
-                                        <ChangeBilling/>
+                                        <ChangePasswordTab/>
                                     </Tab.Pane>
                                 </Tab.Content>
                             </Col>
@@ -74,4 +64,4 @@ const myAccountPage = () => {
     )
 }
 
-export default myAccountPage;
+export default MyAccountPage;
