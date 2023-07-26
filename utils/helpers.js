@@ -1,4 +1,4 @@
-import {APP_NAME, APP_URL, BACKEND_URL, STORAGE_URL} from "./constants";
+import {APP_NAME, APP_URL, STORAGE_URL} from "./constants";
 import Router from "next/router";
 import Swal from "sweetalert2";
 import React from "react";
@@ -255,5 +255,62 @@ export const getAddressToString = (address) => {
     }
 
     return addrArray.join(', ');
+}
 
+export const getOrderStatusList = (value) => {
+    let options = [
+        {
+            'value': '1',
+            'text': 'Pending'
+        },
+        {
+            'value': '2',
+            'text': 'Processing'
+        },
+        {
+            'value': '3',
+            'text': 'Shipped'
+        },
+        {
+            'value': '4',
+            'text': 'Delivered'
+        },
+        {
+            'value': '5',
+            'text': 'Cancelled'
+        }
+    ];
+
+    if (value) {
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value == value) {
+                return options[i].text;
+            }
+        }
+    } else {
+        return options;
+    }
+}
+
+export const getPaymentStatusList = (value) => {
+    let options = [
+        {
+            'value': '1',
+            'text': 'Paid'
+        },
+        {
+            'value': '2',
+            'text': 'Unpaid'
+        }
+    ];
+
+    if (value) {
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value == value) {
+                return options[i].text;
+            }
+        }
+    } else {
+        return options;
+    }
 }

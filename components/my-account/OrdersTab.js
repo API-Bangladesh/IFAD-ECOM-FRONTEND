@@ -1,6 +1,7 @@
 import Row from "react-bootstrap/Row";
 import {useEffect, useState} from "react";
 import {fetchOrders} from "../../services/OrderServices";
+import {getOrderStatusList, getPaymentStatusList} from "../../utils/helpers";
 
 const OrdersTab = () => {
     const [orders, setOrders] = useState([]);
@@ -28,11 +29,12 @@ const OrdersTab = () => {
                     <table className="table mb-5 table-width">
                         <thead>
                         <tr>
-                            <th scope="col" className="text-capitalize">Id</th>
+                            <th scope="col" className="text-capitalize">ID</th>
                             <th scope="col" className="text-capitalize">Order Date</th>
                             <th scope="col" className="text-capitalize">Payment Status Id</th>
                             <th scope="col" className="text-capitalize">Order Status Id</th>
                             <th scope="col" className="text-capitalize">Grand Total</th>
+                            <th scope="col" className="text-capitalize">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -40,9 +42,10 @@ const OrdersTab = () => {
                             <tr key={key}>
                                 <td className="order-list mt-3 text-capitalize">{item.id}</td>
                                 <td>{item.order_date}</td>
-                                <td>{item.payment_status_id}</td>
-                                <td>{item.order_status_id}</td>
+                                <td>{getPaymentStatusList(item.payment_status_id)}</td>
+                                <td>{getOrderStatusList(item.order_status_id)}</td>
                                 <td>{item.grand_total}</td>
+                                <td><a href="/" className="btn btn-danger btn-sm">Invoice</a></td>
                             </tr>
                         ))}
                         </tbody>
