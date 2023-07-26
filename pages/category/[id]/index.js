@@ -107,6 +107,9 @@ const CategoryPage = () => {
                                         <ProductCard
                                             id={inventory.id}
                                             title={inventory.title}
+                                            sku={inventory.sku}
+                                            categoryName={inventory?.product?.category?.name}
+                                            subCategoryName={inventory?.product?.sub_category?.name}
                                             salePrice={inventory.sale_price}
                                             offerPrice={inventory.offer_price}
                                             offerStart={inventory.offer_start}

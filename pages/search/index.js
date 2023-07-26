@@ -1,20 +1,24 @@
 import React, {useEffect, useState} from 'react'
 import ScrollToTopButton from '../../components/common/ScrollToTopButton'
-import {fetchDiscountedInventories} from "../../services/InventoryServices";
+import {useRouter} from "next/router";
+import {fetchSearchInventories} from "../../services/InventoryServices";
 import Image from "next/image";
 import ProductBanner from "../../public/product.png";
 import ProductCard from "../../components/common/ProductCard";
 import {getStoragePath} from "../../utils/helpers";
 import CustomPagination from "../../components/common/CustomPagination";
 
-const DiscountedPage = () => {
+const SearchPage = () => {
+    const router = useRouter();
+    const {keyword} = router.query;
+
     const [inventories, setInventories] = useState([]);
 
     const [meta, setMeta] = useState({});
     const [page, setPage] = useState('');
 
-    const fetchDiscountedInventoriesData = (params = {}) => {
-        fetchDiscountedInventories(params).then((response) => {
+    const fetchSearchInventoriesData = (params = {}) => {
+        fetchSearchInventories(params).then((response) => {
             if (response?.data?.data) {
                 setInventories(response.data.data);
                 setMeta(response.data.meta);
@@ -24,17 +28,21 @@ const DiscountedPage = () => {
 
     // fetch
     useEffect(() => {
-        fetchDiscountedInventoriesData({
-            paginate: 'yes'
-        });
-    }, []);
+        if (keyword) {
+            fetchSearchInventoriesData({
+                paginate: 'yes',
+                keyword: keyword
+            });
+        }
+    }, [keyword]);
 
     // paginate
     useEffect(() => {
-        if (page && id) {
-            fetchDiscountedInventoriesData(id, {
+        if (page && keyword) {
+            fetchSearchInventoriesData({
                 page: page,
-                paginate: 'yes'
+                paginate: 'yes',
+                keyword: keyword
             });
         }
     }, [page]);
@@ -51,7 +59,7 @@ const DiscountedPage = () => {
 
                 {/*Category Info*/}
                 <div className="w-100">
-                    <h1 className="fw-bolder text-center mt-5 font-40 font-inter our-product">Discounted Products</h1>
+                    <h1 className="fw-bolder text-center mt-5 font-40 font-inter our-product">Search: {keyword}</h1>
                     <p className="font-lato text-center font-18 mb-5 product-des">
                         We Are Restocking as Quickly as Possible. Come Back 7/30 to OrderMore of These Flavors
                         Inspired by the Places You Call
@@ -95,4 +103,4 @@ const DiscountedPage = () => {
     )
 }
 
-export default DiscountedPage;
+export default SearchPage;

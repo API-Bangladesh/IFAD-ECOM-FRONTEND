@@ -28,13 +28,13 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
                 unit_price: salePrice,
                 total: salePrice,
 
-                product_type: 'product',
-                product_sku: sku,
-                product_title: title,
-                product_category_name: categoryName,
-                product_sub_category_name: subCategoryName,
-                product_image: imagePath,
-                product_variations: '',
+                type: 'product',
+                sku: sku,
+                title: title,
+                category_name: categoryName,
+                sub_category_name: subCategoryName,
+                image: imagePath,
+                variations: '',
             }));
 
             tostify(toast, 'success', {

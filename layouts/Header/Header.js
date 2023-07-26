@@ -15,11 +15,13 @@ import Logo from "../../public/logo/LOGO.png";
 import {BiAlignLeft} from "react-icons/bi";
 import {CiUser} from "react-icons/ci";
 import CartOverlys from "./CartOverlay";
-import Overlay from "./Overlay";
 import {fetchCategories} from "../../services/CategoryServices";
 import {isLoggedIn, logout} from "../../utils/auth";
+import {useRouter} from "next/router";
 
 export default function Header() {
+	const router = useRouter();
+	const {keyword} = router.query;
 
 	const [storedToken, setStoredToken] = useState();
 	const [categories, setCategories] = useState([]);
@@ -107,14 +109,16 @@ export default function Header() {
 							</Link>
 						</div>
 						<div className="header-form">
-							<Form className="d-flex justify-content-between form-item">
+							<Form action="/search" method="get" className="d-flex justify-content-between form-item">
 								<Form.Control
 									type="search"
+									name="keyword"
 									placeholder="Search in ifad"
 									className="me-2 rounded-0 search-field"
 									aria-label="Search"
 								/>
-								<Button className=" border-0 font-inter fw-semibold rounded-0 form-item-btn">
+								<Button type="submit"
+										className=" border-0 font-inter fw-semibold rounded-0 form-item-btn">
 									Search
 								</Button>
 							</Form>
@@ -122,7 +126,7 @@ export default function Header() {
 						<div className="">
 							<div className="d-flex justify-content-between align-items-center">
 								{storedToken &&
-								<>
+								<Fragment>
 									<DropdownButton
 										id="dropdown-basic-button"
 										className="user-icon border-end"
@@ -132,7 +136,7 @@ export default function Header() {
 											</span>
 										}>
 										<Dropdown.Item className="logoutBtn">
-											<Link href="/profile/Profile"
+											<Link href="/my-account"
 												  className="d-flex align-items-center profile-btn text-capitalize">
 												<CiUser className="font-16 me-1"/>
 												<span className="font-16">account</span>
@@ -142,13 +146,14 @@ export default function Header() {
 											<Link href="/"
 												  className="d-flex align-items-center profile-btn text-capitalize">
 												<MdOutlineLogout className="font-16 me-1"/>
-												<span className="font-16" onClick={() => {
-													localStorage.removeItem("token")
+												<span className="font-16" onClick={(e) => {
+													e.preventDefault()
+													logout();
 												}}>logout</span>
 											</Link>
 										</Dropdown.Item>
 									</DropdownButton>
-								</>
+								</Fragment>
 								}
 
 								<CartOverlys/>
