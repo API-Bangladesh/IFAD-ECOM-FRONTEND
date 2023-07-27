@@ -8,6 +8,7 @@ import UserInfoTab from "../../components/my-account/UserInfoTab";
 import WishlistTab from "../../components/my-account/WishlistTab";
 import OrdersTab from "../../components/my-account/OrdersTab";
 import ChangePasswordTab from "../../components/my-account/ChangePasswordTab";
+import AddressTab from "../../components/my-account/AddressTab";
 
 const MyAccountPage = () => {
     return (
@@ -38,6 +39,11 @@ const MyAccountPage = () => {
                                             change password
                                         </Nav.Link>
                                     </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="five" className="text-capitalize rounded-0">
+                                            Address
+                                        </Nav.Link>
+                                    </Nav.Item>
                                 </Nav>
                             </Col>
                             <Col sm={9}>
@@ -53,6 +59,9 @@ const MyAccountPage = () => {
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="four" className="text-capitalize font-16 font-lato">
                                         <ChangePasswordTab/>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="five" className="text-capitalize font-16 font-lato">
+                                        <AddressTab />
                                     </Tab.Pane>
                                 </Tab.Content>
                             </Col>

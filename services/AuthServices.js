@@ -22,7 +22,7 @@ export const registerCustomer = async (data, setErrors) => {
  */
 export const loginCustomer = async (data, setErrors) => {
     try {
-        return await axios.post('/login', data);
+        return await axios.post('/ecom/login', data);
     } catch (error) {
         tostify(toast, 'error', error);
         makeInputErrors(error, setErrors);
