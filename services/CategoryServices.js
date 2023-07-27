@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
  */
 export const fetchCategories = async (params = {}) => {
     try {
-        return await axios.get(`/categories`, {
+        return await axios.get(`/ecom/categories`, {
             params: params
         });
     } catch (error) {
