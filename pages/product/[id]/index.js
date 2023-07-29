@@ -4,7 +4,11 @@ import Image from "next/image";
 import {FaHeart} from "react-icons/fa";
 import ImageSection from "../../../components/product/ImageSection";
 import ProductDescription from "../../../components/product/ProductDescription";
-import {fetchInventory} from "../../../services/InventoryServices";
+import {
+    fetchAllVariantOptionsByProduct,
+    fetchInventory,
+    fetchInventoryByVariationIds
+} from "../../../services/InventoryServices";
 import {useRouter} from "next/router";
 import StarRatings from "react-star-ratings";
 import moment from "moment";
@@ -29,6 +33,8 @@ const SingleInventoryPage = () => {
     const [inventory, setInventory] = useState({});
     const [isRunningOffer, setIsRunningOffer] = useState(false);
     const [isWishlist, setIsWishlist] = useState(false);
+    const [allVariantsOptions, setAllVariantsOptions] = useState({});
+    const [inventoryVariantIds, setInventoryVariantIds] = useState([]);
 
     const [quantity, setQuantity] = useState(0);
 
@@ -71,7 +77,17 @@ const SingleInventoryPage = () => {
                 }
             });
         }
-    }, [inventory?.id])
+    }, [inventory?.id]);
+
+    useEffect(() => {
+        if (inventory?.product_id) {
+            fetchAllVariantOptionsByProduct(inventory?.product_id).then((response) => {
+                if (response?.data) {
+                    setAllVariantsOptions(response?.data);
+                }
+            });
+        }
+    }, [inventory?.product_id])
 
     const handleFavourite = () => {
         syncWishlist({
@@ -86,6 +102,20 @@ const SingleInventoryPage = () => {
             }
         });
     };
+
+    const handleChangeVariantOption = (variantOptionId) => {
+        setInventoryVariantIds((prevSate) => [...prevSate, variantOptionId]);
+    }
+
+    useEffect(() => {
+        if (inventory?.id && inventoryVariantIds.length > 0) {
+            fetchInventoryByVariationIds(inventory.id, {
+                inventory_variant_ids: inventoryVariantIds
+            }).then((response) => {
+                console.log(response.data);
+            });
+        }
+    }, [inventory?.id, inventoryVariantIds])
 
     const handleAddToCart = (event, inventory, buyNow = false) => {
         event.preventDefault();
@@ -180,6 +210,40 @@ const SingleInventoryPage = () => {
                                 )}
                             </p>
                         </div>
+
+                        <div className="variation-infos">
+                            <table className="table table-bordered">
+                                <tbody>
+                                {Object.keys(allVariantsOptions).map((variantName, key) => {
+                                    const variantOptions = allVariantsOptions[variantName];
+
+                                    return (
+                                        <tr key={key}>
+                                            <td>{variantName}</td>
+                                            <td className="d-flex">
+                                                {variantOptions.map((option, key) => {
+                                                    return (
+                                                        <div key={key}>
+                                                            <input type="radio" className="btn-check"
+                                                                   name={variantName}
+                                                                   id={variantName + '-' + option.inventory_variant_id}
+                                                                   value={option.inventory_variant_id}
+                                                                   onClick={(event) => handleChangeVariantOption(event.target.value)}/>
+                                                            <label className="btn btn-outline-secondary me-2"
+                                                                   htmlFor={variantName + '-' + option.inventory_variant_id}>
+                                                                {option.variant_option_name}
+                                                            </label>
+                                                        </div>
+                                                    )
+                                                })}
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                                </tbody>
+                            </table>
+                        </div>
+
                         <div className="d-flex justify-content-start align-items-center counter mt-3">
                             <p className="text-capitalize pe-3 font-lato">quantity :</p>
 
