@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
  */
 export const fetchWishlist = async (params = {}) => {
     try {
-        return await axios.get(`/wishlist`, {
+        return await axios.get(`/ecom/wishlist`, {
             params: params
         });
     } catch (error) {
@@ -22,7 +22,7 @@ export const fetchWishlist = async (params = {}) => {
  */
 export const syncWishlist = async (data = {}) => {
     try {
-        return await axios.post(`/wishlist/sync`, data);
+        return await axios.post(`/ecom/wishlist/sync`, data);
     } catch (error) {
         tostify(toast, 'error', error);
     }
@@ -34,7 +34,7 @@ export const syncWishlist = async (data = {}) => {
  */
 export const wishlistStatus = async (inventoryId) => {
     try {
-        return await axios.get(`/wishlist/inventories/${inventoryId}/status`);
+        return await axios.get(`/ecom/wishlist/inventories/${inventoryId}/status`);
     } catch (error) {
         tostify(toast, 'error', error);
     }
@@ -47,7 +47,7 @@ export const wishlistStatus = async (inventoryId) => {
  */
 export const deleteWishlist = async (id) => {
     try {
-        return await axios.delete(`/wishlist/${id}`);
+        return await axios.delete(`/ecom/wishlist/${id}`);
     } catch (error) {
         tostify(toast, 'error', error);
     }

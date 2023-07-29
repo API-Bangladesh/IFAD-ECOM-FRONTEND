@@ -3,7 +3,6 @@ import Link from "next/link";
 import Slider from "react-slick";
 import {fetchCategories} from "../../services/CategoryServices";
 import {getStoragePath} from "../../utils/helpers";
-import {IMAGE_STORAGE_URL} from "../../utils/constants";
 
 const CategoryShowcase = () => {
 	const [categories, setCategories] = useState([]);
@@ -66,7 +65,7 @@ const CategoryShowcase = () => {
 									<div className="col-lg-4" key={key}>
 										<Link href={`category/${category.id}`}>
 											<div className="position-relative mb-3 mx-2 img-demo">
-												<img src={`${IMAGE_STORAGE_URL}/${category.image}`}
+												<img src={getStoragePath(`category-image/${category.image}`)}
 													 alt={category.name} className="category-img-one"/>
 												<div className="wavy-chips position-absolute">
 													<p className="position-absolute category-title text-center text-capitalize text-light font-30 fw-bold">

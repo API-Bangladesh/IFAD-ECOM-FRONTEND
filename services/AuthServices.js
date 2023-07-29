@@ -9,7 +9,7 @@ import {token} from "../utils/auth";
  */
 export const registerCustomer = async (data, setErrors) => {
     try {
-        return await axios.post('/register', data);
+        return await axios.post('/ecom/register', data);
     } catch (error) {
         tostify(toast, 'error', error);
         makeInputErrors(error, setErrors);
@@ -35,7 +35,7 @@ export const loginCustomer = async (data, setErrors) => {
  */
 export const logoutCustomer = async () => {
     try {
-        await axios.post('/logout', {}, {
+        await axios.post('/ecom/logout', {}, {
             headers: {
                 authorization: token()
             }
@@ -51,7 +51,7 @@ export const logoutCustomer = async () => {
  */
 export const updateCustomer = async (data, setErrors) => {
     try {
-        return await axios.put(`/customers`, data);
+        return await axios.put(`/ecom/customers`, data);
     } catch (error) {
         tostify(toast, 'error', error);
         makeInputErrors(error, setErrors);

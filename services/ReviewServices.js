@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
  */
 export const saveReview = async (data = {}) => {
     try {
-        return await axios.post(`/reviews`, data);
+        return await axios.post(`/ecom/reviews`, data);
     } catch (error) {
         tostify(toast, 'error', error);
     }
@@ -21,7 +21,7 @@ export const saveReview = async (data = {}) => {
  */
 export const hasInventoryReviewAbility = async (invenotryId) => {
     try {
-        return await axios.get(`/inventories/${invenotryId}/reviews/ability`);
+        return await axios.get(`/ecom/inventories/${invenotryId}/reviews/ability`);
     } catch (error) {
         tostify(toast, 'error', error);
     }
@@ -34,7 +34,7 @@ export const hasInventoryReviewAbility = async (invenotryId) => {
  */
 export const fetchInventoryReviews = async (invenotryId) => {
     try {
-        return await axios.get(`/reviews/inventories/${invenotryId}`);
+        return await axios.get(`/ecom/reviews/inventories/${invenotryId}`);
     } catch (error) {
         tostify(toast, 'error', error);
     }

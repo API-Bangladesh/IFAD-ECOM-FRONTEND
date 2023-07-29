@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -7,10 +7,9 @@ import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 // import { Router } from "next/router";
 import axios from "axios";
-import {token} from "../../utils/auth";
-import {showErrorNotification, showSuccessTimerNotification} from "../Modules/helper/notificationHelper";
-import {API_BASE_URL} from "../../utils/constants";
-import { fetchAddresses, saveAddresses } from "../../services/AddressServices";
+import {showErrorNotification} from "../Modules/helper/notificationHelper";
+import {API_URL} from "../../utils/constants";
+import {fetchAddresses} from "../../services/AddressServices";
 
 const AddressTab = () => {
   const [addresses, setAddresses] = useState([]);
@@ -71,7 +70,7 @@ const AddressTab = () => {
 
     try{
       // const response = await saveAddresses(data)
-      const response = await axios.post(`${API_BASE_URL}/ecom/addresses`, data, { headers });
+      const response = await axios.post(`${API_URL}/ecom/addresses`, data, {headers});
       console.log(response);
       // showSuccessTimerNotification('', response.data.message);
       // setMyAddress({

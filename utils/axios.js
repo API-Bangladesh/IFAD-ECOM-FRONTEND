@@ -1,9 +1,9 @@
 import axios from 'axios'
-import {BACKEND_URL} from "./constants";
 import {logout, token} from "./auth";
+import {API_URL} from "./constants";
 
 const axiosClient = axios.create({
-    baseURL: BACKEND_URL
+    baseURL: API_URL
 })
 
 setTimeout(() => {

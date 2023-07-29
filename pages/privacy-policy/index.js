@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import ListGroup from "react-bootstrap/ListGroup";
 import axios from "axios"
-import {API_BASE_URL} from "../../utils/constants"
+import {API_URL} from "../../utils/constants"
 import {LongInfoPrivacy} from "../../components/privacy-policy/LongInfoPrivacy";
 
 
@@ -15,7 +15,7 @@ const PrivacyPolicyPage = () => {
 
     const fetchPrivacyInfo = () => {
         try {
-            axios.get(`${API_BASE_URL}/content-module/24`)
+            axios.get(`${API_URL}/content-module/24`)
                 .then((res) => {
                     setInfo(res?.data[0]?.content_item);
                     console.log(info)

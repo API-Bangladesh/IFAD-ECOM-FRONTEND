@@ -1,4 +1,4 @@
-import {APP_NAME, APP_URL, STORAGE_URL} from "./constants";
+import {APP_NAME, APP_URL, BACKEND_URL} from "./constants";
 import Router from "next/router";
 import Swal from "sweetalert2";
 import React from "react";
@@ -87,11 +87,11 @@ export const makeInputErrors = (error, setErrors) => {
  * @returns {string}
  */
 export const getStoragePath = (path) => {
-    if (_.isEmpty(!path)) {
+    if (_.isEmpty(path)) {
         return '/no-image.png';
     }
 
-    return STORAGE_URL + '/storage/' + path;
+    return BACKEND_URL + '/storage/' + path;
 }
 
 /**

@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL ="http://implapi.ifadgroup.com:8000";
 
 //const { serverRuntimeConfig,publicRuntimeConfig } = getConfig()
-//const BASE_URL = serverRuntimeConfig.API_BASE_URL;
+//const BASE_URL = serverRuntimeConfig.API_URL;
 
 // export const getProductListUsingAuth = async ()=> {
     // Using Authorization Header

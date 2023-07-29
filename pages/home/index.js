@@ -1,6 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import BannerSection from '../../components/home/BannerSection';
-
 // Brands
 import BrandSection from '../../components/home/BrandSection'
 import ScrollToTopButton from '../../components/common/ScrollToTopButton'
@@ -45,7 +44,7 @@ const HomePage = () => {
 				title="Discounted Product"
 			/>
 
-			<AddBanner imagePath={banners[0]?.item_image} />
+			<AddBanner imagePath={banners?.[0]?.item_image}/>
 
 			{categories.map((category, key) => {
 				return (
@@ -57,7 +56,7 @@ const HomePage = () => {
 				)
 			})}
 
-			<AddBanner imagePath={banners[1]?.item_image} />
+			<AddBanner imagePath={banners?.[1]?.item_image}/>
 
 			<BrandSection/>
 			<FeatureSection/>

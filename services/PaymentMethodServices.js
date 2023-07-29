@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
  */
 export const fetchPaymentMethods = async () => {
     try {
-        return await axios.get(`/payment-methods`);
+        return await axios.get(`/ecom/payment-methods`);
     } catch (error) {
         tostify(toast, 'error', error);
     }

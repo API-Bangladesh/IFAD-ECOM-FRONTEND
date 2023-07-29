@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col"
 import Image from "next/image"
 import DeliveryBanner from "../../public/delivery.jpg"
 import axios from "axios"
-import {API_BASE_URL} from "../../utils/constants"
+import {API_URL} from "../../utils/constants"
 import {LongInfo} from "../../components/delivery-information/LongInfo";
 
 const DeliverInformationPage = () => {
@@ -13,7 +13,7 @@ const DeliverInformationPage = () => {
 
     const fetchDeliveryInfo = () => {
         try {
-            axios.get(`${API_BASE_URL}/content-module/25`)
+            axios.get(`${API_URL}/content-module/25`)
                 .then((res) => {
                     setInfo(res?.data[0]?.content_item);
                 })

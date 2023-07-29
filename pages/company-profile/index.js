@@ -1,9 +1,9 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Image from "next/image";
 import CompanyRev from "../../public/Factory.jpg";
-import { Container, Row } from "react-bootstrap";
-import { fetchAboutInfo, fetchMissionVision, fetchValues } from "../../services/CommonServices";
-import { IMAGE_STORAGE_URL } from "../../utils/constants";
+import {Container, Row} from "react-bootstrap";
+import {fetchAboutInfo, fetchMissionVision, fetchValues} from "../../services/CommonServices";
+import {getStoragePath} from "../../utils/helpers";
 
 const CompanyReview = () => {
     const [aboutInfo, setAboutInfo] = useState([]);
@@ -57,8 +57,8 @@ const CompanyReview = () => {
                                 </div>
                                 <div className="col-lg-4">
                                     <div className="mt-5 p-4">
-                                        {/* <Image src={Aboutus} alt="" className="review-about rounded-4" /> */}
-                                        <img src={`${IMAGE_STORAGE_URL}/${item.item_image}`} alt="" className="review-about rounded-4" />
+                                        <img src={getStoragePath(item.item_image)} alt=""
+                                             className="review-about rounded-4"/>
                                     </div>
                                 </div>
                             </Fragment>)}
@@ -73,14 +73,8 @@ const CompanyReview = () => {
                             <div key={key} className="">
                                 <div className="d-flex justify-content-between">
                                     <div className="text-center">
-                                        {/* <Image
-											src={`${IMAGE_STORAGE_URL}/${item.item_image}`}
-											alt="vision"
-											height={150}
-											width={150}
-										/> */}
                                         <img
-                                            src={`${IMAGE_STORAGE_URL}/${item.item_image}`}
+                                            src={getStoragePath(item.item_image)}
                                             alt="vision"
                                             height={150}
                                             width={150}
@@ -115,7 +109,7 @@ const CompanyReview = () => {
                             <div key={key} className="col-lg-7 d-flex justify-content-start value-items">
                                 <div className="col-lg-1">
                                     <img
-                                        src={`${IMAGE_STORAGE_URL}/${item.item_image}`}
+                                        src={getStoragePath(item.item_image)}
                                         alt=""
                                         height={70}
                                         width={70}

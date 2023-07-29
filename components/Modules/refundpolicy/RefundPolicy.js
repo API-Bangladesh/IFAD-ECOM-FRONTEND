@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react"
+import React, {useEffect, useState} from "react"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import TermsBanner from "../../../public/terms-conditions.png"
 import Image from "next/image"
 import axios from "axios"
-import { API_BASE_URL } from "../../../utils/constants"
+import {API_URL} from "../../../utils/constants"
 
 const RefundPolicy=()=>{
   const [info, setInfo] = useState()
 const fetchRefundInfo = () =>{
     try{
-      axios.get(`${API_BASE_URL}/content-module/23`)
+        axios.get(`${API_URL}/content-module/23`)
       .then((res)=>{
         // console.log(res.data[0].content_item);
         setInfo(res?.data[0]?.content_item);

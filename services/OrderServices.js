@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
  */
 export const fetchOrders = async (params = {}) => {
     try {
-        return await axios.get(`/orders`, {
+        return await axios.get(`/ecom/orders`, {
             params: params
         });
     } catch (error) {
@@ -22,7 +22,7 @@ export const fetchOrders = async (params = {}) => {
  */
 export const saveOrder = async (data = {}) => {
     try {
-        return await axios.post(`/orders`, data);
+        return await axios.post(`/ecom/orders`, data);
     } catch (error) {
         tostify(toast, 'error', error);
     }

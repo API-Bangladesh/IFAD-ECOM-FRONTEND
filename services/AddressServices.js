@@ -32,7 +32,7 @@ export const saveAddresses = async (data) => {
  */
 export const updateDefaultBillingAddress = async (id) => {
     try {
-        return await axios.put(`/addresses/${id}/default-billing`);
+        return await axios.put(`/ecom/addresses/${id}/default-billing`);
     } catch (error) {
         tostify(toast, 'error', error);
     }
@@ -44,7 +44,7 @@ export const updateDefaultBillingAddress = async (id) => {
  */
 export const updateDefaultShippingAddress = async (id) => {
     try {
-        return await axios.put(`/addresses/${id}/default-shipping`);
+        return await axios.put(`/ecom/addresses/${id}/default-shipping`);
     } catch (error) {
         tostify(toast, 'error', error);
     }

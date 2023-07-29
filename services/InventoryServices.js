@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
  */
 export const fetchInventories = async (params = {}) => {
     try {
-        return await axios.get(`/inventories`, {
+        return await axios.get(`/ecom/inventories`, {
             params: params
         });
     } catch (error) {
@@ -22,7 +22,7 @@ export const fetchInventories = async (params = {}) => {
  */
 export const fetchInventoriesByCategory = async (categoryId, params = {}) => {
     try {
-        return await axios.get(`/inventories/categories/${categoryId}`, {
+        return await axios.get(`/ecom/inventories/categories/${categoryId}`, {
             params: params
         });
     } catch (error) {
@@ -36,7 +36,7 @@ export const fetchInventoriesByCategory = async (categoryId, params = {}) => {
  */
 export const fetchDiscountedInventories = async (params = {}) => {
     try {
-        return await axios.get(`/inventories/discounted`, {
+        return await axios.get(`/ecom/inventories/discounted`, {
             params: params
         });
     } catch (error) {
@@ -50,7 +50,7 @@ export const fetchDiscountedInventories = async (params = {}) => {
  */
 export const fetchSearchInventories = async (params = {}) => {
     try {
-        return await axios.get(`/inventories/search`, {
+        return await axios.get(`/ecom/inventories/search`, {
             params: params
         });
     } catch (error) {
@@ -64,7 +64,7 @@ export const fetchSearchInventories = async (params = {}) => {
  */
 export const fetchInventory = async (id, params = {}) => {
     try {
-        return await axios.get(`/inventories/${id}/show`, {
+        return await axios.get(`/ecom/inventories/${id}/show`, {
             params: params
         });
     } catch (error) {
