@@ -19,7 +19,7 @@ const BannerSection = () => {
     return (
         <div className="mb-3">
             <Carousel fade>
-                {banners.map(((banner, key) =>
+                {banners && banners.map(((banner, key) =>
                         <Carousel.Item key={key}>
                             <img
                                 src={getStoragePath(banner.item_image)}

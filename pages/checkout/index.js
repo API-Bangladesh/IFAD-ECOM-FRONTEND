@@ -27,7 +27,7 @@ import {
 } from "../../store/slices/CartSlice";
 import {router} from "next/client";
 
-const Checkout = () => {
+const CheckoutPage = () => {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
 
@@ -110,6 +110,7 @@ const Checkout = () => {
             if (response?.data?.status) {
                 tostify(toast, 'success', response);
                 dispatch(RESET_CART());
+
                 setTimeout(() => {
                     router.push('/my-account');
                 }, 2500);
@@ -379,7 +380,7 @@ const Checkout = () => {
                                     </thead>
                                     <tbody>
                                     {cart.items.map((item, key) => (
-                                        <tr>
+                                        <tr key={key}>
                                             <th scope="row" className="fw-normal text-capitalize font-16 ">
                                                 <a href={`/product/${item.inventory_id}`}>
                                                     {item.title}
@@ -467,4 +468,4 @@ const Checkout = () => {
     )
 }
 
-export default Checkout
+export default CheckoutPage;

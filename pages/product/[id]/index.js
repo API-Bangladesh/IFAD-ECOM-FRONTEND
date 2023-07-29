@@ -64,7 +64,7 @@ const SingleInventoryPage = () => {
     }, [id]);
 
     useEffect(() => {
-        if (inventory?.id) {
+        if (inventory?.id && isLoggedIn()) {
             wishlistStatus(inventory?.id).then((response) => {
                 if (response?.data) {
                     setIsWishlist(response?.data?.favourite)
