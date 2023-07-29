@@ -18,7 +18,7 @@ export const fetchAddresses = async () => {
  *
  * @returns {Promise<*>}
  */
-export const saveAddresses = async (data) => {
+export const saveAddress = async (data) => {
     try {
         return await axios.post(`/ecom/addresses`, data);
     } catch (error) {

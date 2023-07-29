@@ -5,11 +5,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
-// import { Router } from "next/router";
-import axios from "axios";
 import {showErrorNotification} from "../Modules/helper/notificationHelper";
-import {API_URL} from "../../utils/constants";
-import {fetchAddresses} from "../../services/AddressServices";
+import {fetchAddresses, saveAddress} from "../../services/AddressServices";
 
 const AddressTab = () => {
   const [addresses, setAddresses] = useState([]);
@@ -17,7 +14,6 @@ const AddressTab = () => {
   // fetch
   useEffect(() => {
     fetchAddresses().then((response) => {
-      console.log(response)
       if (response?.data) {
         setAddresses(response.data);
       }
@@ -25,16 +21,16 @@ const AddressTab = () => {
   }, []);
 
   const [myAddress, setMyAddress] = useState({
-    title: "",
-    name: "",
-    address_line_1: "",
-    address_line_2: "",
-    division_id: "",
-    district_id: "",
-    upazila_id: "",
-    postcode: "",
-    phone: "",
-    email: "",
+    title: "A",
+    name: "V",
+    address_line_1: "C",
+    address_line_2: "6",
+    division_id: "6",
+    district_id: "6",
+    upazila_id: "6",
+    postcode: "77",
+    phone: "88",
+    email: "99@gmail.com",
   });
 
   const handleChange = (e) => {
@@ -46,6 +42,7 @@ const AddressTab = () => {
 
   const createAddress = async(e) => {
     e.preventDefault();
+
     const data = {
       title: myAddress.title,
       name: myAddress.name,
@@ -59,35 +56,13 @@ const AddressTab = () => {
       email: myAddress.email,
     };
 
-    const headers = {
-      'Authorization': "aAUijZ4qzNjIr3vAhvGw8ccu7xxf0zV040vUALBowDJs3SXrdXKBI3QSyPYe",
-      
-    };
 
-    // saveAddresses(data).then((response) => {
-    //   console.log(response)
-    // });
-
-    try{
-      // const response = await saveAddresses(data)
-      const response = await axios.post(`${API_URL}/ecom/addresses`, data, {headers});
-      console.log(response);
-      // showSuccessTimerNotification('', response.data.message);
-      // setMyAddress({
-      //   title: '',
-      //   name: '',
-      //   address_line_1: '',
-      //   address_line_2: '',
-      //   division_id: '',
-      //   district_id: '',
-      //   upazila_id: '',
-      //   postcode: '',
-      //   phone: '',
-      //   email: '',
-      // });
+    try {
+      saveAddress(data).then((response) => {
+        console.log(response.data)
+      });
     }
     catch(err){
-      console.log(err.message);
       showErrorNotification("Error", err.message);
     }
   }
