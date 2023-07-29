@@ -112,7 +112,13 @@ const SingleInventoryPage = () => {
             fetchInventoryByVariationIds(inventory.id, {
                 inventory_variant_ids: inventoryVariantIds
             }).then((response) => {
-                console.log(response.data);
+                if (response?.data) {
+                    const {inventory_id} = response.data;
+                    // console.log(inventory_id, inventory.id)
+                    if (inventory_id != inventory.id) {
+                        // router.push('/product/' + inventory_id);
+                    }
+                }
             });
         }
     }, [inventory?.id, inventoryVariantIds])
