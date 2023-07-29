@@ -1,7 +1,6 @@
 import axios from "../utils/axios";
 import {makeInputErrors, tostify} from "../utils/helpers";
 import {toast} from "react-toastify";
-import {token} from "../utils/auth";
 
 /**
  *
@@ -35,11 +34,7 @@ export const loginCustomer = async (data, setErrors) => {
  */
 export const logoutCustomer = async () => {
     try {
-        await axios.post('/ecom/logout', {}, {
-            headers: {
-                authorization: token()
-            }
-        });
+        await axios.post('/ecom/logout');
     } catch (error) {
         tostify(toast, 'error', error);
     }
