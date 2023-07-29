@@ -28,6 +28,19 @@ export const saveAddress = async (data) => {
 
 /**
  *
+ * @param id
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export const deleteAddress = async (id) => {
+    try {
+        return await axios.delete(`/ecom/addresses/${id}`);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+/**
+ *
  * @returns {Promise<*>}
  */
 export const updateDefaultBillingAddress = async (id) => {
