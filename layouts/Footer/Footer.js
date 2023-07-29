@@ -62,7 +62,7 @@ export default function Footer() {
                   <ul className="lh-lg font-lato pt-3 information-list justify-content-center">
                     <li className="text-capitalize footer-list">
                       <Link
-                          href="/review/Creview"
+                          href="/company-profile"
                           className=" d-flex align-items-center account-hover"
                       >
                         <IoIosArrowRoundForward size={"20px"}/>
@@ -71,7 +71,7 @@ export default function Footer() {
                     </li>
                     <li className="text-capitalize footer-list">
                       <Link
-                          href="/privacypolicy/PrivacyPolicy"
+                          href="/privacy-policy"
                           className=" d-flex align-items-center account-hover"
                       >
                         <IoIosArrowRoundForward size={"20px"}/>
@@ -80,7 +80,7 @@ export default function Footer() {
                     </li>
                     <li className="text-capitalize footer-list">
                       <Link
-                          href="/termsAndcondition/TermsAndConditions"
+                          href="/terms-and-conditions"
                           className=" d-flex align-items-center account-hover"
                       >
                         <IoIosArrowRoundForward size={"20px"}/>
@@ -89,7 +89,7 @@ export default function Footer() {
                     </li>
                     <li className="text-capitalize footer-list">
                       <Link
-                          href="/refundPolicy/RefundPolicy"
+                          href="/refund-policy"
                           className=" d-flex align-items-center account-hover"
                       >
                         <IoIosArrowRoundForward size={"20px"}/>
@@ -98,7 +98,7 @@ export default function Footer() {
                     </li>
                     <li className="text-capitalize footer-list">
                       <Link
-                          href="/deliveryinformation/DeliveryInformation"
+                          href="/delivery-information"
                           className=" d-flex align-items-center account-hover"
                       >
                         <IoIosArrowRoundForward size={"20px"} />
