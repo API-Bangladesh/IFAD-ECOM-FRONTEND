@@ -7,8 +7,7 @@ import Image from "next/image"
 import {toast} from "react-toastify";
 import ContactBanner from "../../public/contact.jpg"
 import {TiLocationOutline} from "react-icons/ti";
-import {MdOutlineEmail} from "react-icons/md";
-import {MdOutlinePhoneForwarded} from "react-icons/md";
+import {MdOutlineEmail, MdOutlinePhoneForwarded} from "react-icons/md";
 import ContactImg from "../../public/contact-img.jpg"
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Button from "react-bootstrap/Button";
@@ -18,7 +17,7 @@ import ReCAPTCHA from "../../components/common/ReCAPTCHA"
 
 const Contact = () => {
     const [isVerified, setIsVerified] = useState(false);
-    const [formdata, setFormData] = useState({
+    const [formData, setFormData] = useState({
         name: "",
         email: "",
         subject: "",
@@ -27,7 +26,7 @@ const Contact = () => {
 
     const handleChange = (e) => {
         setFormData({
-            ...formdata,
+            ...formData,
             [e.target.name]: e.target.value,
         });
     }
@@ -42,12 +41,7 @@ const Contact = () => {
             return false;
         }
 
-        sendContactForm({
-            name: formdata.name,
-            email: formdata.email,
-            subject: formdata.subject,
-            message: formdata.message,
-        }).then((response) => {
+        sendContactForm(formData).then((response) => {
             if (response?.data?.status) {
                 tostify(toast, 'success', response)
             }
@@ -116,19 +110,19 @@ const Contact = () => {
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group className="mb-2" controlId="">
                                         <Form.Label>Name *</Form.Label>
-                                        <Form.Control name="name" type="text" value={formdata.name}
+                                        <Form.Control name="name" type="text" value={formData.name}
                                                       onChange={handleChange}
                                                       className="rounded-0 contact-form-focus"/>
                                     </Form.Group>
                                     <Form.Group className="mb-2" controlId="">
                                         <Form.Label>Email *</Form.Label>
-                                        <Form.Control name="email" type="email" value={formdata.email}
+                                        <Form.Control name="email" type="email" value={formData.email}
                                                       onChange={handleChange}
                                                       className="rounded-0 contact-form-focus"/>
                                     </Form.Group>
                                     <Form.Group className="mb-2" controlId="">
                                         <Form.Label>Subject</Form.Label>
-                                        <Form.Control name="subject" type="text" value={formdata.subject}
+                                        <Form.Control name="subject" type="text" value={formData.subject}
                                                       onChange={handleChange}
                                                       className="rounded-0 contact-form-focus"/>
                                     </Form.Group>
@@ -140,7 +134,7 @@ const Contact = () => {
                                                 as="textarea"
                                                 placeholder="Leave a comment here"
                                                 style={{height: "100px"}}
-                                                value={formdata.message}
+                                                value={formData.message}
                                                 onChange={handleChange}
                                                 className="rounded-0 contact-form-focus"
                                             />

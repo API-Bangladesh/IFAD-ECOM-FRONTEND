@@ -22,11 +22,6 @@ export const fetchHomeBanners = async () => {
     }
 }
 
-/**
- *
- * @returns {Promise<*>}
- */
-
 export const fetchAboutInfo = async () => {
     try {
         return await axios.get(`/content-module/4`);
@@ -53,7 +48,7 @@ export const fetchValues = async () => {
 
 export const sendContactForm = async (data) => {
     try {
-        return await axios.post(`/send-contact-form`, data)
+        return await axios.post(`/ecom/send-contact-form`, data)
     } catch (error) {
         tostify(toast, 'error', error);
     }
@@ -66,3 +61,4 @@ export const fetchPrivacyPolicy = async () => {
         tostify(toast, 'error', error);
     }
 }
+
