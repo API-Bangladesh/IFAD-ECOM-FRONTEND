@@ -1943,4 +1943,19 @@ button.navbar-toggler {
 Responsive part end 
 ===================*/
 
-
+/* custom css */
+.c-tag {
+	background-color: #f38120!important;
+	font-weight: 500;
+	padding: 4px 14px;
+	margin-bottom: 6px;
+}
+.c-icon {
+	border: 1px solid #f38120;
+	padding: 6px;
+	font-size: 32px;
+	margin-left: 6px;
+	border-radius: 50%;
+	cursor: pointer;
+	color: #f38120;
+}

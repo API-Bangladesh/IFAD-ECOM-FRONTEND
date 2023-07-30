@@ -78,7 +78,6 @@ const AddressModal = ({
             />
           </Form.Group>
 
-
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Row>
               {/* <Col sm={6}>

@@ -8,7 +8,7 @@ import { MdDeleteOutline } from 'react-icons/md';
 import {toast} from "react-toastify";
 import {tostify} from "../../utils/helpers";
 import {showErrorNotification} from "../Modules/helper/notificationHelper";
-import {fetchAddresses, saveAddress, editAddress, deleteAddress} from "../../services/AddressServices";
+import {fetchAddresses, saveAddress, editAddress, deleteAddress, updateDefaultBillingAddress, updateDefaultShippingAddress} from "../../services/AddressServices";
 import AddressModal from './AddressModal'
 
 const AddressTab = () => {
@@ -32,7 +32,7 @@ const AddressTab = () => {
     division_id: "6",
     district_id: "6",
     upazila_id: "6",
-    postcode: "1202",
+    postcode: "",
     phone: "",
     email: "",
   }
@@ -64,15 +64,28 @@ const AddressTab = () => {
       email: myAddress.email,
     };
 
+    if (data.id === null ||
+      data.title === "" ||
+      data.name === "" ||
+      data.address_line_1 === "" ||
+      data.address_line_2 === "" ||
+      data.division_id === "" ||
+      data.district_id === "" ||
+      data.upazila_id === "" ||
+      data.postcode === "" ||
+      data.phone === "" ||
+      data.email === ""
+    ) {
+      tostify(toast, 'error', {data: {message: 'Field must not be empty!'}});
+      return;
+    }
+
     if (isEditing) {
-      // console.log(data.id)
-      // return;
       try {
         editAddress(data).then((response) => {
-          console.log(response)
-          const updatedArray = addresses.map((item) => (item.id === data.id ? data : item));
-          setAddresses(updatedArray)
-          setMyAddress(defaultAddress)
+          const updatedAddress = addresses.map((item) => (item.id === data.id ? data : item));
+          setAddresses(updatedAddress);
+          setMyAddress(defaultAddress);
         });
       }
       catch(err){
@@ -80,7 +93,7 @@ const AddressTab = () => {
       }
     } else {
       try {
-        saveAddress(data).then((response) => {
+        saveAddress(data).then((res) => {
           fetchAddresses().then((response) => {
             if (response?.data) {
               setAddresses(response.data);
@@ -102,8 +115,8 @@ const AddressTab = () => {
 			deleteAddress(id).then((response) => {
 				if (response?.data?.message) {
 					tostify(toast, 'success', response);
-					const updatedArray = addresses.filter((item) => item.id !== id);
-          setAddresses(updatedArray)
+					const updatedAddress = addresses.filter((item) => item.id !== id);
+          setAddresses(updatedAddress)
 				}
 			});
 		}
@@ -140,33 +153,49 @@ const AddressTab = () => {
 
       <Row>
         {addresses && addresses.length ? addresses.map((item, index) => 
-          <Col md={6} className="mb-4">
+          <Col md={6} className="mb-4" key={index}>
             <Card style={{ width: '100%' }}>
               <Card.Body>
                 <div className="d-flex justify-content-between">
-                  <span className="bg-success text-white p-2 mb-2">{item.title}</span>
+                  <span className="c-tag text-white">{item.title}</span>
                   <div className="d-flex">
-                 {   console.log(item)}
                     <MdEdit 
                       onClick={() => {
                         setIsEditing(true);
                         handleShow()
                         setMyAddress(item)
                       }}
+                      className="c-icon"
                     />
-                    <MdDeleteOutline onClick={(event) => handleDelete(event, item?.id)}/>
+                    <MdDeleteOutline
+                      onClick={(event) => handleDelete(event, item?.id)}
+                      className="c-icon"
+                    />
                   </div>
                 </div>
                 <Card.Text>
                   <p>Name: {item.name}</p>
                   <p>Address Line 1: {item.address_line_1}</p>
                   <p>Address Line 2: {item.address_line_2}</p>
+                  <p>Post Code: {item.postcode}</p>
                   <p>Phone: {item.phone}</p>
                   <p>Email: {item.email}</p>
                 </Card.Text>
                 <div className="d-flex justify-content-start">
-                  <Button onClick={handleShow} variant="primary" className="text-capitalize rounded-0 nav-link active mt-2 mr-2 p-2">Make default billing</Button>
-                  <Button onClick={handleShow} variant="primary" className="text-capitalize rounded-0 nav-link active mt-2 p-2">Make default shipping</Button>
+                  <Button 
+                    variant="primary"
+                    className="text-capitalize rounded-0 nav-link active mt-2 mr-2 p-2"
+                    onClick={() => updateDefaultBillingAddress(item.id)}
+                  >
+                    Make default billing
+                  </Button>
+                  <Button 
+                    variant="primary"
+                    className="text-capitalize rounded-0 nav-link active mt-2 mr-2 p-2"
+                    onClick={() => updateDefaultShippingAddress(item.id)}
+                  >
+                    Make default shipping
+                  </Button>
                 </div>
               </Card.Body>
             </Card>
