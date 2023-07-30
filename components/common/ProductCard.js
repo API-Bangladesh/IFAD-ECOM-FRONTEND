@@ -91,7 +91,7 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
 
                 <div className="d-flex justify-content-center">
                     <button type="button"
-                            className="btn btn-success buy-btn rounded-0 text-capitalize px-4 font-lato"
+                            className="btn btn-success buy-btn rounded-0 text-capitalize px-4 font-lato me-2"
                             onClick={(event) => handleAddToCart(event, true)}
                     >
                         buy now

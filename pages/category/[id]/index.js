@@ -103,7 +103,7 @@ const CategoryPage = () => {
                         <div className="row">
                             {inventories.map((inventory, key) => {
                                 return (
-                                    <div className="col-lg-3 col-md-6 text-center mb-4" key={key}>
+                                    <div className="col-lg-4 col-md-6 text-center mb-4" key={key}>
                                         <ProductCard
                                             id={inventory.id}
                                             title={inventory.title}
