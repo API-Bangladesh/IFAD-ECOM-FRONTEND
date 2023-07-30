@@ -142,13 +142,13 @@ const SingleInventoryPage = () => {
                 unit_price: inventory.sale_price,
                 total: quantity * inventory.sale_price,
 
-                product_type: 'product',
-                product_sku: inventory.sku,
-                product_title: inventory.title,
-                product_category_name: inventory?.product?.category?.name,
-                product_sub_category_name: inventory?.product?.sub_category?.name,
-                product_image: inventory?.product_images?.[0]?.image,
-                product_variations: '',
+                type: 'product',
+                sku: inventory.sku,
+                title: inventory.title,
+                category_name: inventory?.product?.category?.name,
+                sub_category_name: inventory?.product?.sub_category?.name,
+                image: inventory?.product_images?.[0]?.image,
+                variations: '',
             }));
 
             tostify(toast, 'success', {

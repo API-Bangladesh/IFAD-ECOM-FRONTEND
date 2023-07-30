@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import {IoMdCart} from "react-icons/io";
 import {RxCross1} from "react-icons/rx";
-import Image from "next/image";
 import TableImg from "../../public/products/product1.png";
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
@@ -58,8 +57,13 @@ function CartOverlay() {
 
     return (
         <Fragment>
-            <Button onClick={handleShow} className="me-2 off-canvas">
-                <IoMdCart className="off-canvas-icon"/>
+            <Button onClick={handleShow} className="me-2 off-canvas text-danger">
+                <div className="d-flex">
+                    <IoMdCart className="off-canvas-icon"/>
+                    <span className="badge text-danger " style={{marginTop: "-10px", marginLeft: "-10px"}}>
+                       {cart?.items?.length}
+                   </span>
+                </div>
             </Button>
             <Offcanvas show={show} onHide={handleClose} placement="end">
                 <Offcanvas.Header closeButton>
@@ -72,7 +76,7 @@ function CartOverlay() {
                                  key={key}>
                                 <div className="d-flex justify-content-start">
                                     <div className="ms-2">
-                                        <Image src={TableImg} alt="" className="product-item-one"/>
+                                        <img src={TableImg} alt="" className="product-item-one"/>
                                     </div>
                                     <div className="">
                                         <p className="text-capitalize font-16 font-lato ps-3">
