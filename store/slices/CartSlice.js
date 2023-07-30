@@ -17,25 +17,23 @@ const CartSlice = createSlice({
         SET_CART_ITEM: (state, action) => {
             let newItem = action.payload;
 
-            let items = [...state.items];
-
-            const isExists = items.find((item) => {
-                return item.inventory_id === newItem.inventory_id;
+            let isExists = false;
+            state.items.map((item) => {
+                isExists = item.inventory_id === newItem.inventory_id;
             });
 
             if (isExists) {
-                items = items.filter((item) => {
+                state.items = state.items.filter((item) => {
                     if (item.inventory_id === newItem.inventory_id) {
                         item.quantity += newItem.quantity;
                         item.total = item.quantity * item.unit_price;
-                        return item;
                     }
+                    return item;
                 });
             } else {
-                items.push(newItem);
+                state.items.push(newItem);
             }
 
-            state.items = items;
             CALC_SUB_TOTAL(state);
         },
         UPDATE_ITEM_QUANTITY: (state, action) => {

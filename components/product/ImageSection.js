@@ -13,10 +13,10 @@ const ImageSection = ({inventory}) => {
 
     if (inventory?.image && inventory?.inventory_images) {
         thumbnailImage = inventory?.image;
-        galleryImages = [...inventory?.inventory_images];
+        galleryImages = [...inventory?.inventory_images ?? []];
     } else {
         thumbnailImage = inventory?.product?.image;
-        galleryImages = [...inventory?.product?.product_images];
+        galleryImages = [...inventory?.product?.product_images ?? []];
     }
 
     return (
