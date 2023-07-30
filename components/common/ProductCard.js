@@ -58,7 +58,7 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
         <Card className={`shadow rounded-0 ${cssClasses}`}>
             <div className="combo-img-bg position-relative">
                 <Link href={viewLink}>
-                    <img src={imagePath} className=" card-img-top mt-4 mb-4" alt={title}/>
+                    <img src={imagePath} width={224} height={172} className="card-img-top mt-4 mb-4" alt={title}/>
                 </Link>
                 <div className="position-absolute offer-token text-center">
                     <span className="text-white veri-align fw-semibold font-14 pt-2">-30%</span>
@@ -91,14 +91,14 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
 
                 <div className="d-flex justify-content-center">
                     <button type="button"
-                            className="btn btn-success buy-btn rounded-0 text-capitalize px-4 font-lato me-2"
+                            className="btn btn-success buy-now rounded-0 text-capitalize px-2 font-14 me-2 font-lato me-2"
                             onClick={(event) => handleAddToCart(event, true)}
                     >
                         buy now
                     </button>
                     <button
                         type="button"
-                        className="btn btn-warning buy-btn2 rounded-0 text-capitalize px-4 font-lato"
+                        className="btn btn-warning buy-add-btn rounded-0 text-capitalize px-2 font-14 font-lato"
                         onClick={(event) => handleAddToCart(event)}
                     >
                         add to cart

@@ -70,7 +70,7 @@ const DiscountedProductScroll = ({title}) => {
                 <div className="container border-top m- p-0">
                     <div className="header-title mt-4 mb-3 position-relative rounded">
                         <h1 className="text-center font-24 text-capitalize font-inter py-3 combo-title">{title}</h1>
-                        <Link href={`discounted`}>
+                        <Link href={`/discounted`}>
                             <div
                                 className="d-flex justify-content-center combo-btn bg-white px-3 py-2 position-absolute rounded-pill">
                                 <p className=" font-16 fw-semibold view-all">View all</p>

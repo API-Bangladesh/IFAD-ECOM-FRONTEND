@@ -182,7 +182,7 @@ export default function Header() {
 										return (
 											<NavDropdown.Item key={key}
 															  className="m-0 p-0">
-												<Link href={`category/${category.id}`}
+												<Link href={`/category/${category.id}`}
 													  className="cate-drop text-uppercase all-icons text-dark px-4 py-2 d-block font-inter">
 													{category.name}
 												</Link>

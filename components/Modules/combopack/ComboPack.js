@@ -1,11 +1,9 @@
 import React, {Fragment, useEffect, useState} from "react";
 import Slider from "react-slick";
 import Link from "next/link";
-import {AiOutlineShoppingCart} from "react-icons/ai";
 import {BsArrowRight} from "react-icons/bs";
-import Card from "react-bootstrap/Card";
 import {getStoragePath} from "../../../utils/helpers";
-import {fetchInventories, fetchInventoriesByCategory} from "../../../services/InventoryServices";
+import {fetchInventoriesByCategory} from "../../../services/InventoryServices";
 import ProductCard from "../../common/ProductCard";
 
 const ComboPack = ({title, categoryId, categoryImage}) => {
@@ -72,7 +70,7 @@ const ComboPack = ({title, categoryId, categoryImage}) => {
 				<div className="container border-top m- p-0">
 					<div className="header-title mt-4 mb-3 position-relative rounded">
 						<h1 className="text-center font-24 text-capitalize font-inter py-3 combo-title">{title}</h1>
-						<Link href={`category/${categoryId}`}>
+						<Link href={`/category/${categoryId}`}>
 							<div
 								className="d-flex justify-content-center combo-btn bg-white px-3 py-2 position-absolute rounded-pill">
 								<p className=" font-16 fw-semibold view-all">View all</p>

@@ -63,7 +63,7 @@ const CategoryShowcase = () => {
 							{categories && categories.map((category, key) => {
 								return (
 									<div className="col-lg-4" key={key}>
-										<Link href={`category/${category.id}`}>
+										<Link href={`/category/${category.id}`}>
 											<div className="position-relative mb-3 mx-2 img-demo">
 												<img src={getStoragePath(`category-image/${category.image}`)}
 													 alt={category.name} className="category-img-one"/>
