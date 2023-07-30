@@ -3,13 +3,21 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import {FreeMode, Navigation, Thumbs} from "swiper";
-import Image from "next/image";
-import ImageOne from "../../public/products/product3.png";
-import ImageTwo from "../../public/products/product1.png";
-import ImageThree from "../../public/products/product4.png";
+import {getStoragePath} from "../../utils/helpers";
 
 const ImageSection = ({inventory}) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+    let thumbnailImage = '';
+    let galleryImages = [];
+
+    if (inventory?.image && inventory?.inventory_images) {
+        thumbnailImage = inventory?.image;
+        galleryImages = [...inventory?.inventory_images];
+    } else {
+        thumbnailImage = inventory?.product?.image;
+        galleryImages = [...inventory?.product?.product_images];
+    }
 
     return (
         <Fragment>
@@ -24,10 +32,17 @@ const ImageSection = ({inventory}) => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
             >
-                {inventory?.inventory_images
-                && inventory.inventory_images.map((image, key) => (
+                {thumbnailImage && (
+                    <SwiperSlide>
+                        <img src={getStoragePath(`product/${thumbnailImage}`)} alt="product-img-two"
+                             className="single-object"/>
+                    </SwiperSlide>
+                )}
+
+                {galleryImages.map((galleryImage, key) => (
                     <SwiperSlide key={key}>
-                        <Image src={ImageTwo} alt="product-img-two" className="single-object"/>
+                        <img src={getStoragePath(`product/${galleryImage?.image}`)} alt="product-img-two"
+                             className="single-object"/>
                     </SwiperSlide>
                 ))}
             </Swiper>
@@ -41,10 +56,10 @@ const ImageSection = ({inventory}) => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper"
             >
-                {inventory?.inventory_images
-                && inventory.inventory_images.map((image, key) => (
+                {galleryImages.map((galleryImage, key) => (
                     <SwiperSlide key={key}>
-                        <Image src={ImageTwo} alt="product-img-two" className="single-object-demo"/>
+                        <img src={getStoragePath(`product/${galleryImage?.image}`)} alt="product-img-two"
+                             className="single-object"/>
                     </SwiperSlide>
                 ))}
             </Swiper>

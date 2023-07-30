@@ -1,15 +1,9 @@
 import React, {useEffect, useState} from "react";
 import ProductBanner from "../../../public/product.png";
-import ProductOne from "../../../public/products/product6.png";
-import ProductTwo from "../../../public/products/product1.png";
-import ProductThree from "../../../public/products/product3.png";
-import ProductFour from "../../../public/products/product4.png";
 import Image from "next/image";
 import Link from "next/link";
 import {IoIosArrowRoundForward} from "react-icons/io";
 import Pagination from "../pagination/Paginate"
-import {AiOutlineShoppingCart} from "react-icons/ai";
-import axios from "axios";
 import ProductCard from "../../common/ProductCard";
 import {getStoragePath} from "../../../utils/helpers";
 import {fetchCategories} from "../../../services/CategoryServices";
@@ -85,7 +79,11 @@ const ProductPage= ({categoryId}) => {
 												offerPrice={inventory.offer_price}
 												offerStart={inventory.offer_start}
 												offerEnd={inventory.offer_end}
-												imagePath={getStoragePath(`product/${inventory?.product?.image}`)}
+												imagePath={
+													inventory?.image
+														? getStoragePath(`inventory-multi-image/${inventory?.image}`)
+														: getStoragePath(`product/${inventory?.product?.image}`)
+												}
 												viewLink={`/product/${inventory.id}`}
 												cssClasses="category-product"
 											/>

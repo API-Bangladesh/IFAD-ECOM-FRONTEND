@@ -75,7 +75,11 @@ const DiscountedPage = () => {
                                             offerPrice={inventory.offer_price}
                                             offerStart={inventory.offer_start}
                                             offerEnd={inventory.offer_end}
-                                            imagePath={getStoragePath(`product/${inventory?.product?.image}`)}
+                                            imagePath={
+                                                inventory?.image
+                                                    ? getStoragePath(`inventory-multi-image/${inventory?.image}`)
+                                                    : getStoragePath(`product/${inventory?.product?.image}`)
+                                            }
                                             viewLink={`/product/${inventory.id}`}
                                             cssClasses="category-product"
                                         />

@@ -13,7 +13,7 @@ import {useRouter} from "next/router";
 import StarRatings from "react-star-ratings";
 import moment from "moment";
 import {syncWishlist, wishlistStatus} from "../../../services/WishlistServices";
-import {tostify} from "../../../utils/helpers";
+import {getStoragePath, tostify} from "../../../utils/helpers";
 import {toast} from "react-toastify";
 import {isLoggedIn} from "../../../utils/auth";
 import Button from "react-bootstrap/Button";
@@ -147,7 +147,9 @@ const SingleInventoryPage = () => {
                 title: inventory.title,
                 category_name: inventory?.product?.category?.name,
                 sub_category_name: inventory?.product?.sub_category?.name,
-                image: inventory?.product_images?.[0]?.image,
+                image: inventory?.image
+                    ? getStoragePath(`inventory-multi-image/${inventory?.image}`)
+                    : getStoragePath(`product/${inventory?.product?.image}`),
                 variations: '',
             }));
 

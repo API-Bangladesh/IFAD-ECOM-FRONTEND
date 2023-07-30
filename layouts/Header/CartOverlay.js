@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import {IoMdCart} from "react-icons/io";
 import {RxCross1} from "react-icons/rx";
-import TableImg from "../../public/products/product1.png";
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
 import {withRedux} from "../../utils/HOC/withRedux";
@@ -76,7 +75,7 @@ function CartOverlay() {
                                  key={key}>
                                 <div className="d-flex justify-content-start">
                                     <div className="ms-2">
-                                        <img src={TableImg} alt="" className="product-item-one"/>
+                                        <img src={item.image} alt="image" className="product-item-one"/>
                                     </div>
                                     <div className="">
                                         <p className="text-capitalize font-16 font-lato ps-3">

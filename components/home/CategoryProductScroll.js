@@ -1,11 +1,9 @@
 import React, {Fragment, useEffect, useState} from "react";
 import Slider from "react-slick";
 import Link from "next/link";
-import {AiOutlineShoppingCart} from "react-icons/ai";
 import {BsArrowRight} from "react-icons/bs";
-import Card from "react-bootstrap/Card";
 import {getStoragePath} from "../../utils/helpers";
-import {fetchInventories, fetchInventoriesByCategory} from "../../services/InventoryServices";
+import {fetchInventoriesByCategory} from "../../services/InventoryServices";
 import ProductCard from "../common/ProductCard";
 
 const CategoryProductScroll = ({title, categoryId}) => {
@@ -98,7 +96,11 @@ const CategoryProductScroll = ({title, categoryId}) => {
                                                     offerPrice={inventory.offer_price}
                                                     offerStart={inventory.offer_start}
                                                     offerEnd={inventory.offer_end}
-                                                    imagePath={getStoragePath(`product/${inventory?.product?.image}`)}
+                                                    imagePath={
+                                                        inventory?.image
+                                                            ? getStoragePath(`inventory-multi-image/${inventory?.image}`)
+                                                            : getStoragePath(`product/${inventory?.product?.image}`)
+                                                    }
                                                     viewLink={`/product/${inventory.id}`}
                                                 />
                                             </div>
