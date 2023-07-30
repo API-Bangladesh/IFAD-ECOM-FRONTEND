@@ -54,11 +54,7 @@ export const tostify = (toast, type, error, options = {}) => {
  * @returns {string}
  */
 export const currency = (number = 0, decimal = 2) => {
-    return number.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: decimal
-    });
+    return '৳' + number.toFixed(decimal);
 }
 
 /**

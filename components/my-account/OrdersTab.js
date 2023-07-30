@@ -1,7 +1,7 @@
 import Row from "react-bootstrap/Row";
 import {useEffect, useState} from "react";
 import {fetchOrders} from "../../services/OrderServices";
-import {getOrderStatusList, getPaymentStatusList} from "../../utils/helpers";
+import {currency, getOrderStatusList, getPaymentStatusList} from "../../utils/helpers";
 
 const OrdersTab = () => {
     const [orders, setOrders] = useState([]);
@@ -44,7 +44,7 @@ const OrdersTab = () => {
                                 <td>{item.order_date}</td>
                                 <td>{getPaymentStatusList(item.payment_status_id)}</td>
                                 <td>{getOrderStatusList(item.order_status_id)}</td>
-                                <td>{item.grand_total}</td>
+                                <td>{currency(item.grand_total)}</td>
                                 <td><a href="/" className="btn btn-danger btn-sm">Invoice</a></td>
                             </tr>
                         ))}
