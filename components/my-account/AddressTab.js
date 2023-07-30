@@ -64,7 +64,7 @@ const AddressTab = () => {
       email: myAddress.email,
     };
 
-    if (data.id === null ||
+    if (
       data.title === "" ||
       data.name === "" ||
       data.address_line_1 === "" ||
@@ -128,6 +128,18 @@ const AddressTab = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleDefaultBilling = (id) => {
+    updateDefaultBillingAddress(id);
+    const updatedAddress = addresses.map((item) => (item.id === id ? {...item, is_default_billing: 1} : {...item, is_default_billing: null}));
+    setAddresses(updatedAddress);
+  }
+
+  const handleDefaultShipping = (id) => {
+    updateDefaultShippingAddress(id);
+    const updatedAddress = addresses.map((item) => (item.id === id ? {...item, is_default_shipping: 1} : {...item, is_default_shipping: null}));
+    setAddresses(updatedAddress);
+  }
+
   return (
     <>
       <Row>
@@ -183,18 +195,19 @@ const AddressTab = () => {
                 </Card.Text>
                 <div className="d-flex justify-content-start">
                   <Button 
-                    variant="primary"
+                    variant={item.is_default_billing ? "primary" : "light"}
                     className="text-capitalize rounded-0 nav-link active mt-2 mr-2 p-2"
-                    onClick={() => updateDefaultBillingAddress(item.id)}
+                    onClick={() => handleDefaultBilling(item.id)}
                   >
-                    Make default billing
+                    Default billing
+                    
                   </Button>
                   <Button 
-                    variant="primary"
+                    variant={item.is_default_shipping ? "primary" : "light"}
                     className="text-capitalize rounded-0 nav-link active mt-2 mr-2 p-2"
-                    onClick={() => updateDefaultShippingAddress(item.id)}
+                    onClick={() => handleDefaultShipping(item.id)}
                   >
-                    Make default shipping
+                    Default shipping
                   </Button>
                 </div>
               </Card.Body>
