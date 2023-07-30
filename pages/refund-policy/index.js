@@ -2,11 +2,11 @@ import React, {useEffect, useState} from "react"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
-import TermsBanner from "../../../public/terms-conditions.png"
+import TermsBanner from "../../public/terms-conditions.png"
 import Image from "next/image"
-import axios from "../../../utils/axios"
+import axios from "../../utils/axios"
 
-const RefundPolicy = () => {
+const RefundPolicyPage = () => {
     const [info, setInfo] = useState('');
 
     const fetchRefundInfo = () => {
@@ -43,4 +43,4 @@ const RefundPolicy = () => {
     )
 }
 
-export default RefundPolicy
+export default RefundPolicyPage
