@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Table from 'react-bootstrap/Table';
-import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import { MdEdit } from 'react-icons/md';
 import { MdDeleteOutline } from 'react-icons/md';
 import {toast} from "react-toastify";
 import {tostify} from "../../utils/helpers";
-import {showErrorNotification, showSuccessTimerNotification} from "../Modules/helper/notificationHelper";
-import {fetchAddresses, saveAddress, deleteAddress} from "../../services/AddressServices";
+import {showErrorNotification} from "../Modules/helper/notificationHelper";
+import {fetchAddresses, saveAddress, editAddress, deleteAddress} from "../../services/AddressServices";
 import AddressModal from './AddressModal'
 
 const AddressTab = () => {
@@ -26,7 +23,8 @@ const AddressTab = () => {
     });
   }, []);
 
-  const [myAddress, setMyAddress] = useState({
+  const defaultAddress = {
+    id: null,
     title: "",
     name: "",
     address_line_1: "",
@@ -37,7 +35,9 @@ const AddressTab = () => {
     postcode: "1202",
     phone: "",
     email: "",
-  });
+  }
+
+  const [myAddress, setMyAddress] = useState(defaultAddress);
 
   const handleChange = (e) => {
     setMyAddress({
@@ -48,9 +48,10 @@ const AddressTab = () => {
 
   const createAddress = async(e) => {
     e.preventDefault();
-    handleClose()
+    handleClose();
 
     const data = {
+      id: myAddress.id,
       title: myAddress.title,
       name: myAddress.name,
       address_line_1: myAddress.address_line_1,
@@ -63,25 +64,34 @@ const AddressTab = () => {
       email: myAddress.email,
     };
 
-    try {
-      saveAddress(data).then((response) => {
-        console.log(response)
-        setMyAddress({
-          title: "",
-          name: "",
-          address_line_1: "",
-          address_line_2: "",
-          division_id: "6",
-          district_id: "6",
-          upazila_id: "6",
-          postcode: "1202",
-          phone: "",
-          email: "",
-        })
-      });
-    }
-    catch(err){
-      showErrorNotification("Error", err.message);
+    if (isEditing) {
+      // console.log(data.id)
+      // return;
+      try {
+        editAddress(data).then((response) => {
+          console.log(response)
+          const updatedArray = addresses.map((item) => (item.id === data.id ? data : item));
+          setAddresses(updatedArray)
+          setMyAddress(defaultAddress)
+        });
+      }
+      catch(err){
+        showErrorNotification("Error", err.message);
+      }
+    } else {
+      try {
+        saveAddress(data).then((response) => {
+          fetchAddresses().then((response) => {
+            if (response?.data) {
+              setAddresses(response.data);
+            }
+          });
+          setMyAddress(defaultAddress)
+        });
+      }
+      catch(err){
+        showErrorNotification("Error", err.message);
+      }
     }
   }
 
@@ -92,7 +102,8 @@ const AddressTab = () => {
 			deleteAddress(id).then((response) => {
 				if (response?.data?.message) {
 					tostify(toast, 'success', response);
-					// fetchAddresses();
+					const updatedArray = addresses.filter((item) => item.id !== id);
+          setAddresses(updatedArray)
 				}
 			});
 		}
@@ -100,6 +111,7 @@ const AddressTab = () => {
 
   // modal
   const [show, setShow] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -111,7 +123,17 @@ const AddressTab = () => {
         </Col>
         <Col lg={6}>
           <div className="d-flex justify-content-end">
-            <Button onClick={handleShow} variant="primary" className="text-capitalize rounded-0 nav-link active mb-4 p-2">Add new address</Button>
+            <Button 
+              onClick={() => {
+                setIsEditing(false);
+                handleShow()
+                setMyAddress(defaultAddress)
+              }} 
+              variant="primary"
+              className="text-capitalize rounded-0 nav-link active mb-4 p-2"
+            >
+              Add new address
+            </Button>
           </div>
         </Col>
       </Row>
@@ -124,7 +146,14 @@ const AddressTab = () => {
                 <div className="d-flex justify-content-between">
                   <span className="bg-success text-white p-2 mb-2">{item.title}</span>
                   <div className="d-flex">
-                    <MdEdit />
+                 {   console.log(item)}
+                    <MdEdit 
+                      onClick={() => {
+                        setIsEditing(true);
+                        handleShow()
+                        setMyAddress(item)
+                      }}
+                    />
                     <MdDeleteOutline onClick={(event) => handleDelete(event, item?.id)}/>
                   </div>
                 </div>
@@ -153,6 +182,7 @@ const AddressTab = () => {
           myAddress={myAddress}
           handleChange={handleChange}
           createAddress={createAddress}
+          isEditing={isEditing}
         />
       </Row>
     </>

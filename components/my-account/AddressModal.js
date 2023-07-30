@@ -2,16 +2,21 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
-import Card from 'react-bootstrap/Card';
 
-const AddressModal = ({show, handleClose, handleShow, myAddress, handleChange, createAddress}) => {
+const AddressModal = ({
+  show,
+  handleClose,
+  myAddress,
+  handleChange,
+  createAddress,
+  isEditing
+}) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Form onSubmit={(e) => createAddress(e)}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Address</Modal.Title>
+          <Modal.Title>{isEditing ? "Edit Address" : "Add Address"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -133,12 +138,12 @@ const AddressModal = ({show, handleClose, handleShow, myAddress, handleChange, c
             Close
           </Button>
           <Button 
-              onClick={(e) => createAddress(e)} 
+              onClick={(e) => createAddress(e)}
               type="submit" 
               variant="primary" 
               className="text-capitalize font-18 px-5 mb-4 user-sub-btn rounded-0 font-jost"
             >
-              Save
+             {isEditing ? "Save changes" : "Save"}
           </Button>
         </Modal.Footer>
       </Form>
