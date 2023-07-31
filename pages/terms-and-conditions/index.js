@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
+import parse from 'html-react-parser'
 import TermsBanner from "../../public/terms-conditions.png"
 import Image from "next/image"
 import axios from "axios"
@@ -39,7 +40,7 @@ const Conditions=()=>{
                                 <Col>
                                     <h1 className="text-capitalize text-center font-jost font-30 fw-bold py-4">{item?.item_name}</h1>
                                     <p className="text-justify font-16 font-poppins pb-5">
-                                        {item?.item_long_desc}
+                                        {parse(item?.item_long_desc)}
                                     </p>
                                 </Col>
                             </Row>

@@ -1589,14 +1589,14 @@ how to but part css start
 	object-fit: cover;
 }
 .contact-height{
-	height: 550px;
+	height: 632px;
 }
 .contact-image{
-	height: 550px;
+	height: 632px;
 	object-fit: cover;
 }
 .form-height{
-	height: 550px;
+	height: 632px;
 }
 .contact-form-focus:focus{
 	box-shadow: none!important;
@@ -1958,4 +1958,8 @@ Responsive part end
 	border-radius: 50%;
 	cursor: pointer;
 	color: #f38120;
+}
+.values-wrapper {
+	max-width: 940px;
+	margin: 0 auto;
 }

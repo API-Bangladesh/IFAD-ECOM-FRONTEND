@@ -82,9 +82,16 @@ const AddressTab = () => {
 
     if (isEditing) {
       try {
-        editAddress(data).then((response) => {
-          const updatedAddress = addresses.map((item) => (item.id === data.id ? data : item));
-          setAddresses(updatedAddress);
+        editAddress(data).then((res) => {
+          // const updatedAddress = addresses.map((item) => (item.id === data.id ? data : item));
+          // setAddresses(updatedAddress);
+
+          fetchAddresses().then((response) => {
+            if (response?.data) {
+              setAddresses(response.data);
+            }
+          });
+          
           setMyAddress(defaultAddress);
         });
       }
