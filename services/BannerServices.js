@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
  */
 export const fetchBanners = async () => {
     try {
-        return await axios.get(`/content-module/26`);
+        return await axios.get(`/content-module/14`);
     } catch (error) {
         tostify(toast, 'error', error);
     }
