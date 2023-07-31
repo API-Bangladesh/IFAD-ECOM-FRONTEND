@@ -32,9 +32,9 @@ export default function Footer() {
                     about us
                   </h2>
                   <p className="text-justify font-lato py-3 font-16 about-des">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry&apos;s
-                    standard dummy text ever since the 1500s
+                    We are an integrated multi-product business group that is 
+                    highly competitive in the fast-moving FMCG sector to bring 
+                    high quality, unadulterated, authentic food products to Bangladesh.
                   </p>
                 </div>
                 <ul className="d-flex justify-content-start mb-3 footer-social-icon">

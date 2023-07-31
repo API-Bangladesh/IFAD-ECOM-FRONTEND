@@ -11,7 +11,7 @@ import {MdOutlineLogout} from "react-icons/md";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Image from "next/image";
-import Logo from "../../public/logo/LOGO.png";
+import Logo from "../../public/logo/logo-new.png";
 import {BiAlignLeft} from "react-icons/bi";
 import {CiUser} from "react-icons/ci";
 import CartOverlys from "./CartOverlay";
