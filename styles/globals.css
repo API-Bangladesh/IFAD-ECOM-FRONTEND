@@ -1963,3 +1963,8 @@ Responsive part end
 	max-width: 940px;
 	margin: 0 auto;
 }
+.slick-slide img {
+	display: block;
+	object-fit: cover;
+	object-position: center center;
+}
