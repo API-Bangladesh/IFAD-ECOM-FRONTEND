@@ -11,11 +11,15 @@ const ImageSection = ({inventory}) => {
     let thumbnailImage = '';
     let galleryImages = [];
 
-    if (inventory?.image && inventory?.inventory_images) {
+    if (inventory?.image) {
         thumbnailImage = inventory?.image;
-        galleryImages = [...inventory?.inventory_images ?? []];
     } else {
         thumbnailImage = inventory?.product?.image;
+    }
+
+    if (inventory?.inventory_images) {
+        galleryImages = [...inventory?.inventory_images ?? []];
+    } else {
         galleryImages = [...inventory?.product?.product_images ?? []];
     }
 
