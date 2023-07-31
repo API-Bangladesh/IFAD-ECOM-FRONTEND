@@ -74,10 +74,12 @@ const CategoryPage = () => {
         <section>
 
             {/*Category Banner*/}
-            <div className="product-banner">
-                <img src={getStoragePath(`category-image/${category?.image}`)} alt="category-image"
-                     className="product-banner"/>
-            </div>
+            {category?.image && (
+                <div className="product-banner">
+                    <img src={getStoragePath(`category-image/${category?.image}`)} alt="category-image"
+                         className="product-banner"/>
+                </div>
+            )}
 
             <div className="container">
 

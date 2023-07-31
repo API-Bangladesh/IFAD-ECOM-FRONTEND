@@ -1,6 +1,4 @@
 import React, {Fragment, useEffect, useState} from "react";
-import ProductBanner from "../../../public/product.png";
-import Image from "next/image";
 import {FaHeart} from "react-icons/fa";
 import ImageSection from "../../../components/product/ImageSection";
 import ProductDescription from "../../../components/product/ProductDescription";
@@ -173,9 +171,12 @@ const SingleInventoryPage = () => {
 
     return (
         <section className="view-single-pro">
-            <div className="product-banner">
-                <Image src={ProductBanner} alt="" className="product-banner"/>
-            </div>
+            {inventory?.product?.lifestyle_image && (
+                <div className="product-banner">
+                    <img src={getStoragePath(`product/${inventory?.product?.lifestyle_image}`)} alt=""
+                         className="product-banner"/>
+                </div>
+            )}
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6 col-md-6">
