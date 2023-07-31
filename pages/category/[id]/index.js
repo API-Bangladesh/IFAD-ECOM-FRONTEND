@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import ScrollToTopButton from '../../../components/common/ScrollToTopButton'
 import {useRouter} from "next/router";
-import {fetchCategories} from "../../../services/CategoryServices";
+import {fetchCategories, fetchCategory} from "../../../services/CategoryServices";
 import {fetchInventoriesByCategory} from "../../../services/InventoryServices";
-import Image from "next/image";
-import ProductBanner from "../../../public/product.png";
 import Link from "next/link";
 import {IoIosArrowRoundForward} from "react-icons/io";
 import ProductCard from "../../../components/common/ProductCard";
@@ -15,6 +13,7 @@ const CategoryPage = () => {
     const router = useRouter();
     const {id} = router.query;
 
+    const [category, setCategory] = useState({});
     const [categories, setCategories] = useState([]);
     const [inventories, setInventories] = useState([]);
 
@@ -31,6 +30,17 @@ const CategoryPage = () => {
             }
         });
     }, []);
+
+    // fetch
+    useEffect(() => {
+        if (id) {
+            fetchCategory(id).then((response) => {
+                if (response?.data) {
+                    setCategory(response.data);
+                }
+            });
+        }
+    }, [id]);
 
     const fetchInventoriesByCategoryData = (id, params = {}) => {
         fetchInventoriesByCategory(id, params).then((response) => {
@@ -65,7 +75,8 @@ const CategoryPage = () => {
 
             {/*Category Banner*/}
             <div className="product-banner">
-                <Image src={ProductBanner} alt="" className="product-banner"/>
+                <img src={getStoragePath(`category-image/${category?.image}`)} alt="category-image"
+                     className="product-banner"/>
             </div>
 
             <div className="container">

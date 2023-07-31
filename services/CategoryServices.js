@@ -15,3 +15,16 @@ export const fetchCategories = async (params = {}) => {
         tostify(toast, 'error', error);
     }
 }
+
+
+/**
+ *
+ * @returns {Promise<*>}
+ */
+export const fetchCategory = async (id) => {
+    try {
+        return await axios.get(`/ecom/categories/${id}/show`);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
