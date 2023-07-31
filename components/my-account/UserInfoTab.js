@@ -79,7 +79,7 @@ const UserInfoTab = () => {
 					<Col lg={3}>
 						<div className="d-flex justify-content-center">
 							<Image
-								src="https://img.freepik.com/free-photo/happy-successful-young-manager-portrait_1262-16187.jpg?w=360"
+								src="/user/man.png"
 								alt="profile" height="200" weight="200" className="profile-picture mb-3"/>
 						</div>
 						<Form.Group controlId="formFile" className="mb-3">

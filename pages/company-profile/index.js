@@ -67,6 +67,7 @@ const CompanyReview = () => {
             </section>
 
             <section id="missionVission" className="values">
+                <div className="values-wrapper">
                 <div className="container">
                     <div className="row">
                         {mission?.map((item, key) =>
@@ -94,6 +95,7 @@ const CompanyReview = () => {
                             </div>
                         )}
                     </div>
+                </div>
                 </div>
             </section>
 
