@@ -5,27 +5,8 @@ import "swiper/css/navigation";
 import {FreeMode, Navigation, Thumbs} from "swiper";
 import {getStoragePath} from "../../utils/helpers";
 
-const ImageSection = ({inventory}) => {
+const ComboImageSection = ({combo}) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-    let thumbnailImage = '';
-    let galleryImages = [];
-
-    if (inventory?.image) {
-        thumbnailImage = getStoragePath(`inventory-image/${inventory?.image}`);
-    } else {
-        thumbnailImage = getStoragePath(`product-image/${inventory?.product?.image}`);
-    }
-
-    if (inventory?.inventory_images) {
-        inventory?.inventory_images?.map((inventory_image) => {
-            galleryImages.push(getStoragePath(`inventory-image/${inventory_image?.image}`))
-        });
-    } else {
-        inventory?.product?.product_images?.map((product_image) => {
-            galleryImages.push(getStoragePath(`product-image/${product_image?.image}`))
-        });
-    }
 
     return (
         <Fragment>
@@ -40,16 +21,14 @@ const ImageSection = ({inventory}) => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
             >
-                {thumbnailImage && (
-                    <SwiperSlide>
-                        <img src={thumbnailImage} alt="product-img-two"
-                             className="single-object"/>
-                    </SwiperSlide>
-                )}
+                <SwiperSlide>
+                    <img src={getStoragePath(`combo-image/${combo?.image}`)} alt="product-img-two"
+                         className="single-object"/>
+                </SwiperSlide>
 
-                {galleryImages.map((galleryImage, key) => (
+                {combo?.combo_images?.map((combo_image, key) => (
                     <SwiperSlide key={key}>
-                        <img src={galleryImage} alt="product-img-two"
+                        <img src={getStoragePath(`combo-image/${combo_image?.image}`)} alt="product-img-two"
                              className="single-object"/>
                     </SwiperSlide>
                 ))}
@@ -64,9 +43,9 @@ const ImageSection = ({inventory}) => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper"
             >
-                {galleryImages.map((galleryImage, key) => (
+                {combo?.combo_images?.map((combo_image, key) => (
                     <SwiperSlide key={key}>
-                        <img src={galleryImage} alt="product-img-two"
+                        <img src={getStoragePath(`combo-image/${combo_image?.image}`)} alt="product-img-two"
                              className="single-object"/>
                     </SwiperSlide>
                 ))}
@@ -74,4 +53,5 @@ const ImageSection = ({inventory}) => {
         </Fragment>
     );
 }
-export default ImageSection
+
+export default ComboImageSection

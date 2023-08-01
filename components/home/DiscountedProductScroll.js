@@ -98,8 +98,8 @@ const DiscountedProductScroll = ({title}) => {
                                                     offerEnd={inventory.offer_end}
                                                     imagePath={
                                                         inventory?.image
-                                                            ? getStoragePath(`inventory-multi-image/${inventory?.image}`)
-                                                            : getStoragePath(`product/${inventory?.product?.image}`)
+                                                            ? getStoragePath(`inventory-image/${inventory?.image}`)
+                                                            : getStoragePath(`product-image/${inventory?.product?.image}`)
                                                     }
                                                     viewLink={`/product/${inventory.id}`}
                                                     isTimer={true}

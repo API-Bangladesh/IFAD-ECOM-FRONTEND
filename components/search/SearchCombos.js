@@ -1,22 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import ScrollToTopButton from '../../components/common/ScrollToTopButton'
-import {fetchDiscountedInventories} from "../../services/InventoryServices";
-import Image from "next/image";
-import ProductBanner from "../../public/product.png";
 import ProductCard from "../../components/common/ProductCard";
 import {getStoragePath} from "../../utils/helpers";
 import CustomPagination from "../../components/common/CustomPagination";
+import {fetchSearchCombos} from "../../services/ComboServices";
 
-const DiscountedPage = () => {
-    const [inventories, setInventories] = useState([]);
+const SearchCombos = ({keyword}) => {
+    const [combos, setCombos] = useState([]);
 
     const [meta, setMeta] = useState({});
     const [page, setPage] = useState('');
 
-    const fetchDiscountedInventoriesData = (params = {}) => {
-        fetchDiscountedInventories(params).then((response) => {
+    const fetchSearchCombosData = (params = {}) => {
+        fetchSearchCombos(params).then((response) => {
             if (response?.data?.data) {
-                setInventories(response.data.data);
+                setCombos(response.data.data);
                 setMeta(response.data.meta);
             }
         });
@@ -24,17 +22,21 @@ const DiscountedPage = () => {
 
     // fetch
     useEffect(() => {
-        fetchDiscountedInventoriesData({
-            paginate: 'yes'
-        });
-    }, []);
+        if (keyword) {
+            fetchSearchCombosData({
+                paginate: 'yes',
+                keyword: keyword
+            });
+        }
+    }, [keyword]);
 
     // paginate
     useEffect(() => {
-        if (page && id) {
-            fetchDiscountedInventoriesData(id, {
+        if (page && keyword) {
+            fetchSearchCombosData({
                 page: page,
-                paginate: 'yes'
+                paginate: 'yes',
+                keyword: keyword
             });
         }
     }, [page]);
@@ -44,14 +46,14 @@ const DiscountedPage = () => {
 
             {/*Category Banner*/}
             <div className="product-banner">
-                <Image src={ProductBanner} alt="" className="product-banner"/>
+                <img src={combos?.[0]?.lifestyle_image} alt="" className="product-banner"/>
             </div>
 
             <div className="container">
 
                 {/*Category Info*/}
                 <div className="w-100">
-                    <h1 className="fw-bolder text-center mt-5 font-40 font-inter our-product">Discounted Products</h1>
+                    <h1 className="fw-bolder text-center mt-5 font-40 font-inter our-product">Search: {keyword}</h1>
                     <p className="font-lato text-center font-18 mb-5 product-des">
                         We Are Restocking as Quickly as Possible. Come Back 7/30 to OrderMore of These Flavors
                         Inspired by the Places You Call
@@ -62,25 +64,20 @@ const DiscountedPage = () => {
                 <div className="row">
                     <div className="col-lg-12 col-md-8 col-sm-9">
                         <div className="row">
-                            {inventories.map((inventory, key) => {
+                            {combos.map((combo, key) => {
                                 return (
                                     <div className="col-lg-3 col-md-6 text-center mb-4" key={key}>
                                         <ProductCard
-                                            id={inventory.id}
-                                            title={inventory.title}
-                                            sku={inventory.sku}
-                                            categoryName={inventory?.product?.category?.name}
-                                            subCategoryName={inventory?.product?.sub_category?.name}
-                                            salePrice={inventory.sale_price}
-                                            offerPrice={inventory.offer_price}
-                                            offerStart={inventory.offer_start}
-                                            offerEnd={inventory.offer_end}
-                                            imagePath={
-                                                inventory?.image
-                                                    ? getStoragePath(`inventory-image/${inventory?.image}`)
-                                                    : getStoragePath(`product-image/${inventory?.product?.image}`)
-                                            }
-                                            viewLink={`/product/${inventory.id}`}
+                                            id={combo.id}
+                                            title={combo.title}
+                                            sku={combo.sku}
+                                            categoryName={combo?.combo_category?.name}
+                                            salePrice={combo.sale_price}
+                                            offerPrice={combo.offer_price}
+                                            offerStart={combo.offer_start}
+                                            offerEnd={combo.offer_end}
+                                            imagePath={getStoragePath(`inventory-image/${combo?.image}`)}
+                                            viewLink={`/combo/pack/${combo.id}`}
                                             cssClasses="category-product"
                                         />
                                     </div>
@@ -99,4 +96,4 @@ const DiscountedPage = () => {
     )
 }
 
-export default DiscountedPage;
+export default SearchCombos;
