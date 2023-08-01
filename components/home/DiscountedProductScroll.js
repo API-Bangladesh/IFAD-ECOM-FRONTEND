@@ -102,6 +102,7 @@ const DiscountedProductScroll = ({title}) => {
                                                             : getStoragePath(`product/${inventory?.product?.image}`)
                                                     }
                                                     viewLink={`/product/${inventory.id}`}
+                                                    isTimer={true}
                                                 />
                                             </div>
                                         </div>

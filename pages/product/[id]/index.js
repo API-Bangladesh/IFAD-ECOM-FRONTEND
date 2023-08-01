@@ -19,6 +19,7 @@ import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_CART_ITEM} from "../../../store/slices/CartSlice";
 import {randomInt} from "next/dist/shared/lib/bloom-filter/utils";
+import Timer from "../../../components/common/Timer";
 
 const SingleInventoryPage = () => {
     const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const SingleInventoryPage = () => {
 
     const [inventory, setInventory] = useState({});
     const [isRunningOffer, setIsRunningOffer] = useState(false);
+    const [offerEnd, setOfferEnd] = useState(null);
     const [isWishlist, setIsWishlist] = useState(false);
     const [allVariantsOptions, setAllVariantsOptions] = useState({});
     const [inventoryVariantIds, setInventoryVariantIds] = useState([]);
@@ -62,6 +64,7 @@ const SingleInventoryPage = () => {
                     let myOfferEnd = moment(response.data.offer_end);
                     let diff = moment.duration(myOfferEnd.diff(myOfferStart)).asDays();
                     setIsRunningOffer(diff > 0);
+                    setOfferEnd(myOfferEnd);
                 }
             });
         }
@@ -298,6 +301,11 @@ const SingleInventoryPage = () => {
                                 </button>
                             </div>
                         </div>
+                        {isRunningOffer && (
+                            <div style={{padding: "10px 0 0", textAlign: "left", fontWeight: "bold"}}>
+                                <Timer startDate={null} endDate={offerEnd} />
+                            </div>
+                        )}
                     </div>
 
                     <ProductDescription inventory={inventory} className="mb-5 tabs"/>
