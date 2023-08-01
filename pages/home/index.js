@@ -10,6 +10,7 @@ import FeatureSection from "../../components/home/FeatureSection";
 import DiscountedProductScroll from "../../components/home/DiscountedProductScroll";
 import {fetchHomeBanners} from "../../services/CommonServices";
 import AddBanner from "../../components/common/AddBanner";
+import ComboProductScroll from "../../components/home/ComboProductScroll";
 
 const HomePage = () => {
 	const [categories, setCategories] = useState([]);
@@ -39,6 +40,10 @@ const HomePage = () => {
 		<Fragment>
 			<BannerSection/>
 			<CategoryShowcase/>
+
+			<ComboProductScroll
+				title="Combo Pack"
+			/>
 
 			<DiscountedProductScroll
 				title="Discounted Product"

@@ -3,23 +3,23 @@ import Slider from "react-slick";
 import Link from "next/link";
 import {BsArrowRight} from "react-icons/bs";
 import {getStoragePath} from "../../utils/helpers";
-import {fetchInventoriesByCategory} from "../../services/InventoryServices";
-import ProductCard from "../common/ProductCard";
+import {fetchCombos} from "../../services/ComboServices";
+import ComboProductCard from "../common/ComboProductCard";
 
-const CategoryProductScroll = ({title, categoryId}) => {
+const ComboProductScroll = ({title}) => {
 
-    const [inventories, setInventories] = useState([]);
+    const [combos, setCombos] = useState([]);
 
     // fetch
     useEffect(() => {
-        fetchInventoriesByCategory(categoryId, {
+        fetchCombos({
             paginate: 'no'
         }).then(response => {
             if (response?.data) {
-                setInventories(response.data);
+                setCombos(response.data);
             }
         });
-    }, [categoryId]);
+    }, []);
 
     var settings = {
         dots: false,
@@ -70,7 +70,7 @@ const CategoryProductScroll = ({title, categoryId}) => {
                 <div className="container border-top m- p-0">
                     <div className="header-title mt-4 mb-3 position-relative rounded">
                         <h1 className="text-center font-24 text-capitalize font-inter py-3 combo-title">{title}</h1>
-                        <Link href={`/category/${categoryId}`}>
+                        <Link href={`/combo`}>
                             <div
                                 className="d-flex justify-content-center combo-btn bg-white px-3 py-2 position-absolute rounded-pill">
                                 <p className=" font-16 fw-semibold view-all">View all</p>
@@ -82,26 +82,27 @@ const CategoryProductScroll = ({title, categoryId}) => {
 
                 {/*Scroll View*/}
                 <div className="container pb-4">
-                    <div className="row">
+                    <div className="row justify-content-center">
                         <div className="col-lg-12 col-md-12 p-0">
                             <Slider {...settings}>
-                                {inventories.map((inventory, key) => {
+                                {combos.map((combo, key) => {
                                     return (
                                         <div className="mt-0" key={key}>
                                             <div className="ms-3 me-3 mb-3">
-                                                <ProductCard
-                                                    id={inventory.id}
-                                                    title={inventory.title}
-                                                    salePrice={inventory.sale_price}
-                                                    offerPrice={inventory.offer_price}
-                                                    offerStart={inventory.offer_start}
-                                                    offerEnd={inventory.offer_end}
+                                                <ComboProductCard
+                                                    id={combo.id}
+                                                    title={combo.title}
+                                                    salePrice={combo.sale_price}
+                                                    offerPrice={combo.offer_price}
+                                                    offerStart={combo.offer_start}
+                                                    offerEnd={combo.offer_end}
                                                     imagePath={
-                                                        inventory?.image
-                                                            ? getStoragePath(`inventory-image/${inventory?.image}`)
-                                                            : getStoragePath(`product/${inventory?.product?.image}`)
+                                                        combo?.image
+                                                            ? getStoragePath(`inventory-multi-image/${combo?.image}`)
+                                                            : getStoragePath(`product/${combo?.product?.image}`)
                                                     }
-                                                    viewLink={`/product/${inventory.id}`}
+                                                    viewLink={`/combo/${combo.id}`}
+                                                    isTimer={true}
                                                 />
                                             </div>
                                         </div>
@@ -116,4 +117,4 @@ const CategoryProductScroll = ({title, categoryId}) => {
     );
 };
 
-export default CategoryProductScroll;
+export default ComboProductScroll;
