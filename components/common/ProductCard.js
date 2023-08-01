@@ -8,8 +8,9 @@ import {SET_CART_ITEM} from "../../store/slices/CartSlice";
 import {randomInt} from "next/dist/shared/lib/bloom-filter/utils";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/router";
+import Timer from "../common/Timer";
 
-const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sku, categoryName, subCategoryName, imagePath, viewLink, cssClasses}) => {
+const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sku, categoryName, subCategoryName, imagePath, viewLink, cssClasses, isTimer}) => {
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -66,9 +67,9 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
             </div>
             <Card.Body>
                 <Card.Title className="text-center text-capitalize font-18">
-                    <a href={`/product/${id}`}>
+                    <Link href={`/product/${id}`}>
                         {title}
-                    </a>
+                    </Link>
                 </Card.Title>
 
                 {isRunningOffer ? (
@@ -104,6 +105,11 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
                         add to cart
                     </button>
                 </div>
+                {isTimer && isRunningOffer && (
+                    <div style={{padding: "10px 0 0", textAlign: "center", fontWeight: "bold"}}>
+                        <Timer startDate={offerStart} endDate={offerEnd} />
+                    </div>
+                )}
             </Card.Body>
         </Card>
     );
