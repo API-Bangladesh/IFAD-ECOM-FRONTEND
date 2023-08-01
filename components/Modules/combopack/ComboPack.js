@@ -96,7 +96,7 @@ const ComboPack = ({title, categoryId, categoryImage}) => {
 													offerPrice={inventory.offer_price}
 													offerStart={inventory.offer_start}
 													offerEnd={inventory.offer_end}
-													imagePath={getStoragePath(`product/${inventory?.product?.image}`)}
+													imagePath={getStoragePath(`product-image/${inventory?.product?.image}`)}
 													viewLink={`/product/${inventory.id}`}
 												/>
 											</div>

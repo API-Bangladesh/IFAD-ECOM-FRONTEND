@@ -43,3 +43,17 @@ export const fetchCombosByCategory = async (id, params = {}) => {
         tostify(toast, 'error', error);
     }
 }
+
+/**
+ *
+ * @returns {Promise<*>}
+ */
+export const fetchSearchCombos = async (params = {}) => {
+    try {
+        return await axios.get(`/ecom/combos/search`, {
+            params: params
+        });
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}

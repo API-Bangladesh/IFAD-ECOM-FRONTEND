@@ -14,16 +14,16 @@ const ImageSection = ({inventory}) => {
     if (inventory?.image) {
         thumbnailImage = getStoragePath(`inventory-image/${inventory?.image}`);
     } else {
-        thumbnailImage = getStoragePath(`product/${inventory?.product?.image}`);
+        thumbnailImage = getStoragePath(`product-image/${inventory?.product?.image}`);
     }
 
     if (inventory?.inventory_images) {
         inventory?.inventory_images?.map((inventory_image) => {
-            galleryImages.push(getStoragePath(`inventory-multi-image/${inventory_image?.image}`))
+            galleryImages.push(getStoragePath(`inventory-image/${inventory_image?.image}`))
         });
     } else {
         inventory?.product?.product_images?.map((product_image) => {
-            galleryImages.push(getStoragePath(`product/${product_image?.image}`))
+            galleryImages.push(getStoragePath(`product-image/${product_image?.image}`))
         });
     }
 

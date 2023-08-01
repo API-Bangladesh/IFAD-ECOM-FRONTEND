@@ -150,7 +150,7 @@ const SingleInventoryPage = () => {
                 sub_category_name: inventory?.product?.sub_category?.name,
                 image: inventory?.image
                     ? getStoragePath(`inventory-image/${inventory?.image}`)
-                    : getStoragePath(`product/${inventory?.product?.image}`),
+                    : getStoragePath(`product-image/${inventory?.product?.image}`),
                 variations: '',
             }));
 
@@ -176,7 +176,7 @@ const SingleInventoryPage = () => {
         <section className="view-single-pro">
             {inventory?.product?.lifestyle_image && (
                 <div className="product-banner">
-                    <img src={getStoragePath(`product/${inventory?.product?.lifestyle_image}`)} alt=""
+                    <img src={getStoragePath(`product-image/${inventory?.product?.lifestyle_image}`)} alt=""
                          className="product-banner"/>
                 </div>
             )}

@@ -55,7 +55,7 @@ const WishlistTab = () => {
 						imagePath={
 							item?.inventory?.image
 								? getStoragePath(`inventory-image/${item?.inventory?.image}`)
-								: getStoragePath(`product/${item?.inventory?.product?.image}`)
+								: getStoragePath(`product-image/${item?.inventory?.product?.image}`)
 						}
 						viewLink={`/product/${item?.inventory?.id}`}
 						cssClasses="category-product"

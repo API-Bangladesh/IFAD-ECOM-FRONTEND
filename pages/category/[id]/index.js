@@ -130,7 +130,7 @@ const CategoryPage = () => {
                                             imagePath={
                                                 inventory?.image
                                                     ? getStoragePath(`inventory-image/${inventory?.image}`)
-                                                    : getStoragePath(`product/${inventory?.product?.image}`)
+                                                    : getStoragePath(`product-image/${inventory?.product?.image}`)
                                             }
                                             viewLink={`/product/${inventory.id}`}
                                             cssClasses="category-product"
