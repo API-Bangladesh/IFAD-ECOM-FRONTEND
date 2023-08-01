@@ -109,12 +109,8 @@ const ComboPage = () => {
                                             offerPrice={combo.offer_price}
                                             offerStart={combo.offer_start}
                                             offerEnd={combo.offer_end}
-                                            imagePath={
-                                                combo?.image
-                                                    ? getStoragePath(`inventory-multi-image/${combo?.image}`)
-                                                    : getStoragePath(`product/${combo?.product?.image}`)
-                                            }
-                                            viewLink={`/combo/${combo.id}`}
+                                            imagePath={getStoragePath(`combo-image/${combo?.image}`)}
+                                            viewLink={`/combo/pack/${combo.id}`}
                                             cssClasses="category-product"
                                             isTimer={true}
                                         />

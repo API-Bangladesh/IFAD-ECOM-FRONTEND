@@ -26,7 +26,7 @@ const ComboImageSection = ({combo}) => {
                          className="single-object"/>
                 </SwiperSlide>
 
-                {combo?.combo_images?.map((comboImage, key) => (
+                {combo?.combo_images?.map((combo_image, key) => (
                     <SwiperSlide key={key}>
                         <img src={getStoragePath(`combo-image/${combo_image?.image}`)} alt="product-img-two"
                              className="single-object"/>
@@ -43,7 +43,7 @@ const ComboImageSection = ({combo}) => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper"
             >
-                {combo?.combo_images?.map((comboImage, key) => (
+                {combo?.combo_images?.map((combo_image, key) => (
                     <SwiperSlide key={key}>
                         <img src={getStoragePath(`combo-image/${combo_image?.image}`)} alt="product-img-two"
                              className="single-object"/>

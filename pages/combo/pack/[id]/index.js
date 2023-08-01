@@ -120,7 +120,7 @@ const SingleComboPage = () => {
                 <div className="row">
                     <div className="col-lg-6 col-md-6">
                         <div className="mt-5">
-                            <ComboImageSection inventory={combo} className="sec-height"/>
+                            <ComboImageSection combo={combo} className="sec-height"/>
                         </div>
                     </div>
 
