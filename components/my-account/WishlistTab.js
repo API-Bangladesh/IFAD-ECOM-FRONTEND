@@ -39,7 +39,7 @@ const WishlistTab = () => {
 		<Row className="mb-5">
 			<h1 className="text-capitalize font-32 fw-bolder font-jost pb-4 ">Wish list</h1>
 			{myWishlist.map((item, key) => (
-				<Col lg={4} key={key}>
+				<Col lg={4} key={key} className="mb-3">
 					<div className="text-end">
 						<button className="btn btn-outline-danger btn-sm"
 								onClick={(event) => handleRemove(event, item?.id)}>Remove
