@@ -25,9 +25,11 @@ import {
     UPDATE_PAYMENT_METHOD_ID,
     UPDATE_SHIPPING_ADDRESS
 } from "../../store/slices/CartSlice";
-import {router} from "next/client";
+// import {router} from "next/client";
+import { useRouter } from 'next/router';
 
 const CheckoutPage = () => {
+    const router = useRouter()
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
 
