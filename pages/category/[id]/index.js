@@ -129,7 +129,7 @@ const CategoryPage = () => {
                                             offerEnd={inventory.offer_end}
                                             imagePath={
                                                 inventory?.image
-                                                    ? getStoragePath(`inventory-multi-image/${inventory?.image}`)
+                                                    ? getStoragePath(`inventory-image/${inventory?.image}`)
                                                     : getStoragePath(`product/${inventory?.product?.image}`)
                                             }
                                             viewLink={`/product/${inventory.id}`}

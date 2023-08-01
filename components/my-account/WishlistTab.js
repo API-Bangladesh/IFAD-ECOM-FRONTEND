@@ -54,7 +54,7 @@ const WishlistTab = () => {
 						offerEnd={item?.inventory?.offer_end}
 						imagePath={
 							item?.inventory?.image
-								? getStoragePath(`inventory-multi-image/${item?.inventory?.image}`)
+								? getStoragePath(`inventory-image/${item?.inventory?.image}`)
 								: getStoragePath(`product/${item?.inventory?.product?.image}`)
 						}
 						viewLink={`/product/${item?.inventory?.id}`}

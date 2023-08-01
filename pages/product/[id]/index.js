@@ -149,7 +149,7 @@ const SingleInventoryPage = () => {
                 category_name: inventory?.product?.category?.name,
                 sub_category_name: inventory?.product?.sub_category?.name,
                 image: inventory?.image
-                    ? getStoragePath(`inventory-multi-image/${inventory?.image}`)
+                    ? getStoragePath(`inventory-image/${inventory?.image}`)
                     : getStoragePath(`product/${inventory?.product?.image}`),
                 variations: '',
             }));

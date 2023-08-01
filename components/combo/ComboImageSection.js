@@ -28,7 +28,7 @@ const ComboImageSection = ({combo}) => {
 
                 {combo?.combo_images?.map((combo_image, key) => (
                     <SwiperSlide key={key}>
-                        <img src={getStoragePath(`combo-image/${combo_image?.image}`)} alt="product-img-two"
+                        <img src={getStoragePath(`combo-multi-image/${combo_image?.image}`)} alt="product-img-two"
                              className="single-object"/>
                     </SwiperSlide>
                 ))}
@@ -45,7 +45,7 @@ const ComboImageSection = ({combo}) => {
             >
                 {combo?.combo_images?.map((combo_image, key) => (
                     <SwiperSlide key={key}>
-                        <img src={getStoragePath(`combo-image/${combo_image?.image}`)} alt="product-img-two"
+                        <img src={getStoragePath(`combo-multi-image/${combo_image?.image}`)} alt="product-img-two"
                              className="single-object"/>
                     </SwiperSlide>
                 ))}

@@ -12,15 +12,19 @@ const ImageSection = ({inventory}) => {
     let galleryImages = [];
 
     if (inventory?.image) {
-        thumbnailImage = inventory?.image;
+        thumbnailImage = getStoragePath(`inventory-image/${inventory?.image}`);
     } else {
-        thumbnailImage = inventory?.product?.image;
+        thumbnailImage = getStoragePath(`product/${inventory?.product?.image}`);
     }
 
     if (inventory?.inventory_images) {
-        galleryImages = [...inventory?.inventory_images ?? []];
+        inventory?.inventory_images?.map((inventory_image) => {
+            galleryImages.push(getStoragePath(`inventory-multi-image/${inventory_image?.image}`))
+        });
     } else {
-        galleryImages = [...inventory?.product?.product_images ?? []];
+        inventory?.product?.product_images?.map((product_image) => {
+            galleryImages.push(getStoragePath(`product/${product_image?.image}`))
+        });
     }
 
     return (
@@ -38,14 +42,14 @@ const ImageSection = ({inventory}) => {
             >
                 {thumbnailImage && (
                     <SwiperSlide>
-                        <img src={getStoragePath(`product/${thumbnailImage}`)} alt="product-img-two"
+                        <img src={thumbnailImage} alt="product-img-two"
                              className="single-object"/>
                     </SwiperSlide>
                 )}
 
                 {galleryImages.map((galleryImage, key) => (
                     <SwiperSlide key={key}>
-                        <img src={getStoragePath(`product/${galleryImage?.image}`)} alt="product-img-two"
+                        <img src={galleryImage} alt="product-img-two"
                              className="single-object"/>
                     </SwiperSlide>
                 ))}
@@ -62,7 +66,7 @@ const ImageSection = ({inventory}) => {
             >
                 {galleryImages.map((galleryImage, key) => (
                     <SwiperSlide key={key}>
-                        <img src={getStoragePath(`product/${galleryImage?.image}`)} alt="product-img-two"
+                        <img src={galleryImage} alt="product-img-two"
                              className="single-object"/>
                     </SwiperSlide>
                 ))}
