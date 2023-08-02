@@ -55,15 +55,21 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
 
     }
 
+    const calculateDiscount = (sale, offer) => {
+        return Math.round(((sale - offer) / sale) * 100);
+    }
+
     return (
         <Card className={`shadow rounded-0 ${cssClasses}`}>
             <div className="combo-img-bg position-relative">
                 <Link href={viewLink}>
                     <img src={imagePath} width={224} height={172} className="card-img-top mt-4 mb-4" alt={title}/>
                 </Link>
-                <div className="position-absolute offer-token text-center">
-                    <span className="text-white veri-align fw-semibold font-14 pt-2">-30%</span>
-                </div>
+                {salePrice && offerPrice && salePrice > offerPrice &&
+                    <div className="position-absolute offer-token text-center">
+                        <span className="text-white veri-align fw-semibold font-14 pt-2">-{calculateDiscount(salePrice, offerPrice)}%</span>
+                    </div>
+                }
             </div>
             <Card.Body>
                 <Card.Title className="text-center text-capitalize font-18">

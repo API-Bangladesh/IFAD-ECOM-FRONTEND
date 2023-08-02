@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useRef, useState} from "react";
 import Slider from "react-slick";
 import Link from "next/link";
 import {BsArrowRight} from "react-icons/bs";
@@ -29,7 +29,8 @@ const DiscountedProductScroll = ({title}) => {
         autoplaySpeed: 2500,
         slidesToShow: 4,
         slidesToScroll: 1,
-        arrow: true,
+        // arrow: true,
+        arrows: false,
         responsive: [
             {
                 breakpoint: 1200,
@@ -62,6 +63,16 @@ const DiscountedProductScroll = ({title}) => {
         ],
     };
 
+    const sliderRef = useRef(null);
+
+    const handleSlickPrev = () => {
+        sliderRef.current.slickPrev();
+    }
+
+    const handleSlickNext = () => {
+        sliderRef.current.slickNext();
+    }
+
     return (
         <Fragment>
             <section className="combo-pack">
@@ -83,8 +94,24 @@ const DiscountedProductScroll = ({title}) => {
                 {/*Scroll View*/}
                 <div className="container pb-4">
                     <div className="row justify-content-center">
+                        <div className="slider-outer">
+                            <button 
+                                type="button"
+                                data-role="none"
+                                className="slick-arrow slick-prev prev-btn"
+                                onClick={() => handleSlickPrev()}
+                            >
+                            </button>
+                            <button
+                                type="button"
+                                data-role="none"
+                                className="slick-arrow slick-next next-btn"
+                                onClick={() => handleSlickNext()}
+                            >
+                            </button>
+
                         <div className="col-lg-12 col-md-12 p-0 slider-primary">
-                            <Slider {...settings}>
+                            <Slider {...settings} ref={sliderRef}>
                                 {inventories.map((inventory, key) => {
                                     return (
                                         <div className="mt-0" key={key}>
@@ -109,6 +136,7 @@ const DiscountedProductScroll = ({title}) => {
                                     );
                                 })}
                             </Slider>
+                        </div>
                         </div>
                     </div>
                 </div>
