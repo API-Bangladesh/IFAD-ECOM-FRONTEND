@@ -83,7 +83,7 @@ const ComboProductScroll = ({title}) => {
                 {/*Scroll View*/}
                 <div className="container pb-4">
                     <div className="row justify-content-center">
-                        <div className="col-lg-12 col-md-12 p-0">
+                        <div className="col-lg-12 col-md-12 p-0 slider-primary">
                             <Slider {...settings}>
                                 {combos.map((combo, key) => {
                                     return (
