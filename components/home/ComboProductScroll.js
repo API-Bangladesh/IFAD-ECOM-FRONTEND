@@ -97,7 +97,7 @@ const ComboProductScroll = ({title}) => {
                                                     offerStart={combo.offer_start}
                                                     offerEnd={combo.offer_end}
                                                     imagePath={getStoragePath(`combo-image/${combo?.image}`)}
-                                                    viewLink={`/combo/${combo.id}`}
+                                                    viewLink={`/combo/pack/${combo.id}`}
                                                     isTimer={true}
                                                 />
                                             </div>
