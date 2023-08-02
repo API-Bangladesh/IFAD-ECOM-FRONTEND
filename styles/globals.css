@@ -1968,3 +1968,11 @@ Responsive part end
 	object-fit: cover;
 	object-position: center center;
 }
+
+.slider-primary {
+	height: 394px;
+	overflow: hidden;
+}
+.slider-primary .slick-slide {
+	height: 400px;
+}
