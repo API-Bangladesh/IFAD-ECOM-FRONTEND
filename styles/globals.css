@@ -712,6 +712,7 @@ banner css starts
 }
 .combo-img-bg {
 	background: #fef5ee;
+	height: 183px;
 }
 .product-bg {
 	background: #fef5ee;
@@ -1970,11 +1971,11 @@ Responsive part end
 }
 
 .slider-primary {
-	height: 394px;
+	height: 424px;
 	overflow: hidden;
 }
 .slider-primary .slick-slide {
-	height: 400px;
+	height: 424px;
 }
 .slider-outer {
 	width: 100%;
@@ -1989,4 +1990,17 @@ Responsive part end
 .next-btn {
 	left: auto;
 	right: -25px;
+}
+.prod-card-body {
+	height: 217px;
+}
+.prod-title {
+	white-space: normal;
+	display: -moz-box;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 44px;
 }

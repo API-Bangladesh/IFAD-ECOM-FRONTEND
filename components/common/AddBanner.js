@@ -7,7 +7,7 @@ const AddBanner = ({imagePath}) => {
 			<section>
 				<div className="container p-0">
 					<div className="">
-						<img src={getStoragePath(imagePath)} className="img-fluid mt-2 mb-4 small-banner" alt="..."/>
+						<img src={imagePath ? getStoragePath(imagePath) : "/default-banner.jpg"} className="img-fluid mt-2 mb-4 small-banner" alt="..."/>
 					</div>
 				</div>
 			</section>

@@ -69,9 +69,9 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
                     </div>
                 }
             </div>
-            <Card.Body>
+            <Card.Body className="prod-card-body">
                 <Card.Title className="text-center text-capitalize font-18">
-                    <Link href={`/combo/pack/${id}`}>
+                    <Link href={`/combo/pack/${id}`} className="prod-title">
                         {title}
                     </Link>
                 </Card.Title>
