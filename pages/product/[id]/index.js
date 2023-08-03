@@ -47,7 +47,7 @@ const SingleInventoryPage = () => {
         event.preventDefault()
 
         if (quantity > 0) {
-            setQuantity(sum - 1);
+            setQuantity(quantity - 1);
         } else {
             alert("sorry, Zero limit reached.")
             setQuantity(0);
