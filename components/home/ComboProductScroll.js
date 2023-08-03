@@ -81,7 +81,7 @@ const ComboProductScroll = ({title}) => {
                 </div>
 
                 {/*Scroll View*/}
-                <div className="container pb-4">
+                <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-12 col-md-12 p-0 slider-primary">
                             <Slider {...settings}>
