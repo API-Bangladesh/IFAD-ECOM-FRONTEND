@@ -57,9 +57,12 @@ const ComboPage = () => {
             {/*Category Banner*/}
             {comboCategories?.[0]?.image && (
                 <div className="product-banner">
-                    <img src={getStoragePath(`combo-category-image/${comboCategories?.[0]?.image}`)}
-                         alt="category-image"
-                         className="product-banner"/>
+                    <img 
+                        // src={getStoragePath(`combo-category-image/${comboCategories?.[0]?.image}`)}
+                        src="/combo-default.jpg"
+                        alt="category-image"
+                        className="product-banner"
+                    />
                 </div>
             )}
 
