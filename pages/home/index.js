@@ -49,7 +49,9 @@ const HomePage = () => {
 				title="Discounted Product"
 			/>
 
-			<AddBanner imagePath={banners && banners.length ? banners[0].item_image : null}/>
+			{banners && banners.length && <AddBanner imagePath={banners?.[0]?.item_image}/>}
+
+			
 
 			{categories.map((category, key) => {
 				return (
@@ -61,7 +63,7 @@ const HomePage = () => {
 				)
 			})}
 
-			<AddBanner imagePath={banners && banners.length ? banners[1].item_image : null}/>
+			{banners && banners.length > 1 && <AddBanner imagePath={banners?.[1]?.item_image}/>}
 
 			<BrandSection/>
 			<FeatureSection/>

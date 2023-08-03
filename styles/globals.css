@@ -1970,26 +1970,12 @@ Responsive part end
 	object-position: center center;
 }
 
-.slider-primary {
+.slider-primary .slick-list {
 	height: 424px;
 	overflow: hidden;
 }
 .slider-primary .slick-slide {
 	height: 424px;
-}
-.slider-outer {
-	width: 100%;
-	position: relative;
-}
-.prev-btn, .next-btn {
-	position: absolute;
-	top: 50%;
-	left: -25px;
-	transform: translateY(-50%);
-}
-.next-btn {
-	left: auto;
-	right: -25px;
 }
 .prod-card-body {
 	height: 217px;

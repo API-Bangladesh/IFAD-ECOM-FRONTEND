@@ -11,7 +11,7 @@ const Timer = ({ startDate, endDate }) => {
       const distance = countDownDate - now;
 
       if (distance <= 0) {
-        setTimeLeft(`Offer ends`);
+        setTimeLeft("");
         return;
       }
 
