@@ -107,12 +107,13 @@ const SingleComboPage = () => {
 
     return (
         <section className="view-single-pro">
-            {combo?.lifestyle_image && (
-                <div className="product-banner">
-                    <img src={getStoragePath(`combo-image/${combo?.lifestyle_image}`)} alt="image"
-                         className="product-banner"/>
-                </div>
-            )}
+            <div className="product-banner">
+                <img
+                    src={combo?.lifestyle_image ? getStoragePath(`combo-life-style/${combo?.lifestyle_image}`) : "/combo-default.jpg"}
+                    alt="image"
+                    className="product-banner"
+                />
+            </div>
 
             <div className="container">
                 <div className="row">
