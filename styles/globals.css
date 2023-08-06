@@ -2024,37 +2024,39 @@ Responsive part end
 }
 
 .slider-primary {
-	padding-top: calc(100% - 24px + 217px + 8px) !important;
+	padding-top: calc(100% - 26px + 178px + 8px) !important;
 }
 
 @media screen and (min-width: 577px) {
 	.slider-primary {
-		padding-top: calc(50% - 24px + 217px + 8px) !important;
+		padding-top: calc(50% - 26px + 178px + 8px) !important;
 	}
 }
 @media screen and (min-width: 768px) {
 	.slider-primary {
-		padding-top: calc(33.33% - 24px + 217px + 8px) !important;
+		padding-top: calc(33.33% - 26px + 178px + 8px) !important;
 	}
 }
 @media screen and (min-width: 1200px) {
 	.slider-primary {
-		padding-top: calc(25% - 24px + 217px + 8px) !important;
+		padding-top: calc(25% - 26px + 178px + 8px) !important;
 	}
 }
 
 .prod-card-body {
-	height: 217px;
+	/* height: 217px; */
+	height: 178px;
 }
 .prod-title {
 	white-space: normal;
 	display: -moz-box;
 	display: -webkit-box;
-	-webkit-line-clamp: 2;
+	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	height: 44px;
+	/* height: 44px; */
+	height: 22px;
 }
 
 /* Footer */
@@ -2080,4 +2082,8 @@ Responsive part end
 }
 .footer-soical-link {
 	color: rgb(246, 132, 34);
+}
+
+.c-shadow {
+	box-shadow: 0 .35rem 0.75rem rgba(0,0,0,.15)!important;
 }

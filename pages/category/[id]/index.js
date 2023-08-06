@@ -44,9 +44,12 @@ const CategoryPage = () => {
 
     const fetchInventoriesByCategoryData = (id, params = {}) => {
         fetchInventoriesByCategory(id, params).then((response) => {
-            if (response?.data?.data) {
-                setInventories(response.data.data);
-                setMeta(response.data.meta);
+            // if (response?.data?.data) { // if paginate: "yes"
+            //     setInventories(response.data.data);
+            //     setMeta(response.data.meta);
+            // }
+            if (response?.data) { // if paginate: "no"
+                setInventories(response.data);
             }
         });
     }
@@ -55,7 +58,7 @@ const CategoryPage = () => {
     useEffect(() => {
         if (id) {
             fetchInventoriesByCategoryData(id, {
-                paginate: 'yes'
+                paginate: 'no'
             });
         }
     }, [id]);
@@ -139,9 +142,9 @@ const CategoryPage = () => {
                                 )
                             })}
                         </div>
-                        <div className="my-3 d-flex justify-content-center">
+                        {/* <div className="my-3 d-flex justify-content-center">
                             <CustomPagination meta={meta} setPage={setPage}/>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

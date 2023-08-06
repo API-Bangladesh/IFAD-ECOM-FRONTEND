@@ -60,7 +60,7 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
     }
 
     return (
-        <Card className={`shadow rounded-0 ${cssClasses}`}>
+        <Card className={`c-shadow rounded-0 ${cssClasses}`}>
             <div className="combo-img-bg position-relative">
                 <Link href={viewLink}>
                     <img src={imagePath} width={224} height={172} className="card-img-top mt-4 mb-4" alt={title}/>
@@ -73,7 +73,7 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
             </div>
             <Card.Body className="prod-card-body">
                 <Card.Title className="text-center text-capitalize font-18">
-                    <Link href={`/product/${id}`} className="prod-title">
+                    <Link href={`/product/${id}`} className="prod-title" title={title}>
                         {title}
                     </Link>
                 </Card.Title>
@@ -111,11 +111,11 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
                         add to cart
                     </button>
                 </div>
-                {isTimer && isRunningOffer && (
+                {/* {isTimer && isRunningOffer && (
                     <div style={{padding: "10px 0 0", textAlign: "center", fontWeight: "bold"}}>
                         <Timer startDate={offerStart} endDate={offerEnd} />
                     </div>
-                )}
+                )} */}
             </Card.Body>
         </Card>
     );
