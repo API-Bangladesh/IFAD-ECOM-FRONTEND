@@ -73,11 +73,11 @@ const ProductDescription = ({inventory}) => {
 						{inventory?.product?.product_short_desc}
 					</p>
 				</Tab>
-				<Tab eventKey="spacification" title="Spacification" className="pb-5 font-lato">
+				{/* <Tab eventKey="spacification" title="Spacification" className="pb-5 font-lato">
 					<div className="detail-table border-top border-warning pt-3">
 						{inventory?.product?.product_long_desc}
 					</div>
-				</Tab>
+				</Tab> */}
 				<Tab eventKey="review" title="Customer Review" className="pb-5 font-lato">
 					<div className="border-top border-warning  pt-3">
 						<div className="row">

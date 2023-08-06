@@ -53,7 +53,7 @@ export default function Footer() {
                             </li>
                             <li class="nav-item">
                               <Link
-                                  href="/company-profile"
+                                  href="/terms-and-conditions"
                                   className="nav-link-ifad"
                               >
                                 terms & conditions
@@ -61,7 +61,7 @@ export default function Footer() {
                             </li>
                             <li class="nav-item">
                               <Link
-                                  href="/company-profile"
+                                  href="/refund-policy"
                                   className="nav-link-ifad"
                               >
                                 refund policy
@@ -69,7 +69,7 @@ export default function Footer() {
                             </li>
                             <li class="nav-item">
                               <Link
-                                  href="/company-profile"
+                                  href="/delivery-information"
                                   className="nav-link-ifad"
                               >
                                 Delivery Information
@@ -84,7 +84,7 @@ export default function Footer() {
                 <div class="row py-3">
                   <div class="col-sm-3">
                     <a href="https://ifadgroup.com/" target="_blank">
-                    <img alt="logo" src="/logo/logo-new.png" width="235" height="50" 
+                    <img alt="logo" src="/logo/footer-logo.png" 
                   class="img-fluid footer-logo" loading="lazy" />
                     </a>
                     </div>

@@ -2087,3 +2087,15 @@ Responsive part end
 .c-shadow {
 	box-shadow: 0 .35rem 0.75rem rgba(0,0,0,.15)!important;
 }
+
+
+.auth-bottom-link span {
+	margin-right: 0.25em;
+}
+.auth-bottom-link a {
+	color: #f38120;
+}
+.auth-bottom-link a:hover {
+	color: #f38120;
+	text-decoration: underline;
+}
