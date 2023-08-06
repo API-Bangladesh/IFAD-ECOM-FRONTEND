@@ -39,7 +39,7 @@ const BoardOfDirectors = () => {
                             <div className="text-center">
                                 <Image src={Chairman2} alt="" className="rounded-pill chairman-img"/>
                                 <h2 className="font-20 fw-bold pt-2 pb-2">Mrs. Nilufar Ahmed</h2>
-                                <p className="about_titledesign position-relative pt-2">Chairman, IFAD Group</p>
+                                <p className="about_titledesign position-relative pt-2">Director, IFAD Group</p>
                             </div>
                         </div>
                     </Row>
@@ -107,18 +107,18 @@ const BoardOfDirectors = () => {
                             <p className=" pt-1">Chief Financial Office</p>
                         </div>
                     </div>
-                    <div className="col-lg-3 col-md-3 col-sm-6 mb-4">
+                    {/* <div className="col-lg-3 col-md-3 col-sm-6 mb-4">
                         <div className="text-center">
                             <Image src={TeamFive} alt="" className="rounded new-team-member"/>
                             <h2 className="font-20 fw-bold pt-2 pb-1">Saiful Alam Bappy</h2>
                             <p className="pt-1">Head of Sales</p>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="col-lg-3 col-md-3 col-sm-6 mb-4">
                         <div className="text-center">
                             <Image src={TeamSix} alt="" className="rounded new-team-member"/>
                             <h2 className="font-20 fw-bold pt-2 pb-1">Mohammed Saleh Uddin Bhuyan</h2>
-                            <p className="pt-1">Head of Marketing</p>
+                            <p className="pt-1">Head of Sales</p>
                         </div>
                     </div>
 
