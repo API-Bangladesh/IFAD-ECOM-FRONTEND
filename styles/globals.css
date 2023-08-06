@@ -225,8 +225,9 @@ header css starts
 }
 .brand-logo {
 	/* max-height: 50px; */
-	max-width: 165px;
+	/* max-width: 165px; */
 	margin: 20px 0px;
+	max-width: 200px;
 }
 .search-field {
 	width: 400px !important;
@@ -257,7 +258,7 @@ button#dropdown-basic-button{
 }
 
 .form-item-btn {
-	margin-left: -80px;
+	margin-left: -86px;
 	background-color: #f38120 !important;
 }
 .home-icon {
@@ -2054,4 +2055,29 @@ Responsive part end
 	overflow: hidden;
 	text-overflow: ellipsis;
 	height: 44px;
+}
+
+/* Footer */
+.footer {
+	background-color: #333;
+}
+.nav-link-ifad {
+	color: #ccc!important;
+	padding: 5px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.nav-link-ifad:after {
+	content: "";
+	padding-left: 10px;
+}
+.footer-manu-item {
+	border-right: 2px solid #b3b3b3;
+	padding: 0 0 0 10px;
+}
+.footer-manu-item:last-child {
+	border-right: 0 solid #000;
+}
+.footer-soical-link {
+	color: rgb(246, 132, 34);
 }

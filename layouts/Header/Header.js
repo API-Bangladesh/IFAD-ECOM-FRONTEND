@@ -105,7 +105,7 @@ export default function Header() {
                     <div className="d-flex justify-content-between align-items-center main-manu-item">
                         <div className="">
                             <Link href="/">
-                                <Image src={Logo} alt="Picture of the author" className="img-fluid brand-logo"/>
+                                <Image src={Logo} alt="Picture of the author" className="brand-logo"/>
                             </Link>
                         </div>
                         <div className="header-form">

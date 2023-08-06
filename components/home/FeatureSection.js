@@ -34,7 +34,7 @@ const FeatureSection = () => {
 								<div className="p-3 shadow rounded">
 									<BsTruck className="support-icons font-40"/>
 									<p className="text-capitalize text-center font-16 fw-semibold py-3">
-										free delivary with $50
+										On Time Delivery
 									</p>
 								</div>
 							</div>

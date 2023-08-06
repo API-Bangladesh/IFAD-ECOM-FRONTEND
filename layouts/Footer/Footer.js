@@ -22,146 +22,135 @@ export default function Footer() {
 
   return (
       <Fragment>
-        <section className="bg-dark text-white">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-3 col-md-3 col-sm-6">
-                <div className="ps-0">
-                  <h2
-                      className="pt-5 text-center fw-semibold pb-2 text-uppercase about-border position-relative">
-                    about us
-                  </h2>
-                  <p className="text-justify font-lato py-3 font-16 about-des">
-                    We are an integrated multi-product business group that is 
-                    highly competitive in the fast-moving FMCG sector to bring 
-                    high quality, unadulterated, authentic food products to Bangladesh.
-                  </p>
+        <div class="container-fluid footer">
+          <div class="container">
+            <div class="row">
+              <div class="swiper">
+                <div class="row position-relative">
+                  <div class="col-sm-12 d-flex justify-content-center py-4 border-bottom">
+                    <nav class="navbar navbar-expand-lg">
+                      <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon col-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse footer-bg-opacity " id="navbarNav">
+                          <ul class="navbar-nav text-sm-center bg-phn">
+                            <li class="nav-item">
+                              <Link
+                                  href="/company-profile"
+                                  className="nav-link-ifad"
+                              >
+                                about us
+                              </Link>
+                            </li>
+                            <li class="nav-item">
+                              <Link
+                                  href="/privacy-policy"
+                                  className="nav-link-ifad"
+                              >
+                                privacy & policy
+                              </Link>
+                            </li>
+                            <li class="nav-item">
+                              <Link
+                                  href="/company-profile"
+                                  className="nav-link-ifad"
+                              >
+                                terms & conditions
+                              </Link>
+                            </li>
+                            <li class="nav-item">
+                              <Link
+                                  href="/company-profile"
+                                  className="nav-link-ifad"
+                              >
+                                refund policy
+                              </Link>
+                            </li>
+                            <li class="nav-item">
+                              <Link
+                                  href="/company-profile"
+                                  className="nav-link-ifad"
+                              >
+                                Delivery Information
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </nav>
+                  </div>
                 </div>
-                <ul className="d-flex justify-content-start mb-3 footer-social-icon">
-                  {socials?.map((social, index) =>
-                      <li className="me-3" key={index}>
+                <div class="row py-3">
+                  <div class="col-sm-3">
+                    <a href="https://ifadgroup.com/" target="_blank">
+                    <img alt="logo" src="/logo/logo-new.png" width="235" height="50" 
+                  class="img-fluid footer-logo" loading="lazy" />
+                    </a>
+                    </div>
+                  <div class="col-sm-6 d-flex justify-content-center">
+                    <nav class="navbar navbar-expand-lg text-center">
+                      <ul class="navbar-nav">
+                        <li class="nav-item footer-manu-item">
+                          <Link
+                            href="/auth/login"
+                            className="nav-link-ifad"
+                          >
+                            login
+                          </Link>
+                         </li>
+                        <li class="nav-item footer-manu-item">
+                          <Link
+                            href="/checkout"
+                            className="nav-link-ifad"
+                          >
+                            checkout
+                          </Link>
+                         </li>
+                        <li class="nav-item footer-manu-item">
+                          <Link
+                            href="/my-account"
+                            className="nav-link-ifad"
+                          >
+                            my account
+                          </Link>
+                         </li>
+                      </ul>
+                    </nav>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="d-flex flex-row justify-content-end fs-4 text-white footer-social-icon">
+                      <div className="d-flex justify-content-center align-items-center">
+                      {socials?.map((social, index) =>
+                   
                         <Link
                             href="https://www.facebook.com/Ifadfoods"
                             target="_blank"
-                            className=""
                         >
-                          {index === 0 && <FaFacebookF size={"25px"} className="soical-link"/>}
-                          {index === 1 && <FaLinkedinIn size={"25px"} className="soical-link"/>}
-                          {index === 2 && <FaYoutube size={"25px"} className="soical-link"/>}
-                          {index === 3 && <AiOutlineInstagram size={"25px"} className="soical-link"/>}
+                          {index === 0 && <FaFacebookF size={"25px"} className="footer-soical-link ms-2" />}
+                          {index === 1 && <FaLinkedinIn size={"25px"} className="footer-soical-link ms-2" />}
+                          {index === 2 && <FaYoutube size={"25px"} className="footer-soical-link ms-2" />}
+                          {index === 3 && <AiOutlineInstagram size={"25px"} className="footer-soical-link ms-2" />}
                         </Link>
-                      </li>
+                     
                   )}
-                </ul>
-              </div>
-              <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <div className="ps-4 information-footer">
-                  <h2 className="pt-5 fw-semibold pb-2 text-uppercase position-relative information-border">
-                    information
-                  </h2>
-                  <ul className="lh-lg font-lato pt-3 information-list justify-content-center">
-                    <li className="text-capitalize footer-list">
-                      <Link
-                          href="/company-profile"
-                          className=" d-flex align-items-center account-hover"
-                      >
-                        <IoIosArrowRoundForward size={"20px"}/>
-                        about us
-                      </Link>
-                    </li>
-                    <li className="text-capitalize footer-list">
-                      <Link
-                          href="/privacy-policy"
-                          className=" d-flex align-items-center account-hover"
-                      >
-                        <IoIosArrowRoundForward size={"20px"}/>
-                        privacy & policy
-                      </Link>
-                    </li>
-                    <li className="text-capitalize footer-list">
-                      <Link
-                          href="/terms-and-conditions"
-                          className=" d-flex align-items-center account-hover"
-                      >
-                        <IoIosArrowRoundForward size={"20px"}/>
-                        terms & conditions
-                      </Link>
-                    </li>
-                    <li className="text-capitalize footer-list">
-                      <Link
-                          href="/refund-policy"
-                          className=" d-flex align-items-center account-hover"
-                      >
-                        <IoIosArrowRoundForward size={"20px"}/>
-                        refund policy
-                      </Link>
-                    </li>
-                    <li className="text-capitalize footer-list">
-                      <Link
-                          href="/delivery-information"
-                          className=" d-flex align-items-center account-hover"
-                      >
-                        <IoIosArrowRoundForward size={"20px"} />
-                        Delivery Information
-                      </Link>
-                    </li>
-                  </ul>
+                      </div>
+                      <div class="call-to-action">
+                        <img alt="Call" 
+                      src="/call.png" width="110" height="45"/>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <div className="ps-5 account-footer">
-                  <h2 className="pt-5 fw-semibold pb-2 text-uppercase position-relative account-border">
-                    my account
-                  </h2>
-                  <ul className="lh-lg font-lato account-list pt-3">
-                    <li className="text-capitalize">
-                      <Link
-                          href="/auth/login"
-                          className=" d-flex align-items-center account-hover font-16"
-                      >
-                        <IoIosArrowRoundForward size={"20px"}/>
-                        login
-                      </Link>
-                    </li>
-                    <li className="text-capitalize">
-                      <Link
-                          href="/checkout"
-                          className=" d-flex align-items-center account-hover"
-                      >
-                        <IoIosArrowRoundForward size={"20px"}/>
-                        checkout
-                      </Link>
-                    </li>
-
-                    <li className="text-capitalize">
-                      <Link
-                          href="/my-account"
-                          className=" d-flex align-items-center account-hover"
-                      >
-                        <IoIosArrowRoundForward size={"20px"}/>
-                        my account
-                      </Link>
-                    </li>
-                  </ul>
+                <div class="row py-3">
+                  <img src="/payment-full-size.png" />
                 </div>
-              </div>
-              <div className="col-lg-3 col-md-3 col-sm-6">
-                <div className="">
-                  <h2 className="pt-5 fw-semibold pb-2 text-uppercase position-relative payment-border">
-                    payment option
-                  </h2>
-                  <Link href="/" className="pt-3">
-                    <Image
-                        src={PaymentImage}
-                        alt="Picture of the author"
-                        className="payment-img mt-3 mb-3 rounded img-fluid"
-                    />
-                  </Link>
-                </div>
+                
               </div>
             </div>
           </div>
-        </section>
+        </div>
+
         <footer className="text-center shadow-inner footer-bg  ">
           <div className="d-flex justify-content-center">
             <p className="text-center text-light p-0 mt-3 mb-3 pe-2 font-lato copyrights">
