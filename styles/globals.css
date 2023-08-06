@@ -721,7 +721,31 @@ banner css starts
 }
 .combo-img-bg {
 	background: #fef5ee;
-	height: 183px;
+	/* height: 183px; */
+}
+.combo-img-bg a {
+	display: block;
+	width: 100%;
+	padding-top: 100%;
+	position: relative;
+}
+.combo-img-bg a img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0 !important;
+	max-width: 100% !important;
+	max-height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center center;
+	object-position: center center;
+	transform: unset;
+	border-radius: 0;
 }
 .product-bg {
 	background: #fef5ee;
@@ -1978,14 +2002,46 @@ Responsive part end
 	object-fit: cover;
 	object-position: center center;
 }
-
+.slider-primary {
+	position: relative;
+	margin-bottom: 16px;
+}
+.slider-primary .slick-slider {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
 .slider-primary .slick-list {
-	height: 424px;
+	height: 100%;
 	overflow: hidden;
 }
 .slider-primary .slick-slide {
-	height: 424px;
+	/* height: 424px; */
+	height: 100%;
 }
+
+.slider-primary {
+	padding-top: calc(100% - 24px + 217px + 8px) !important;
+}
+
+@media screen and (min-width: 577px) {
+	.slider-primary {
+		padding-top: calc(50% - 24px + 217px + 8px) !important;
+	}
+}
+@media screen and (min-width: 768px) {
+	.slider-primary {
+		padding-top: calc(33.33% - 24px + 217px + 8px) !important;
+	}
+}
+@media screen and (min-width: 1200px) {
+	.slider-primary {
+		padding-top: calc(25% - 24px + 217px + 8px) !important;
+	}
+}
+
 .prod-card-body {
 	height: 217px;
 }

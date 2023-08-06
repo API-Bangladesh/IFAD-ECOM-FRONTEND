@@ -83,7 +83,7 @@ const CategoryProductScroll = ({title, categoryId}) => {
                 {/*Scroll View*/}
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-12 col-md-12 p-0 slider-primary">
+                        <div className="col-lg-12 col-md-12 slider-primary">
                             <Slider {...settings}>
                                 {inventories.map((inventory, key) => {
                                     return (
