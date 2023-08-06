@@ -111,17 +111,17 @@ export default function Header() {
                         <div className="header-form">
                             <Form action="/search" method="get"
                                   className="d-flex align-items-center justify-content-between form-item">
-                                <Form.Check
+                                {/* <Form.Check
                                     name="type"
                                     type="checkbox"
                                     value="combo"
                                     label="Combo"
                                     className="me-2"
-                                />
+                                /> */}
                                 <Form.Control
                                     type="search"
                                     name="keyword"
-                                    placeholder="Search in ifad"
+                                    placeholder="Search..."
                                     className="me-2 rounded-0 search-field"
                                     aria-label="Search"
                                 />

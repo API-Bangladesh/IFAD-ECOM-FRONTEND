@@ -233,6 +233,15 @@ header css starts
 	box-shadow: none !important;
 	border-color: #f38120 !important;
 }
+.search-field::-webkit-input-placeholder { /* Edge */
+	font-weight: bold;
+}
+.search-field:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	font-weight: bold;
+}
+.search-field::placeholder {
+	font-weight: bold;
+}
 .form-control:focus {
 	border-color: #000;
 }
