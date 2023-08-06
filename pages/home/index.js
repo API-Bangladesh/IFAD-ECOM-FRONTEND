@@ -45,9 +45,9 @@ const HomePage = () => {
 				title="Combo Pack"
 			/>
 
-			<DiscountedProductScroll
+			{/* <DiscountedProductScroll
 				title="Discounted Product"
-			/>
+			/> */}
 
 			{banners && banners.length && <AddBanner imagePath={banners?.[0]?.item_image}/>}
 
