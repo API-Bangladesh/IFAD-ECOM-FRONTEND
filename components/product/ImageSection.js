@@ -19,11 +19,11 @@ const ImageSection = ({inventory}) => {
 
     if (inventory?.inventory_images) {
         inventory?.inventory_images?.map((inventory_image) => {
-            galleryImages.push(getStoragePath(`inventory-image/${inventory_image?.image}`))
+            galleryImages.push(getStoragePath(`inventory-multi-image/${inventory_image?.image}`))
         });
     } else {
         inventory?.product?.product_images?.map((product_image) => {
-            galleryImages.push(getStoragePath(`product-image/${product_image?.image}`))
+            galleryImages.push(getStoragePath(`product-multi-image/${product_image?.image}`))
         });
     }
 
@@ -62,7 +62,7 @@ const ImageSection = ({inventory}) => {
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper"
+                className="prod-detail-small-slider"
             >
                 {galleryImages.map((galleryImage, key) => (
                     <SwiperSlide key={key}>

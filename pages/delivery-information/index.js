@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Image from "next/image"
+import parse from 'html-react-parser'
 import DeliveryBanner from "../../public/delivery.jpg"
 import axios from "axios"
 import {API_URL} from "../../utils/constants"
@@ -43,7 +44,8 @@ const DeliverInformationPage = () => {
                             </div>
                             <Row>
                                 <Col lg={10} className="delivery-details">
-                                    <LongInfo info={item?.item_long_desc}/>
+                                    {parse(item?.item_long_desc)}
+                                    {/* <LongInfo info={item?.item_long_desc}/> */}
                                 </Col>
                             </Row>
                         </>

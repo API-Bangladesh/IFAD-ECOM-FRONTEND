@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import ListGroup from "react-bootstrap/ListGroup";
+import parse from 'html-react-parser'
 import {LongInfoPrivacy} from "../../components/privacy-policy/LongInfoPrivacy";
 import {fetchPrivacyPolicy} from "../../services/CommonServices";
 
@@ -30,7 +31,8 @@ const PrivacyPolicyPage = () => {
                             <Row>
                                 <Col>
                                     <ListGroup as="ol" className="pb-5" numbered>
-                                        <LongInfoPrivacy info={item.item_long_desc}/>
+                                        {parse(item?.item_long_desc)}
+                                        {/* <LongInfoPrivacy info={item.item_long_desc}/> */}
                                     </ListGroup>
                                 </Col>
                             </Row>

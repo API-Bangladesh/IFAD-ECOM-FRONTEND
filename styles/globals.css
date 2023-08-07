@@ -924,7 +924,7 @@ banner css starts
 Brands part starts
 ================== */
 .brands-size {
-	height: 100px;
+	/* height: 100px; */
 	width: auto;
 }
 .brands-part ul.slick-dots {
@@ -1164,7 +1164,7 @@ product part css start
 	border: 1px solid #ffa850!important;
 }
 .product-banner{
-	height: 200px;
+	/* height: 200px; */
 	width: 100%;
 	object-fit: cover;
 }
@@ -2099,3 +2099,45 @@ Responsive part end
 	color: #f38120;
 	text-decoration: underline;
 }
+
+.container-bod {
+	--bs-gutter-x: 1.5rem;
+	--bs-gutter-y: 0;
+	width: 100%;
+	padding-right: calc(var(--bs-gutter-x) * .5);
+	padding-left: calc(var(--bs-gutter-x) * .5);
+	margin-right: auto;
+	margin-left: auto;
+}
+
+@media screen and (min-width: 576px) {
+	.container-bod {
+		max-width: 540px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.container-bod {
+		max-width: 720px;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.container-bod {
+		max-width: 960px;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	.container-bod {
+		max-width: 1140px;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.container-bod {
+		max-width: 1320px;
+	}
+}
+
+.prod-detail-small-slider {}

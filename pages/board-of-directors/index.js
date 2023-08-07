@@ -22,12 +22,12 @@ const BoardOfDirectors = () => {
             <div className="">
                 <Image src={Directors} alt="" className="bod-img"/>
             </div>
-            <div className="container">
-                <h1 className="bod-page-title text-capitalize font-40 fw-bold text-center py-4 font-inter">board of
+            <div className="container-bod">
+                <h1 className="bod-page-title text-capitalize font-40 fw-bold text-center py-5 font-inter">board of
                     directors</h1>
                 {/* Chirman */}
                 <div className="">
-                    <Row className="d-flex justify-content-evenly">
+                    <Row className="d-flex justify-content-md-center">
                         <div className="col-lg-4 col-md-4 mb-4">
                             <div className="text-center">
                                 <Image src={Chairman} alt="" className="rounded-pill chairman-img"/>

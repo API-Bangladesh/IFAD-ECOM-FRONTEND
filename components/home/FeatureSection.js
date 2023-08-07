@@ -11,9 +11,9 @@ const FeatureSection = () => {
 					<div className="row">
 						<div className="col-lg-3 col-md-3 col-sm-6">
 							<div className="support-div mb-4 border rounded">
-								<div className="p-3 shadow rounded">
+								<div className="py-4 shadow rounded">
 									<MdOutlineVerifiedUser className="support-icons font-40"/>
-									<p className="text-capitalize text-center font-16 fw-semibold py-3">
+									<p className="text-capitalize text-center font-16 fw-semibold">
 										100% percent secured
 									</p>
 								</div>
@@ -21,9 +21,9 @@ const FeatureSection = () => {
 						</div>
 						<div className="col-lg-3 col-md-3 col-sm-6">
 							<div className="support-div mb-4 border rounded ">
-								<div className="p-3 shadow rounded">
+								<div className="py-4 shadow rounded">
 									<RiServiceLine className="support-icons font-40"/>
-									<p className="text-capitalize text-center font-16 fw-semibold py-3">
+									<p className="text-capitalize text-center font-16 fw-semibold">
 										24 hours / 7days support
 									</p>
 								</div>
@@ -31,9 +31,9 @@ const FeatureSection = () => {
 						</div>
 						<div className="col-lg-3 col-md-3 col-sm-6 ">
 							<div className="support-div mb-4 border rounded ">
-								<div className="p-3 shadow rounded">
+								<div className="py-4 shadow rounded">
 									<BsTruck className="support-icons font-40"/>
-									<p className="text-capitalize text-center font-16 fw-semibold py-3">
+									<p className="text-capitalize text-center font-16 fw-semibold">
 										On Time Delivery
 									</p>
 								</div>
@@ -41,9 +41,9 @@ const FeatureSection = () => {
 						</div>
 						<div className="col-lg-3 col-md-3 col-sm-6 ">
 							<div className="support-div mb-4 border rounded">
-								<div className="p-3 shadow rounded">
+								<div className="py-4 shadow rounded">
 									<IoIosPricetags className="support-icons font-40"/>
-									<p className="text-capitalize text-center font-16 fw-semibold py-3">
+									<p className="text-capitalize text-center font-16 fw-semibold">
 										best price guaranteed
 									</p>
 								</div>
