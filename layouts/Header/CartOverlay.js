@@ -90,7 +90,7 @@ function CartOverlay() {
                                             &nbsp;&nbsp;x
                                             &nbsp;&nbsp;{item.unit_price}
                                             &nbsp;&nbsp;=
-                                            &nbsp;&nbsp;{item.total}
+                                            &nbsp;&nbsp;{item.total} Tk.
                                         </p>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@ function CartOverlay() {
                     <div className="checkout justify-content-center">
                         <div className=" mt-3 position-relative">
                             <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
-                                sub-total : {cart.subTotal}
+                                sub-total : {cart.subTotal} Tk.
                             </h1>
                             {/*<h1 className="text-capitalize font-lato font-20 fw-bold text-center">
                                 Shipping Charge: {cart.shippingCharge}
@@ -117,7 +117,7 @@ function CartOverlay() {
                                 Tax : {cart.tax || 0}
                             </h1>*/}
                             <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
-                                total : {cart.grandTotal || 0}
+                                total : {cart.grandTotal || 0} Tk.
                             </h1>
                         </div>
                         <div className="mt-3 check-button d-flex justify-content-center">

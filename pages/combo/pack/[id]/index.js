@@ -134,14 +134,14 @@ const SingleComboPage = () => {
                                 {hasOffer ? (
                                     <Fragment>
                                         <del>
-                                            Price:- <span className="currency">&#2547;</span>{combo?.sale_price}
+                                            Price:- {combo?.sale_price} Tk.
                                         </del>
                                         <br/>
-                                        Offer Price:- <span className="currency">&#2547;</span>{combo?.offer_price}
+                                        Offer Price:- {combo?.offer_price} Tk.
                                     </Fragment>
                                 ) : (
                                     <Fragment>
-                                        Price:- <span className="currency">&#2547;</span>{combo?.sale_price}
+                                        Price:- {combo?.sale_price} Tk.
                                     </Fragment>
                                 )}
                             </p>

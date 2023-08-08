@@ -428,7 +428,7 @@ const CheckoutPage = () => {
                                                    value={paymentMethod.id}
                                                    onChange={(event) => handlePaymentMethodId(event.target.value)}/>
                                             <label className="form-check-label text-capitalize" htmlFor="inlineRadio1">
-                                                {paymentMethod.name}
+                                                {paymentMethod.code === "sslcommerze" ? "Pay Online" : "COD"}
                                             </label>
                                         </div>
                                     ))}

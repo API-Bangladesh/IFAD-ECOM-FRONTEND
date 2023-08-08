@@ -81,17 +81,17 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
                     <Fragment>
                         <del>
                             <Card.Text className="text-center text-capitalize">
-                                Price:- <span className="currency">&#2547;</span>{salePrice}
+                                Price:- {salePrice} Tk.
                             </Card.Text>
                         </del>
                         <Card.Text className="text-center pb-3 text-capitalize">
-                            offer Price:- <span className="currency">&#2547;</span>{offerPrice}
+                            offer Price:- {offerPrice} Tk.
                         </Card.Text>
                     </Fragment>
                 ) : (
                     <Card.Text className="text-center pb-3 text-capitalize">
                         <br/>
-                        Price:- <span className="currency">&#2547;</span>{salePrice}
+                        Price:- {salePrice} Tk.
                     </Card.Text>
                 )}
 

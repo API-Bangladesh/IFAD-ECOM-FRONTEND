@@ -69,7 +69,7 @@ export default function Header() {
                                     <Fragment>
                                         <li className="pe-3 login-modal">
                                             <Link href="/my-account" className="text-light">
-                                                my account
+                                                My Account
                                             </Link>
                                         </li>
                                         <li className="">
@@ -77,7 +77,7 @@ export default function Header() {
                                                 e.preventDefault()
                                                 logout();
                                             }}>
-                                                logout
+                                                Logout
                                             </Link>
                                         </li>
                                     </Fragment>
@@ -85,12 +85,12 @@ export default function Header() {
                                     <Fragment>
                                         <li className="pe-3 login-modal">
                                             <Link href="/auth/login" className="text-light">
-                                                login
+                                                Login
                                             </Link>
                                         </li>
                                         <li className="">
                                             <Link href="/auth/register" className="text-light">
-                                                sign up
+                                                Sign Up
                                             </Link>
                                         </li>
                                     </Fragment>

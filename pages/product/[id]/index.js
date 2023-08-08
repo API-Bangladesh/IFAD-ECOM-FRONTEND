@@ -232,14 +232,14 @@ const SingleInventoryPage = () => {
                                 {hasOffer ? (
                                     <Fragment>
                                         <del>
-                                            Price:- <span className="currency">&#2547;</span>{inventory?.sale_price}
+                                            Price:- {inventory?.sale_price} Tk.
                                         </del>
                                         <br/>
-                                        Offer Price:- <span className="currency">&#2547;</span>{inventory?.offer_price}
+                                        Offer Price:- {inventory?.offer_price} Tk.
                                     </Fragment>
                                 ) : (
                                     <Fragment>
-                                        Price:- <span className="currency">&#2547;</span>{inventory?.sale_price}
+                                        Price:- {inventory?.sale_price} Tk.
                                     </Fragment>
                                 )}
                             </p>
