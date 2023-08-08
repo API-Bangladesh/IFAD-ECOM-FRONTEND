@@ -31,6 +31,7 @@ const SingleInventoryPage = () => {
 
     const [inventory, setInventory] = useState({});
     const [isRunningOffer, setIsRunningOffer] = useState(false);
+    const [hasOffer, setHasOffer] = useState(false);
     const [offerEnd, setOfferEnd] = useState(null);
     const [isWishlist, setIsWishlist] = useState(false);
     const [allVariantsOptions, setAllVariantsOptions] = useState({});
@@ -65,6 +66,27 @@ const SingleInventoryPage = () => {
                     let diff = moment.duration(myOfferEnd.diff(myOfferStart)).asDays();
                     setIsRunningOffer(diff > 0);
                     setOfferEnd(myOfferEnd);
+                    setHasOffer(response.data.offer_price !== null)
+
+                    // set all variants options
+                    const result = {};
+
+                    response?.data?.inventory_variants.forEach(item => {
+                        const variant_name = item.variant.name;
+                        const variant_option_name = item.variant_option.name;
+                        const inventory_variant_id = item.id;
+
+                        if (!result[variant_name]) {
+                            result[variant_name] = [];
+                        }
+
+                        result[variant_name].push({
+                            inventory_variant_id,
+                            variant_option_name
+                        });
+                    });
+
+                    setAllVariantsOptions(result);
                 }
             });
         }
@@ -80,15 +102,15 @@ const SingleInventoryPage = () => {
         }
     }, [inventory?.id]);
 
-    useEffect(() => {
-        if (inventory?.product_id) {
-            fetchAllVariantOptionsByProduct(inventory?.product_id).then((response) => {
-                if (response?.data) {
-                    setAllVariantsOptions(response?.data);
-                }
-            });
-        }
-    }, [inventory?.product_id])
+    // useEffect(() => {
+    //     if (inventory?.product_id) {
+    //         fetchAllVariantOptionsByProduct(inventory?.product_id).then((response) => {
+    //             if (response?.data) {
+    //                 setAllVariantsOptions(response?.data);
+    //             }
+    //         });
+    //     }
+    // }, [inventory?.product_id])
 
     const handleFavourite = () => {
         syncWishlist({
@@ -207,17 +229,17 @@ const SingleInventoryPage = () => {
                                 </p>
                             </div>
                             <p className="font-lato font-20 text-dark mb-3">
-                                {isRunningOffer ? (
+                                {hasOffer ? (
                                     <Fragment>
                                         <del>
-                                            Price:- {inventory?.sale_price}
+                                            Price:- <span className="currency">&#2547;</span>{inventory?.sale_price}
                                         </del>
                                         <br/>
-                                        Offer Price:- {inventory?.offer_price}
+                                        Offer Price:- <span className="currency">&#2547;</span>{inventory?.offer_price}
                                     </Fragment>
                                 ) : (
                                     <Fragment>
-                                        Price:- {inventory?.sale_price}
+                                        Price:- <span className="currency">&#2547;</span>{inventory?.sale_price}
                                     </Fragment>
                                 )}
                             </p>

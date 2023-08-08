@@ -23,6 +23,7 @@ const SingleComboPage = () => {
 
     const [combo, setCombo] = useState({});
     const [isRunningOffer, setIsRunningOffer] = useState(false);
+    const [hasOffer, setHasOffer] = useState(false);
     const [offerEnd, setOfferEnd] = useState(null);
     const [isWishlist, setIsWishlist] = useState(false);
 
@@ -55,6 +56,7 @@ const SingleComboPage = () => {
                     let diff = moment.duration(myOfferEnd.diff(myOfferStart)).asDays();
                     setIsRunningOffer(diff > 0);
                     setOfferEnd(myOfferEnd);
+                    setHasOffer(response.data.offer_price !== null)
                 }
             });
         }
@@ -129,17 +131,17 @@ const SingleComboPage = () => {
                                 {combo?.title}
                             </h3>
                             <p className="font-lato font-20 text-dark mb-3">
-                                {isRunningOffer ? (
+                                {hasOffer ? (
                                     <Fragment>
                                         <del>
-                                            Price:- {combo?.sale_price}
+                                            Price:- <span className="currency">&#2547;</span>{combo?.sale_price}
                                         </del>
                                         <br/>
-                                        Offer Price:- {combo?.offer_price}
+                                        Offer Price:- <span className="currency">&#2547;</span>{combo?.offer_price}
                                     </Fragment>
                                 ) : (
                                     <Fragment>
-                                        Price:- {combo?.sale_price}
+                                        Price:- <span className="currency">&#2547;</span>{combo?.sale_price}
                                     </Fragment>
                                 )}
                             </p>

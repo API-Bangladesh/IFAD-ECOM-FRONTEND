@@ -69,13 +69,13 @@ const ComboPage = () => {
             <div className="container">
 
                 {/*Category Info*/}
-                <div className="w-100">
+                <div className="w-100 mb-5">
                     <h1 className="fw-bolder text-center mt-5 font-40 font-inter our-product">Combo Pack</h1>
-                    <p className="font-lato text-center font-18 mb-5 product-des">
+                    {/* <p className="font-lato text-center font-18 mb-5 product-des">
                         We Are Restocking as Quickly as Possible. Come Back 7/30 to OrderMore of These Flavors
                         Inspired by the Places You Call
                         Home!
-                    </p>
+                    </p> */}
                 </div>
 
                 <div className="row">

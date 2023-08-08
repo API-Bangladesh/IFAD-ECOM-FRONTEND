@@ -17,6 +17,7 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
     let myOfferStart = moment(offerStart)
     let myOfferEnd = moment(offerEnd)
     let isRunningOffer = moment.duration(myOfferEnd.diff(myOfferStart)).asDays() > 0;
+    let hasOffer = offerPrice !== null;
 
     const handleAddToCart = (event, buyNow = false) => {
         event.preventDefault();
@@ -76,21 +77,21 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
                     </Link>
                 </Card.Title>
 
-                {isRunningOffer ? (
+                {hasOffer ? (
                     <Fragment>
                         <del>
                             <Card.Text className="text-center text-capitalize">
-                                Price:- {salePrice}
+                                Price:- <span className="currency">&#2547;</span>{salePrice}
                             </Card.Text>
                         </del>
                         <Card.Text className="text-center pb-3 text-capitalize">
-                            offer Price:- {offerPrice}
+                            offer Price:- <span className="currency">&#2547;</span>{offerPrice}
                         </Card.Text>
                     </Fragment>
                 ) : (
                     <Card.Text className="text-center pb-3 text-capitalize">
                         <br/>
-                        Price:- {salePrice}
+                        Price:- <span className="currency">&#2547;</span>{salePrice}
                     </Card.Text>
                 )}
 
