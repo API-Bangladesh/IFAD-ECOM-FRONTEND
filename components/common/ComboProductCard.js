@@ -64,10 +64,10 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
                 <Link href={viewLink}>
                     <img src={imagePath} width={224} height={172} className="card-img-top mt-4 mb-4" alt={title}/>
                 </Link>
-                {salePrice && offerPrice && salePrice > offerPrice &&
-                    <div className="position-absolute offer-token text-center">
+                {salePrice && offerPrice && salePrice > offerPrice ?
+                    (<div className="position-absolute offer-token text-center">
                         <span className="text-white veri-align fw-semibold font-14 pt-2">-{calculateDiscount(salePrice, offerPrice)}%</span>
-                    </div>
+                    </div>) : ""
                 }
             </div>
             <Card.Body className="prod-card-body">
