@@ -4,9 +4,10 @@ import {Col, Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import {useRouter} from 'next/router';
 import {loginCustomer} from "../../services/AuthServices";
-import {login} from "../../utils/auth";
+import {isLoggedIn, login} from "../../utils/auth";
 import {useDispatch} from "react-redux";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
+import {useEffectOnce} from "../../utils/hooks/useEffectOnce";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -39,6 +40,14 @@ const LoginPage = () => {
             }
         });
     };
+
+    useEffectOnce(() => {
+        if (isLoggedIn()) {
+            if (window !== 'undefined') {
+                return window.location.href = '/my-account';
+            }
+        }
+    });
 
     return (
         <section className="login-bg">
@@ -84,4 +93,5 @@ const LoginPage = () => {
         </section>
     );
 }
+
 export default LoginPage

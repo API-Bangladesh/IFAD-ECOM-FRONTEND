@@ -52,6 +52,7 @@ const WishlistTab = () => {
 						offerPrice={item?.inventory?.offer_price}
 						offerStart={item?.inventory?.offer_start}
 						offerEnd={item?.inventory?.offer_end}
+						variants={inventory.inventory_variants}
 						imagePath={
 							item?.inventory?.image
 								? getStoragePath(`inventory-image/${item?.inventory?.image}`)

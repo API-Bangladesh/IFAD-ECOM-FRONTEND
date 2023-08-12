@@ -96,6 +96,7 @@ const DiscountedProductScroll = ({title}) => {
                                                     offerPrice={inventory.offer_price}
                                                     offerStart={inventory.offer_start}
                                                     offerEnd={inventory.offer_end}
+                                                    variants={inventory.inventory_variants}
                                                     imagePath={
                                                         inventory?.image
                                                             ? getStoragePath(`inventory-image/${inventory?.image}`)

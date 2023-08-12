@@ -8,16 +8,36 @@ import {SET_CART_ITEM} from "../../store/slices/CartSlice";
 import {randomInt} from "next/dist/shared/lib/bloom-filter/utils";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/router";
-import Timer from "../common/Timer";
 
-const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sku, categoryName, imagePath, viewLink, cssClasses, isTimer}) => {
+const ComboProductCard = ({
+                              id,
+                              title,
+                              salePrice,
+                              offerPrice,
+                              offerStart,
+                              offerEnd,
+                              sku,
+                              categoryName,
+                              imagePath,
+                              viewLink,
+                              cssClasses,
+                              isTimer
+                          }) => {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    let myOfferStart = moment(offerStart)
-    let myOfferEnd = moment(offerEnd)
-    let isRunningOffer = moment.duration(myOfferEnd.diff(myOfferStart)).asDays() > 0;
-    let hasOffer = offerPrice !== null;
+    let isRunningOffer = false;
+    const today = moment().format('YYYY-MM-DD');
+    const myOfferStart = offerStart ? moment(offerStart).format('YYYY-MM-DD') : null;
+    const myOfferEnd = offerEnd ? moment(offerEnd).format('YYYY-MM-DD') : null;
+
+    if (offerPrice) {
+        if (myOfferStart !== null && myOfferEnd !== null) {
+            isRunningOffer = myOfferStart <= today && myOfferEnd >= today;
+        } else {
+            isRunningOffer = true;
+        }
+    }
 
     const handleAddToCart = (event, buyNow = false) => {
         event.preventDefault();
@@ -27,8 +47,8 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
                 id: randomInt(11111111, 999999999),
                 combo_id: id,
                 quantity: 1,
-                unit_price: salePrice,
-                total: salePrice,
+                unit_price: isRunningOffer ? offerPrice : salePrice,
+                total: isRunningOffer ? offerPrice : salePrice,
 
                 type: 'combo',
                 sku: sku,
@@ -38,7 +58,7 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
             }));
 
             tostify(toast, 'success', {
-                message: "Added"
+                message: "Added to Cart"
             });
 
             if (buyNow) {
@@ -66,7 +86,8 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
                 </Link>
                 {salePrice && offerPrice && salePrice > offerPrice ?
                     (<div className="position-absolute offer-token text-center">
-                        <span className="text-white veri-align fw-semibold font-14 pt-2">-{calculateDiscount(salePrice, offerPrice)}%</span>
+                        <span
+                            className="text-white veri-align fw-semibold font-14 pt-2">-{calculateDiscount(salePrice, offerPrice)}%</span>
                     </div>) : ""
                 }
             </div>
@@ -77,7 +98,7 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
                     </Link>
                 </Card.Title>
 
-                {hasOffer ? (
+                {isRunningOffer ? (
                     <Fragment>
                         <del>
                             <Card.Text className="text-center text-capitalize">
@@ -97,7 +118,7 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
 
                 <div className="d-flex justify-content-center">
                     <button type="button"
-                            className="btn btn-success buy-now rounded-0 text-capitalize px-2 font-14 me-2 font-lato me-2"
+                            className="btn btn-success buy-now rounded-0 text-capitalize px-2 font-14 font-lato me-2"
                             onClick={(event) => handleAddToCart(event, true)}
                     >
                         buy now
@@ -110,7 +131,7 @@ const ComboProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEn
                         add to cart
                     </button>
                 </div>
-                {/* {isTimer && isRunningOffer && (
+                {/*{isTimer && isRunningOffer && (
                     <div style={{padding: "10px 0 0", textAlign: "center", fontWeight: "bold"}}>
                         <Timer startDate={offerStart} endDate={offerEnd}/>
                     </div>

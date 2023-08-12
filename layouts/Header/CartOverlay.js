@@ -26,7 +26,7 @@ function CartOverlay() {
             dispatch(REMOVE_CART_ITEM(key));
 
             tostify(toast, 'success', {
-                message: "Removed"
+                message: "Removed from Cart"
             });
         } catch (error) {
             tostify(toast, 'error', {
@@ -79,9 +79,16 @@ function CartOverlay() {
                                     </div>
                                     <div className="">
                                         <p className="text-capitalize font-16 font-lato ps-3">
-                                            <a href={`/product/${item.inventory_id}`}>
-                                                {item.title}
-                                            </a>
+                                            {item.type === 'product' && (
+                                                <a href={`/product/${item.inventory_id}`}>
+                                                    {item.title}
+                                                </a>
+                                            )}
+                                            {item.type === 'combo' && (
+                                                <a href={`/combo/pack/${item.combo_id}`}>
+                                                    {item.title}
+                                                </a>
+                                            )}
                                         </p>
                                         <p className="text-capitalize font-16 font-lato ps-3 d-flex align-items-center">
                                             <input className="form-control form-control-sm" style={{width: '50px'}}
@@ -124,6 +131,11 @@ function CartOverlay() {
                             <Link
                                 href="/checkout"
                                 className=" text-uppercase font-16 font-lato checkout-btn"
+                                onClick={() => {
+                                    setTimeout(() => {
+                                        setShow(false)
+                                    }, 1000);
+                                }}
                             >
                                 checkout
                             </Link>

@@ -13,7 +13,7 @@ const AddressModal = ({
   isEditing
 }) => {
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} size="lg">
       <Form onSubmit={(e) => createAddress(e)}>
         <Modal.Header closeButton>
           <Modal.Title>{isEditing ? "Edit Address" : "Add Address"}</Modal.Title>

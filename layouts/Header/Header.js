@@ -55,11 +55,11 @@ export default function Header() {
                     <Container className="">
                         <div>
                             <ul className="font-poppins manu-font-one text-white d-flex justify-content-end align-items-center py-1">
-                                <li className="pe-3">
+                                {/*<li className="pe-3">
                                     <Link href="/how-to-buy" className="text-light">
                                         How to buy
                                     </Link>
-                                </li>
+                                </li>*/}
                                 <li className="pe-3">
                                     <Link href="/b2b" className="text-light">
                                         B2B Sales
@@ -206,7 +206,7 @@ export default function Header() {
                                 <Navbar.Collapse id="basic-navbar-nav">
                                     <Nav className="mx-auto py-0 font-inter manu-font manu-items">
                                         <Nav.Link as={Link} href="/"
-                                                  className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
+                                                  className="d-flex align-items-center all-side-icons font-14 me-5 my-2">
                                             home
                                         </Nav.Link>
 
@@ -214,7 +214,7 @@ export default function Header() {
                                             className="p-0 rounded-0 about-btn"
                                             title={
                                                 <span
-                                                    className=" text-white text-inter py-2 font-14 me-3 d-flex all-side-icons align-items-center">about us</span>
+                                                    className=" text-white text-inter py-2 font-14 me-5 d-flex all-side-icons align-items-center">about us</span>
                                             }
                                             id="navbarScrollingDropdown"
                                         >
@@ -232,17 +232,17 @@ export default function Header() {
                                             </NavDropdown.Item>
                                         </NavDropdown>
 
-                                        <Nav.Link as={Link} href="/terms-and-conditions"
+                                        {/*<Nav.Link as={Link} href="/terms-and-conditions"
                                                   className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
                                             TERMS & CONDITION
                                         </Nav.Link>
                                         <Nav.Link as={Link} href="/privacy-policy"
                                                   className="d-flex align-items-center all-side-icons font-14 me-3 my-2">
                                             PRIVACY POLICY
-                                        </Nav.Link>
+                                        </Nav.Link>*/}
                                         <Nav.Link as={Link} href="/delivery-information"
-                                                  className="d-flex align-items-center all-side-icons me-3 font-14 my-2">
-                                            DELIVERY
+                                                  className="d-flex align-items-center all-side-icons me-5 font-14 my-2">
+                                            DELIVERY INFORMATION
                                         </Nav.Link>
                                         <Nav.Link as={Link} href="/contact"
                                                   className="d-flex align-items-center all-side-icons font-14 my-2">
