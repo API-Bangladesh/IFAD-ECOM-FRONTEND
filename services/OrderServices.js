@@ -20,6 +20,18 @@ export const fetchOrders = async (params = {}) => {
  *
  * @returns {Promise<*>}
  */
+export const fetchOrder = async (id) => {
+    try {
+        return await axios.get(`/ecom/orders/${id}/show`);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+/**
+ *
+ * @returns {Promise<*>}
+ */
 export const saveOrder = async (data = {}) => {
     try {
         return await axios.post(`/ecom/orders`, data);

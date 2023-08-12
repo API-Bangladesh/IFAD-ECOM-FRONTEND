@@ -23,8 +23,6 @@ const SingleComboPage = () => {
 
     const [combo, setCombo] = useState({});
     const [isRunningOffer, setIsRunningOffer] = useState(false);
-    const [hasOffer, setHasOffer] = useState(false);
-    const [offerEnd, setOfferEnd] = useState(null);
     const [isWishlist, setIsWishlist] = useState(false);
 
     const [quantity, setQuantity] = useState(0);
@@ -49,14 +47,21 @@ const SingleComboPage = () => {
         if (id) {
             fetchCombo(id).then((response) => {
                 if (response?.data) {
-                    setCombo(response.data);
+                    const combo = response.data;
 
-                    let myOfferStart = moment(response.data.offer_start);
-                    let myOfferEnd = moment(response.data.offer_end);
-                    let diff = moment.duration(myOfferEnd.diff(myOfferStart)).asDays();
-                    setIsRunningOffer(diff > 0);
-                    setOfferEnd(myOfferEnd);
-                    setHasOffer(response.data.offer_price !== null)
+                    setCombo(combo);
+
+                    const today = moment().format('YYYY-MM-DD');
+                    const myOfferStart = combo.offer_start ? moment(combo.offer_start).format('YYYY-MM-DD') : null;
+                    const myOfferEnd = combo.offer_end ? moment(combo.offer_end).format('YYYY-MM-DD') : null;
+
+                    if (combo?.offer_price) {
+                        if (myOfferStart !== null && myOfferEnd !== null) {
+                            setIsRunningOffer(myOfferStart <= today && myOfferEnd >= today);
+                        } else {
+                            setIsRunningOffer(true);
+                        }
+                    }
                 }
             });
         }
@@ -70,17 +75,19 @@ const SingleComboPage = () => {
 
             if (!quantity) {
                 tostify(toast, 'warning', {
-                    message: "Quantity should't empty!"
+                    message: "Quantity shouldn't empty!"
                 });
                 return false;
             }
+
+            const unitPrice = isRunningOffer ? combo.offer_price : combo.sale_price;
 
             dispatch(SET_CART_ITEM({
                 id: randomInt(11111111, 999999999),
                 combo_id: combo.id,
                 quantity: quantity,
-                unit_price: combo.sale_price,
-                total: quantity * combo.sale_price,
+                unit_price: unitPrice,
+                total: quantity * unitPrice,
 
                 type: 'combo',
                 sku: combo.sku,
@@ -90,7 +97,7 @@ const SingleComboPage = () => {
             }));
 
             tostify(toast, 'success', {
-                message: "Added"
+                message: "Added to Cart"
             });
 
             setQuantity(0);
@@ -109,13 +116,15 @@ const SingleComboPage = () => {
 
     return (
         <section className="view-single-pro">
-            <div className="product-banner">
-                <img
-                    src={combo?.lifestyle_image ? getStoragePath(`combo-life-style/${combo?.lifestyle_image}`) : "/combo-default.jpg"}
-                    alt="image"
-                    className="product-banner"
-                />
-            </div>
+            {combo?.lifestyle_image && (
+                <div className="product-banner">
+                    <img
+                        src={combo?.lifestyle_image ? getStoragePath(`combo-life-style/${combo?.lifestyle_image}`) : "/combo-default.jpg"}
+                        alt="lifestyle-image"
+                        className="product-banner"
+                    />
+                </div>
+            )}
 
             <div className="container">
                 <div className="row">
@@ -131,7 +140,7 @@ const SingleComboPage = () => {
                                 {combo?.title}
                             </h3>
                             <p className="font-lato font-20 text-dark mb-3">
-                                {hasOffer ? (
+                                {isRunningOffer ? (
                                     <Fragment>
                                         <del>
                                             Price:- {combo?.sale_price} Tk.
@@ -184,9 +193,16 @@ const SingleComboPage = () => {
                                 </button>
                             </div>
                         </div>
-                        {isRunningOffer && (
-                            <div style={{padding: "10px 0 0", textAlign: "left", fontWeight: "bold"}}>
-                                <Timer startDate={null} endDate={offerEnd}/>
+
+                        {/*Timer*/}
+                        {(isRunningOffer && combo?.offer_end) && (
+                            <div className="offer-countdown mb-4">
+                                <div className="fs-6 mb-1">Hurry up! Offer is ongoing.</div>
+                                <div
+                                    className="fs-2 fw-light border-2 border-warning d-inline-block px-3 py-2 text-center"
+                                    style={{padding: "10px 0 0", textAlign: "left", fontWeight: "bold"}}>
+                                    <Timer startDate={null} endDate={combo?.offer_end}/>
+                                </div>
                             </div>
                         )}
                     </div>

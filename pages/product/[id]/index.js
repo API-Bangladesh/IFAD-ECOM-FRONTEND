@@ -2,11 +2,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import {FaHeart} from "react-icons/fa";
 import ImageSection from "../../../components/product/ImageSection";
 import ProductDescription from "../../../components/product/ProductDescription";
-import {
-    fetchAllVariantOptionsByProduct,
-    fetchInventory,
-    fetchInventoryByVariationIds
-} from "../../../services/InventoryServices";
+import {fetchInventory} from "../../../services/InventoryServices";
 import {useRouter} from "next/router";
 import StarRatings from "react-star-ratings";
 import moment from "moment";
@@ -20,6 +16,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {SET_CART_ITEM} from "../../../store/slices/CartSlice";
 import {randomInt} from "next/dist/shared/lib/bloom-filter/utils";
 import Timer from "../../../components/common/Timer";
+import ReactPlayer from "react-player";
 
 const SingleInventoryPage = () => {
     const dispatch = useDispatch();
@@ -30,12 +27,8 @@ const SingleInventoryPage = () => {
     const cart = useSelector((state) => state.cart);
 
     const [inventory, setInventory] = useState({});
-    const [isRunningOffer, setIsRunningOffer] = useState(false);
-    const [hasOffer, setHasOffer] = useState(false);
-    const [offerEnd, setOfferEnd] = useState(null);
     const [isWishlist, setIsWishlist] = useState(false);
-    const [allVariantsOptions, setAllVariantsOptions] = useState({});
-    const [inventoryVariantIds, setInventoryVariantIds] = useState([]);
+    const [isRunningOffer, setIsRunningOffer] = useState(false);
 
     const [quantity, setQuantity] = useState(0);
 
@@ -59,34 +52,21 @@ const SingleInventoryPage = () => {
         if (id) {
             fetchInventory(id).then((response) => {
                 if (response?.data) {
-                    setInventory(response.data);
+                    const inventory = response.data;
 
-                    let myOfferStart = moment(response.data.offer_start);
-                    let myOfferEnd = moment(response.data.offer_end);
-                    let diff = moment.duration(myOfferEnd.diff(myOfferStart)).asDays();
-                    setIsRunningOffer(diff > 0);
-                    setOfferEnd(myOfferEnd);
-                    setHasOffer(response.data.offer_price !== null)
+                    setInventory(inventory);
 
-                    // set all variants options
-                    const result = {};
+                    const today = moment().format('YYYY-MM-DD');
+                    const myOfferStart = inventory.offer_start ? moment(inventory.offer_start).format('YYYY-MM-DD') : null;
+                    const myOfferEnd = inventory.offer_end ? moment(inventory.offer_end).format('YYYY-MM-DD') : null;
 
-                    response?.data?.inventory_variants.forEach(item => {
-                        const variant_name = item.variant.name;
-                        const variant_option_name = item.variant_option.name;
-                        const inventory_variant_id = item.id;
-
-                        if (!result[variant_name]) {
-                            result[variant_name] = [];
+                    if (inventory?.offer_price) {
+                        if (myOfferStart !== null && myOfferEnd !== null) {
+                            setIsRunningOffer(myOfferStart <= today && myOfferEnd >= today);
+                        } else {
+                            setIsRunningOffer(true);
                         }
-
-                        result[variant_name].push({
-                            inventory_variant_id,
-                            variant_option_name
-                        });
-                    });
-
-                    setAllVariantsOptions(result);
+                    }
                 }
             });
         }
@@ -102,16 +82,6 @@ const SingleInventoryPage = () => {
         }
     }, [inventory?.id]);
 
-    // useEffect(() => {
-    //     if (inventory?.product_id) {
-    //         fetchAllVariantOptionsByProduct(inventory?.product_id).then((response) => {
-    //             if (response?.data) {
-    //                 setAllVariantsOptions(response?.data);
-    //             }
-    //         });
-    //     }
-    // }, [inventory?.product_id])
-
     const handleFavourite = () => {
         syncWishlist({
             inventory_id: inventory?.id
@@ -126,26 +96,6 @@ const SingleInventoryPage = () => {
         });
     };
 
-    const handleChangeVariantOption = (variantOptionId) => {
-        setInventoryVariantIds((prevSate) => [...prevSate, variantOptionId]);
-    }
-
-    useEffect(() => {
-        if (inventory?.id && inventoryVariantIds.length > 0) {
-            fetchInventoryByVariationIds(inventory.id, {
-                inventory_variant_ids: inventoryVariantIds
-            }).then((response) => {
-                if (response?.data) {
-                    const {inventory_id} = response.data;
-                    // console.log(inventory_id, inventory.id)
-                    if (inventory_id != inventory.id) {
-                        // router.push('/product/' + inventory_id);
-                    }
-                }
-            });
-        }
-    }, [inventory?.id, inventoryVariantIds])
-
     const handleAddToCart = (event, inventory, buyNow = false) => {
         event.preventDefault();
 
@@ -153,17 +103,19 @@ const SingleInventoryPage = () => {
 
             if (!quantity) {
                 tostify(toast, 'warning', {
-                    message: "Quantity should't empty!"
+                    message: "Quantity shouldn't empty!"
                 });
                 return false;
             }
+
+            const unitPrice = isRunningOffer ? inventory.offer_price : inventory.sale_price;
 
             dispatch(SET_CART_ITEM({
                 id: randomInt(11111111, 999999999),
                 inventory_id: inventory.id,
                 quantity: quantity,
-                unit_price: inventory.sale_price,
-                total: quantity * inventory.sale_price,
+                unit_price: unitPrice,
+                total: quantity * unitPrice,
 
                 type: 'product',
                 sku: inventory.sku,
@@ -177,7 +129,7 @@ const SingleInventoryPage = () => {
             }));
 
             tostify(toast, 'success', {
-                message: "Added"
+                message: "Added to Cart"
             });
 
             setQuantity(0);
@@ -229,7 +181,7 @@ const SingleInventoryPage = () => {
                                 </p>
                             </div>
                             <p className="font-lato font-20 text-dark mb-3">
-                                {hasOffer ? (
+                                {isRunningOffer ? (
                                     <Fragment>
                                         <del>
                                             Price:- {inventory?.sale_price} Tk.
@@ -245,38 +197,22 @@ const SingleInventoryPage = () => {
                             </p>
                         </div>
 
-                        <div className="variation-infos">
-                            <table className="table table-bordered">
-                                <tbody>
-                                {Object.keys(allVariantsOptions).map((variantName, key) => {
-                                    const variantOptions = allVariantsOptions[variantName];
-
-                                    return (
+                        {inventory?.inventory_variants && (
+                            <div className="variation-infos">
+                                <table className="table table-bordered">
+                                    <tbody>
+                                    {inventory.inventory_variants.map((item, key) => (
                                         <tr key={key}>
-                                            <td>{variantName}</td>
+                                            <td width={250}>{item?.variant?.name}</td>
                                             <td className="d-flex">
-                                                {variantOptions.map((option, key) => {
-                                                    return (
-                                                        <div key={key}>
-                                                            <input type="radio" className="btn-check"
-                                                                   name={variantName}
-                                                                   id={variantName + '-' + option.inventory_variant_id}
-                                                                   value={option.inventory_variant_id}
-                                                                   onClick={(event) => handleChangeVariantOption(event.target.value)}/>
-                                                            <label className="btn btn-outline-secondary me-2"
-                                                                   htmlFor={variantName + '-' + option.inventory_variant_id}>
-                                                                {option.variant_option_name}
-                                                            </label>
-                                                        </div>
-                                                    )
-                                                })}
+                                                {item?.variant_option?.name}
                                             </td>
                                         </tr>
-                                    )
-                                })}
-                                </tbody>
-                            </table>
-                        </div>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
 
                         <div className="d-flex justify-content-start align-items-center counter mt-3">
                             <p className="text-capitalize pe-3 font-lato">quantity :</p>
@@ -323,9 +259,42 @@ const SingleInventoryPage = () => {
                                 </button>
                             </div>
                         </div>
-                        {isRunningOffer && (
-                            <div style={{padding: "10px 0 0", textAlign: "left", fontWeight: "bold"}}>
-                                <Timer startDate={null} endDate={offerEnd} />
+
+                        {/*Timer*/}
+                        {(isRunningOffer && inventory?.offer_end) && (
+                            <div className="offer-countdown mb-4">
+                                <div className="fs-6 mb-1">Hurry up! Offer is ongoing.</div>
+                                <div
+                                    className="fs-2 fw-light border-2 border-warning d-inline-block px-3 py-2 text-center"
+                                    style={{padding: "10px 0 0", textAlign: "left", fontWeight: "bold"}}>
+                                    <Timer startDate={null} endDate={inventory?.offer_end}/>
+                                </div>
+                            </div>
+                        )}
+
+                        {/*Video*/}
+                        {inventory?.product?.product_video_path && (
+                            <div className="product-video mb-4">
+                                <ReactPlayer
+                                    controls={true}
+                                    url={getStoragePath('product-video/' + inventory.product.product_video_path)}
+                                />
+                            </div>
+                        )}
+
+                        {/*Brochure*/}
+                        {inventory?.product?.product_brochure && (
+                            <div className="product-brochure mb-5">
+                                <a href={getStoragePath('product-brochure/' + inventory.product.product_brochure)}
+                                   className="btn btn-outline-dark rounded-0 w-50" target="_blank">
+                                    <div className="d-flex flex-column justify-content-center">
+                                        <div className="mb-1 p-1">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/543/543829.png"
+                                                 width={35} className="d-inline" alt="icon"/>
+                                        </div>
+                                        <span className="fs-5">Product Brochure</span>
+                                    </div>
+                                </a>
                             </div>
                         )}
                     </div>

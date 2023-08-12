@@ -1,5 +1,5 @@
 import Row from "react-bootstrap/Row";
-import {useEffect, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import {fetchOrders} from "../../services/OrderServices";
 import {currency, getOrderStatusList, getPaymentStatusList} from "../../utils/helpers";
 
@@ -21,7 +21,7 @@ const OrdersTab = () => {
     }, []);
 
     return (
-        <>
+        <Fragment>
             <Row>
                 <h1 className="text-capitalize font-32 fw-bolder font-jost pb-4 ">Ordered Products</h1>
 
@@ -45,14 +45,15 @@ const OrdersTab = () => {
                                 <td>{getPaymentStatusList(item.payment_status_id)}</td>
                                 <td>{getOrderStatusList(item.order_status_id)}</td>
                                 <td>{currency(item.grand_total)}</td>
-                                <td><a href="/" className="btn btn-danger btn-sm">Invoice</a></td>
+                                <td><a href={`/my-account/order/${item.id}/invoice`}
+                                       className="btn btn-danger btn-sm">Invoice</a></td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
                 </div>
             </Row>
-        </>
+        </Fragment>
     )
 }
 export default OrdersTab

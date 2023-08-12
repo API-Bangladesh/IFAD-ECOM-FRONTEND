@@ -45,9 +45,11 @@ const SearchCombos = ({keyword}) => {
         <section>
 
             {/*Category Banner*/}
-            <div className="product-banner">
-                <img src={combos?.[0]?.lifestyle_image} alt="" className="product-banner"/>
-            </div>
+            {combos?.[0]?.lifestyle_image && (
+                <div className="product-banner">
+                    <img src={combos?.[0]?.lifestyle_image} alt="" className="product-banner"/>
+                </div>
+            )}
 
             <div className="container">
 

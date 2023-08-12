@@ -46,10 +46,12 @@ const SearchInventories = ({keyword}) => {
         <section>
 
             {/*Category Banner*/}
-            <div className="product-banner">
-                <img src={getStoragePath(`product-image/${inventories?.[0]?.product?.lifestyle_image}`)} alt="image"
-                     className="product-banner"/>
-            </div>
+            {inventories?.[0]?.product?.lifestyle_image && (
+                <div className="product-banner">
+                    <img src={getStoragePath(`product-image/${inventories?.[0]?.product?.lifestyle_image}`)} alt="image"
+                         className="product-banner"/>
+                </div>
+            )}
 
             <div className="container">
 
@@ -79,6 +81,7 @@ const SearchInventories = ({keyword}) => {
                                             offerPrice={inventory.offer_price}
                                             offerStart={inventory.offer_start}
                                             offerEnd={inventory.offer_end}
+                                            variants={inventory.inventory_variants}
                                             imagePath={
                                                 inventory?.image
                                                     ? getStoragePath(`inventory-image/${inventory?.image}`)

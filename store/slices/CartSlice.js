@@ -17,14 +17,19 @@ const CartSlice = createSlice({
         SET_CART_ITEM: (state, action) => {
             let newItem = action.payload;
 
-            let isExists = false;
-            state.items.map((item) => {
-                isExists = item.inventory_id === newItem.inventory_id;
+            let isExists = state.items.some((item) => {
+                if (newItem.inventory_id) {
+                    return item.inventory_id === newItem.inventory_id;
+                } else if (newItem.combo_id) {
+                    return item.combo_id === newItem.combo_id;
+                }
+                return false;
             });
 
             if (isExists) {
-                state.items = state.items.filter((item) => {
-                    if (item.inventory_id === newItem.inventory_id) {
+                state.items = state.items.map((item) => {
+                    if ((newItem.inventory_id && item.inventory_id === newItem.inventory_id) ||
+                        (newItem.combo_id && item.combo_id === newItem.combo_id)) {
                         item.quantity += newItem.quantity;
                         item.total = item.quantity * item.unit_price;
                     }
@@ -86,6 +91,14 @@ function CALC_SUB_TOTAL(state) {
     state.grandTotal = tmp;
 }
 
-export const {RESET_CART, SET_CART_ITEM, UPDATE_ITEM_QUANTITY, UPDATE_PAYMENT_METHOD_ID, REMOVE_CART_ITEM, UPDATE_BILLING_ADDRESS, UPDATE_SHIPPING_ADDRESS} = CartSlice.actions
+export const {
+    RESET_CART,
+    SET_CART_ITEM,
+    UPDATE_ITEM_QUANTITY,
+    UPDATE_PAYMENT_METHOD_ID,
+    REMOVE_CART_ITEM,
+    UPDATE_BILLING_ADDRESS,
+    UPDATE_SHIPPING_ADDRESS
+} = CartSlice.actions
 
 export default CartSlice.reducer;

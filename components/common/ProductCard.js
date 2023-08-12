@@ -8,16 +8,38 @@ import {SET_CART_ITEM} from "../../store/slices/CartSlice";
 import {randomInt} from "next/dist/shared/lib/bloom-filter/utils";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/router";
-import Timer from "../common/Timer";
 
-const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sku, categoryName, subCategoryName, imagePath, viewLink, cssClasses, isTimer}) => {
+const ProductCard = ({
+                         id,
+                         title,
+                         salePrice,
+                         offerPrice,
+                         offerStart,
+                         offerEnd,
+                         sku,
+                         categoryName,
+                         subCategoryName,
+                         imagePath,
+                         viewLink,
+                         cssClasses,
+                         isTimer,
+                         variants
+                     }) => {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    let myOfferStart = moment(offerStart)
-    let myOfferEnd = moment(offerEnd)
-    let isRunningOffer = moment.duration(myOfferEnd.diff(myOfferStart)).asDays() > 0;
-    let hasOffer = offerPrice !== null;
+    let isRunningOffer = false;
+    const today = moment().format('YYYY-MM-DD');
+    const myOfferStart = offerStart ? moment(offerStart).format('YYYY-MM-DD') : null;
+    const myOfferEnd = offerEnd ? moment(offerEnd).format('YYYY-MM-DD') : null;
+
+    if (offerPrice) {
+        if (myOfferStart !== null && myOfferEnd !== null) {
+            isRunningOffer = myOfferStart <= today && myOfferEnd >= today;
+        } else {
+            isRunningOffer = true;
+        }
+    }
 
     const handleAddToCart = (event, buyNow = false) => {
         event.preventDefault();
@@ -27,8 +49,8 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
                 id: randomInt(11111111, 999999999),
                 inventory_id: id,
                 quantity: 1,
-                unit_price: salePrice,
-                total: salePrice,
+                unit_price: isRunningOffer ? offerPrice : salePrice,
+                total: isRunningOffer ? offerPrice : salePrice,
 
                 type: 'product',
                 sku: sku,
@@ -40,7 +62,7 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
             }));
 
             tostify(toast, 'success', {
-                message: "Added"
+                message: "Added to Cart"
             });
 
             if (buyNow) {
@@ -53,7 +75,6 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
                 message: err.message
             });
         }
-
     }
 
     const calculateDiscount = (sale, offer) => {
@@ -68,7 +89,8 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
                 </Link>
                 {salePrice && offerPrice && salePrice > offerPrice ?
                     (<div className="position-absolute offer-token text-center">
-                        <span className="text-white veri-align fw-semibold font-14 pt-2">-{calculateDiscount(salePrice, offerPrice)}%</span>
+                        <span
+                            className="text-white veri-align fw-semibold font-14 pt-2">-{calculateDiscount(salePrice, offerPrice)}%</span>
                     </div>) : ""
                 }
             </div>
@@ -79,27 +101,38 @@ const ProductCard = ({id, title, salePrice, offerPrice, offerStart, offerEnd, sk
                     </Link>
                 </Card.Title>
 
-                {hasOffer ? (
+                {isRunningOffer ? (
                     <Fragment>
                         <del>
                             <Card.Text className="text-center text-capitalize">
                                 Price:- {salePrice} Tk.
                             </Card.Text>
                         </del>
-                        <Card.Text className="text-center pb-3 text-capitalize">
+                        <Card.Text className="text-center pb-2 text-capitalize">
                             offer Price:- {offerPrice} Tk.
                         </Card.Text>
                     </Fragment>
                 ) : (
-                    <Card.Text className="text-center pb-3 text-capitalize">
+                    <Card.Text className="text-center pb-2 text-capitalize">
                         <br/>
                         Price:- {salePrice} Tk.
                     </Card.Text>
                 )}
 
+                {variants && (
+                    <Card.Text className="text-center pb-2 text-capitalize">
+                        {variants.map((item, index) => (
+                            <Fragment key={index}>
+                                {item.variant.name}: {item.variant_option.name}
+                                {index !== variants.length - 1 && ', '}
+                            </Fragment>
+                        ))}
+                    </Card.Text>
+                )}
+
                 <div className="d-flex justify-content-center">
                     <button type="button"
-                            className="btn btn-success buy-now rounded-0 text-capitalize px-2 font-14 me-2 font-lato me-2"
+                            className="btn btn-success buy-now rounded-0 text-capitalize px-2 font-14 me-2 font-lato"
                             onClick={(event) => handleAddToCart(event, true)}
                     >
                         buy now

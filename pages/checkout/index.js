@@ -25,8 +25,8 @@ import {
     UPDATE_PAYMENT_METHOD_ID,
     UPDATE_SHIPPING_ADDRESS
 } from "../../store/slices/CartSlice";
-// import {router} from "next/client";
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
+import Link from "next/link";
 
 const CheckoutPage = () => {
     const router = useRouter()
@@ -114,7 +114,7 @@ const CheckoutPage = () => {
                 dispatch(RESET_CART());
 
                 setTimeout(() => {
-                    router.push('/my-account');
+                    router.push('/my-account?tab=order');
                 }, 2500);
             }
         });
@@ -148,13 +148,18 @@ const CheckoutPage = () => {
                                     </h1>
                                 </div>
                                 <div className="col-4 text-end">
-                                    <select className="form-select" value={billingAddress.id}
-                                            onChange={(event) => handleSetDefaultBillingAddress(event, event.target.value)}>
-                                        <option value="" selected>Default Billing</option>
-                                        {addresses.map((address, key) => (
-                                            <option key={key} value={address.id}>{address.title}</option>
-                                        ))}
-                                    </select>
+                                    <div className="text-end">
+                                        <select className="form-select" value={billingAddress.id}
+                                                onChange={(event) => handleSetDefaultBillingAddress(event, event.target.value)}>
+                                            <option value="" selected>Default Billing</option>
+                                            {addresses.map((address, key) => (
+                                                <option key={key} value={address.id}>{address.title}</option>
+                                            ))}
+                                        </select>
+                                        <Link href="/my-account?tab=address" className="btn btn-link m-0 p-0">
+                                            Add New
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                             <Row>
@@ -266,6 +271,9 @@ const CheckoutPage = () => {
                                             <option key={key} value={address.id}>{address.title}</option>
                                         ))}
                                     </select>
+                                    <Link href="/my-account?tab=address" className="btn btn-link m-0 p-0">
+                                        Add New
+                                    </Link>
                                 </div>
                             </div>
                             <Row>
@@ -384,9 +392,16 @@ const CheckoutPage = () => {
                                     {cart.items.map((item, key) => (
                                         <tr key={key}>
                                             <th scope="row" className="fw-normal text-capitalize font-16 ">
-                                                <a href={`/product/${item.inventory_id}`}>
-                                                    {item.title}
-                                                </a>
+                                                {item.type === 'product' && (
+                                                    <a href={`/product/${item.inventory_id}`}>
+                                                        {item.title}
+                                                    </a>
+                                                )}
+                                                {item.type === 'combo' && (
+                                                    <a href={`/combo/pack/${item.combo_id}`}>
+                                                        {item.title}
+                                                    </a>
+                                                )}
                                             </th>
                                             <td className="text-end">
                                                 {item.quantity}
