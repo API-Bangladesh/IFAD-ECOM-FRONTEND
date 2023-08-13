@@ -26,7 +26,7 @@ const BoardOfDirectors = () => {
                 <h1 className="bod-page-title text-capitalize font-40 fw-bold text-center py-5 font-inter">board of
                     directors</h1>
                 {/* Chirman */}
-                <div className="">
+                <div className="" style={{ paddingBottom:'30px' }}>
                     <Row className="d-flex justify-content-md-center">
                         <div className="col-lg-4 col-md-4 mb-4">
                             <div className="text-center">

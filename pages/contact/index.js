@@ -20,6 +20,7 @@ const Contact = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        mobile: "",
         subject: "",
         message: ""
     });
@@ -103,7 +104,7 @@ const Contact = () => {
                                 us a message</h4>
                             <div className="d-flex justify-content-center">
                                 <p className="text-center font-14 text-secondary w-80 font-poppins text-capitalize pt-3">
-                                    Your email address will not be published.Required fields are marked *
+                                    Your email address will not be published. <br />Required fields are marked *
                                 </p>
                             </div>
                             <div className="px-5">
@@ -117,6 +118,12 @@ const Contact = () => {
                                     <Form.Group className="mb-2" controlId="">
                                         <Form.Label>Email *</Form.Label>
                                         <Form.Control name="email" type="email" value={formData.email}
+                                                      onChange={handleChange}
+                                                      className="rounded-0 contact-form-focus"/>
+                                    </Form.Group>
+                                    <Form.Group className="mb-2" controlId="">
+                                        <Form.Label>Mobile No. *</Form.Label>
+                                        <Form.Control name="mobile" type="number" value={formData.mobile}
                                                       onChange={handleChange}
                                                       className="rounded-0 contact-form-focus"/>
                                     </Form.Group>
