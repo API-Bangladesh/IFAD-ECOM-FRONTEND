@@ -184,14 +184,14 @@ const SingleInventoryPage = () => {
                                 {isRunningOffer ? (
                                     <Fragment>
                                         <del>
-                                            Price:- {inventory?.sale_price} Tk.
+                                            Price: {inventory?.sale_price} Tk.
                                         </del>
                                         <br/>
-                                        Offer Price:- {inventory?.offer_price} Tk.
+                                        Offer Price: {inventory?.offer_price} Tk.
                                     </Fragment>
                                 ) : (
                                     <Fragment>
-                                        Price:- {inventory?.sale_price} Tk.
+                                        Price: {inventory?.sale_price} Tk.
                                     </Fragment>
                                 )}
                             </p>
