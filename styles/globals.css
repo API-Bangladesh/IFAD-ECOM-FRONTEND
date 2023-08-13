@@ -280,11 +280,11 @@ header css starts
 	border-color: #f38120 !important;
 }
 
-.search-field::webkit-input-placeholder { /* Edge */
+.search-field::-webkit-input-placeholder { /* Edge */
 	font-weight: bold;
 }
 
-.search-field:ms-input-placeholder { /* Internet Explorer 10-11 */
+.search-field:-ms-input-placeholder { /* Internet Explorer 10-11 */
 	font-weight: bold;
 }
 
@@ -686,11 +686,11 @@ nav .categories {
 
 }
 
-.canvas-height::webkit-scrollbar-track {
+.canvas-height::-webkit-scrollbar-track {
 	background: red !important;
 }
 
-.canvas-height::webkit-scrollbar {
+.canvas-height::-webkit-scrollbar {
 	display: none;
 }
 
@@ -1756,8 +1756,8 @@ my-account part css start
 	padding-bottom: 0.7rem !important;
 }
 
-input::webkit-outer-spin-button,
-input::webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
@@ -1905,16 +1905,16 @@ how to but part css start
 }
 
 .contact-height {
-	height: 632px;
+	height: 700px;
 }
 
 .contact-image {
-	height: 632px;
+	height: 700px;
 	object-fit: cover;
 }
 
 .form-height {
-	height: 632px;
+	height: 700px;
 }
 
 .contact-form-focus:focus {
@@ -2516,9 +2516,6 @@ Responsive part end
 	.container-bod {
 		max-width: 960px;
 	}
-	.cfooterp {
-		padding-bottom: 20px;
-	}
 }
 
 @media screen and (min-width: 1200px) {
@@ -2630,8 +2627,4 @@ Responsive part end
 
 .invoice-box.rtl table tr td:nth-child(2) {
 	text-align: left;
-}
-
-.cfooterp {
-	padding-bottom: 20px;
 }
