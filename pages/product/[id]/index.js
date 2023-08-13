@@ -271,8 +271,8 @@ const SingleInventoryPage = () => {
                                 </div>
                             </div>
                         )}
-
-                        {/*Video*/}
+                       { /*
+                        {/*Video*
                         {inventory?.product?.product_video_path && (
                             <div className="product-video mb-4">
                                 <ReactPlayer
@@ -282,7 +282,7 @@ const SingleInventoryPage = () => {
                             </div>
                         )}
 
-                        {/*Brochure*/}
+                        {/*Brochure*
                         {inventory?.product?.product_brochure && (
                             <div className="product-brochure mb-5">
                                 <a href={getStoragePath('product-brochure/' + inventory.product.product_brochure)}
@@ -297,6 +297,8 @@ const SingleInventoryPage = () => {
                                 </a>
                             </div>
                         )}
+
+                        */}
                     </div>
 
                     <ProductDescription inventory={inventory} className="mb-5 tabs"/>

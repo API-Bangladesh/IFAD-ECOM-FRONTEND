@@ -143,14 +143,14 @@ const SingleComboPage = () => {
                                 {isRunningOffer ? (
                                     <Fragment>
                                         <del>
-                                            Price:- {combo?.sale_price} Tk.
+                                            Price: {combo?.sale_price} Tk.
                                         </del>
                                         <br/>
-                                        Offer Price:- {combo?.offer_price} Tk.
+                                        Offer Price: {combo?.offer_price} Tk.
                                     </Fragment>
                                 ) : (
                                     <Fragment>
-                                        Price:- {combo?.sale_price} Tk.
+                                        Price: {combo?.sale_price} Tk.
                                     </Fragment>
                                 )}
                             </p>
