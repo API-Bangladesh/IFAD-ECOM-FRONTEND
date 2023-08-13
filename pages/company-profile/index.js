@@ -66,7 +66,7 @@ const CompanyReview = () => {
                 </div>
             </section>
 
-            <section id="missionVission" className="values">
+            <section id="missionVission" className="values pt-8">
                 <div className="values-wrapper">
                 <div className="container">
                     <div className="row">

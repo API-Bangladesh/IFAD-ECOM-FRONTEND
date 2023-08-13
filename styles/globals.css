@@ -2516,6 +2516,9 @@ Responsive part end
 	.container-bod {
 		max-width: 960px;
 	}
+	.cfooterp {
+		padding-bottom: 20px;
+	}
 }
 
 @media screen and (min-width: 1200px) {
@@ -2627,4 +2630,8 @@ Responsive part end
 
 .invoice-box.rtl table tr td:nth-child(2) {
 	text-align: left;
+}
+
+.cfooterp {
+	padding-bottom: 20px;
 }
