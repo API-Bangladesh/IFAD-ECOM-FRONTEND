@@ -68,7 +68,7 @@ const Contact = () => {
                         </div>
                         <div className="text-center ">
                             <h3 className="font-20 font-poppins text-capitalize pt-3">Address</h3>
-                            <p className="font-16 font-jost mb-5 contact-address">address here</p>
+                            <p className="font-16 font-jost mb-5 contact-address">Plot # 7 (New), Tejgaon Industrial Area, Dhaka-1208</p>
                         </div>
                     </Col>
                     <Col lg={4} md={4} sm={4}>
@@ -77,7 +77,7 @@ const Contact = () => {
                         </div>
                         <div className="text-center ">
                             <h3 className="font-20 font-poppins text-capitalize pt-3">email</h3>
-                            <p className="font-16 font-jost mb-5 contact-address">demo.email@gmail.com</p>
+                            <p className="font-16 font-jost mb-5 contact-address">ifadeshop@ifadgroup.com</p>
                         </div>
                     </Col>
                     <Col lg={4} md={4} sm={4}>
@@ -86,7 +86,7 @@ const Contact = () => {
                         </div>
                         <div className="text-center ">
                             <h3 className="font-20 font-poppins text-capitalize pt-3">phone</h3>
-                            <p className="font-16 font-jost mb-5 contact-address">+1 222 333-44-55</p>
+                            <p className="font-16 font-jost mb-5 contact-address">09612114444</p>
                         </div>
                     </Col>
                 </Row>

@@ -72,7 +72,7 @@ const LoginPage = () => {
                                               className="rounded-0 login-form" required/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="">
-                                <Form.Check type="checkbox" label="remember me"
+                                <Form.Check type="checkbox" label="Remember Me"
                                             onChange={(event) => setRemember(event.target.checked)}/>
                             </Form.Group>
                             <button type="submit"
@@ -83,7 +83,7 @@ const LoginPage = () => {
                             <div className="pt-3 d-flex justify-content-center auth-bottom-link">
                                 <span>Don't have an account?</span>
                                 <Link href="/auth/register">
-                                    Sign up for free
+                                    Sign Up Now
                                 </Link>
                             </div>
                         </Form>
