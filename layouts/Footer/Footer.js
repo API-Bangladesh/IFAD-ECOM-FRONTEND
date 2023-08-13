@@ -120,7 +120,7 @@ export default function Footer() {
                   </div>
                   <div className="col-sm-3">
                     <div className="d-flex flex-row justify-content-end fs-4 text-white footer-social-icon">
-                      <div className="d-flex justify-content-center align-items-center">
+                      <div className="d-flex justify-content-center align-items-center" style={{marginTop: '5px'}} >
                       {socials?.map((social, index) =>
                    
                         <Link key={index}
@@ -136,8 +136,9 @@ export default function Footer() {
                   )}
                       </div>
                       <div className="call-to-action">
-                        <img alt="Call" 
-                      src="/call.png" width={110} height={45}/>
+                       <h6 className="footer-soical-link ms-2"> | 09612114444 </h6>
+                        {/* <img alt="Call" 
+                      src="/call.png" width={110} height={45}/> */}
                       </div>
                     </div>
                   </div>
