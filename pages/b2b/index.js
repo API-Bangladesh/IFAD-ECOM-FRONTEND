@@ -91,9 +91,9 @@ const BToB = () => {
                         <div className="">
                             <p className="float-left font-jost font-16 mb-4">
                                 Dear customers&apos; <br></br>Please fill out this B2B form if you have any
-                                inquiries or want to order products for
-                                your business from Ifad. Our responsible person will contact you as soon as
-                                possible.
+                                inquiries on order bulk order for
+                                your business from IFAD. Our responsible person will contact you as soon as
+                                possible on given contact detail.
                             </p>
                         </div>
                         <div data-aos="fade-up">
