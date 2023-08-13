@@ -65,7 +65,7 @@ function RegisterPage() {
                                               className="rounded-0 login-form" required/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="">
-                                <Form.Label>Email address<span className="text-danger"> *</span></Form.Label>
+                                <Form.Label>Email Address<span className="text-danger"> *</span></Form.Label>
                                 <Form.Control type="email" name='email' value={email}
                                               onChange={e => setEmail(e.target.value)}
                                               className="rounded-0 login-form" required/>
@@ -84,13 +84,13 @@ function RegisterPage() {
                                               className="rounded-0 login-form" required/>
                             </Form.Group>
                             <Form.Group className="mb-3 text-secondary" controlId="">
-                            <Form.Check type="checkbox" label="agree all terms & conditions"
+                            <Form.Check type="checkbox" label="Agree all terms & conditions" 
                                             onChange={(event) => setAgree(event.target.checked)}/>
                             </Form.Group>
 
                             <Button type="submit"
                                     className="btn btn-primary w-100 submit-btn rounded-0 px-5 py-2 text-capitalize font-poppins">
-                                register
+                                Register
                             </Button>
 
                             <div className="pt-3 d-flex justify-content-center auth-bottom-link">
