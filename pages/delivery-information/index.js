@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Image from "next/image"
 import parse from 'html-react-parser'
+import DeliveryTNC from "../../public/dtnc.png"
 import DeliveryBanner from "../../public/delivery.jpg"
 import axios from "axios"
 import {API_URL} from "../../utils/constants"
@@ -38,6 +39,7 @@ const DeliverInformationPage = () => {
                         <>
                             <div className="text-center d-">
                                 <h2 className="text-capitalize pt-5 font-40 font-jost fw-bold delivery-title">{item?.item_name}</h2>
+                                <Image src={DeliveryTNC} alt="" className="img ml-20"/>
                                 <div className=" d-flex justify-content-center ">
                                     <p className="text-capitalize font-16 font-inter delivery-para pb-5">{item?.item_short_desc}</p>
                                 </div>
