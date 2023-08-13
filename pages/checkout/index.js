@@ -416,23 +416,23 @@ const CheckoutPage = () => {
                                 </table>
                                 <div className="">
                                     <div className="d-flex justify-content-center">
-                                        <p className="font-lato text-capitalize font-20 pe-2">subtotal :- </p>
+                                        <p className="font-lato text-capitalize font-20 pe-2">subtotal : </p>
                                         <p className=" font-20 ">{cart.subTotal} Tk</p>
                                     </div>
                                     {/*<div className="d-flex justify-content-center">
-                                        <p className="font-lato text-capitalize font-20 pe-2">shipping charge :- </p>
+                                        <p className="font-lato text-capitalize font-20 pe-2">shipping charge : </p>
                                         <p className=" font-20 ">{cart.shippingCharge} Tk</p>
                                     </div>
                                     <div className="d-flex justify-content-center">
-                                        <p className="font-lato text-capitalize font-20 pe-2">discount :- </p>
+                                        <p className="font-lato text-capitalize font-20 pe-2">discount : </p>
                                         <p className=" font-20 ">{cart.discount} Tk</p>
                                     </div>
                                     <div className="d-flex justify-content-center">
-                                        <p className="font-lato text-capitalize font-20 pe-2">tax :- </p>
+                                        <p className="font-lato text-capitalize font-20 pe-2">tax : </p>
                                         <p className=" font-20 ">{cart.tax} Tk</p>
                                     </div>*/}
                                     <div className="d-flex justify-content-center">
-                                        <p className="font-lato text-warning text-capitalize font-20 pe-2">total :- </p>
+                                        <p className="font-lato text-warning text-capitalize font-20 pe-2">total : </p>
                                         <p className="font-20 theme-text">{cart.grandTotal || 0} Tk</p>
                                     </div>
                                 </div>
