@@ -109,6 +109,7 @@ const CheckoutPage = () => {
             grand_total: cart.grandTotal,
             payment_method_id: cart.paymentMethodId
         }).then((response) => {
+            console.log(response)
             if (response?.data?.GatewayPageURL) {
                 // tostify(toast, 'success', response);
                 dispatch(RESET_CART());
