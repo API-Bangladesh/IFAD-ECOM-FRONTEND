@@ -1,12 +1,12 @@
 import Row from "react-bootstrap/Row";
 import {Fragment, useEffect, useState} from "react";
 import {fetchOrders} from "../../services/OrderServices";
-import {currency, getOrderStatusList, getPaymentStatusList} from "../../utils/helpers";
+import {currency, getOrderStatusName, getPaymentStatusName} from "../../utils/helpers";
 
 const OrdersTab = () => {
     const [orders, setOrders] = useState([]);
 
-    const fetchOrdersData = async () => {
+    const fetchOrdersData = () => {
         fetchOrders({
             paginate: 'yes'
         }).then((response) => {
@@ -23,32 +23,36 @@ const OrdersTab = () => {
     return (
         <Fragment>
             <Row>
-                <h1 className="text-capitalize font-32 fw-bolder font-jost pb-4 ">Ordered Products</h1>
-
+                <h1 className="text-capitalize font-32 fw-bolder font-jost pb-4 ">
+                    Ordered Products
+                </h1>
                 <div className=" table-responsive">
                     <table className="table mb-5 table-width">
                         <thead>
                         <tr>
                             <th scope="col" className="text-capitalize">ID</th>
                             <th scope="col" className="text-capitalize">Order Date</th>
-                            <th scope="col" className="text-capitalize">Payment Status Id</th>
-                            <th scope="col" className="text-capitalize">Order Status Id</th>
+                            <th scope="col" className="text-capitalize">Payment Status</th>
+                            <th scope="col" className="text-capitalize">Order Status</th>
                             <th scope="col" className="text-capitalize">Grand Total</th>
                             <th scope="col" className="text-capitalize">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {orders.map((item, key) => (
-                            <tr key={key}>
-                                <td className="order-list mt-3 text-capitalize">{item.id}</td>
-                                <td>{item.order_date}</td>
-                                <td>{getPaymentStatusList(item.payment_status_id)}</td>
-                                <td>{getOrderStatusList(item.order_status_id)}</td>
-                                <td>{currency(item.grand_total)}</td>
-                                <td><a href={`/my-account/order/${item.id}/invoice`}
-                                       className="btn btn-danger btn-sm">Invoice</a></td>
-                            </tr>
-                        ))}
+                        {orders &&
+                            orders.map((item, index) => (
+                                <tr key={index}>
+                                    <td className="order-list mt-3 text-capitalize">
+                                        {item.id}
+                                    </td>
+                                    <td>{item.order_date}</td>
+                                    <td>{getPaymentStatusName(item.payment_status_id)}</td>
+                                    <td>{getOrderStatusName(item.order_status_id)}</td>
+                                    <td>{currency(item.grand_total)}</td>
+                                    <td><a href={`/my-account/order/${item.id}/invoice`}
+                                           className="btn btn-danger btn-sm">Invoice</a></td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

@@ -1,7 +1,6 @@
 import {APP_NAME, APP_URL, BACKEND_URL} from "./constants";
 import Router from "next/router";
 import Swal from "sweetalert2";
-import React from "react";
 
 const _ = require("lodash");
 const moment = require("moment");
@@ -253,60 +252,50 @@ export const getAddressToString = (address) => {
     return addrArray.join(', ');
 }
 
-export const getOrderStatusList = (value) => {
-    let options = [
+export const getOrderStatusList = () => {
+    return [
         {
-            'value': '1',
-            'text': 'Pending'
+            value: '1',
+            text: 'Pending'
         },
         {
-            'value': '2',
-            'text': 'Processing'
+            value: '2',
+            text: 'Processing'
         },
         {
-            'value': '3',
-            'text': 'Shipped'
+            value: '3',
+            text: 'Shipped'
         },
         {
-            'value': '4',
-            'text': 'Delivered'
+            value: '4',
+            text: 'Delivered'
         },
         {
-            'value': '5',
-            'text': 'Cancelled'
+            value: '5',
+            text: 'Cancelled'
         }
     ];
+};
 
-    if (value) {
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].value == value) {
-                return options[i].text;
-            }
-        }
-    } else {
-        return options;
-    }
+export const getOrderStatusName = (value) => {
+    const selectedOption = getOrderStatusList().find(option => option.value == value);
+    return selectedOption ? selectedOption.text : undefined;
 }
 
-export const getPaymentStatusList = (value) => {
-    let options = [
+export const getPaymentStatusList = () => {
+    return [
         {
-            'value': '1',
-            'text': 'Paid'
+            value: '1',
+            text: 'Paid'
         },
         {
-            'value': '2',
-            'text': 'Unpaid'
+            value: '2',
+            text: 'Unpaid'
         }
     ];
+};
 
-    if (value) {
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].value == value) {
-                return options[i].text;
-            }
-        }
-    } else {
-        return options;
-    }
-}
+export const getPaymentStatusName = (value) => {
+    const selectedOption = getPaymentStatusList().find(option => option.value == value);
+    return selectedOption ? selectedOption.text : undefined;
+};
