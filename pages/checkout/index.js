@@ -17,7 +17,7 @@ import {
 } from "../../services/AddressServices";
 import {getAddressToString, tostify} from "../../utils/helpers";
 import {toast} from "react-toastify";
-import {saveOrder} from "../../services/OrderServices";
+import {saveOrder, makePayment} from "../../services/OrderServices";
 import {fetchPaymentMethods} from "../../services/PaymentMethodServices";
 import {
     RESET_CART,
@@ -98,7 +98,7 @@ const CheckoutPage = () => {
     const handlePlaceOrder = (event) => {
         event.preventDefault();
 
-        saveOrder({
+        makePayment({
             shipping_address: getAddressToString(cart.shippingAddress),
             billing_address: getAddressToString(cart.billingAddress),
             cart: cart.items,
@@ -109,15 +109,33 @@ const CheckoutPage = () => {
             grand_total: cart.grandTotal,
             payment_method_id: cart.paymentMethodId
         }).then((response) => {
-            if (response?.data?.status) {
-                tostify(toast, 'success', response);
+            if (response?.data?.GatewayPageURL) {
+                // tostify(toast, 'success', response);
                 dispatch(RESET_CART());
-
-                setTimeout(() => {
-                    router.push('/my-account?tab=order');
-                }, 2500);
+                window.location.href = response?.data?.GatewayPageURL;
             }
         });
+
+        // saveOrder({
+        //     shipping_address: getAddressToString(cart.shippingAddress),
+        //     billing_address: getAddressToString(cart.billingAddress),
+        //     cart: cart.items,
+        //     sub_total: cart.subTotal,
+        //     discount: cart.discount,
+        //     shipping_charge: cart.shippingCharge,
+        //     tax: cart.tax,
+        //     grand_total: cart.grandTotal,
+        //     payment_method_id: cart.paymentMethodId
+        // }).then((response) => {
+        //     if (response?.data?.status) {
+        //         tostify(toast, 'success', response);
+        //         dispatch(RESET_CART());
+
+        //         setTimeout(() => {
+        //             router.push('/my-account?tab=order');
+        //         }, 2500);
+        //     }
+        // });
     }
 
     const handlePaymentMethodId = (id) => {
@@ -419,18 +437,18 @@ const CheckoutPage = () => {
                                         <p className="font-lato text-capitalize font-20 pe-2">subtotal : </p>
                                         <p className=" font-20 ">{cart.subTotal} Tk</p>
                                     </div>
-                                    {/*<div className="d-flex justify-content-center">
+                                    <div className="d-flex justify-content-center">
                                         <p className="font-lato text-capitalize font-20 pe-2">shipping charge : </p>
                                         <p className=" font-20 ">{cart.shippingCharge} Tk</p>
                                     </div>
-                                    <div className="d-flex justify-content-center">
+                                    {/* <div className="d-flex justify-content-center">
                                         <p className="font-lato text-capitalize font-20 pe-2">discount : </p>
                                         <p className=" font-20 ">{cart.discount} Tk</p>
                                     </div>
                                     <div className="d-flex justify-content-center">
                                         <p className="font-lato text-capitalize font-20 pe-2">tax : </p>
                                         <p className=" font-20 ">{cart.tax} Tk</p>
-                                    </div>*/}
+                                    </div> */}
                                     <div className="d-flex justify-content-center">
                                         <p className="font-lato text-warning text-capitalize font-20 pe-2">total : </p>
                                         <p className="font-20 theme-text">{cart.grandTotal || 0} Tk</p>

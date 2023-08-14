@@ -39,3 +39,15 @@ export const saveOrder = async (data = {}) => {
         tostify(toast, 'error', error);
     }
 }
+
+/**
+ *
+ * @returns {Promise<*>}
+ */
+export const makePayment = async (data = {}) => {
+    try {
+        return await axios.post(`/ecom/orders/make-payment`, data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
