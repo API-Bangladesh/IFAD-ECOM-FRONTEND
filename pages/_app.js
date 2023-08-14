@@ -7,10 +7,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {SSRProvider} from 'react-bootstrap';
 import NextNProgress from 'nextjs-progressbar';
-import '@fontsource/roboto/300.css';
+/*import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+import '@fontsource/roboto/700.css';*/
 import AOS from "aos";
 import {Fragment, useEffect} from 'react';
 import "aos/dist/aos.css";
@@ -19,7 +19,7 @@ import {ToastContainer} from 'react-toastify';
 import Layout from "../layouts/Layout";
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import {store, persistor} from "../store";
+import {persistor, store} from "../store";
 
 export default function App({Component, pageProps}) {
 

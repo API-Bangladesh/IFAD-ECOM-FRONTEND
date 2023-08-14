@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {Fragment, useEffect, useState} from "react"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
@@ -8,47 +8,47 @@ import Image from "next/image"
 import axios from "axios"
 import {API_URL} from "../../utils/constants"
 
-const Conditions=()=>{
+const Conditions = () => {
     const [info, setInfo] = useState()
-    const fetchtnc = () =>{
-        try{
+    const fetchtnc = () => {
+        try {
             axios.get(`${API_URL}/content-module/22`)
-                .then((res)=>{
+                .then((res) => {
                     // console.log(res.data[0].content_item);
                     setInfo(res?.data[0]?.content_item);
                     console.log(info);
                 })
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchtnc();
     }, [])
 
-    return(
-        <>
+    return (
+        <Fragment>
             <section>
                 <div className="terms-banner-div">
                     <Image src={TermsBanner} alt="" className="terms-banner"/>
                 </div>
                 <Container>
-                    {
-                        info?.map(item=>(
-                            <Row>
-                                <Col>
-                                    <h1 className="text-capitalize text-center font-jost font-30 fw-bold py-4">{item?.item_name}</h1>
-                                    <p className="text-justify font-16 font-poppins pb-5">
-                                        {parse(item?.item_long_desc)}
-                                    </p>
-                                </Col>
-                            </Row>
-                        ))
-                    }
+                    <Row className="justify-content-center">
+                        {info?.map((item, index) => (
+                            <Col xs={12} md={10} xxl={9} key={index}>
+                                <h1 className="text-capitalize text-center font-jost font-30 fw-bold py-4">
+                                    {item?.item_name}
+                                </h1>
+                                <p className="text-justify font-16 font-poppins pb-5">
+                                    {parse(item?.item_long_desc)}
+                                </p>
+                            </Col>
+                        ))}
+                    </Row>
                 </Container>
             </section>
-        </>
+        </Fragment>
     )
 }
 

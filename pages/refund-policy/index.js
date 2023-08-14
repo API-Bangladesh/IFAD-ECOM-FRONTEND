@@ -27,18 +27,18 @@ const RefundPolicyPage = () => {
                 <Image src={TermsBanner} alt="" className="terms-banner"/>
             </div>
             <Container>
-                {
-                    info?.map((item, index) => (
-                        <Row key={index}>
-                            <Col>
-                                <h1 className="text-capitalize text-center font-jost font-30 fw-bold py-4">{item.item_name}</h1>
-                                <p className="text-justify font-16 font-poppins pb-5">
-                                    {parse(item.item_long_desc)}
-                                </p>
-                            </Col>
-                        </Row>
-                    ))
-                }
+                {info?.map((item, index) => (
+                    <Row className="justify-content-center" key={index}>
+                        <Col xs={12} md={10} xxl={9}>
+                            <h1 className="text-capitalize text-center font-jost font-30 fw-bold py-4">
+                                {item.item_name}
+                            </h1>
+                            <p className="text-justify font-16 font-poppins pb-5">
+                                {parse(item.item_long_desc)}
+                            </p>
+                        </Col>
+                    </Row>
+                ))}
             </Container>
         </section>
     )

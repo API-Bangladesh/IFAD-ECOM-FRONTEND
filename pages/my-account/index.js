@@ -4,12 +4,9 @@ import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
 import {Container} from "react-bootstrap";
-import UserInfoTab from "../../components/my-account/UserInfoTab";
-import WishlistTab from "../../components/my-account/WishlistTab";
-import OrdersTab from "../../components/my-account/OrdersTab";
-import ChangePasswordTab from "../../components/my-account/ChangePasswordTab";
 import AddressTab from "../../components/my-account/AddressTab";
 import {useRouter} from "next/router";
+import withAuth from "../../utils/HOC/withAuth";
 
 const MyAccountPage = () => {
     const router = useRouter();
@@ -100,7 +97,7 @@ const MyAccountPage = () => {
                             </Col>
                             <Col sm={9}>
                                 <Tab.Content>
-                                    <Tab.Pane eventKey="account-info" className="text-capitalize font-16 font-lato">
+                                    {/*<Tab.Pane eventKey="account-info" className="text-capitalize font-16 font-lato">
                                         <UserInfoTab/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="wishlist" className="text-capitalize font-16 font-lato">
@@ -111,7 +108,7 @@ const MyAccountPage = () => {
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="change-password" className="text-capitalize font-16 font-lato">
                                         <ChangePasswordTab/>
-                                    </Tab.Pane>
+                                    </Tab.Pane>*/}
                                     <Tab.Pane eventKey="address" className="text-capitalize font-16 font-lato">
                                         <AddressTab/>
                                     </Tab.Pane>
@@ -125,4 +122,4 @@ const MyAccountPage = () => {
     )
 }
 
-export default MyAccountPage;
+export default withAuth(MyAccountPage);
