@@ -1945,8 +1945,8 @@ delivery part css start
 }
 
 .delivery-details {
-	margin-left: 50%;
-	transform: translate(-50%);
+	/*margin-left: 50%;
+	transform: translate(-50%);*/
 }
 
 /*=======================

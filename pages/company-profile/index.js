@@ -38,13 +38,13 @@ const CompanyReview = () => {
     }, []);
 
     return (
-        <>
+        <Fragment>
             <section>
                 <div className="review-banner">
                     <Image src={CompanyRev} alt="" className="review-img" />
                 </div>
                 <div className="container">
-                    <div className="row">
+                    <div className="row justify-content-center">
                         {aboutInfo?.map((item, index) =>
                             <Fragment key={index}>
                                 <div className="col-lg-8">
@@ -131,7 +131,7 @@ const CompanyReview = () => {
                     </Row>
                 </Container>
             </section>
-        </>
+        </Fragment>
     );
 };
 

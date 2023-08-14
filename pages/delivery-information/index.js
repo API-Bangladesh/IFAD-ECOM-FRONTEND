@@ -8,7 +8,6 @@ import DeliveryTNC from "../../public/dtnc.png"
 import DeliveryBanner from "../../public/delivery.jpg"
 import axios from "axios"
 import {API_URL} from "../../utils/constants"
-import {LongInfo} from "../../components/delivery-information/LongInfo";
 
 const DeliverInformationPage = () => {
     const [info, setInfo] = useState();
@@ -34,25 +33,26 @@ const DeliverInformationPage = () => {
                 <Image src={DeliveryBanner} alt="" className="terms-banner"/>
             </div>
             <Container>
-                {
-                    info?.map((item) => (
-                        <>
-                            <div className="text-center d-">
-                                <h2 className="text-capitalize pt-5 font-40 font-jost fw-bold delivery-title">{item?.item_name}</h2>
-                                <Image src={DeliveryTNC} alt="" className="img ml-20"/>
-                                <div className=" d-flex justify-content-center ">
-                                    <p className="text-capitalize font-16 font-inter delivery-para pb-5">{item?.item_short_desc}</p>
+                {info?.map((item, index) => (
+                    <Row className="justify-content-center" key={index}>
+                        <Col xs={12} md={10} xxl={9}>
+                            <div className="text-center">
+                                <h1 className="text-capitalize text-center font-jost font-30 fw-bold py-4">
+                                    {item?.item_name}
+                                </h1>
+                                <Image src={DeliveryTNC} alt="" className="img"/>
+                                <div className="d-flex justify-content-center ">
+                                    <p className="text-capitalize font-16 font-inter delivery-para pb-5">
+                                        {item?.item_short_desc}
+                                    </p>
                                 </div>
                             </div>
-                            <Row>
-                                <Col lg={10} className="delivery-details">
-                                    {parse(item?.item_long_desc)}
-                                    {/* <LongInfo info={item?.item_long_desc}/> */}
-                                </Col>
-                            </Row>
-                        </>
-                    ))
-                }
+                        </Col>
+                        <Col xs={12} md={10} xxl={9} className="delivery-details">
+                            {parse(item?.item_long_desc)}
+                        </Col>
+                    </Row>
+                ))}
             </Container>
         </section>
     )

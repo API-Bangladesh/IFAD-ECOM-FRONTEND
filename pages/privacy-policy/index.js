@@ -6,7 +6,6 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import ListGroup from "react-bootstrap/ListGroup";
 import parse from 'html-react-parser'
-import {LongInfoPrivacy} from "../../components/privacy-policy/LongInfoPrivacy";
 import {fetchPrivacyPolicy} from "../../services/CommonServices";
 
 const PrivacyPolicyPage = () => {
@@ -24,21 +23,18 @@ const PrivacyPolicyPage = () => {
                 <Image src={PrivacyBanner} alt="" className="terms-banner"/>
             </div>
             <Container>
-                {
-                    info?.map((item) => (
-                        <>
-                            <h1 className="text-capitalize text-center font-jost font-30 fw-bold py-4">{item.item_name}</h1>
-                            <Row>
-                                <Col>
-                                    <ListGroup as="ol" className="pb-5" numbered>
-                                        {parse(item?.item_long_desc)}
-                                        {/* <LongInfoPrivacy info={item.item_long_desc}/> */}
-                                    </ListGroup>
-                                </Col>
-                            </Row>
-                        </>
-                    ))
-                }
+                {info?.map((item, index) => (
+                    <Row className="justify-content-center" key={index}>
+                        <Col xs={12} md={10} xxl={9}>
+                            <h1 className="text-capitalize text-center font-jost font-30 fw-bold py-4">
+                                {item?.item_name}
+                            </h1>
+                            <ListGroup as="ol" className="pb-5" numbered>
+                                {parse(item?.item_long_desc)}
+                            </ListGroup>
+                        </Col>
+                    </Row>
+                ))}
             </Container>
         </section>
     )
