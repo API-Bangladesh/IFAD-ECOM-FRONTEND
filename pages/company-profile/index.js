@@ -46,17 +46,15 @@ const CompanyReview = () => {
                 <div className="container">
                     {aboutInfo?.map((item, index) =>
                         <div className="row justify-content-center" key={index}>
-                            <div className="col-lg-8">
-                                <div className="">
-                                    <h2 className="font-32 fw-bold pt-5 font-inter">
-                                        {item?.item_name}
-                                    </h2>
-                                    <p className="font-16 pt-3 pb-3 font-inter text-justify">
-                                        {item?.item_long_desc}
-                                    </p>
-                                </div>
+                            <div className="col-12 col-md-7 col-lg-7 col-xxl-6">
+                                <h2 className="font-32 fw-bold pt-5 font-inter">
+                                    {item?.item_name}
+                                </h2>
+                                <p className="font-16 pt-3 pb-3 font-inter text-justify">
+                                    {item?.item_long_desc}
+                                </p>
                             </div>
-                            <div className="col-lg-4">
+                            <div className="col-12 col-md-5 col-lg-4 col-xxl-3">
                                 <div className="mt-5 p-4">
                                     <img src={getStoragePath(item.item_image)} alt=""
                                          className="review-about rounded-4"/>

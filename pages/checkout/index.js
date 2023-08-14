@@ -17,7 +17,7 @@ import {
 } from "../../services/AddressServices";
 import {getAddressToString, tostify} from "../../utils/helpers";
 import {toast} from "react-toastify";
-import {saveOrder, makePayment} from "../../services/OrderServices";
+import {makePayment, saveOrder} from "../../services/OrderServices";
 import {fetchPaymentMethods} from "../../services/PaymentMethodServices";
 import {
     RESET_CART,
@@ -76,23 +76,27 @@ const CheckoutPage = () => {
     const handleSetDefaultBillingAddress = (event, id) => {
         event.preventDefault();
 
-        updateDefaultBillingAddress(id).then((response) => {
-            if (response.status) {
-                tostify(toast, 'success', response);
-                fetchAddressesData();
-            }
-        });
+        if (id) {
+            updateDefaultBillingAddress(id).then((response) => {
+                if (response.status) {
+                    tostify(toast, 'success', response);
+                    fetchAddressesData();
+                }
+            });
+        }
     }
 
     const handleSetDefaultShippingAddress = (event, id) => {
         event.preventDefault();
 
-        updateDefaultShippingAddress(id).then((response) => {
-            if (response.status) {
-                tostify(toast, 'success', response);
-                fetchAddressesData();
-            }
-        });
+        if (id) {
+            updateDefaultShippingAddress(id).then((response) => {
+                if (response.status) {
+                    tostify(toast, 'success', response);
+                    fetchAddressesData();
+                }
+            });
+        }
     }
 
     const handlePlaceOrder = (event) => {
@@ -131,7 +135,7 @@ const CheckoutPage = () => {
                 if (response?.data?.status) {
                     tostify(toast, 'success', response);
                     dispatch(RESET_CART());
-    
+
                     setTimeout(() => {
                         router.push('/my-account?tab=order');
                     }, 2500);
@@ -171,7 +175,7 @@ const CheckoutPage = () => {
                                     <div className="text-end">
                                         <select className="form-select" value={billingAddress.id}
                                                 onChange={(event) => handleSetDefaultBillingAddress(event, event.target.value)}>
-                                            <option value="" selected>Default Billing</option>
+                                            <option value="" selected>Set Default Billing</option>
                                             {addresses.map((address, key) => (
                                                 <option key={key} value={address.id}>{address.title}</option>
                                             ))}
@@ -286,7 +290,7 @@ const CheckoutPage = () => {
                                 <div className="col-4 text-end">
                                     <select className="form-select" value={shippingAddress.id}
                                             onChange={(event) => handleSetDefaultShippingAddress(event, event.target.value)}>
-                                        <option value="" selected>Default Shipping</option>
+                                        <option value="" selected>Set Default Shipping</option>
                                         {addresses.map((address, key) => (
                                             <option key={key} value={address.id}>{address.title}</option>
                                         ))}
@@ -492,7 +496,7 @@ const CheckoutPage = () => {
                                 </div>
 
                                 <p className='mt-3'>Delivery in 2 - 5 day(s)</p>
-       
+
                                 <div className="">
                                     <button type="button"
                                             className="text-capitalize font-16 w-100 place-order mt-4 font-lato fw-bold theme-text"
