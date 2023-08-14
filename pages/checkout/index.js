@@ -97,7 +97,7 @@ const CheckoutPage = () => {
 
     const handlePlaceOrder = (event) => {
         event.preventDefault();
-        if (cart.paymentMethodId === 1) {
+        if (cart.paymentMethodId === "1") {
             makePayment({
                 shipping_address: getAddressToString(cart.shippingAddress),
                 billing_address: getAddressToString(cart.billingAddress),
@@ -491,7 +491,7 @@ const CheckoutPage = () => {
                                     ))}
                                 </div>
 
-                                <p className='mt-3'>Delivery in 4 - 8 day(s)</p>
+                                <p className='mt-3'>Delivery in 2 - 5 day(s)</p>
        
                                 <div className="">
                                     <button type="button"
