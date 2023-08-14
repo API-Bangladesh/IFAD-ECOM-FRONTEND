@@ -100,6 +100,8 @@ const UserInfoTab = () => {
 								type="file"
 								className="rounded-0 form-deco"
 								onChange={(e) => setFormData({...formData, image: e.target.files[0]})}/>
+							<small className="text-muted text-lowercase">max size 2MB and type jpg, png & gif
+								format.</small>
 						</Form.Group>
 					</Col>
 					<Col lg={9}>
