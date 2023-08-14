@@ -7,9 +7,12 @@ import Button from "react-bootstrap/Button";
 import {updateCustomer} from "../../services/AuthServices";
 import {tostify} from "../../utils/helpers";
 import {toast} from "react-toastify";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {API_URL} from "../../utils/constants";
+import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 
 const UserInfoTab = () => {
+	const dispatch = useDispatch();
 	const auth = useSelector((state) => state.auth);
 
 	const [errors, setErrors] = useState({});
@@ -20,6 +23,8 @@ const UserInfoTab = () => {
 		date_of_birth: "",
 		gender: "",
 		phone_number: "",
+		old_image: "",
+		image: "",
 	});
 
 	useEffect(() => {
@@ -30,7 +35,8 @@ const UserInfoTab = () => {
 				address: auth?.address,
 				date_of_birth: auth?.date_of_birth,
 				gender: auth?.gender,
-				phone_number: auth?.phone_number
+				phone_number: auth?.phone_number,
+				old_image: auth?.image,
 			});
 		}
 	}, [auth])
@@ -46,11 +52,14 @@ const UserInfoTab = () => {
 		e.preventDefault();
 
 		updateCustomer({
+			_method: 'PUT',
 			name: formData.name,
 			address: formData.address,
 			date_of_birth: formData.date_of_birth,
 			gender: formData.gender,
 			phone_number: formData.phone_number,
+			old_image: formData.old_image,
+			image: formData.image,
 		}, setErrors).then((response) => {
 			if (response?.data?.message) {
 				tostify(toast, 'success', response);
@@ -58,13 +67,16 @@ const UserInfoTab = () => {
 				const customer = response?.data?.data;
 
 				if (customer) {
+					dispatch(SET_AUTH_DATA(customer));
+
 					setFormData({
 						name: customer?.name,
 						email: customer?.email,
 						address: customer?.address,
 						date_of_birth: customer?.date_of_birth,
 						gender: customer?.gender,
-						phone_number: customer?.phone_number
+						phone_number: customer?.phone_number,
+						old_image: customer?.image,
 					});
 				}
 			}
@@ -79,18 +91,18 @@ const UserInfoTab = () => {
 					<Col lg={3}>
 						<div className="d-flex justify-content-center">
 							<Image
-								src="/user/man.png"
+								src={formData?.old_image ? `${API_URL}/${formData.old_image}` : '/user/man.png'}
 								alt="profile" height="200" weight="200" className="profile-picture mb-3"/>
 						</div>
 						<Form.Group controlId="formFile" className="mb-3">
 							<Form.Control
 								name="img"
 								type="file"
-								className="rounded-0 form-deco"/>
+								className="rounded-0 form-deco"
+								onChange={(e) => setFormData({...formData, image: e.target.files[0]})}/>
 						</Form.Group>
 					</Col>
 					<Col lg={9}>
-
 						<Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label>Full Name <span className="text-danger"> *</span></Form.Label>
 							<Form.Control name="name" type="text" placeholder="Enter Full Name"
