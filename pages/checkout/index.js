@@ -97,46 +97,47 @@ const CheckoutPage = () => {
 
     const handlePlaceOrder = (event) => {
         event.preventDefault();
-
-        makePayment({
-            shipping_address: getAddressToString(cart.shippingAddress),
-            billing_address: getAddressToString(cart.billingAddress),
-            cart: cart.items,
-            sub_total: cart.subTotal,
-            discount: cart.discount,
-            shipping_charge: cart.shippingCharge,
-            tax: cart.tax,
-            grand_total: cart.grandTotal,
-            payment_method_id: cart.paymentMethodId
-        }).then((response) => {
-            console.log(response)
-            if (response?.data?.GatewayPageURL) {
-                // tostify(toast, 'success', response);
-                dispatch(RESET_CART());
-                window.location.href = response?.data?.GatewayPageURL;
-            }
-        });
-
-        // saveOrder({
-        //     shipping_address: getAddressToString(cart.shippingAddress),
-        //     billing_address: getAddressToString(cart.billingAddress),
-        //     cart: cart.items,
-        //     sub_total: cart.subTotal,
-        //     discount: cart.discount,
-        //     shipping_charge: cart.shippingCharge,
-        //     tax: cart.tax,
-        //     grand_total: cart.grandTotal,
-        //     payment_method_id: cart.paymentMethodId
-        // }).then((response) => {
-        //     if (response?.data?.status) {
-        //         tostify(toast, 'success', response);
-        //         dispatch(RESET_CART());
-
-        //         setTimeout(() => {
-        //             router.push('/my-account?tab=order');
-        //         }, 2500);
-        //     }
-        // });
+        if (cart.paymentMethodId === 1) {
+            makePayment({
+                shipping_address: getAddressToString(cart.shippingAddress),
+                billing_address: getAddressToString(cart.billingAddress),
+                cart: cart.items,
+                sub_total: cart.subTotal,
+                discount: cart.discount,
+                shipping_charge: cart.shippingCharge,
+                tax: cart.tax,
+                grand_total: cart.grandTotal,
+                payment_method_id: cart.paymentMethodId
+            }).then((response) => {
+                console.log(response)
+                if (response?.data?.GatewayPageURL) {
+                    // tostify(toast, 'success', response);
+                    dispatch(RESET_CART());
+                    window.location.href = response?.data?.GatewayPageURL;
+                }
+            });
+        } else {
+            saveOrder({
+                shipping_address: getAddressToString(cart.shippingAddress),
+                billing_address: getAddressToString(cart.billingAddress),
+                cart: cart.items,
+                sub_total: cart.subTotal,
+                discount: cart.discount,
+                shipping_charge: cart.shippingCharge,
+                tax: cart.tax,
+                grand_total: cart.grandTotal,
+                payment_method_id: cart.paymentMethodId
+            }).then((response) => {
+                if (response?.data?.status) {
+                    tostify(toast, 'success', response);
+                    dispatch(RESET_CART());
+    
+                    setTimeout(() => {
+                        router.push('/my-account?tab=order');
+                    }, 2500);
+                }
+            });
+        }
     }
 
     const handlePaymentMethodId = (id) => {
@@ -455,6 +456,28 @@ const CheckoutPage = () => {
                                         <p className="font-20 theme-text">{cart.grandTotal || 0} Tk</p>
                                     </div>
                                 </div>
+
+                                <div className="mt-3">
+                                    <Form.Group className="mb-1 text-secondary d-flex" controlId="">
+                                        <Form.Check type="checkbox" label=""
+                                            // onChange={(event) => setAgree(event.target.checked)}
+                                        />
+                                        <Link href="/terms-and-conditions">Terms & Conditions</Link>
+                                    </Form.Group>
+                                    <Form.Group className="mb-1 text-secondary d-flex" controlId="">
+                                        <Form.Check type="checkbox" label=""
+                                            // onChange={(event) => setAgree(event.target.checked)}
+                                        />
+                                        <Link href="/refund-policy">Refund policy</Link>
+                                    </Form.Group>
+                                    <Form.Group className="mb-1 text-secondary d-flex" controlId="">
+                                        <Form.Check type="checkbox" label=""
+                                            // onChange={(event) => setAgree(event.target.checked)}
+                                        />
+                                        <Link href="/privacy-policy">Privacy policy</Link>
+                                    </Form.Group>
+                                </div>
+
                                 <div className="mt-3">
                                     {paymentMethods.map((paymentMethod, key) => (
                                         <div className="form-check form-check-inline" key={key}>
@@ -467,6 +490,9 @@ const CheckoutPage = () => {
                                         </div>
                                     ))}
                                 </div>
+
+                                <p className='mt-3'>Delivery in 4 - 8 day(s)</p>
+       
                                 <div className="">
                                     <button type="button"
                                             className="text-capitalize font-16 w-100 place-order mt-4 font-lato fw-bold theme-text"
@@ -491,6 +517,38 @@ const CheckoutPage = () => {
                                     <Col lg={4} md={8} className="mb-3">
                                         <p className="text-capitalize text-center pb-2">mobile banking</p>
                                         <Image src={Mobile} alt="card" className=" card-payment rounded-1 shadow"/>
+                                    </Col>
+                                </div>
+                            </div>
+
+                            <div className="">
+                                <p className="text-capitalize py-3 font-16 fw-bold">Company Information:</p>
+                                <div className="row">
+                                    <Col lg={12} md={12} className="d-flex">
+                                        <b className="text-capitalize text-center pb-2 mr-1">TIN:</b>
+                                        <p className="text-capitalize text-center pb-2">117029919179</p>
+                                    </Col>
+                                    <Col lg={12} md={12} className="d-flex">
+                                        <b className="text-capitalize text-center pb-2 mr-1">BIN:</b>
+                                        <p className="text-capitalize text-center pb-2">000079132-0403</p>
+                                    </Col>
+                                    <Col lg={12} md={12} className="d-flex">
+                                        <b className="text-capitalize text-center pb-2 mr-1">Trade Lincense:</b>
+                                        <p className="text-capitalize text-center pb-2">TRAD/DESCC/216136/2019</p>
+                                    </Col>
+                                </div>
+                            </div>
+
+                            <div className="">
+                                <p className="text-capitalize py-3 font-16 fw-bold">Bank Account Info:</p>
+                                <div className="row">
+                                    <Col lg={12} md={12} className="d-flex">
+                                        <b className="text-capitalize text-center pb-2 mr-1">Acc Name:</b>
+                                        <p className="text-capitalize text-center pb-2">Ifad Multi Products Limited</p>
+                                    </Col>
+                                    <Col lg={12} md={12} className="d-flex">
+                                        <b className="text-capitalize text-center pb-2 mr-1">Acc No:</b>
+                                        <p className="text-capitalize text-center pb-2">00233011222</p>
                                     </Col>
                                 </div>
                             </div>

@@ -5,7 +5,7 @@ const CartSlice = createSlice({
     initialState: {
         items: [],
         subTotal: 0,
-        shippingCharge: 0,
+        shippingCharge: 60,
         discount: 0,
         tax: 0,
         grandTotal: 0,
@@ -63,6 +63,12 @@ const CartSlice = createSlice({
         },
         UPDATE_SHIPPING_ADDRESS: (state, action) => {
             state.shippingAddress = action.payload
+            if (action.payload.district.name.trim().toLowerCase() === "dhaka") {
+                state.shippingCharge = 60
+            } else {
+                state.shippingCharge = 120
+            }
+            CALC_SUB_TOTAL(state);
         },
         REMOVE_CART_ITEM: (state, action) => {
             const key = action.payload;
@@ -72,7 +78,7 @@ const CartSlice = createSlice({
         RESET_CART: (state, action) => {
             state.items = [];
             state.subTotal = 0;
-            state.shippingCharge = 0;
+            state.shippingCharge = 60;
             state.discount = 0;
             state.tax = 0;
             state.grandTotal = 0;
@@ -88,7 +94,7 @@ function CALC_SUB_TOTAL(state) {
     state.items.map((item) => tmp += item.total);
 
     state.subTotal = tmp;
-    state.grandTotal = tmp;
+    state.grandTotal = tmp + state.shippingCharge;
 }
 
 export const {
