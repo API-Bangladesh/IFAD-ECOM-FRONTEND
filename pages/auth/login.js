@@ -2,16 +2,14 @@ import React, {useState} from 'react';
 import Link from 'next/link';
 import {Col, Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import {useRouter} from 'next/router';
 import {loginCustomer} from "../../services/AuthServices";
-import {isLoggedIn, login} from "../../utils/auth";
+import {login} from "../../utils/auth";
 import {useDispatch} from "react-redux";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
-import {useEffectOnce} from "../../utils/hooks/useEffectOnce";
+import isAuth from "../../utils/HOC/isAuth";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
-    const router = useRouter();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -40,14 +38,6 @@ const LoginPage = () => {
             }
         });
     };
-
-    useEffectOnce(() => {
-        if (isLoggedIn()) {
-            if (window !== 'undefined') {
-                return window.location.href = '/my-account';
-            }
-        }
-    });
 
     return (
         <section className="login-bg">
@@ -94,4 +84,4 @@ const LoginPage = () => {
     );
 }
 
-export default LoginPage
+export default isAuth(LoginPage)

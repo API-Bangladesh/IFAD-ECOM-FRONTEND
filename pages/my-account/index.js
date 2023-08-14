@@ -10,6 +10,7 @@ import OrdersTab from "../../components/my-account/OrdersTab";
 import ChangePasswordTab from "../../components/my-account/ChangePasswordTab";
 import AddressTab from "../../components/my-account/AddressTab";
 import {useRouter} from "next/router";
+import withAuth from "../../utils/HOC/withAuth";
 
 const MyAccountPage = () => {
     const router = useRouter();
@@ -125,4 +126,4 @@ const MyAccountPage = () => {
     )
 }
 
-export default MyAccountPage;
+export default withAuth(MyAccountPage);
