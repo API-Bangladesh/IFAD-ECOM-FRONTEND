@@ -46,7 +46,11 @@ export const logoutCustomer = async () => {
  */
 export const updateCustomer = async (data, setErrors) => {
     try {
-        return await axios.put(`/ecom/customers`, data);
+        return await axios.post(`/ecom/customers`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
     } catch (error) {
         tostify(toast, 'error', error);
         makeInputErrors(error, setErrors);

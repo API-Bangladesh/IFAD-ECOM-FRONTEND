@@ -1,4 +1,4 @@
-import {APP_NAME, APP_URL, BACKEND_URL} from "./constants";
+import {API_URL, APP_NAME, APP_URL, BACKEND_URL} from "./constants";
 import Router from "next/router";
 import Swal from "sweetalert2";
 
@@ -87,6 +87,19 @@ export const getStoragePath = (path) => {
     }
 
     return BACKEND_URL + '/storage/' + path;
+}
+
+/**
+ *
+ * @param path
+ * @returns {string}
+ */
+export const getApiStoragePath = (path) => {
+    if (_.isEmpty(path)) {
+        return '/no-image.png';
+    }
+
+    return API_URL + '/' + path;
 }
 
 /**
