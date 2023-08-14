@@ -41,61 +41,63 @@ const CompanyReview = () => {
         <Fragment>
             <section>
                 <div className="review-banner">
-                    <Image src={CompanyRev} alt="" className="review-img" />
+                    <Image src={CompanyRev} alt="" className="review-img"/>
                 </div>
                 <div className="container">
-                    <div className="row justify-content-center">
-                        {aboutInfo?.map((item, index) =>
-                            <Fragment key={index}>
-                                <div className="col-lg-8">
-                                    <div className="">
-                                        <h2 className="font-32 fw-bold pt-5 font-inter">{item.item_name}</h2>
-                                        <p className="font-16 pt-3 pb-3 font-inter text-justify">
-                                            {item.item_long_desc}
-                                        </p>
-                                    </div>
+                    {aboutInfo?.map((item, index) =>
+                        <div className="row justify-content-center" key={index}>
+                            <div className="col-lg-8">
+                                <div className="">
+                                    <h2 className="font-32 fw-bold pt-5 font-inter">
+                                        {item?.item_name}
+                                    </h2>
+                                    <p className="font-16 pt-3 pb-3 font-inter text-justify">
+                                        {item?.item_long_desc}
+                                    </p>
                                 </div>
-                                <div className="col-lg-4">
-                                    <div className="mt-5 p-4">
-                                        <img src={getStoragePath(item.item_image)} alt=""
-                                             className="review-about rounded-4"/>
-                                    </div>
+                            </div>
+                            <div className="col-lg-4">
+                                <div className="mt-5 p-4">
+                                    <img src={getStoragePath(item.item_image)} alt=""
+                                         className="review-about rounded-4"/>
                                 </div>
-                            </Fragment>)}
-                    </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </section>
 
             <section id="missionVission" className="values pt-8">
                 <div className="values-wrapper">
-                <div className="container">
-                    <div className="row">
-                        {mission?.map((item, key) =>
-                            <div key={key} className="">
-                                <div className="d-flex justify-content-between">
-                                    <div className="text-center">
-                                        <img
-                                            src={getStoragePath(item.item_image)}
-                                            alt="vision"
-                                            height={150}
-                                            width={150}
-                                        />
+                    <div className="container">
+                        <div className="row">
+                            {mission?.map((item, key) =>
+                                <div key={key} className="">
+                                    <div className="d-flex justify-content-between">
+                                        <div className="text-center">
+                                            <img
+                                                src={getStoragePath(item.item_image)}
+                                                alt="vision"
+                                                height={150}
+                                                width={150}
+                                            />
+                                        </div>
+                                        <h1 className="text-center text-capitalize font-poppins fw-bold pt-5 font-40">
+                                            {item.item_name.split(' ')[0]}<span
+                                            className="theme-color"> {item.item_name.split(' ')[1]}</span>
+                                        </h1>
                                     </div>
-                                    <h1 className="text-center text-capitalize font-poppins fw-bold pt-5 font-40">
-                                        {item.item_name.split(' ')[0]}<span className="theme-color"> {item.item_name.split(' ')[1]}</span>
-                                    </h1>
-                                </div>
-                                <div className=" mission">
-                                    <div>
-                                        <p className="text-justify px-3 pb-5 font-20">
-                                            {item.item_long_desc}
-                                        </p>
+                                    <div className=" mission">
+                                        <div>
+                                            <p className="text-justify px-3 pb-5 font-20">
+                                                {item.item_long_desc}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
-                </div>
                 </div>
             </section>
 
