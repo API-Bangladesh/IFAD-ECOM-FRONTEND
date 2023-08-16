@@ -12,6 +12,7 @@ const OrdersTab = () => {
         }).then((response) => {
             if (response?.data?.data) {
                 setOrders(response.data.data);
+                console.log(response.data.data)
             }
         });
     }
