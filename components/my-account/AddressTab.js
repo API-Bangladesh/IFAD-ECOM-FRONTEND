@@ -35,9 +35,9 @@ const AddressTab = () => {
     name: "",
     address_line_1: "",
     address_line_2: "",
-    division_id: "6",
-    district_id: "6",
-    upazila_id: "6",
+    division_id: "",
+    district_id: "",
+    upazila_id: "",
     postcode: "",
     phone: "",
     email: "",
@@ -54,7 +54,8 @@ const AddressTab = () => {
 
   const createAddress = async (e) => {
     e.preventDefault();
-    handleClose();
+    // console.log(myAddress)
+    // return
 
     const data = {
       id: myAddress.id,
@@ -62,9 +63,9 @@ const AddressTab = () => {
       name: myAddress.name,
       address_line_1: myAddress.address_line_1,
       address_line_2: myAddress.address_line_2,
-      division_id: myAddress.division_id,
-      district_id: myAddress.district_id,
-      upazila_id: myAddress.upazila_id,
+      division_id: parseInt(myAddress.division_id),
+      district_id: parseInt(myAddress.district_id),
+      upazila_id: parseInt(myAddress.upazila_id),
       postcode: myAddress.postcode,
       phone: myAddress.phone,
       email: myAddress.email,
@@ -86,6 +87,14 @@ const AddressTab = () => {
       return;
     }
 
+    // const isTitleExist = addresses.some(item => item.title == data.title);
+
+    // if (isTitleExist) {
+    //   tostify(toast, 'error', {data: {message: "Set unique title"}});
+    //   // console.log("Set unique title!")
+    //   return;
+    // }
+
     if (isEditing) {
       try {
         editAddress(data).then((res) => {
@@ -95,10 +104,10 @@ const AddressTab = () => {
           fetchAddresses().then((response) => {
             if (response?.data) {
               setAddresses(response.data);
+              setMyAddress(defaultAddress);
+              handleClose();
             }
           });
-
-          setMyAddress(defaultAddress);
         });
       } catch (err) {
         showErrorNotification("Error", err.message);
@@ -109,9 +118,10 @@ const AddressTab = () => {
           fetchAddresses().then((response) => {
             if (response?.data) {
               setAddresses(response.data);
+              setMyAddress(defaultAddress);
+              handleClose();
             }
           });
-          setMyAddress(defaultAddress)
         });
       } catch (err) {
         showErrorNotification("Error", err.message);
