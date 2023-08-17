@@ -19,7 +19,6 @@ const UserInfoTab = () => {
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
-		address: "",
 		date_of_birth: "",
 		gender: "",
 		phone_number: "",
@@ -32,7 +31,6 @@ const UserInfoTab = () => {
 			setFormData({
 				name: auth?.name,
 				email: auth?.email,
-				address: auth?.address,
 				date_of_birth: auth?.date_of_birth,
 				gender: auth?.gender,
 				phone_number: auth?.phone_number,
@@ -54,7 +52,6 @@ const UserInfoTab = () => {
 		updateCustomer({
 			_method: 'PUT',
 			name: formData.name,
-			address: formData.address,
 			date_of_birth: formData.date_of_birth,
 			gender: formData.gender,
 			phone_number: formData.phone_number,
@@ -72,7 +69,6 @@ const UserInfoTab = () => {
 					setFormData({
 						name: customer?.name,
 						email: customer?.email,
-						address: customer?.address,
 						date_of_birth: customer?.date_of_birth,
 						gender: customer?.gender,
 						phone_number: customer?.phone_number,
@@ -115,12 +111,6 @@ const UserInfoTab = () => {
 							<Form.Label>Email<span className="text-danger"> *</span></Form.Label>
 							<Form.Control name="email" type="email" value={formData.email}
 										  className="form-padd rounded-0 form-deco" readOnly={true} disabled={true}/>
-						</Form.Group>
-						<Form.Group className="mb-3" controlId="formBasicEmail">
-							<Form.Label>Address<span className="text-danger"> *</span></Form.Label>
-							<Form.Control name="address" type="text" placeholder="Enter your address"
-										  value={formData.address} onChange={handleChange}
-										  className="form-padd rounded-0 form-deco" required/>
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label htmlFor="" className="form-label text-capitalize">
