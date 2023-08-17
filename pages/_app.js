@@ -1,6 +1,8 @@
 import '@/styles/globals.css'
 import '../styles/normalize.css';
 import '../styles/main.css';
+import '../styles/footer.css';
+import '../styles/TopManu.css'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'tailwindcss/tailwind.css'
 import "slick-carousel/slick/slick.css";
