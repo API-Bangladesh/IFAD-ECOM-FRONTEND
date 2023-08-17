@@ -1966,19 +1966,15 @@ button.navbar-toggler {
 	background-image: url('../public/toggle.png') !important;
 }
 
-@media (min-width: 1201px) and (max-width: 1920px) {
+
+
+@media (min-width: 768px){
 	.overlay-div {
 		display: none;
 	}
 }
 
-@media (min-width: 993px) and (max-width: 1200px) {
-	.overlay-div {
-		display: none;
-	}
-}
-
-@media (min-width: 768px) and (max-width: 992px) {
+@media (max-width: 767px) {
 	.overlay-div {
 		opacity: 1 !important;
 	}
@@ -2017,9 +2013,9 @@ button.navbar-toggler {
 	}
 
 	.brand-logo {
-		max-width: 88% !important;
+		max-width: 67% !important;
+		margin: 11px 0px;
 	}
-
 	.category-img-one {
 		height: 150px;
 	}
@@ -2053,7 +2049,10 @@ button.navbar-toggler {
 	}
 }
 
-@media (min-width: 576px) and (max-width: 767px) {
+@media (max-width: 767px) {
+	.responsive_form{
+		display: block!important;
+	}
 	.screen-opacity {
 		display: none;
 	}
@@ -2132,7 +2131,10 @@ button.navbar-toggler {
 	}
 }
 
-@media (min-width: 370px) and (max-width: 575px) {
+@media (max-width: 575px) {
+	.responsive_form{
+		display: block!important;
+	}
 	.overlay-div {
 		opacity: 1 !important;
 	}
@@ -2284,17 +2286,9 @@ button.navbar-toggler {
 		padding-left: 0px !important;
 	}
 
-	.copyrights {
-		padding: 0px 10px !important;
-		font-size: 12px;
-	}
 
-	.logo-resize {
-		height: 13px;
-		width: 33px;
-		margin-top: 17px;
-		margin-left: -4px;
-	}
+
+
 
 	nav .categories {
 		font-size: 12px;

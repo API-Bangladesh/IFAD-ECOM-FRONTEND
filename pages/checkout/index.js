@@ -164,7 +164,7 @@ const CheckoutPage = () => {
                 </div>
                 <Container>
                     <Row>
-                        <Col lg={8} md={8} className=" mt-4">
+                        <Col lg={7} md={12} sm={12} className=" mt-4">
                             <div className="row">
                                 <div className="col-8">
                                     <h1 className="text-uppercase font-24 fw-bold mb-3">
@@ -400,7 +400,7 @@ const CheckoutPage = () => {
                             <br/>
                             <br/>
                         </Col>
-                        <Col lg={4} md={4} className=" my-4">
+                        <Col lg={5} md={12} sm={12} className=" my-4">
                             <div className="payment-card p-3">
                                 <h2 className="text-uppercase font-24 fw-bold ps-2">your order</h2>
                                 <table className="table">
@@ -415,7 +415,7 @@ const CheckoutPage = () => {
                                     <tbody>
                                     {cart.items.map((item, key) => (
                                         <tr key={key}>
-                                            <th scope="row" className="fw-normal text-capitalize font-16 ">
+                                            <th scope="row" className="fw-normal text-wrap lh-base text-capitalize font-16 ">
                                                 {item.type === 'product' && (
                                                     <a href={`/product/${item.inventory_id}`}>
                                                         {item.title}
@@ -447,28 +447,21 @@ const CheckoutPage = () => {
                                         <p className="font-lato text-capitalize font-20 pe-2">shipping charge : </p>
                                         <p className=" font-20 ">{cart.shippingCharge} Tk</p>
                                     </div>
-                                    {/* <div className="d-flex justify-content-center">
-                                        <p className="font-lato text-capitalize font-20 pe-2">discount : </p>
-                                        <p className=" font-20 ">{cart.discount} Tk</p>
-                                    </div>
-                                    <div className="d-flex justify-content-center">
-                                        <p className="font-lato text-capitalize font-20 pe-2">tax : </p>
-                                        <p className=" font-20 ">{cart.tax} Tk</p>
-                                    </div> */}
+                                   
                                     <div className="d-flex justify-content-center">
                                         <p className="font-lato text-warning text-capitalize font-20 pe-2">total : </p>
                                         <p className="font-20 theme-text">{cart.grandTotal || 0} Tk</p>
                                     </div>
                                 </div>
 
-                                <div className="mt-3">
-                                    <Form.Group className="mb-1 text-secondary d-flex" controlId="">
+                                <div className="mt-3 d-flex">
+                                    <Form.Group className="mb-1 text-secondary d-flex me-2" controlId="">
                                         <Form.Check type="checkbox" label=""
                                             // onChange={(event) => setAgree(event.target.checked)}
                                         />
                                         <Link href="/terms-and-conditions">Terms & Conditions</Link>
                                     </Form.Group>
-                                    <Form.Group className="mb-1 text-secondary d-flex" controlId="">
+                                    <Form.Group className="mb-1 text-secondary d-flex me-2" controlId="">
                                         <Form.Check type="checkbox" label=""
                                             // onChange={(event) => setAgree(event.target.checked)}
                                         />
