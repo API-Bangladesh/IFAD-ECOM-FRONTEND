@@ -37,7 +37,7 @@ const Invoice = () => {
     return (
         <Fragment>
             <div id="printable" className="invoice-box">
-                <InvoiceCard orderId={id} />
+                <InvoiceCard orderDetails={order} />
             </div>
             <div className="text-center my-3">
                 <button onClick={handlePrint} className="btn btn-warning">Print Invoice</button>

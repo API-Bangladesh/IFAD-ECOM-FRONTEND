@@ -50,7 +50,7 @@ const BToB = () => {
         };
 
         try {
-            await axios.post(`${API_URL}/send-b2b-sale-form`, data, {
+            await axios.post(`${API_URL}/ecom/send-b2b-sale-form`, data, {
                 headers: {
                     "Content-Type": "application/json",
                 }

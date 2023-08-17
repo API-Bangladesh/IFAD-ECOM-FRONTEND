@@ -1,172 +1,138 @@
-import { FaPrint } from 'react-icons/fa';
-import { BsEnvelope, BsPhone } from 'react-icons/bs';
+const InvoiceCard = ({ orderDetails }) => {
+  console.log(orderDetails);
+  let billing_address = orderDetails.billing_address;
+  let billing_lines = billing_address?.split(",");
+  let shipping_address = orderDetails.shipping_address;
+  let shipping_lines = shipping_address?.split(",");
 
-const InvoiceCard = ({orderId}) => {
-  
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-12">
-          <div className="card invoice-card">
-            <div className="card-body">
-              <div className="invoice-title">
-                <h4 className="float-end font-size-15">
-                  Invoice #DS0204{" "}
-                  <span className="badge bg-success font-size-12 ms-2">Paid</span>
-                </h4>
-                <div className="mb-4">
-                  <h2 className="mb-1 text-muted">Bootdey.com</h2>
+    <div className="card">
+      <div className="card-body">
+        <div className="container mb-5 mt-3">
+          <div className="row d-flex align-items-baseline">
+            <div className="col-xl-9">
+              <p className="fw-bold">
+                Order Date: <span>{orderDetails?.order_date}</span>
+              </p>
+            </div>
+          </div>
+
+          <div className="row my-2">
+            <p className="fw-bold mb-2">Product Summary</p>
+            {/* <div className="col-md-2 mb-4 mb-md-0">
+              <div className="bg-image ripple rounded-5 mb-4 overflow-hidden d-block" data-ripple-color="light">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/new/img(4).webp"
+                  className="w-100"
+                  height="100px"
+                  alt="Elegant shoes and shirt"
+                />
+              </div>
+            </div> */}
+            {orderDetails?.order_items?.map((item, i) => (
+              <div className="row my-2 mx-2 d-flex justify-content-between">
+                <div key={i} className="col-md-7 mb-4 mb-md-0">
+                  <p className="">{item?.inventory?.product?.name}</p>
                 </div>
-                <div className="text-muted">
-                  <p className="mb-1">3184 Spruce Drive Pittsburgh, PA 15201</p>
-                  <p className="mb-1 d-flex align-items-center">
-                    <span className="mr-1 d-flex align-items-center"><BsEnvelope /></span>
-                    <span>xyz@987.com</span>
+                <div className="col-md-3 mb-4 mb-md-0">
+                  <h5 className="mb-2 text-right">
+                    {/* <s className="text-muted me-2 small align-middle"></s> */}
+                    <span className="align-middle">
+                      Price: {item?.unit_price} bdt
+                    </span>
+                  </h5>
+                </div>
+              </div>
+            ))}
+
+            <hr />
+            <div className="mb-4 mb-md-0">
+              <h5 className="mb-2 d-flex justify-content-end">
+                <s className="text-muted me-2 small "></s>
+                <span className="float-end pt-2">
+                  Sub-Total {orderDetails?.sub_total} bdt
+                </span>
+              </h5>
+            </div>
+            <hr />
+          </div>
+          <div className="d-flex justify-content-end">
+            <button
+              type="button"
+              className="btn btn-outline-warning rounded-1 py-1"
+            >
+              Pay now
+            </button>
+          </div>
+
+          <div className="container">
+            <div className="row mb-3">
+              <p className="fw-bold mb-2 mt-2">Order Summary</p>
+              <div className="col-xl-6">
+                <div className="payment-info">
+                  <h4 className="fw-bold">Payment Information</h4>
+                  <p className="payment">
+                    {orderDetails?.payment_method?.code}
                   </p>
-                  <p className="mb-1 d-flex align-items-center">
-                    <span className="mr-1 d-flex align-items-center"><BsPhone /></span>
-                    <span>012-345-6789</span>
+                  <p className="desc">{orderDetails?.payment_method?.name}</p>
+                </div>
+                <div className="handle-info">
+                  <h4 className="fw-bold">Shipping & Handling Information</h4>
+                  <p className="delivery-info">
+                    Regular Delivery in 3-5 working Days.
                   </p>
                 </div>
               </div>
-
-              <hr className="my-4" />
-
-              <div className="row">
-                <div className="col-sm-6">
-                  <div className="text-muted">
-                    <h5 className="font-size-16 mb-3">Billed To:</h5>
-                    <h5 className="font-size-15 mb-2">Preston Miller</h5>
-                    <p className="mb-1">4068 Post Avenue Newfolden, MN 56738</p>
-                    <p className="mb-1">PrestonMiller@armyspy.com</p>
-                    <p>001-234-5678</p>
-                  </div>
-                </div>
-
-                <div className="col-sm-6">
-                  <div className="text-muted text-sm-end">
-                    <div>
-                      <h5 className="font-size-15 mb-1">Invoice No:</h5>
-                      <p>#DZ0112</p>
-                    </div>
-                    <div className="mt-4">
-                      <h5 className="font-size-15 mb-1">Invoice Date:</h5>
-                      <p>12 Oct, 2020</p>
-                    </div>
-                    <div className="mt-4">
-                      <h5 className="font-size-15 mb-1">Order No:</h5>
-                      <p>#1123456</p>
-                    </div>
-                  </div>
-                </div>
+              <div className="col-xl-6">
+                <p className="fw-bold">Order Totals</p>
+                <ul class="list-unstyled">
+                  <li class="text-muted ms-3 d-flex justify-content-between">
+                    <span class="text-black me-4">SubTotal</span>{" "}
+                    <span>{orderDetails?.sub_total} bdt</span>
+                  </li>
+                  <li className="text-muted ms-3 d-flex justify-content-between">
+                    <span className="text-black me-4">Shipping & Handling</span>{" "}
+                    <span>{orderDetails?.shipping_charge} bdt</span>
+                  </li>
+                  <li className="text-muted ms-3 d-flex justify-content-between">
+                    <span className="text-black me-4">Discount</span>{" "}
+                    <span>{orderDetails?.discount} bdt</span>
+                  </li>
+                  <hr />
+                  <li className="text-muted ms-3 d-flex justify-content-between">
+                    <span className="text-black me-4">Grand Total</span>{" "}
+                    <span>{orderDetails?.grand_total} bdt</span>
+                  </li>
+                </ul>
               </div>
+            </div>
 
-              <div className="py-2">
-                <h5 className="font-size-15">Order Summary</h5>
+            <hr />
 
-                <div className="table-responsive">
-                  <table className="table align-middle table-nowrap table-centered mb-0">
-                    <thead>
-                      <tr>
-                        <th style={{width: "70px"}}>No.</th>
-                        <th>Item</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th className="text-end" style={{width: "120px"}}>
-                          Total
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">01</th>
-                        <td>
-                          <div>
-                            <h5 className="text-truncate font-size-14 mb-1">
-                              Black Strap A012
-                            </h5>
-                            <p className="text-muted mb-0">Watch, Black</p>
-                          </div>
-                        </td>
-                        <td>$ 245.50</td>
-                        <td>1</td>
-                        <td className="text-end">$ 245.50</td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row">02</th>
-                        <td>
-                          <div>
-                            <h5 className="text-truncate font-size-14 mb-1">
-                              Stainless Steel S010
-                            </h5>
-                            <p className="text-muted mb-0">Watch, Gold</p>
-                          </div>
-                        </td>
-                        <td>$ 245.50</td>
-                        <td>2</td>
-                        <td className="text-end">$491.00</td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row" colspan="4" className="text-end">
-                          Sub Total
-                        </th>
-                        <td className="text-end">$732.50</td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row" colspan="4" className="border-0 text-end">
-                          Discount :
-                        </th>
-                        <td className="border-0 text-end">- $25.50</td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row" colspan="4" className="border-0 text-end">
-                          Shipping Charge :
-                        </th>
-                        <td className="border-0 text-end">$20.00</td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row" colspan="4" className="border-0 text-end">
-                          Tax
-                        </th>
-                        <td className="border-0 text-end">$12.00</td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row" colspan="4" className="border-0 text-end">
-                          Total
-                        </th>
-                        <td className="border-0 text-end">
-                          <h4 className="m-0 fw-semibold">$739.00</h4>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div className="d-print-none mt-4">
-                  <div className="float-end">
-                    <a
-                      href="javascript:window.print()"
-                      className="btn btn-success me-1"
-                    >
-                      <FaPrint />
-                    </a>
-                    <a href="#" className="btn btn-primary w-md">
-                      Send
-                    </a>
-                  </div>
-                </div>
+            <div className="row mt-3">
+              <p className="fw-bold pb-2">Address</p>
+              <div className="col-xl-6">
+                <p className="ms-3 fw-bold">Billing Address</p>
+                {billing_lines?.map((line, i) => (
+                  <p key={i} className="ms-3">
+                    {line}
+                  </p>
+                ))}
+              </div>
+              <div className="col-xl-6">
+                <p className="ms-3 fw-bold">Shipping Address</p>
+                {shipping_lines?.map((line, i) => (
+                  <p key={i} className="ms-3">
+                    {line}
+                  </p>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default InvoiceCard
+export default InvoiceCard;
