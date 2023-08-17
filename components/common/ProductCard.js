@@ -59,6 +59,9 @@ const ProductCard = ({
                 sub_category_name: subCategoryName,
                 image: imagePath,
                 variations: '',
+                variant_id: variants[0].variant.id,
+                variant_name: variants[0].variant.name,
+                variant_quantity: variants[0].variant_option.name
             }));
 
             tostify(toast, 'success', {

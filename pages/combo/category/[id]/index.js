@@ -134,6 +134,7 @@ const ComboCategoryPage = () => {
                                             viewLink={`/combo/pack/${combo.id}`}
                                             cssClasses="category-product"
                                             isTimer={true}
+                                            items={combo.combo_items}
                                         />
                                     </div>
                                 )
