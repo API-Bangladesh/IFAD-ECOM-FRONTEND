@@ -453,7 +453,7 @@ const CheckoutPage = () => {
                                         <p className="font-20 theme-text">{cart.grandTotal || 0} Tk</p>
                                     </div>
                                 </div>
-
+      
                                 <div className="mt-3 d-flex">
                                     <Form.Group className="mb-1 text-secondary d-flex me-2" controlId="">
                                         <Form.Check type="checkbox" label=""

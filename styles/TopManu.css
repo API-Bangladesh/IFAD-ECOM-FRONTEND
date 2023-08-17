@@ -31,6 +31,7 @@
   padding: 8px 10px !important;
   animation: search 0.3s;
 }
+/* animation */
 @keyframes search {
   from {
     height: 0px;
