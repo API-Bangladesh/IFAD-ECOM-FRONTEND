@@ -183,7 +183,7 @@ const CheckoutPage = () => {
                 discount: cart.discount,
                 shipping_charge: shippingCharge,
                 tax: cart.tax,
-                grand_total: cart.grandTotal,
+                grand_total: cart.subTotal + shippingCharge,
                 payment_method_id: cart.paymentMethodId,
                 total_weight: totalWeight
             }).then((response) => {
@@ -203,7 +203,7 @@ const CheckoutPage = () => {
                 discount: cart.discount,
                 shipping_charge: shippingCharge,
                 tax: cart.tax,
-                grand_total: cart.grandTotal,
+                grand_total: cart.subTotal + shippingCharge,
                 payment_method_id: cart.paymentMethodId,
                 total_weight: totalWeight
             }).then((response) => {
@@ -525,7 +525,7 @@ const CheckoutPage = () => {
                                    
                                     <div className="d-flex justify-content-center">
                                         <p className="font-lato text-warning text-capitalize font-20 pe-2">total : </p>
-                                        <p className="font-20 theme-text">{cart.grandTotal || 0} Tk</p>
+                                        <p className="font-20 theme-text">{cart.subTotal + shippingCharge || 0} Tk</p>
                                     </div>
                                 </div>
       
