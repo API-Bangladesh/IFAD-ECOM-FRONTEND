@@ -2628,3 +2628,11 @@ Responsive part end
 .invoice-box.rtl table tr td:nth-child(2) {
 	text-align: left;
 }
+
+/* invoice */
+.invoice-card {
+	box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+	border-radius: 1rem !important;
+	max-width: 800px;
+	margin: 32px auto;
+}
