@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import {MdDeleteOutline, MdEdit} from 'react-icons/md';
 import {toast} from "react-toastify";
 import {tostify} from "../../utils/helpers";
-import {showErrorNotification} from "../Modules/helper/notificationHelper";
+import {showErrorNotification, showSuccessNotification} from "../Modules/helper/notificationHelper";
 import {
   deleteAddress,
   editAddress,
@@ -75,15 +75,15 @@ const AddressTab = () => {
         data.title === "" ||
         data.name === "" ||
         data.address_line_1 === "" ||
-        data.address_line_2 === "" ||
         data.division_id === "" ||
         data.district_id === "" ||
         data.upazila_id === "" ||
         data.postcode === "" ||
-        data.phone === "" ||
-        data.email === ""
+        data.phone === ""
     ) {
-      tostify(toast, 'error', {data: {message: 'Field must not be empty!'}});
+      tostify(toast, 'error', {
+        message: 'Fields must not be empty!'
+      });
       return;
     }
 
@@ -101,6 +101,8 @@ const AddressTab = () => {
           // const updatedAddress = addresses.map((item) => (item.id === data.id ? data : item));
           // setAddresses(updatedAddress);
 
+          showSuccessNotification("Success", "Address updated.")
+
           fetchAddresses().then((response) => {
             if (response?.data) {
               setAddresses(response.data);
@@ -115,6 +117,9 @@ const AddressTab = () => {
     } else {
       try {
         saveAddress(data).then((res) => {
+
+          showSuccessNotification("Success", "Address saved.")
+
           fetchAddresses().then((response) => {
             if (response?.data) {
               setAddresses(response.data);
@@ -240,7 +245,7 @@ const AddressTab = () => {
                   </Card.Body>
                 </Card>
               </Col>
-          )) : '<h5>Noting found!</h5>'}
+          )) : <h5>No address created, please create address.</h5>}
 
           <AddressModal
               show={show}

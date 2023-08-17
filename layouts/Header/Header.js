@@ -1,23 +1,23 @@
 import Link from "next/link";
-import React, { Fragment, useEffect, useState } from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { FaUserCircle } from "react-icons/fa";
-import { MdOutlineLogout } from "react-icons/md";
+import {FaUserCircle} from "react-icons/fa";
+import {MdOutlineLogout} from "react-icons/md";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Image from "next/image";
 import Logo from "../../public/logo/IFAD-ESHOP-Logo.png";
-import { BiAlignLeft } from "react-icons/bi";
-import { CiUser } from "react-icons/ci";
+import {BiAlignLeft} from "react-icons/bi";
+import {CiUser} from "react-icons/ci";
 import CartOverlys from "./CartOverlay";
-import { fetchCategories } from "../../services/CategoryServices";
-import { isLoggedIn, logout } from "../../utils/auth";
-import { useRouter } from "next/router";
+import {fetchCategories} from "../../services/CategoryServices";
+import {isLoggedIn, logout} from "../../utils/auth";
+import {useRouter} from "next/router";
 import Overlay from "./Overlay";
 
 export default function Header() {
@@ -121,7 +121,7 @@ export default function Header() {
                 method="get"
                 className="d-flex align-items-center justify-content-between form-item"
               >
-            
+
                 <Form.Control
                   type="search"
                   name="keyword"
@@ -284,41 +284,19 @@ export default function Header() {
                   }
                   id="navbarScrollingDropdown"
                 >
-                  <NavDropdown.Item className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
-                    <Link href="/allproducts/AllProducts" className="cate-drop">
-                      Biscuits
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
-                    <Link href="/allproducts/AllProducts" className="cate-drop">
-                      Chips
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
-                    <Link href="/allproducts/AllProducts" className="cate-drop">
-                      Commodities
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
-                    <Link href="/allproducts/AllProducts" className="cate-drop">
-                      Homecare
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
-                    <Link href="/allproducts/AllProducts" className="cate-drop">
-                      Mustard Oil
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
-                    <Link href="/allproducts/AllProducts" className="cate-drop">
-                      Noodles
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
-                    <Link href="/allproducts/AllProducts" className="cate-drop">
-                      Snacks
-                    </Link>
-                  </NavDropdown.Item>
+                  {categories.map((category, key) => {
+                    return (
+                        <NavDropdown.Item key={key}
+                                          className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
+                          <Link
+                              href={`/category/${category.id}`}
+                              className="cate-drop"
+                          >
+                            {category.name}
+                          </Link>
+                        </NavDropdown.Item>
+                    );
+                  })}
                 </NavDropdown>
               </div>
               <div className="col-lg-9" href="#">
