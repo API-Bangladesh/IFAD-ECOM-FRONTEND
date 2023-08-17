@@ -9,7 +9,7 @@ import BtoBBanner from "public/b2b.jpg";
 import axios from "axios"
 import {tostify} from "../../utils/helpers";
 import {toast} from "react-toastify";
-import {BACKEND_URL} from "../../utils/constants";
+import {API_URL, BACKEND_URL} from "../../utils/constants";
 import ReCAPTCHA from "../../components/common/ReCAPTCHA"
 
 const BToB = () => {
@@ -50,7 +50,7 @@ const BToB = () => {
         };
 
         try {
-            await axios.post(`${BACKEND_URL}/send-b2b-sale-form`, data, {
+            await axios.post(`${API_URL}/send-b2b-sale-form`, data, {
                 headers: {
                     "Content-Type": "application/json",
                 }

@@ -37,6 +37,8 @@ const CheckoutPage = () => {
     const [billingAddress, setBillingAddress] = useState({});
     const [shippingAddress, setShippingAddress] = useState({});
     const [paymentMethods, setPaymentMethods] = useState([]);
+    const [shippingCharge, setShippingCharge] = useState(0);
+    const [totalWeight, setTotalWeight] = useState(0);
 
     useEffect(() => {
         fetchPaymentMethods().then((response) => {
@@ -99,6 +101,77 @@ const CheckoutPage = () => {
         }
     }
 
+    const convertToKilograms = (weightStr, quantity) => {
+        if (weightStr.toLowerCase().includes("kg")) {
+            return parseFloat(weightStr) * quantity;
+        } else if (weightStr.toLowerCase().includes("gm")) {
+            return (parseFloat(weightStr) / 1000) * quantity;
+        } else if (weightStr.toLowerCase().includes("liter") || weightStr.toLowerCase().includes("litre")) {
+            return parseFloat(weightStr) * quantity;
+        } else if (weightStr.toLowerCase().includes("l") && !weightStr.toLowerCase().includes("ml")) {
+            return parseFloat(weightStr) * quantity;
+        } else if (weightStr.toLowerCase().includes("ml")) {
+            return (parseFloat(weightStr) / 1000) * quantity;
+        } else {
+          return 0; // Unsupported unit
+        }
+    }
+
+    const calculateTotalWeight = (products) => {
+        let totalWeight = 0;
+        for (const product of products) {
+          const weightInKilograms = convertToKilograms(product.variant_quantity, product.quantity);
+          totalWeight += weightInKilograms;
+        }
+        return totalWeight;
+    }
+
+    const calculateShippingCharge = (baseCharge, products) => {
+        let totalWeight = calculateTotalWeight(products);
+        let totalCharges = 0;
+        let additionalCharge = 20;
+
+        if (totalWeight <= 1) {
+            totalCharges += baseCharge;
+        } else {
+            const additionalWeight = totalWeight - 1;
+            const additionalCharges = Math.ceil(additionalWeight) * additionalCharge;
+            totalCharges = baseCharge + additionalCharges;
+        }
+        return {
+            charge: totalCharges,
+            weight: totalWeight
+        };
+    }
+
+    useEffect(() => {
+        let items = [];
+
+        cart.items.forEach(item => {
+            if (item.hasOwnProperty("type") && item["type"] === "combo") {
+                item.items.forEach(i => {
+                    console.log(i)
+                    const obj = {
+                        variant_quantity: "0gm",
+                        quantity: 1
+                    }
+                    items.push(obj)
+                })
+            } else {
+                const obj = {
+                    variant_quantity: item.variant_quantity,
+                    quantity: item.quantity
+                }
+                items.push(obj)
+            }
+        });
+        
+        console.log(items)
+        const total = calculateShippingCharge(cart.shippingCharge, items);
+        setShippingCharge(total.charge);
+        setTotalWeight(total.weight);
+    }, [cart])
+
     const handlePlaceOrder = (event) => {
         event.preventDefault();
         if (cart.paymentMethodId === "1") {
@@ -108,10 +181,11 @@ const CheckoutPage = () => {
                 cart: cart.items,
                 sub_total: cart.subTotal,
                 discount: cart.discount,
-                shipping_charge: cart.shippingCharge,
+                shipping_charge: shippingCharge,
                 tax: cart.tax,
                 grand_total: cart.grandTotal,
-                payment_method_id: cart.paymentMethodId
+                payment_method_id: cart.paymentMethodId,
+                total_weight: totalWeight
             }).then((response) => {
                 console.log(response)
                 if (response?.data?.GatewayPageURL) {
@@ -127,10 +201,11 @@ const CheckoutPage = () => {
                 cart: cart.items,
                 sub_total: cart.subTotal,
                 discount: cart.discount,
-                shipping_charge: cart.shippingCharge,
+                shipping_charge: shippingCharge,
                 tax: cart.tax,
                 grand_total: cart.grandTotal,
-                payment_method_id: cart.paymentMethodId
+                payment_method_id: cart.paymentMethodId,
+                total_weight: totalWeight
             }).then((response) => {
                 if (response?.data?.status) {
                     tostify(toast, 'success', response);
@@ -445,7 +520,7 @@ const CheckoutPage = () => {
                                     </div>
                                     <div className="d-flex justify-content-center">
                                         <p className="font-lato text-capitalize font-20 pe-2">shipping charge : </p>
-                                        <p className=" font-20 ">{cart.shippingCharge} Tk</p>
+                                        <p className=" font-20 ">{shippingCharge} Tk ({totalWeight} kg)</p>
                                     </div>
                                     {/* <div className="d-flex justify-content-center">
                                         <p className="font-lato text-capitalize font-20 pe-2">discount : </p>

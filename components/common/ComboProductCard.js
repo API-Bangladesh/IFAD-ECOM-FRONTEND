@@ -21,7 +21,8 @@ const ComboProductCard = ({
                               imagePath,
                               viewLink,
                               cssClasses,
-                              isTimer
+                              isTimer,
+                              items
                           }) => {
     const dispatch = useDispatch();
     const router = useRouter();
@@ -55,6 +56,7 @@ const ComboProductCard = ({
                 title: title,
                 category_name: categoryName,
                 image: imagePath,
+                items
             }));
 
             tostify(toast, 'success', {

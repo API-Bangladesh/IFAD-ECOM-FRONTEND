@@ -93,7 +93,8 @@ const SingleComboPage = () => {
                 sku: combo.sku,
                 title: combo.title,
                 category_name: combo?.combo_category?.name,
-                image: getStoragePath(`combo-image/${combo?.image}`)
+                image: getStoragePath(`combo-image/${combo?.image}`),
+                items: combo.combo_items
             }));
 
             tostify(toast, 'success', {

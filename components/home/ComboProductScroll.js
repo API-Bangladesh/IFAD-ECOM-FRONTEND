@@ -99,6 +99,7 @@ const ComboProductScroll = ({title}) => {
                                                     imagePath={getStoragePath(`combo-image/${combo?.image}`)}
                                                     viewLink={`/combo/pack/${combo.id}`}
                                                     isTimer={true}
+                                                    items={combo.combo_items}
                                                 />
                                             </div>
                                         </div>
