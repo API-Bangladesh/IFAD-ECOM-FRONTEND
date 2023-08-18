@@ -25,7 +25,7 @@ const SingleComboPage = () => {
   const [isRunningOffer, setIsRunningOffer] = useState(false);
   const [isWishlist, setIsWishlist] = useState(false);
 
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const incQuantity = (event) => {
     event.preventDefault();
@@ -35,11 +35,11 @@ const SingleComboPage = () => {
   const decQuantity = (event) => {
     event.preventDefault();
 
-    if (quantity > 0) {
+    if (quantity > 1) {
       setQuantity(quantity - 1);
     } else {
-      alert("sorry, Zero limit reached.");
-      setQuantity(0);
+      alert("Minimum quantity 1");
+      setQuantity(1);
     }
   };
 
@@ -105,7 +105,7 @@ const SingleComboPage = () => {
         message: "Added to Cart",
       });
 
-      setQuantity(0);
+      setQuantity(1);
 
       if (buyNow) {
         setTimeout(() => {
