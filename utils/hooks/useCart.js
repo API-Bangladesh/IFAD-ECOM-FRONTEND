@@ -103,7 +103,7 @@ export const useCart = (initialValue) => {
     if (cart.items.length === 0) {
       baseCharge = 0;
     } else if (
-      cart.shippingAddress.district.name.trim().toLowerCase() === "dhaka"
+      cart.shippingAddress?.district?.name?.trim().toLowerCase() === "dhaka"
     ) {
       baseCharge = 60;
     } else {
