@@ -13,10 +13,12 @@ import {
 import { tostify } from "../../utils/helpers";
 import { toast } from "react-toastify";
 import Search from "./Search";
+import { useCart } from "../../utils/hooks/useCart";
 
 function CartOverlay() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const { totalShippingCharge } = useCart(null);
 
   const [show, setShow] = useState(false);
 
@@ -147,7 +149,7 @@ function CartOverlay() {
                                 Tax : {cart.tax || 0}
                             </h1>*/}
               <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
-                total : {cart.grandTotal || 0} Tk.
+                total : {cart.subTotal + totalShippingCharge || 0} Tk.
               </h1>
             </div>
             <div className="mt-3 check-button d-flex justify-content-center">

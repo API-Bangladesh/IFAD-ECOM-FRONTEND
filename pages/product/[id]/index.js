@@ -30,7 +30,7 @@ const SingleInventoryPage = () => {
     const [isWishlist, setIsWishlist] = useState(false);
     const [isRunningOffer, setIsRunningOffer] = useState(false);
 
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(1);
 
     const incQuantity = (event) => {
         event.preventDefault()
@@ -40,11 +40,11 @@ const SingleInventoryPage = () => {
     const decQuantity = (event) => {
         event.preventDefault()
 
-        if (quantity > 0) {
+        if (quantity > 1) {
             setQuantity(quantity - 1);
         } else {
-            alert("sorry, Zero limit reached.")
-            setQuantity(0);
+            alert("Minimum quantity 1")
+            setQuantity(1);
         }
     }
 
@@ -135,7 +135,7 @@ const SingleInventoryPage = () => {
                 message: "Added to Cart"
             });
 
-            setQuantity(0);
+            setQuantity(1);
 
             if (buyNow) {
                 setTimeout(() => {
