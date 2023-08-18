@@ -148,6 +148,17 @@ const SingleComboPage = () => {
               <h3 className="mt-5 color font-jost display-6 fw-bolder text-capitalize mb-3">
                 {combo?.title}
               </h3>
+
+              {combo && combo.combo_items && combo.combo_items.length > 0 && (
+                <div className="mb-3">
+                  {combo.combo_items.map((item, index) => (
+                    <p key={index}>
+                      {index + 1}. {item.inventory.title}
+                    </p>
+                  ))}
+                </div>
+              )}
+
               <p className="font-lato font-20 text-dark mb-3">
                 {isRunningOffer ? (
                   <Fragment>
