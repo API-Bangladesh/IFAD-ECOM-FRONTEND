@@ -224,7 +224,9 @@ const AddressTab = () => {
                       <span className="d-block">Address Line 2: {item.address_line_2}</span>
                       <span className="d-block">Post Code: {item.postcode}</span>
                       <span className="d-block">Phone: {item.phone}</span>
-                      <span className="d-block">Email: {item.email}</span>
+                      <span className="d-block">
+                        Email: <span className="text-lowercase">{item.email}</span>
+                      </span>
                     </Card.Text>
                     <div className="d-flex justify-content-start mt-3">
                       <Button
