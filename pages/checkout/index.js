@@ -34,6 +34,7 @@ const CheckoutPage = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
+  const [agree, setAgree] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [billingAddress, setBillingAddress] = useState({});
   const [shippingAddress, setShippingAddress] = useState({});
@@ -103,6 +104,13 @@ const CheckoutPage = () => {
 
   const handlePlaceOrder = (event) => {
     event.preventDefault();
+    if (!agree) {
+      alert(
+        "Please accept the terms & conditions, refund policy & privacy plicy"
+      );
+      return;
+    }
+
     if (cart.paymentMethodId === "1") {
       makePayment({
         shipping_address: getAddressToString(cart.shippingAddress),
@@ -542,37 +550,23 @@ const CheckoutPage = () => {
 
                 <div className="mt-3 d-flex">
                   <Form.Group
-                    className="mb-1 text-secondary d-flex me-2"
+                    className="mb-1 text-secondary d-flex me-2 justify-content-start"
                     controlId=""
                   >
                     <Form.Check
                       type="checkbox"
                       label=""
-                      // onChange={(event) => setAgree(event.target.checked)}
+                      onChange={(event) => setAgree(event.target.checked)}
                     />
-                    <Link href="/terms-and-conditions">Terms & Conditions</Link>
-                  </Form.Group>
-                  <Form.Group
-                    className="mb-1 text-secondary d-flex me-2"
-                    controlId=""
-                  >
-                    <Form.Check
-                      type="checkbox"
-                      label=""
-                      // onChange={(event) => setAgree(event.target.checked)}
-                    />
-                    <Link href="/refund-policy">Refund policy</Link>
-                  </Form.Group>
-                  <Form.Group
-                    className="mb-1 text-secondary d-flex"
-                    controlId=""
-                  >
-                    <Form.Check
-                      type="checkbox"
-                      label=""
-                      // onChange={(event) => setAgree(event.target.checked)}
-                    />
-                    <Link href="/privacy-policy">Privacy policy</Link>
+                    <Link href="/terms-and-conditions" className="mr-1">
+                      Terms & Conditions,
+                    </Link>
+                    <Link href="/refund-policy" className="mr-1">
+                      Refund policy,
+                    </Link>
+                    <Link href="/privacy-policy" className="mr-1">
+                      Privacy policy
+                    </Link>
                   </Form.Group>
                 </div>
 
