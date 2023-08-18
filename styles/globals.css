@@ -108,7 +108,7 @@ th, tr {
 }
 
 /*===============
-overlay part start 
+overlay part start
 ================*/
 
 .main {
@@ -174,7 +174,7 @@ overlay part start
 }
 
 /*==============
-overlay part end 
+overlay part end
 ==============*/
 
 
@@ -1955,7 +1955,7 @@ delivery part css end
 
 
 /*===================
-Responsive part start 
+Responsive part start
 ===================*/
 
 button.navbar-toggler {
@@ -2342,7 +2342,7 @@ button.navbar-toggler {
 }
 
 /*==================
-Responsive part end 
+Responsive part end
 ===================*/
 
 /* custom css */
@@ -2629,4 +2629,18 @@ Responsive part end
 	border-radius: 1rem !important;
 	max-width: 800px;
 	margin: 32px auto;
+}
+
+/* Address Tab */
+.address-col {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 992px) {
+  .address-col {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

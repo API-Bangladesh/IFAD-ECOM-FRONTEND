@@ -30,7 +30,7 @@ const MyAccountPage = () => {
                 <Col className="mt-5">
                     <Tab.Container id="left-tabs-example" activeKey={activeKey}>
                         <Row>
-                            <Col sm={3}>
+                            <Col sm={3} className="mb-5">
                                 <Nav variant="pills" className="flex-column float-start font-16 font-lato font-lato ">
                                     <Nav.Item>
                                         <Nav.Link eventKey="account-info" className="text-capitalize rounded-0"
@@ -99,7 +99,7 @@ const MyAccountPage = () => {
                                     </Nav.Item>
                                 </Nav>
                             </Col>
-                            <Col sm={9}>
+                            <Col sm={9} className="mb-5">
                                 <Tab.Content>
                                     <Tab.Pane eventKey="account-info" className="text-capitalize font-16 font-lato">
                                         <UserInfoTab/>
