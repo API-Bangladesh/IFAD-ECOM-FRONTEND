@@ -17,7 +17,7 @@ const Search = () => {
         >
           <div className="d-flex">
             <input
-              className={`form-control text-white rounded-0 addon_text_box ${style}`}
+              className={`form-control text-black bg-white rounded-0 addon_text_box ${style}`}
               placeholder="Search for"
               type="search"
             />
