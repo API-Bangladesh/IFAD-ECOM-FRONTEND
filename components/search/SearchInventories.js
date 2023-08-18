@@ -57,12 +57,12 @@ const SearchInventories = ({keyword}) => {
 
                 {/*Category Info*/}
                 <div className="w-100">
-                    <h1 className="fw-bolder text-center mt-5 font-40 font-inter our-product">Search: {keyword}</h1>
-                    <p className="font-lato text-center font-18 mb-5 product-des">
+                    <h1 className="fw-bolder text-center mt-5 mb-5 font-40 font-inter our-product">Search: {keyword}</h1>
+                    {/* <p className="font-lato text-center font-18 mb-5 product-des">
                         We Are Restocking as Quickly as Possible. Come Back 7/30 to OrderMore of These Flavors
                         Inspired by the Places You Call
                         Home!
-                    </p>
+                    </p> */}
                 </div>
 
                 <div className="row">
