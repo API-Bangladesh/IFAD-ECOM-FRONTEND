@@ -51,3 +51,11 @@ export const makePayment = async (data = {}) => {
         tostify(toast, 'error', error);
     }
 }
+
+export const makePaymentInvoice = async (orderId, data = {}) => {
+    try {
+        return await axios.post(`/ecom/orders/make-payment/${orderId}`, data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}

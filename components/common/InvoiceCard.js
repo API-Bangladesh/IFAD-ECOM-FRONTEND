@@ -1,9 +1,24 @@
+import { makePaymentInvoice } from "../../services/OrderServices";
+
 const InvoiceCard = ({ orderDetails }) => {
   console.log(orderDetails);
   let billing_address = orderDetails.billing_address;
   let billing_lines = billing_address?.split(",");
   let shipping_address = orderDetails.shipping_address;
   let shipping_lines = shipping_address?.split(",");
+
+  const handlePay = (event) => {
+    event.preventDefault();
+
+    makePaymentInvoice(orderDetails.id).then((response) => {
+      // console.log(response);
+      if (response?.data?.GatewayPageURL) {
+        // tostify(toast, 'success', response);
+        // dispatch(RESET_CART());
+        window.location.href = response?.data?.GatewayPageURL;
+      }
+    });
+  };
 
   return (
     <div className="card">
@@ -60,6 +75,7 @@ const InvoiceCard = ({ orderDetails }) => {
             <button
               type="button"
               className="btn btn-outline-warning rounded-1 py-1"
+              onClick={(event) => handlePay(event)}
             >
               Pay now
             </button>
@@ -85,9 +101,9 @@ const InvoiceCard = ({ orderDetails }) => {
               </div>
               <div className="col-xl-6">
                 <p className="fw-bold">Order Totals</p>
-                <ul class="list-unstyled">
-                  <li class="text-muted ms-3 d-flex justify-content-between">
-                    <span class="text-black me-4">SubTotal</span>{" "}
+                <ul className="list-unstyled">
+                  <li className="text-muted ms-3 d-flex justify-content-between">
+                    <span className="text-black me-4">SubTotal</span>{" "}
                     <span>{orderDetails?.sub_total} bdt</span>
                   </li>
                   <li className="text-muted ms-3 d-flex justify-content-between">

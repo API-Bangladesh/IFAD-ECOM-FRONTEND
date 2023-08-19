@@ -19,10 +19,10 @@ const PaymentStatus = () => {
           // tostify(toast, 'error', error);
           console.log("Something went wrong");
       }
-      if (status === "success") {
-        updateOrder();
-      }
     };
+    if (status === "success") {
+      updateOrder();
+    }
   }, [order_id, status]);
 
   return (
