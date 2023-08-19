@@ -72,13 +72,19 @@ const InvoiceCard = ({ orderDetails }) => {
             <hr />
           </div>
           <div className="d-flex justify-content-end">
+            {orderDetails.payment_status_id == 1 ?
+            <button
+              className="btn btn-outline-warning rounded-1 py-1 disabled"
+            >
+              Paid
+            </button> :
             <button
               type="button"
               className="btn btn-outline-warning rounded-1 py-1"
               onClick={(event) => handlePay(event)}
             >
               Pay now
-            </button>
+            </button>}
           </div>
 
           <div className="container">
