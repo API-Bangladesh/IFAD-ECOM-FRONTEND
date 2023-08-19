@@ -148,9 +148,9 @@ function CartOverlay() {
                             <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
                                 Tax : {cart.tax || 0}
                             </h1>*/}
-              <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
+              {/* <h1 className="text-capitalize font-lato font-20 fw-bold text-center">
                 total : {cart.subTotal + totalShippingCharge || 0} Tk.
-              </h1>
+              </h1> */}
             </div>
             <div className="mt-3 check-button d-flex justify-content-center">
               <Link
