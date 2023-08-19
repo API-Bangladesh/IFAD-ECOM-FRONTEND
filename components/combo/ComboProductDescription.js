@@ -13,7 +13,7 @@ const ComboProductDescription = ({combo}) => {
 						{combo?.product_short_desc}
 					</p>
 				</Tab>
-				<Tab eventKey="spacification" title="Spacification" className="pb-5 font-lato">
+				<Tab eventKey="Specification" title="Specification" className="pb-5 font-lato">
 					<div className="detail-table border-top border-warning pt-3">
 						{combo?.product_long_desc}
 					</div>

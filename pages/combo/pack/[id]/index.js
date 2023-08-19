@@ -154,7 +154,7 @@ const SingleComboPage = () => {
                   <h2 className="mb-1">Package Items:</h2>
                   {combo.combo_items.map((item, index) => (
                     <p key={index}>
-                      {index + 1}. {item.inventory.title}
+                      {index + 1}. {item?.inventory?.title} {item?.quantity ? `(${item.quantity})` : ""}
                     </p>
                   ))}
                 </div>
