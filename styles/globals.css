@@ -2085,10 +2085,12 @@ button.navbar-toggler {
 
   .carousel.slide {
     height: 250px !important;
+    height: auto !important;
   }
 
   .banner-img-size {
     height: 245px;
+    height: auto;
   }
 
   .btob-banner .btob {
@@ -2158,7 +2160,7 @@ button.navbar-toggler {
   .category-img-one {
     height: 300px !important;
     width: 100%;
-    object-fit: contain !important;
+    /* object-fit: contain !important; */
   }
   .support-icons {
     /* font-size: 60px!important; */
@@ -2242,13 +2244,14 @@ button.navbar-toggler {
   }
 
   .banner-img-size {
-    height: 190px;
-    object-fit: cover;
-    object-position: center center;
+    height: auto;
+    /* object-fit: cover;
+    object-position: center center; */
   }
 
   .carousel.slide {
     height: 190px !important;
+    height: auto !important;
   }
 
   .card-image-size {
