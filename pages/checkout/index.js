@@ -181,7 +181,7 @@ const CheckoutPage = () => {
             <Col lg={7} md={12} sm={12} className=" mt-4">
               <div className="row">
                 <div className="col-8">
-                  <h1 className="text-uppercase font-24 fw-bold mb-3">
+                  <h1 className="text-uppercase font-24 fw-bold mb-3 billing_details">
                     BILLING DETAILS
                   </h1>
                 </div>
@@ -524,25 +524,25 @@ const CheckoutPage = () => {
                 </table>
                 <div className="">
                   <div className="d-flex justify-content-center">
-                    <p className="font-lato text-capitalize font-20 pe-2">
+                    <p className="font-lato text-capitalize font-20 pe-2 phone_res">
                       subtotal :{" "}
                     </p>
-                    <p className=" font-20 ">{cart.subTotal} Tk</p>
+                    <p className=" font-20 phone_res ">{cart.subTotal} Tk</p>
                   </div>
                   <div className="d-flex justify-content-center">
-                    <p className="font-lato text-capitalize font-20 pe-2">
+                    <p className="font-lato text-capitalize font-20 pe-2 phone_res">
                       shipping charge :{" "}
                     </p>
-                    <p className=" font-20 ">
+                    <p className=" font-20  phone_res">
                       {totalShippingCharge} Tk ({totalWeight.toFixed(2)} kg)
                     </p>
                   </div>
 
                   <div className="d-flex justify-content-center">
-                    <p className="font-lato text-warning text-capitalize font-20 pe-2">
+                    <p className="font-lato text-warning text-capitalize font-20 pe-2 phone_res">
                       total :{" "}
                     </p>
-                    <p className="font-20 theme-text">
+                    <p className="font-20 theme-text phone_res">
                       {cart.subTotal + totalShippingCharge || 0} Tk
                     </p>
                   </div>
@@ -612,7 +612,7 @@ const CheckoutPage = () => {
                   online payment by SSLCommerz :
                 </p>
                 <div className="row">
-                  <Col lg={4} md={6} className="mb-3">
+                  <Col lg={4} md={4} sm={4} className="mb-3">
                     <p className="text-capitalize text-center pb-2">card</p>
                     <Image
                       src={Card}
@@ -620,7 +620,7 @@ const CheckoutPage = () => {
                       className=" card-payment rounded-1 shadow"
                     />
                   </Col>
-                  <Col lg={4} md={6} className="mb-3">
+                  <Col lg={4} md={4} sm={4} className="mb-3">
                     <p className="text-capitalize text-center pb-2">
                       bank transfer
                     </p>
@@ -630,7 +630,7 @@ const CheckoutPage = () => {
                       className=" transfer-payment rounded-1 shadow"
                     />
                   </Col>
-                  <Col lg={4} md={8} className="mb-3">
+                  <Col lg={4} md={4} sm={4} className="mb-3">
                     <p className="text-capitalize text-center pb-2">
                       mobile banking
                     </p>

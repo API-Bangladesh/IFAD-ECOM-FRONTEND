@@ -99,7 +99,7 @@ const CategoryPage = () => {
                 <div className="row">
 
                     {/*Category Sidebar*/}
-                    <div className="col-lg-3 col-md-4 col-sm-4">
+                    <div className="col-lg-3 col-md-4 col-sm-5 mb-3">
                         <ul className="stickyContent list-unstyled text-start ps-5 font-20 lh-lg card-border py-3 ">
                             {categories?.map((item, key) => (
                                 <li key={key}>
@@ -115,7 +115,7 @@ const CategoryPage = () => {
                     </div>
 
                     {/*Category Products*/}
-                    <div className="col-lg-9 col-md-8 col-sm-9">
+                    <div className="col-lg-9 col-md-8 col-sm-7">
                         <div className="row">
                             {inventories.map((inventory, key) => {
                                 return (
