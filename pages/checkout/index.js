@@ -557,6 +557,7 @@ const CheckoutPage = () => {
                       type="checkbox"
                       label=""
                       onChange={(event) => setAgree(event.target.checked)}
+                      className="me-2"
                     />
                     <Link href="/terms-and-conditions" className="mr-1">
                       Terms & Conditions,
@@ -599,7 +600,7 @@ const CheckoutPage = () => {
                 <div className="">
                   <button
                     type="button"
-                    className="text-capitalize font-16 w-100 place-order mt-4 font-lato fw-bold theme-text"
+                    className="text-capitalize place_order_border font-16 w-100 place-order mt-4 font-lato fw-bold theme-text"
                     onClick={(event) => handlePlaceOrder(event)}
                   >
                     place order
