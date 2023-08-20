@@ -161,20 +161,20 @@ const InvoiceCard = ({ orderDetails }) => {
               <ul className="list-unstyled">
                 <li className="text-muted ms-3 d-flex justify-content-between">
                   <span className="text-black me-4">SubTotal</span>{" "}
-                  <span>{orderDetails?.sub_total} BDT</span>
+                  <span>{orderDetails?.sub_total}/-</span>
                 </li>
                 <li className="text-muted ms-3 d-flex justify-content-between">
                   <span className="text-black me-4">Shipping & Handling</span>{" "}
-                  <span>{orderDetails?.shipping_charge} BDT</span>
+                  <span>{orderDetails?.shipping_charge}/-</span>
                 </li>
                 <li className="text-muted ms-3 d-flex justify-content-between">
                   <span className="text-black me-4">Discount</span>{" "}
-                  <span>{orderDetails?.discount} BDT</span>
+                  <span>{orderDetails?.discount}/-</span>
                 </li>
                 <hr />
-                <li className="text-muted ms-3 d-flex justify-content-between">
+                <li className="text-muted ms-3 d-flex justify-content-between font-bold">
                   <span className="text-black me-4">Grand Total</span>{" "}
-                  <span>{orderDetails?.grand_total} BDT</span>
+                  <span>{orderDetails?.grand_total}/-</span>
                 </li>
               </ul>
             </div>
@@ -200,7 +200,7 @@ const InvoiceCard = ({ orderDetails }) => {
           <div className="row mt-2">
             <div className="col-xl-12">
               <p className="fw-bold mt-3">Contact with us</p>
-              Plot # 7 (New), Tejgaon Industrial Area, Dhaka-1208 <br />
+              IFAD Tower, Plot # 7 (New), Tejgaon Industrial Area, Dhaka-1208<br/>
               ifadeshop@ifadgroup.com
             </div>
           </div>

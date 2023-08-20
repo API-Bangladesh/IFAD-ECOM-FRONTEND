@@ -69,7 +69,7 @@ const Contact = () => {
                         </div>
                         <div className="text-center ">
                             <h3 className="font-20 font-poppins text-capitalize pt-3">Address</h3>
-                            <p className="font-16 font-jost mb-5 contact-address">Plot # 7 (New), Tejgaon Industrial Area, Dhaka-1208</p>
+                            <p className="font-16 font-jost mb-5 contact-address">IFAD Tower, Plot # 7 (New), Tejgaon Industrial Area, Dhaka-1208</p>
                         </div>
                     </Col>
                     <Col lg={4} md={4} sm={4}>
