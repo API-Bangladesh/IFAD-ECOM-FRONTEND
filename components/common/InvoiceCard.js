@@ -24,40 +24,71 @@ const InvoiceCard = ({ orderDetails }) => {
     <div className="">
       <div className="card-body">
         <div className="container mb-5 mt-3">
-          <div className="row d-flex align-items-baseline">
-            <div className="col-xl-9">
-              <p className="fw-bold">
-                Order Date: <span>{orderDetails?.order_date}</span>
+          <div className="row d-flex justify-content-between">
+            <div className="col-xl-3">
+              <div
+                className="bg-image ripple rounded-5 mb-4 overflow-hidden d-block"
+                data-ripple-color="light"
+              >
+                <img
+                  src="/logo/IFAD-ESHOP-Logo.png"
+                  className="w-100"
+                  alt="IFAD e-Shop.com"
+                />
+              </div>
+            </div>
+            <div className="col-xl-4">
+            <div className="d-flex justify-content-end mb-2">
+              {orderDetails.payment_status_id == 1 ? (
+                <button className="btn btn-outline-warning rounded-1 py-1 disabled ">
+                  Paid
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-outline-warning rounded-1 py-1"
+                  onClick={(event) => handlePay(event)}
+                >
+                  Pay now
+                </button>
+              )}
+            </div>
+              <p className="fw-bold text-end">
+                Order Id: #<span>{orderDetails?.order_status_id}</span>
+              </p>
+              <p className="fw-bold text-end">
+                Date: <span>{orderDetails?.order_date}</span>
               </p>
             </div>
           </div>
 
-          <div className="row my-2">
+          <div className="row my-2 mt-3">
             <p className="fw-bold mb-2">Product Summary</p>
-            {/* <div className="col-md-2 mb-4 mb-md-0">
-              <div className="bg-image ripple rounded-5 mb-4 overflow-hidden d-block" data-ripple-color="light">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/new/img(4).webp"
-                  className="w-100"
-                  height="100px"
-                  alt="Elegant shoes and shirt"
-                />
+            <hr/>
+            {/* <p className="fw-bold mb-2">Sl</p> */}
+            <div className="d-flex justify-content-between p-1">
+              <div className="fw-bold ml-1">
+                <span>SL</span> <span className="mx-4">Items</span>
               </div>
-            </div> */}
+              <div className="fw-bold">
+                <span className="mx-28">Qty</span>{" "}
+                <span className="mx-3">Price</span>
+              </div>
+            </div>
+            <hr/>
+
             {orderDetails?.order_items?.map((item, i) => (
-              <div className="row my-2 d-flex justify-content-between">
+              <div className="row my-2 d-flex justify-content-between pr-0">
                 <div key={i} className="col-md-7 mb-4 mb-md-0">
-                  {
-                    item?.type == "product" ? <p className="">{item?.inventory?.title}</p> : <p className="">{item?.combo?.title}</p>
-                  }
+                  {item?.type == "product" ? (
+                    <p className="">{`${i + 1}. ${item?.inventory?.title}`}</p>
+                  ) : (
+                    <p className="">{`${i + 1}. ${item?.combo?.title}`}</p>
+                  )}
                 </div>
-                <div className="col-md-3 mb-4 mb-md-0">
-                  <h5 className="mb-2 text-right">
-                    {/* <s className="text-muted me-2 small align-middle"></s> */}
-                    <span className="align-middle">
-                      Price: {item?.unit_price} BDT
-                    </span>
-                  </h5>
+                <div className="col-xl-2 text-end">{item?.quantity}</div>
+                <div className="col-xl-3 text-end pr-0">
+                  {item?.unit_price} BDT
                 </div>
               </div>
             ))}
@@ -65,93 +96,74 @@ const InvoiceCard = ({ orderDetails }) => {
             <hr />
             <div className="mb-4 mb-md-0">
               <h5 className="mb-2 d-flex justify-content-end">
-                <s className="text-muted me-2 small "></s>
-                <span className="float-start pt-2 mx-4">
-                  Sub-Total {orderDetails?.sub_total} BDT
+                <s className="text-muted small "></s>
+                <span className="float-start pt-2">
+                  Sub-Total: {orderDetails?.sub_total} BDT
                 </span>
               </h5>
             </div>
             <hr />
           </div>
-          <div className="d-flex justify-content-end mx-3">
-            {orderDetails.payment_status_id == 1 ?
-            <button
-              className="btn btn-outline-warning rounded-1 py-1 disabled "
-            >
-              Paid
-            </button> :
-            <button
-              type="button"
-              className="btn btn-outline-warning rounded-1 py-1"
-              onClick={(event) => handlePay(event)}
-            >
-              Pay now
-            </button>}
+
+          <div className="row mb-3 mt-4">
+            <div className="col-xl-6">
+              <div className="payment-info my-2">
+                <h4 className="fw-bold">Payment Information</h4>
+                {/* <p className="payment">
+                    {orderDetails?.payment_method?.code}
+                  </p> */}
+                <p className="desc">{orderDetails?.payment_method?.name}</p>
+              </div>
+              <hr />
+              <div className="handle-info">
+                <h4 className="fw-bold mt-2">
+                  Shipping & Handling Information
+                </h4>
+                <p className="delivery-info">
+                  Regular Delivery in 3-5 working Days.
+                </p>
+              </div>
+            </div>
+            <div className="col-xl-6 mb-3">
+              <p className="fw-bold">Order Totals</p>
+              <ul className="list-unstyled">
+                <li className="text-muted ms-3 d-flex justify-content-between">
+                  <span className="text-black me-4">SubTotal</span>{" "}
+                  <span>{orderDetails?.sub_total} BDT</span>
+                </li>
+                <li className="text-muted ms-3 d-flex justify-content-between">
+                  <span className="text-black me-4">Shipping & Handling</span>{" "}
+                  <span>{orderDetails?.shipping_charge} BDT</span>
+                </li>
+                <li className="text-muted ms-3 d-flex justify-content-between">
+                  <span className="text-black me-4">Discount</span>{" "}
+                  <span>{orderDetails?.discount} BDT</span>
+                </li>
+                <hr />
+                <li className="text-muted ms-3 d-flex justify-content-between">
+                  <span className="text-black me-4">Grand Total</span>{" "}
+                  <span>{orderDetails?.grand_total} BDT</span>
+                </li>
+              </ul>
+            </div>
+            <hr/>
           </div>
 
-            <div className="row mb-3">
-              <p className="fw-bold mb-2 mt-2">Order Summary</p>
-              <div className="col-xl-6">
-                <div className="payment-info my-2">
-                  <h4 className="fw-bold">Payment Information</h4>
-                  <p className="payment">
-                    {orderDetails?.payment_method?.code}
-                  </p>
-                  <p className="desc">{orderDetails?.payment_method?.name}</p>
-                </div>
-                <hr/>
-                <div className="handle-info">
-                  <h4 className="fw-bold mt-2">Shipping & Handling Information</h4>
-                  <p className="delivery-info">
-                    Regular Delivery in 3-5 working Days.
-                  </p>
-                </div>
-              </div>
-              <div className="col-xl-6">
-                <p className="fw-bold">Order Totals</p>
-                <ul className="list-unstyled">
-                  <li className="text-muted ms-3 d-flex justify-content-between">
-                    <span className="text-black me-4">SubTotal</span>{" "}
-                    <span>{orderDetails?.sub_total} BDT</span>
-                  </li>
-                  <li className="text-muted ms-3 d-flex justify-content-between">
-                    <span className="text-black me-4">Shipping & Handling</span>{" "}
-                    <span>{orderDetails?.shipping_charge} BDT</span>
-                  </li>
-                  <li className="text-muted ms-3 d-flex justify-content-between">
-                    <span className="text-black me-4">Discount</span>{" "}
-                    <span>{orderDetails?.discount} BDT</span>
-                  </li>
-                  <hr />
-                  <li className="text-muted ms-3 d-flex justify-content-between">
-                    <span className="text-black me-4">Grand Total</span>{" "}
-                    <span>{orderDetails?.grand_total} BDT</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+          
 
-            <hr />
-
-            <div className="row mt-3">
-              <p className="fw-bold pb-2">Address</p>
-              <div className="col-xl-5 bg-light p-2 mr-20">
-                <p className="ms-3 fw-bold ">Billing Address</p>
-                {billing_lines?.map((line, i) => (
+          <div className="row mt-4">
+            <div className="col-xl-12 bg-light p-3 mr-20">
+              <p className="fw-bold ">Billing Address</p>
+              {/* {billing_lines?.map((line, i) => (
                   <p key={i} className="ms-3">
                     {line}
                   </p>
-                ))}
-              </div>
-              <div className="col-xl-5 bg-light p-2">
-                <p className="ms-3 fw-bold">Shipping Address</p>
-                {shipping_lines?.map((line, i) => (
-                  <p key={i} className="ms-3">
-                    {line}
-                  </p>
-                ))}
-              </div>
+                ))} */}
+              {billing_address}
+              <p className="mt-4 fw-bold">Shipping Address</p>
+              {shipping_address}
             </div>
+          </div>
         </div>
       </div>
     </div>
