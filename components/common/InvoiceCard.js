@@ -23,7 +23,7 @@ const InvoiceCard = ({ orderDetails }) => {
   return (
     <div className="">
       <div className="card-body">
-        <div className="container mb-5 mt-3">
+        <div className="container mt-3">
           <div className="row d-flex justify-content-between">
             <div className="col-xl-3">
               <div
