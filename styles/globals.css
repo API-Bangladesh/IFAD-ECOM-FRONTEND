@@ -2679,3 +2679,34 @@ Responsive part end
     justify-content: flex-end;
   }
 }
+
+/* invoice */
+.serial_number{
+  width: 10%;
+}
+.items{
+  width: 50%;
+}
+.quantity{
+  width: 10%;
+}
+.prices{
+  width: 30%;
+}
+.order_id {
+  text-align: right!important;
+}
+/* responsive part here */
+@media (max-width: 576px) { 
+  .d-flex.justify-content-end.mb-2.pay_now{
+    justify-content: center!important;
+  }
+  p.fw-bold.order_id {
+    text-align: center!important;
+  }
+  .invoice_card{
+    width: 200px!important;
+    margin-left: 50%;
+    transform: translate(-50%);
+  }
+ }
