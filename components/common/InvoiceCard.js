@@ -38,21 +38,21 @@ const InvoiceCard = ({ orderDetails }) => {
               </div>
             </div>
             <div className="col-xl-4">
-            <div className="d-flex justify-content-end mb-2">
-              {orderDetails.payment_status_id == 1 ? (
-                <button className="btn btn-outline-warning rounded-1 py-1 disabled ">
-                  Paid
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="btn btn-outline-warning rounded-1 py-1"
-                  onClick={(event) => handlePay(event)}
-                >
-                  Pay now
-                </button>
-              )}
-            </div>
+              <div className="d-flex justify-content-end mb-2">
+                {orderDetails.payment_status_id == 1 ? (
+                  <button className="btn btn-outline-warning rounded-1 py-1 disabled ">
+                    Paid
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn-outline-warning rounded-1 py-1"
+                    onClick={(event) => handlePay(event)}
+                  >
+                    Pay now
+                  </button>
+                )}
+              </div>
               <p className="fw-bold text-end">
                 Order Id: #<span>{orderDetails?.order_status_id}</span>
               </p>
@@ -64,7 +64,7 @@ const InvoiceCard = ({ orderDetails }) => {
 
           <div className="row my-2 mt-3">
             <p className="fw-bold mb-2">Product Summary</p>
-            <hr/>
+            <hr />
             {/* <p className="fw-bold mb-2">Sl</p> */}
             <div className="d-flex justify-content-between p-1">
               <div className="fw-bold ml-1">
@@ -75,7 +75,7 @@ const InvoiceCard = ({ orderDetails }) => {
                 <span className="mx-3">Price</span>
               </div>
             </div>
-            <hr/>
+            <hr />
 
             {orderDetails?.order_items?.map((item, i) => (
               <div className="row my-2 d-flex justify-content-between pr-0">
@@ -105,6 +105,41 @@ const InvoiceCard = ({ orderDetails }) => {
             <hr />
           </div>
 
+          <div className=" table-responsive">
+            <table className="table mb-5 table-width">
+              <thead>
+                <tr>
+                  <th scope="col" className="text-capitalize">
+                    Sl
+                  </th>
+                  <th scope="col" className="text-capitalize">
+                    items
+                  </th>
+                  <th scope="col" className="text-capitalize text-center">
+                    Qty
+                  </th>
+                  <th scope="col" className="text-capitalize text-end">
+                    price
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td className="text-start">hgtkuadvbyi</td>
+                  <td className="text-center">10</td>
+                  <td className="text-end">dgjhsffkvg olydtyj</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="text-start"></td>
+                  <td className="text-center"></td>
+                  <td className="text-end text-capitalize">sub-Total: 100/-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
           <div className="row mb-3 mt-4">
             <div className="col-xl-6">
               <div className="payment-info my-2">
@@ -127,29 +162,27 @@ const InvoiceCard = ({ orderDetails }) => {
             <div className="col-xl-6 mb-3">
               <p className="fw-bold">Order Totals</p>
               <ul className="list-unstyled">
-                <li className="text-muted ms-3 d-flex justify-content-between">
+                <li className="text-muted d-flex justify-content-between">
                   <span className="text-black me-4">SubTotal</span>{" "}
                   <span>{orderDetails?.sub_total} BDT</span>
                 </li>
-                <li className="text-muted ms-3 d-flex justify-content-between">
+                <li className="text-muted d-flex justify-content-between">
                   <span className="text-black me-4">Shipping & Handling</span>{" "}
                   <span>{orderDetails?.shipping_charge} BDT</span>
                 </li>
-                <li className="text-muted ms-3 d-flex justify-content-between">
+                <li className="text-muted d-flex justify-content-between">
                   <span className="text-black me-4">Discount</span>{" "}
                   <span>{orderDetails?.discount} BDT</span>
                 </li>
                 <hr />
-                <li className="text-muted ms-3 d-flex justify-content-between">
+                <li className="text-muted d-flex justify-content-between">
                   <span className="text-black me-4">Grand Total</span>{" "}
                   <span>{orderDetails?.grand_total} BDT</span>
                 </li>
               </ul>
             </div>
-            <hr/>
+            <hr />
           </div>
-
-          
 
           <div className="row mt-4">
             <div className="col-xl-12 bg-light p-3 mr-20">
