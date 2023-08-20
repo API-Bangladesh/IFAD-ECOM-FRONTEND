@@ -48,6 +48,7 @@ const SingleComboPage = () => {
       fetchCombo(id).then((response) => {
         if (response?.data) {
           const combo = response.data;
+          // console.log(combo)
 
           setCombo(combo);
 

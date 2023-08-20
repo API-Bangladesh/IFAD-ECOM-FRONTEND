@@ -17,7 +17,7 @@ const BannerSection = () => {
     }, []);
 
     return (
-        <div className="mb-3 home-slider-wrap">
+        <div className="mb-3">
             <Carousel fade>
                 {banners && banners.map(((banner, key) =>
                         <Carousel.Item key={key}>

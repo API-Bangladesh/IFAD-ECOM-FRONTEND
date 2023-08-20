@@ -2,6 +2,7 @@ import Row from "react-bootstrap/Row";
 import {Fragment, useEffect, useState} from "react";
 import {fetchOrders} from "../../services/OrderServices";
 import {currency, getOrderStatusName, getPaymentStatusName} from "../../utils/helpers";
+import Link from "next/link";
 
 const OrdersTab = () => {
     const [orders, setOrders] = useState([]);
@@ -50,8 +51,11 @@ const OrdersTab = () => {
                                     <td>{getPaymentStatusName(item.payment_status_id)}</td>
                                     <td>{getOrderStatusName(item.order_status_id)}</td>
                                     <td>{currency(item.grand_total)}</td>
-                                    <td><a href={`/my-account/order/${item.id}/invoice`}
-                                           className="btn btn-danger btn-sm">Invoice</a></td>
+                                    <td>
+                                        <Link href={`/my-account/order/${item.id}/invoice`} className="btn btn-danger btn-sm">
+                                            Invoice
+                                        </Link>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

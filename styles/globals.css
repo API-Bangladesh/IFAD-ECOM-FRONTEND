@@ -2151,9 +2151,6 @@ button.navbar-toggler {
 }
 
 @media (max-width: 575px) {
-  .home-slider-wrap {
-    margin-top: 1rem;
-  }
   .home-cat-title {
     font-size: 18px !important;
   }
