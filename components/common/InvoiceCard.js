@@ -196,6 +196,14 @@ const InvoiceCard = ({ orderDetails }) => {
               {shipping_address}
             </div>
           </div>
+
+          <div className="row mt-2">
+            <div className="col-xl-12">
+              <p className="fw-bold mt-3">Contact with us</p>
+              Plot # 7 (New), Tejgaon Industrial Area, Dhaka-1208 <br />
+              ifadeshop@ifadgroup.com
+            </div>
+          </div>
         </div>
       </div>
     </div>
