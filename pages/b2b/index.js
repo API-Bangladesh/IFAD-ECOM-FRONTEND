@@ -34,10 +34,10 @@ const BToB = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!isVerified) {
-            tostify(toast, 'error', {data: {message: 'reCaptcha submission failed'}});
-            return;
-        }
+        // if (!isVerified) {
+        //     tostify(toast, 'error', {data: {message: 'reCaptcha submission failed'}});
+        //     return;
+        // }
 
         const data = {
             country_name: formdata.country_name,
@@ -154,9 +154,9 @@ const BToB = () => {
                                                   onChange={handleChange} className="rounded-0 btob-input"/>
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="">
+                                {/* <Form.Group className="mb-3" controlId="">
                                     <ReCAPTCHA onVerify={setIsVerified} />
-                                </Form.Group>
+                                </Form.Group> */}
 
                                 <Button type="submit"
                                         className="btob-submit-btn rounded-0 mb-4 text-dark font-jost font-poppins">

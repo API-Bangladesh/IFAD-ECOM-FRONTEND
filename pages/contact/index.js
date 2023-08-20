@@ -35,12 +35,12 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!isVerified) {
-            tostify(toast, 'error', {
-                message: 'reCaptcha submission failed'
-            });
-            return false;
-        }
+        // if (!isVerified) {
+        //     tostify(toast, 'error', {
+        //         message: 'reCaptcha submission failed'
+        //     });
+        //     return false;
+        // }
 
         sendContactForm(formData).then((response) => {
             if (response?.data?.status) {
@@ -148,9 +148,9 @@ const Contact = () => {
                                         </FloatingLabel>
                                     </Form.Group>
 
-                                    <Form.Group className="mb-2" controlId="">
+                                    {/* <Form.Group className="mb-2" controlId="">
                                         <ReCAPTCHA onVerify={setIsVerified}/>
-                                    </Form.Group>
+                                    </Form.Group> */}
 
                                     <Button variant="primary" type="submit"
                                             className="contact-form-btn font-16 rounded-0 px-5 py-2 mt-2 mb-4">
