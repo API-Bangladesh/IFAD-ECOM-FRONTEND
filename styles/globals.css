@@ -2520,6 +2520,13 @@ Responsive part end
   box-shadow: 0 0.35rem 0.75rem rgba(0, 0, 0, 0.15) !important;
 }
 
+.auth-terms-link {
+  color: inherit;
+}
+.auth-terms-link:hover {
+  text-decoration: underline;
+  color: #f38120;
+}
 .auth-bottom-link span {
   margin-right: 0.25em;
 }

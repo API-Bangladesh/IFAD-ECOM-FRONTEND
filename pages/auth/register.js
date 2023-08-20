@@ -83,9 +83,11 @@ function RegisterPage() {
                                               onChange={e => setConfirmPassword(e.target.value)}
                                               className="rounded-0 login-form" required/>
                             </Form.Group>
-                            <Form.Group className="mb-3 text-secondary" controlId="">
-                            <Form.Check type="checkbox" label="Agree all terms & conditions" 
+                            <Form.Group className="mb-3 text-secondary d-flex" controlId="">
+                            <Form.Check type="checkbox" label="Agree" 
                                             onChange={(event) => setAgree(event.target.checked)}/>
+                                            <span className="mr-1"></span>
+                                            <Link href={"/terms-and-conditions"} className="auth-terms-link">terms & conditions</Link>
                             </Form.Group>
 
                             <Button type="submit"
