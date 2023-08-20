@@ -54,7 +54,7 @@ const InvoiceCard = ({ orderDetails }) => {
               )}
             </div>
               <p className="fw-bold order_id">
-                Order Id: #<span>{orderDetails?.order_status_id}</span>
+                Order Id: #<span>{orderDetails?.id}</span>
               </p>
               <p className="fw-bold order_id" >
                 Date: <span>{orderDetails?.order_date}</span>

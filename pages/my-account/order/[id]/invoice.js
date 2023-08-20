@@ -36,7 +36,7 @@ const Invoice = () => {
 
     return (
         <Fragment>
-            <div id="printable" className="invoice-box">
+            <div id="printable" className="invoice-box my-4">
                 <InvoiceCard orderDetails={order} />
             </div>
             {/* <div className="text-center my-3">
