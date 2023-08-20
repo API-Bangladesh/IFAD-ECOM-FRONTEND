@@ -1810,7 +1810,9 @@ tr {
   background: red;
   transition: all linear 0.3s;
 }
-
+.place_order_border{
+  border: 1px dashed #F38120;
+}
 .order-icon-bg:hover {
   color: #fff !important;
   background: red;
@@ -1978,6 +1980,11 @@ button.navbar-toggler {
     width: 100%;
     object-fit: cover !important;
   }
+  .footer_manu_list {
+    display: -webkit-inline-box !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 }
 
 @media (max-width: 767px) {
