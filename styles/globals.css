@@ -758,7 +758,7 @@ banner css starts
 }
 
 .category-img-one {
-  height: 411px;
+  height: auto;
   width: 100%;
   object-fit: cover !important;
 }
@@ -1976,7 +1976,7 @@ button.navbar-toggler {
 }
 @media (max-width: 992px) {
   .category-img-one {
-    height: 240px;
+    height: auto;
     width: 100%;
     object-fit: cover !important;
   }
@@ -1993,7 +1993,7 @@ button.navbar-toggler {
 
   }
   .category-img-one {
-    height: 300px !important;
+    height: auto !important;
     object-fit: cover !important;
   }
   .category-title {
@@ -2158,11 +2158,11 @@ button.navbar-toggler {
     padding-left: 20px !important;
   }
   .category-img-one {
-    height: 300px !important;
+    height: auto !important;
+    width: 100%;
     object-fit: cover !important;
   }
   .support-icons {
-    /* font-size: 60px!important; */
     height: 50px !important;
     width: 50px !important;
   }
