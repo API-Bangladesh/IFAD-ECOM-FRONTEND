@@ -39,11 +39,12 @@ const HomePage = () => {
 	return (
 		<Fragment>
 			<BannerSection/>
-			<CategoryShowcase/>
 
 			<ComboProductScroll
 				title="Combo Pack"
 			/>
+
+			<CategoryShowcase/>
 
 			{/* <DiscountedProductScroll
 				title="Discounted Product"

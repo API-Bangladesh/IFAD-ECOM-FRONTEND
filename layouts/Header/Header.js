@@ -201,6 +201,15 @@ export default function Header() {
                   }
                   id="navbarScrollingDropdown"
                 >
+                  <NavDropdown.Item className="m-0 p-0">
+                    <Link
+                      href={`/combo`}
+                      className="cate-drop text-uppercase all-icons text-dark px-4 py-2 d-block font-inter"
+                    >
+                      Combo Pack
+                    </Link>
+                  </NavDropdown.Item>
+
                   {categories.map((category, key) => {
                     return (
                       <NavDropdown.Item key={key} className="m-0 p-0">
@@ -284,6 +293,15 @@ export default function Header() {
                   }
                   id="navbarScrollingDropdown"
                 >
+                  <NavDropdown.Item className="text-capitalize all-icons text-dark px-4 py-2 d-block font-inter">
+                    <Link
+                        href={`/combo`}
+                        className="cate-drop"
+                    >
+                      Combo Pack
+                    </Link>
+                  </NavDropdown.Item>
+
                   {categories.map((category, key) => {
                     return (
                         <NavDropdown.Item key={key}
