@@ -24,7 +24,7 @@ const WishlistTab = () => {
 	const handleRemove = (event, id) => {
 		event.preventDefault();
 
-		if(confirm("Are you sure?")){
+		if (confirm("Are you sure?")) {
 			deleteWishlist(id).then((response) => {
 				if (response?.data?.message) {
 					tostify(toast, 'success', response);
