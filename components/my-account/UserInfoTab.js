@@ -49,6 +49,8 @@ const UserInfoTab = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		setErrors({});
+
 		updateCustomer({
 			_method: 'PUT',
 			name: formData.name,
@@ -96,8 +98,11 @@ const UserInfoTab = () => {
 								type="file"
 								className="rounded-0 form-deco"
 								onChange={(e) => setFormData({...formData, image: e.target.files[0]})}/>
-							<small className="text-muted text-lowercase">max size 2MB and type jpg, png & gif
+							<small className="text-muted text-lowercase">Max size 2MB and type jpg, png & gif
 								format.</small>
+							{errors?.image && (
+								<p className="text-danger">{errors?.image}</p>
+							)}
 						</Form.Group>
 					</Col>
 					<Col lg={9}>
