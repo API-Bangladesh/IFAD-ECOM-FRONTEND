@@ -16,7 +16,10 @@ const SearchInventories = ({keyword}) => {
         fetchSearchInventories(params).then((response) => {
             if (response?.data?.data) {
                 setInventories(response.data.data);
-                setMeta(response.data.meta);
+                setMeta({
+                    links: response?.data?.links,
+                    total: response?.data?.total,
+                });
             }
         });
     }
@@ -57,7 +60,12 @@ const SearchInventories = ({keyword}) => {
 
                 {/*Category Info*/}
                 <div className="w-100">
-                    <h1 className="fw-bolder text-center mt-5 mb-5 font-40 font-inter our-product">Search: {keyword}</h1>
+                    <h1 className="fw-bolder text-center mt-5 mb-5 font-40 font-inter our-product">
+                        Search
+                        <small className="fs-6 d-block" style={{fontWeight: '500'}}>
+                            {meta?.total} items found for "{keyword}"
+                        </small>
+                    </h1>
                     {/* <p className="font-lato text-center font-18 mb-5 product-des">
                         We Are Restocking as Quickly as Possible. Come Back 7/30 to OrderMore of These Flavors
                         Inspired by the Places You Call
@@ -94,7 +102,7 @@ const SearchInventories = ({keyword}) => {
                                 )
                             })}
                         </div>
-                        <div className="my-3 d-flex justify-content-center">
+                        <div className="my-4 d-flex justify-content-center">
                             <CustomPagination meta={meta} setPage={setPage}/>
                         </div>
                     </div>
