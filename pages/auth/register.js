@@ -3,11 +3,7 @@ import Link from 'next/link';
 import Button from "react-bootstrap/Button";
 import {Col, Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import axios from 'axios';
 import {useRouter} from 'next/router';
-import {BACKEND_URL} from "../../utils/constants";
-import {tostify} from "../../utils/helpers";
-import {toast} from "react-toastify";
 import {registerCustomer} from "../../services/AuthServices";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 import {login} from "../../utils/auth";
@@ -62,26 +58,30 @@ function RegisterPage() {
                                 <Form.Label>Name<span className="text-danger"> *</span></Form.Label>
                                 <Form.Control type="text" name='name' value={name}
                                               onChange={e => setName(e.target.value)}
-                                              className="rounded-0 login-form" required/>
+                                              placeholder="Enter your name"
+                                              className="rounded-0 login-form" required={true}/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="">
                                 <Form.Label>Email Address<span className="text-danger"> *</span></Form.Label>
                                 <Form.Control type="email" name='email' value={email}
                                               onChange={e => setEmail(e.target.value)}
-                                              className="rounded-0 login-form" required/>
+                                              placeholder="Enter email address"
+                                              className="rounded-0 login-form" required={true}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="">
                                 <Form.Label>Password<span className="text-danger"> *</span></Form.Label>
                                 <Form.Control type="password" name='password' value={password}
                                               onChange={e => setPassword(e.target.value)}
-                                              className="rounded-0 login-form" required/>
+                                              placeholder="Enter password"
+                                              className="rounded-0 login-form" required={true}/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="">
                                 <Form.Label>Confirm Password<span className="text-danger"> *</span></Form.Label>
                                 <Form.Control type="password" name='confirmPassword' value={confirmPassword}
                                               onChange={e => setConfirmPassword(e.target.value)}
-                                              className="rounded-0 login-form" required/>
+                                              placeholder="Enter confirm password"
+                                              className="rounded-0 login-form" required={true}/>
                             </Form.Group>
                             <Form.Group className="mb-3 text-secondary d-flex" controlId="">
                             <Form.Check type="checkbox" label="Agree" 

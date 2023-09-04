@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2';
+
 export const showSuccessNotification = (title, message) => {
   Swal.fire({
     position: 'center',
@@ -21,7 +22,7 @@ export const showErrorNotification = (title, message) => {
 
 export const showSuccessTimerNotification = (title, message) => {
   Swal.fire({
-    position: 'top-end',
+    position: 'center',
     icon: 'success',
     title: title,
     text: message,

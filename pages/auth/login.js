@@ -49,17 +49,19 @@ const LoginPage = () => {
                         <h4 className="font-30 pb-4 ps-3 font-lato fw-semibold text-capitalize">sign in</h4>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3" controlId="">
-                                <Form.Label>Email address<span className="text-danger">*</span></Form.Label>
+                                <Form.Label>Email address <span className="text-danger">*</span></Form.Label>
                                 <Form.Control type="email" name='email' value={email}
                                               onChange={e => setEmail(e.target.value)}
-                                              className="rounded-0 login-form" required/>
+                                              placeholder="Enter email address"
+                                              className="rounded-0 login-form" required={true}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="">
-                                <Form.Label>Password<span className="text-danger">*</span></Form.Label>
+                                <Form.Label>Password <span className="text-danger">*</span></Form.Label>
                                 <Form.Control type="password" name='password' value={password}
                                               onChange={e => setPassword(e.target.value)}
-                                              className="rounded-0 login-form" required/>
+                                              placeholder="Enter password"
+                                              className="rounded-0 login-form" required={true}/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="">
                                 <Form.Check type="checkbox" label="Remember Me"

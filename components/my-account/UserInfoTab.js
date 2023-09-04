@@ -49,6 +49,8 @@ const UserInfoTab = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		setErrors({});
+
 		updateCustomer({
 			_method: 'PUT',
 			name: formData.name,
@@ -96,8 +98,11 @@ const UserInfoTab = () => {
 								type="file"
 								className="rounded-0 form-deco"
 								onChange={(e) => setFormData({...formData, image: e.target.files[0]})}/>
-							<small className="text-muted text-lowercase">max size 2MB and type jpg, png & gif
+							<small className="text-muted text-lowercase">Max size 2MB and type jpg, png & gif
 								format.</small>
+							{errors?.image && (
+								<p className="text-danger">{errors?.image}</p>
+							)}
 						</Form.Group>
 					</Col>
 					<Col lg={9}>
@@ -105,7 +110,7 @@ const UserInfoTab = () => {
 							<Form.Label>Full Name <span className="text-danger"> *</span></Form.Label>
 							<Form.Control name="name" type="text" placeholder="Enter Full Name"
 										  value={formData.name} onChange={handleChange}
-										  className="form-padd rounded-0 form-deco" required/>
+										  className="form-padd rounded-0 form-deco" required={true}/>
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label>Email<span className="text-danger"> *</span></Form.Label>
@@ -122,7 +127,7 @@ const UserInfoTab = () => {
 								value={formData?.date_of_birth}
 								onChange={handleChange}
 								className="form-padd rounded-0 form-deco"
-								required
+								required={true}
 							/>
 						</Form.Group>
 
@@ -142,7 +147,7 @@ const UserInfoTab = () => {
 							<Form.Label>Phone number<span className="text-danger"> *</span></Form.Label>
 							<Form.Control name="phone_number" type="number" placeholder="Enter number"
 										  value={formData.phone_number} onChange={handleChange}
-										  className="form-padd rounded-0 form-deco" required/>
+										  className="form-padd rounded-0 form-deco" required={true}/>
 						</Form.Group>
 						<Button type="submit" variant="primary"
 								className="text-capitalize font-18 px-5 mb-4 user-sub-btn rounded-0 font-lato">submit</Button>{" "}
