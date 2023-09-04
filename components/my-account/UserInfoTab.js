@@ -110,7 +110,7 @@ const UserInfoTab = () => {
 							<Form.Label>Full Name <span className="text-danger"> *</span></Form.Label>
 							<Form.Control name="name" type="text" placeholder="Enter Full Name"
 										  value={formData.name} onChange={handleChange}
-										  className="form-padd rounded-0 form-deco" required/>
+										  className="form-padd rounded-0 form-deco" required={true}/>
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label>Email<span className="text-danger"> *</span></Form.Label>
@@ -127,7 +127,7 @@ const UserInfoTab = () => {
 								value={formData?.date_of_birth}
 								onChange={handleChange}
 								className="form-padd rounded-0 form-deco"
-								required
+								required={true}
 							/>
 						</Form.Group>
 
@@ -147,7 +147,7 @@ const UserInfoTab = () => {
 							<Form.Label>Phone number<span className="text-danger"> *</span></Form.Label>
 							<Form.Control name="phone_number" type="number" placeholder="Enter number"
 										  value={formData.phone_number} onChange={handleChange}
-										  className="form-padd rounded-0 form-deco" required/>
+										  className="form-padd rounded-0 form-deco" required={true}/>
 						</Form.Group>
 						<Button type="submit" variant="primary"
 								className="text-capitalize font-18 px-5 mb-4 user-sub-btn rounded-0 font-lato">submit</Button>{" "}
