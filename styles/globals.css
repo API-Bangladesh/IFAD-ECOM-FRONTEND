@@ -2035,6 +2035,10 @@ button.navbar-toggler {
 }
 
 @media (max-width: 767px) {
+  .offer_round_shape {
+    height: 30px;
+    width: 30px;
+  }
   .single_pro_offer {
     left: 60% !important;
   }

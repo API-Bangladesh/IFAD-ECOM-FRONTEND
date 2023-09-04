@@ -25,7 +25,7 @@ const ComboProductScroll = ({title}) => {
         dots: false,
         infinite: true,
         speed: 2000,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 2500,
         slidesToShow: 4,
         slidesToScroll: 1,
@@ -82,7 +82,7 @@ const ComboProductScroll = ({title}) => {
 
                 {/*Scroll View*/}
                 <div className="container">
-                    <div className="row justify-content-center">
+                    <div className="row justify-content-center sec_tab_height">
                         <div className="col-lg-12 col-md-12 slider-primary">
                             <Slider {...settings}>
                                 {combos.map((combo, key) => {
