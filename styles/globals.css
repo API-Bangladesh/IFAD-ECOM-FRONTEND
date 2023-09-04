@@ -94,7 +94,9 @@ a {
 .font-jost {
   font-family: "Jost", sans-serif !important;
 }
-
+.font-italic {
+  font-style: italic;
+}
 .sec-height {
   height: 500px !important;
 }
@@ -1002,7 +1004,49 @@ banner css starts
   color: #fff !important;
   background: #f38120 !important;
 }
-
+.offer_round_shape {
+  position: absolute;
+  /* background-image: url(../public/offer_shape.png)no-repeat center; */
+  top: 20%;
+  left: 4%;
+  height: 50px;
+  width: 50px;
+  /* z-index: 9999; */
+}
+.offer_text {
+  position: absolute;
+  top: 40px;
+  left: 2%;
+  height: 60px;
+  width: 60px;
+}
+.round_offer .offer_percent {
+  position: absolute;
+  margin-top: -6px !important;
+  padding-left: 15px;
+}
+.single_pro_offer {
+  position: absolute;
+  left: 55%;
+  bottom: 5px;
+}
+.single_pro_offer_img {
+  top: 0;
+  right: 0;
+  height: 70px;
+}
+.single_offer_text {
+  position: absolute;
+  top: 12px;
+  left: 20px;
+}
+.save_offer {
+  font-size: 18px;
+}
+.save_offer_percent {
+  font-size: 18px;
+  margin-top: -10px !important;
+}
 /*===============
  combo-pack css ends
 =================*/
@@ -1446,13 +1490,15 @@ product part css start
 }
 
 .single-object {
-  height: 280px !important;
-  width: 250px !important;
+  height: auto;
+  width: 355px !important;
   object-fit: cover;
   margin-left: 50% !important;
   transform: translate(-50%);
 }
-
+/* .single_product_shape{
+  background-image: url(../public/offer_shape.png);
+} */
 .single-object-demo {
   height: 109px !important;
   /* width: 207px!important; */
@@ -1630,9 +1676,10 @@ button#controlled-tab-home {
   border-radius: 0px !important;
 }
 
-button#controlled-tab-spacification {
+button#controlled-tab-Specification {
   font-family: "Jost", sans-serif !important;
-  border-radius: 0px !important;
+  font-size: 18px;
+  border-radius: 0px;
 }
 
 button#controlled-tab-review {
@@ -1810,8 +1857,8 @@ tr {
   background: red;
   transition: all linear 0.3s;
 }
-.place_order_border{
-  border: 1px dashed #F38120;
+.place_order_border {
+  border: 1px dashed #f38120;
 }
 .order-icon-bg:hover {
   color: #fff !important;
@@ -1984,13 +2031,15 @@ button.navbar-toggler {
     display: -webkit-inline-box !important;
     padding-top: 10px;
     padding-bottom: 10px;
-}
+  }
 }
 
 @media (max-width: 767px) {
+  .single_pro_offer {
+    left: 60% !important;
+  }
   .overlay-div {
     opacity: 1 !important;
-
   }
   .category-img-one {
     height: auto !important;
@@ -2036,7 +2085,6 @@ button.navbar-toggler {
     max-width: 67% !important;
     margin: 11px 0px;
   }
- 
 
   .p-3.ps-5.information-footer {
     padding-left: 0px !important;
@@ -2148,12 +2196,15 @@ button.navbar-toggler {
 }
 
 @media (max-width: 575px) {
+  .single_pro_offer {
+    left: 67% !important;
+}
   .home-cat-title {
     font-size: 18px !important;
   }
-	.billing_details{
-		font-size: 20px!important;
-	}
+  .billing_details {
+    font-size: 20px !important;
+  }
   .card-border {
     padding-left: 20px !important;
   }
@@ -2181,6 +2232,10 @@ button.navbar-toggler {
   }
 
   button#controlled-tab-home {
+    font-size: 12px !important;
+    margin-left: 8px;
+  }
+  button#controlled-tab-Specification {
     font-size: 12px !important;
     margin-left: 8px;
   }
@@ -2447,6 +2502,9 @@ Responsive part end
 }
 
 @media screen and (min-width: 768px) {
+  /* .single_pro_offer {
+    left: 40% !important;
+  } */
   .slider-primary {
     padding-top: calc(33.33% - 26px + 178px + 8px) !important;
   }
@@ -2692,32 +2750,32 @@ Responsive part end
 }
 
 /* invoice */
-.serial_number{
+.serial_number {
   width: 10%;
 }
-.items{
+.items {
   width: 50%;
 }
-.quantity{
+.quantity {
   width: 10%;
 }
-.prices{
+.prices {
   width: 30%;
 }
 .order_id {
-  text-align: right!important;
+  text-align: right !important;
 }
 /* responsive part here */
-@media (max-width: 576px) { 
-  .d-flex.justify-content-end.mb-2.pay_now{
-    justify-content: center!important;
+@media (max-width: 576px) {
+  .d-flex.justify-content-end.mb-2.pay_now {
+    justify-content: center !important;
   }
   p.fw-bold.order_id {
-    text-align: center!important;
+    text-align: center !important;
   }
-  .invoice_card{
-    width: 200px!important;
+  .invoice_card {
+    width: 200px !important;
     margin-left: 50%;
     transform: translate(-50%);
   }
- }
+}
