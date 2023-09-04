@@ -12,6 +12,7 @@ import Timer from "../../../../components/common/Timer";
 import { fetchCombo } from "../../../../services/ComboServices";
 import ComboImageSection from "../../../../components/combo/ComboImageSection";
 import ComboProductDescription from "../../../../components/combo/ComboProductDescription";
+import Offer_shape from "../../../../public/offer_shape.png";
 
 const SingleComboPage = () => {
   const dispatch = useDispatch();
@@ -145,7 +146,7 @@ const SingleComboPage = () => {
           </div>
 
           <div className="col-lg-6 col-md-6 ps-5">
-            <div className="border-bottom">
+            <div className="border-bottom position-relative">
               <h3 className="mt-5 color font-jost display-6 fw-bolder text-capitalize mb-3">
                 {combo?.title}
               </h3>
@@ -155,7 +156,8 @@ const SingleComboPage = () => {
                   <h2 className="mb-1">Package Items:</h2>
                   {combo.combo_items.map((item, index) => (
                     <p key={index}>
-                      {index + 1}. {item?.inventory?.title} {item?.quantity ? `(Qty. ${item.quantity})` : ""}
+                      {index + 1}. {item?.inventory?.title}{" "}
+                      {item?.quantity ? `(Qty. ${item.quantity})` : ""}
                     </p>
                   ))}
                 </div>
@@ -166,12 +168,19 @@ const SingleComboPage = () => {
                   <Fragment>
                     <del>Price: {combo?.sale_price} Tk.</del>
                     <br />
-                    Offer Price: {combo?.offer_price} Tk.
+                    Offer Price: {combo?.offer_price} Tk
                   </Fragment>
                 ) : (
                   <Fragment>Price: {combo?.sale_price} Tk.</Fragment>
                 )}
               </p>
+              <div className="single_pro_offer" >
+                <img src="/offer_shape.png" alt="" className="single_pro_offer_img"/>
+                <div className="single_offer_text">
+                  <p className="save_offer text-white font-italic">save</p>
+                  <p className="save_offer_percent text-white fw-semibold font-italic">80%</p>
+                </div>
+              </div>
             </div>
 
             <div className="d-flex justify-content-start align-items-center counter mt-3">
@@ -233,7 +242,6 @@ const SingleComboPage = () => {
               </div>
             )}
           </div>
-
           <ComboProductDescription combo={combo} className="mb-5 tabs" />
         </div>
       </div>

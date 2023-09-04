@@ -88,7 +88,7 @@ const ComboPage = () => {
                                     <Link href={`/combo/category/${item.id}`}>
                                         <button className="d-flex category-btn">
                                             <IoIosArrowRoundForward className="icon-space me-2"/>
-                                            <span> {item.name}</span>
+                                            <span>mn {item.name}</span>
                                         </button>
                                     </Link>
                                 </li>
