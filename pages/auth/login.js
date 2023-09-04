@@ -11,14 +11,18 @@ import isAuth from "../../utils/HOC/isAuth";
 const LoginPage = () => {
     const dispatch = useDispatch();
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
 
     const [errors, setErrors] = useState({});
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setErrors({});
+        setIsLoading(true);
 
         loginCustomer({
             email: email,
@@ -36,6 +40,8 @@ const LoginPage = () => {
                     login(token);
                 }
             }
+        }).finally(() => {
+            setIsLoading(false);
         });
     };
 
@@ -64,11 +70,12 @@ const LoginPage = () => {
                                               className="rounded-0 login-form" required={true}/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="">
-                                <Form.Check type="checkbox" label="Remember Me"
+                                <Form.Check type="checkbox" name="remember" label="Remember Me" value="1"
                                             onChange={(event) => setRemember(event.target.checked)}/>
                             </Form.Group>
                             <button type="submit"
-                                    className="font-poppins btn btn-primary w-100 submit-btn rounded-0 px-5 py-2 text-capitalize">
+                                    className="font-poppins btn btn-primary w-100 submit-btn rounded-0 px-5 py-2 text-capitalize"
+                                    disabled={isLoading}>
                                 sign in
                             </button>
 
@@ -76,6 +83,11 @@ const LoginPage = () => {
                                 <span>Don't have an account?</span>
                                 <Link href="/auth/register">
                                     Sign Up Now
+                                </Link>
+                            </div>
+                            <div className="pt-3 d-flex justify-content-center">
+                                <Link href="/auth/forgot-password">
+                                    Forgot Password?
                                 </Link>
                             </div>
                         </Form>

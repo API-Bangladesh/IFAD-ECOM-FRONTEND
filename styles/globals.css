@@ -1613,6 +1613,13 @@ product part css start
   background: #f38120 !important;
 }
 
+.submit-btn:disabled {
+  color: #fff !important;
+  border: 1px solid #f38120 !important;
+  background: #f38120 !important;
+  cursor: not-allowed;
+}
+
 button#controlled-tab-home {
   font-size: 18px !important;
 }
