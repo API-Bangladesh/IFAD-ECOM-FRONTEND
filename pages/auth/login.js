@@ -3,12 +3,14 @@ import Link from 'next/link';
 import {Col, Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import {loginCustomer} from "../../services/AuthServices";
-import {login} from "../../utils/auth";
+import {login, setToken} from "../../utils/auth";
 import {useDispatch} from "react-redux";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 import isAuth from "../../utils/HOC/isAuth";
+import {useRouter} from "next/router";
 
 const LoginPage = () => {
+    const router = useRouter();
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -36,8 +38,11 @@ const LoginPage = () => {
                     dispatch(SET_AUTH_DATA(customer));
                 }
 
-                if (token) {
+                if (customer?.email_verified_at) {
                     login(token);
+                } else {
+                    setToken(token);
+                    router.replace('/auth/verify-email');
                 }
             }
         }).finally(() => {
