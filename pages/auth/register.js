@@ -5,10 +5,12 @@ import {Col, Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import {registerCustomer} from "../../services/AuthServices";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
-import {login} from "../../utils/auth";
+import {login, setToken} from "../../utils/auth";
 import {useDispatch} from "react-redux";
+import {useRouter} from "next/router";
 
 function RegisterPage() {
+    const router = useRouter();
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -40,8 +42,11 @@ function RegisterPage() {
                     dispatch(SET_AUTH_DATA(customer));
                 }
 
-                if (token) {
+                if (customer?.email_verified_at) {
                     login(token);
+                } else {
+                    setToken(token);
+                    router.replace('/auth/verify-email');
                 }
             }
         }).finally(() => {
