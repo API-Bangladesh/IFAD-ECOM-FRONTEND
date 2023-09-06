@@ -1008,15 +1008,15 @@ banner css starts
   position: absolute;
   /* background-image: url(../public/offer_shape.png)no-repeat center; */
   top: 20%;
-  left: 4%;
-  height: 50px;
-  width: 50px;
+  left: 6%;
+  height: 55px;
+  width: 55px;
   /* z-index: 9999; */
 }
 .offer_text {
   position: absolute;
-  top: 40px;
-  left: 2%;
+  top: 42px;
+  left: 5%;
   height: 60px;
   width: 60px;
 }
@@ -2028,7 +2028,23 @@ button.navbar-toggler {
     display: none;
   }
 }
+@media (min-width: 768px) and (max-width: 992px){
+  .offer_round_shape {
+    top: 23%;
+    left: 2%;
+    height: 45px;
+    width: 45px;
+}
+.offer_text {
+  top: 45px;
+  left: -1%;
+}
+.offer_text_tab{
+  font-size: 12px!important;
+}
+}
 @media (max-width: 992px) {
+
   .category-img-one {
     height: auto;
     width: 100%;
@@ -2042,10 +2058,18 @@ button.navbar-toggler {
 }
 
 @media (max-width: 767px) {
-  .offer_round_shape {
-    height: 30px;
-    width: 30px;
+  .offer_text_tab {
+    font-size: 12px!important;
   }
+  .offer_round_shape {
+    top: 21%;
+    left: 6%;
+    height: 47px!important;
+    width: 47px!important;
+}
+.offer_text {
+  left: 4%;
+}
   .single_pro_offer {
     left: 60% !important;
   }
@@ -2207,6 +2231,16 @@ button.navbar-toggler {
 }
 
 @media (max-width: 575px) {
+  .offer_round_shape {
+    top: 21%;
+    left: 6%;
+    height: 55px!important;
+    width: 55px!important;
+}
+.offer_text {
+  left: 5%;
+  top: 44px;
+}
   .single_pro_offer {
     left: 67% !important;
 }
