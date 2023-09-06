@@ -7,7 +7,7 @@ const axiosClient = axios.create({
 })
 
 setTimeout(() => {
-     axiosClient.defaults.headers.common['authorization'] = token();
+    axiosClient.defaults.headers.common['Authorization'] = token();
 });
 
 axiosClient.interceptors.response.use((response) => {
@@ -15,8 +15,10 @@ axiosClient.interceptors.response.use((response) => {
 }, (error) => {
     const status = error?.response?.status;
 
-    if (status && [401, 403].includes(status)) {
-        logout().then(r => r);
+    if (status && [401].includes(status)) {
+        logout();
+    } else if (status && [403].includes(status)) {
+        location.href = '/auth/verify-email';
     } else {
         return Promise.reject(error);
     }

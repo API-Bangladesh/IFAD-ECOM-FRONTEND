@@ -3,19 +3,17 @@ import Link from 'next/link';
 import Button from "react-bootstrap/Button";
 import {Col, Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import axios from 'axios';
-import {useRouter} from 'next/router';
-import {BACKEND_URL} from "../../utils/constants";
-import {tostify} from "../../utils/helpers";
-import {toast} from "react-toastify";
 import {registerCustomer} from "../../services/AuthServices";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
-import {login} from "../../utils/auth";
+import {login, setToken} from "../../utils/auth";
 import {useDispatch} from "react-redux";
+import {useRouter} from "next/router";
 
 function RegisterPage() {
-    const dispatch = useDispatch();
     const router = useRouter();
+    const dispatch = useDispatch();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -27,6 +25,8 @@ function RegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors({});
+        setIsLoading(true);
 
         registerCustomer({
             name: name,
@@ -42,10 +42,15 @@ function RegisterPage() {
                     dispatch(SET_AUTH_DATA(customer));
                 }
 
-                if (token) {
+                if (customer?.email_verified_at) {
                     login(token);
+                } else {
+                    setToken(token);
+                    router.replace('/auth/verify-email');
                 }
             }
+        }).finally(() => {
+            setIsLoading(false);
         });
     }
 
@@ -62,36 +67,42 @@ function RegisterPage() {
                                 <Form.Label>Name<span className="text-danger"> *</span></Form.Label>
                                 <Form.Control type="text" name='name' value={name}
                                               onChange={e => setName(e.target.value)}
-                                              className="rounded-0 login-form" required/>
+                                              placeholder="Enter your name"
+                                              className="rounded-0 login-form" required={true}/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="">
                                 <Form.Label>Email Address<span className="text-danger"> *</span></Form.Label>
                                 <Form.Control type="email" name='email' value={email}
                                               onChange={e => setEmail(e.target.value)}
-                                              className="rounded-0 login-form" required/>
+                                              placeholder="Enter email address"
+                                              className="rounded-0 login-form" required={true}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="">
                                 <Form.Label>Password<span className="text-danger"> *</span></Form.Label>
                                 <Form.Control type="password" name='password' value={password}
                                               onChange={e => setPassword(e.target.value)}
-                                              className="rounded-0 login-form" required/>
+                                              placeholder="Enter password"
+                                              className="rounded-0 login-form" required={true}/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="">
                                 <Form.Label>Confirm Password<span className="text-danger"> *</span></Form.Label>
                                 <Form.Control type="password" name='confirmPassword' value={confirmPassword}
                                               onChange={e => setConfirmPassword(e.target.value)}
-                                              className="rounded-0 login-form" required/>
+                                              placeholder="Enter confirm password"
+                                              className="rounded-0 login-form" required={true}/>
                             </Form.Group>
                             <Form.Group className="mb-3 text-secondary d-flex" controlId="">
-                            <Form.Check type="checkbox" label="Agree" 
+                                <Form.Check type="checkbox" label="Agree"
                                             onChange={(event) => setAgree(event.target.checked)}/>
-                                            <span className="mr-1"></span>
-                                            <Link href={"/terms-and-conditions"} className="auth-terms-link">terms & conditions</Link>
+                                <span className="mr-1"></span>
+                                <Link href={"/terms-and-conditions"} className="auth-terms-link">terms &
+                                    conditions</Link>
                             </Form.Group>
 
                             <Button type="submit"
-                                    className="btn btn-primary w-100 submit-btn rounded-0 px-5 py-2 text-capitalize font-poppins">
+                                    className="btn btn-primary w-100 submit-btn rounded-0 px-5 py-2 text-capitalize font-poppins"
+                                    disabled={isLoading}>
                                 Register
                             </Button>
 
