@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import ScrollToTopButton from "../../components/common/ScrollToTopButton";
 import Image from "next/image";
 import Payment from "../../public/payment.jpg";
@@ -9,25 +9,25 @@ import Form from "react-bootstrap/Form";
 import Card from "../../public/card.jpg";
 import BankTransfer from "../../public/bank-transfer.png";
 import Mobile from "../../public/mobile.jpeg";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
-  fetchAddresses,
-  updateDefaultBillingAddress,
-  updateDefaultShippingAddress,
+    fetchAddresses,
+    updateDefaultBillingAddress,
+    updateDefaultShippingAddress,
 } from "../../services/AddressServices";
-import { getAddressToString, tostify } from "../../utils/helpers";
-import { toast } from "react-toastify";
-import { makePayment, saveOrder } from "../../services/OrderServices";
-import { fetchPaymentMethods } from "../../services/PaymentMethodServices";
+import {getAddressToString, tostify} from "../../utils/helpers";
+import {toast} from "react-toastify";
+import {makePayment, saveOrder} from "../../services/OrderServices";
+import {fetchPaymentMethods} from "../../services/PaymentMethodServices";
 import {
-  RESET_CART,
-  UPDATE_BILLING_ADDRESS,
-  UPDATE_PAYMENT_METHOD_ID,
-  UPDATE_SHIPPING_ADDRESS,
+    RESET_CART,
+    UPDATE_BILLING_ADDRESS,
+    UPDATE_PAYMENT_METHOD_ID,
+    UPDATE_SHIPPING_ADDRESS,
 } from "../../store/slices/CartSlice";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 import Link from "next/link";
-import { useCart } from "../../utils/hooks/useCart";
+import {useCart} from "../../utils/hooks/useCart";
 
 const CheckoutPage = () => {
   const router = useRouter();
@@ -106,7 +106,7 @@ const CheckoutPage = () => {
     event.preventDefault();
     if (!agree) {
       alert(
-        "Please accept the terms & conditions, refund policy & privacy plicy"
+          "Please accept the terms & conditions, refund policy & privacy policy."
       );
       return;
     }
