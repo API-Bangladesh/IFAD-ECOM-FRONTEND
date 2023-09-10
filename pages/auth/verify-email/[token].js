@@ -17,7 +17,7 @@ const VerifyPage = () => {
                     tostify(toast, 'success', response);
 
                     setTimeout(() => {
-                        router.replace('/my-account');
+                        location.href = '/my-account';
                     }, 1500);
                 }
             });
@@ -29,17 +29,17 @@ const VerifyPage = () => {
             <Head>
                 <title>{makeTitle("Verify Email Process")}</title>
             </Head>
-        <section className="login-bg">
-            <div className="d-flex justify-content-center" style={{padding: "150px 0"}}>
-                <RotatingLines
-                    strokeColor="grey"
-                    strokeWidth="5"
-                    animationDuration="0.75"
-                    width="96"
-                    visible={true}
-                />
-            </div>
-        </section>
+            <section className="login-bg">
+                <div className="d-flex justify-content-center" style={{padding: "150px 0"}}>
+                    <RotatingLines
+                        strokeColor="grey"
+                        strokeWidth="5"
+                        animationDuration="0.75"
+                        width="96"
+                        visible={true}
+                    />
+                </div>
+            </section>
         </Fragment>
     );
 }

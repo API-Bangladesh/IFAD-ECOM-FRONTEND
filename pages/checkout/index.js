@@ -108,6 +108,11 @@ const CheckoutPage = () => {
   const handlePlaceOrder = (event) => {
     event.preventDefault();
 
+    if (cart.items && cart.items.length < 1) {
+      alert("Cart shouldn't empty!");
+      return;
+    }
+
     if (!agree) {
       alert("Please accept the terms & conditions, refund policy & privacy policy.");
       return;
@@ -626,7 +631,7 @@ const CheckoutPage = () => {
                   <div className="">
                     <button
                         type="button"
-                        className="text-capitalize place_order_border font-16 w-100 place-order mt-4 font-lato fw-bold theme-text"
+                        className="text-capitalize place_order_border cursor-pointer font-16 w-100 place-order mt-4 font-lato fw-bold theme-text"
                         onClick={(event) => handlePlaceOrder(event)} disabled={isLoading}
                     >
                       place order

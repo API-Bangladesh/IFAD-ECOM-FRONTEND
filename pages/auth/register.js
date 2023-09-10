@@ -7,12 +7,10 @@ import {registerCustomer} from "../../services/AuthServices";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 import {login, setToken} from "../../utils/auth";
 import {useDispatch} from "react-redux";
-import {useRouter} from "next/router";
 import Head from "next/head";
 import {makeTitle} from "../../utils/helpers";
 
 function RegisterPage() {
-    const router = useRouter();
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +46,7 @@ function RegisterPage() {
                     login(token);
                 } else {
                     setToken(token);
-                    router.replace('/auth/verify-email');
+                    location.href = '/auth/verify-email';
                 }
             }
         }).finally(() => {
