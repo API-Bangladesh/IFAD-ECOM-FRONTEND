@@ -595,7 +595,14 @@ const CheckoutPage = () => {
                   ))}
                 </div>
 
-                <p className="mt-3">Delivery in 2 - 5 day(s)</p>
+                <p className="mt-3 d-flex flex-column">
+                  <span>Dhaka</span>
+                  <span>Delivery in 1 - 2 days</span>
+                </p>
+                <p className="mt-3 d-flex flex-column">
+                  <span>Outside Dhaka</span>
+                  <span>Delivery in 2 - 3 days</span>
+                </p>
 
                 <div className="">
                   <button
