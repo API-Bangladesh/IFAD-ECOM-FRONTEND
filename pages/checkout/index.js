@@ -29,6 +29,8 @@ import {useRouter} from "next/router";
 import Link from "next/link";
 import {useCart} from "../../utils/hooks/useCart";
 import Head from "next/head";
+import {Oval} from "react-loader-spinner";
+import withAuth from "../../utils/HOC/withAuth";
 
 const CheckoutPage = () => {
   const router = useRouter();
@@ -109,12 +111,17 @@ const CheckoutPage = () => {
     event.preventDefault();
 
     if (cart.items && cart.items.length < 1) {
-      alert("Cart shouldn't empty!");
+      alert("The cart shouldn't be empty!");
       return;
     }
 
     if (!agree) {
       alert("Please accept the terms & conditions, refund policy & privacy policy.");
+      return;
+    }
+
+    if (!cart?.paymentMethodId) {
+      alert("Please choose a payment method!");
       return;
     }
 
@@ -133,14 +140,14 @@ const CheckoutPage = () => {
         payment_method_id: cart.paymentMethodId,
         total_weight: totalWeight,
       }).then((response) => {
-        console.log(response);
         if (response?.data?.GatewayPageURL) {
           // tostify(toast, 'success', response);
+
           dispatch(RESET_CART());
+          setIsLoading(false);
+
           window.location.href = response?.data?.GatewayPageURL;
         }
-      }).finally(() => {
-        setIsLoading(false);
       });
     } else {
       saveOrder({
@@ -157,14 +164,14 @@ const CheckoutPage = () => {
       }).then((response) => {
         if (response?.data?.status) {
           tostify(toast, "success", response);
+
           dispatch(RESET_CART());
+          setIsLoading(false);
 
           setTimeout(() => {
             router.push("/my-account?tab=order");
           }, 2500);
         }
-      }).finally(() => {
-        setIsLoading(false);
       });
     }
   };
@@ -631,10 +638,25 @@ const CheckoutPage = () => {
                   <div className="">
                     <button
                         type="button"
-                        className="text-capitalize place_order_border cursor-pointer font-16 w-100 place-order mt-4 font-lato fw-bold theme-text"
+                        className="d-flex align-items-center justify-content-center text-capitalize place_order_border cursor-pointer font-16 w-100 place-order mt-4 font-lato fw-bold theme-text"
                         onClick={(event) => handlePlaceOrder(event)} disabled={isLoading}
                     >
-                      place order
+                      {isLoading && (
+                          <span className="me-2">
+                            <Oval
+                                height={18}
+                                width={18}
+                                color="#f38120"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                                visible={true}
+                                ariaLabel='oval-loading'
+                                secondaryColor="#f38120"
+                                strokeWidth={6}
+                                strokeWidthSecondary={6}
+                            />
+                          </span>
+                      )} place order
                     </button>
                   </div>
                 </div>
@@ -740,4 +762,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;
+export default withAuth(CheckoutPage);

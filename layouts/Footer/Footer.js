@@ -26,17 +26,34 @@ export default function Footer() {
               <div className="swiper">
                 <div className="row position-relative">
                   <div className="col-sm-12 d-flex justify-content-center py-4 border-bottom">
-                    <nav className="navbar navbar-expand-md ">
+                    <nav className="navbar navbar-expand-md">
                       <div className="container-fluid">
-                        <div className="  footer-bg-opacity " id="navbarNav">
+                        <div className="footer-bg-opacity" id="navbarNav">
                           <ul className="navbar-nav text-center bg-phn">
                             <li className="nav-item">
-                              <Link
-                                  href="/company-profile"
-                                  className="nav-link-ifad"
-                              >
-                                about us
-                              </Link>
+                              <div className="dropdown">
+                                <a href="#"
+                                   className="my-0 me-1 py-0 nav-link-ifad dropdown-toggle"
+                                   type="button" id="dropdownMenuButton1"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                  about us
+                                </a>
+                                <ul className="dropdown-menu"
+                                    aria-labelledby="dropdownMenuButton1">
+                                  <li>
+                                    <Link href="/company-profile"
+                                          className="dropdown-item">
+                                      Who we are
+                                    </Link>
+                                  </li>
+                                  <li>
+                                    <Link href="/board-of-directors"
+                                          className="dropdown-item">
+                                      BOD & Leadership
+                                    </Link>
+                                  </li>
+                                </ul>
+                              </div>
                             </li>
                             <li className="nav-item">
                               <Link

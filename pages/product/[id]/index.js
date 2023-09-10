@@ -17,6 +17,7 @@ import {SET_CART_ITEM} from "../../../store/slices/CartSlice";
 import {randomInt} from "next/dist/shared/lib/bloom-filter/utils";
 import Timer from "../../../components/common/Timer";
 import Head from "next/head";
+import {BsCartCheck, BsFillCartXFill} from "react-icons/bs";
 
 const SingleInventoryPage = () => {
     const dispatch = useDispatch();
@@ -241,6 +242,19 @@ const SingleInventoryPage = () => {
                                     </Button>
                                 </div>
                             </div>
+
+                            <div className="d-flex justify-content-start align-items-center counter mt-4">
+                                {inventory?.stock_quantity > 0 ? (
+                                    <h4 className="text-success font-bold d-flex justify-content-center align-items-center">
+                                        <BsCartCheck className="me-2"/> In Stock ({inventory?.stock_quantity})
+                                    </h4>
+                                ) : (
+                                    <h4 className="text-danger font-bold d-flex justify-content-center align-items-center">
+                                        <BsFillCartXFill className="me-2"/> Not In Stock
+                                    </h4>
+                                )}
+                            </div>
+
                             <div className="d-flex justify-content-start counter mt-4 mb-4">
                                 {isLoggedIn() && (
                                     <div className="border border-success px-2">
