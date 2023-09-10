@@ -12,7 +12,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Image from "next/image";
 import Logo from "../../public/logo/IFAD-ESHOP-Logo.png";
-import {BiAlignLeft} from "react-icons/bi";
+import {BiAlignLeft, BiChevronDown} from "react-icons/bi";
 import {CiUser} from "react-icons/ci";
 import CartOverlys from "./CartOverlay";
 import {fetchCategories} from "../../services/CategoryServices";
@@ -240,7 +240,7 @@ export default function Header() {
                       className="p-0 rounded-0 about-btn"
                       title={
                         <span className=" text-white text-inter py-2 font-14 me-4 d-flex all-side-icons align-items-center">
-                          about us
+                          about us <BiChevronDown className="ms-1"/>
                         </span>
                       }
                       id="navbarScrollingDropdown"
