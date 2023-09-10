@@ -7,10 +7,11 @@ import {fetchCategories} from "../../services/CategoryServices";
 import CategoryProductScroll from "../../components/home/CategoryProductScroll";
 import CategoryShowcase from "../../components/home/CategoryShowcase";
 import FeatureSection from "../../components/home/FeatureSection";
-import DiscountedProductScroll from "../../components/home/DiscountedProductScroll";
 import {fetchHomeBanners} from "../../services/CommonServices";
 import AddBanner from "../../components/common/AddBanner";
 import ComboProductScroll from "../../components/home/ComboProductScroll";
+import {makeTitle} from "../../utils/helpers";
+import Head from "next/head";
 
 const HomePage = () => {
 	const [categories, setCategories] = useState([]);
@@ -38,6 +39,10 @@ const HomePage = () => {
 
 	return (
 		<Fragment>
+			<Head>
+				<title>{makeTitle("Home")}</title>
+			</Head>
+
 			<BannerSection/>
 
 			<ComboProductScroll

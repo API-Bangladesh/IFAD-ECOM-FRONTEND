@@ -163,11 +163,20 @@ export const swalConfirmPopup = (options = {}) => {
 
 /**
  *
- * @param $title
+ * @param title
  * @return {string}
  */
-export const makeTitle = ($title) => {
-    return `${$title} - ${APP_NAME} | ${removeHttp(APP_URL)}`
+export const makeTitle = (title) => {
+    return `${title} - ${APP_NAME} | ${removeHttp(APP_URL)}`
+}
+
+/**
+ *
+ * @param url
+ * @return {*}
+ */
+function removeHttp(url) {
+    return url.replace(/^https?:\/\//, '');
 }
 
 /**

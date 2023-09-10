@@ -2,6 +2,8 @@ import React, {Fragment, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {fetchOrder} from "../../../../services/OrderServices";
 import InvoiceCard from "../../../../components/common/InvoiceCard";
+import {makeTitle} from "../../../../utils/helpers";
+import Head from "next/head";
 
 const Invoice = () => {
 
@@ -36,6 +38,9 @@ const Invoice = () => {
 
     return (
         <Fragment>
+            <Head>
+                <title>{makeTitle("Invoice")}</title>
+            </Head>
             <div id="printable" className="invoice-box my-4">
                 <InvoiceCard orderDetails={order} />
             </div>

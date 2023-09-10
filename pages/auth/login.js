@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import Link from 'next/link';
 import {Col, Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -8,6 +8,8 @@ import {useDispatch} from "react-redux";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 import isAuth from "../../utils/HOC/isAuth";
 import {useRouter} from "next/router";
+import Head from "next/head";
+import {makeTitle} from "../../utils/helpers";
 
 const LoginPage = () => {
     const router = useRouter();
@@ -51,6 +53,10 @@ const LoginPage = () => {
     };
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle("Login")}</title>
+            </Head>
         <section className="login-bg">
             <Container>
                 <div className="py-5 d-flex justify-content-center">
@@ -100,6 +106,7 @@ const LoginPage = () => {
                 </div>
             </Container>
         </section>
+        </Fragment>
     );
 }
 

@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import ScrollToTopButton from '../../components/common/ScrollToTopButton'
 import {fetchDiscountedInventories} from "../../services/InventoryServices";
 import Image from "next/image";
 import ProductBanner from "../../public/product.png";
 import ProductCard from "../../components/common/ProductCard";
-import {getStoragePath} from "../../utils/helpers";
+import {getStoragePath, makeTitle} from "../../utils/helpers";
 import CustomPagination from "../../components/common/CustomPagination";
+import Head from "next/head";
 
 const DiscountedPage = () => {
     const [inventories, setInventories] = useState([]);
@@ -40,6 +41,10 @@ const DiscountedPage = () => {
     }, [page]);
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle("Discounted Products")}</title>
+            </Head>
         <section>
 
             {/*Category Banner*/}
@@ -97,6 +102,7 @@ const DiscountedPage = () => {
 
             <ScrollToTopButton/>
         </section>
+        </Fragment>
     )
 }
 

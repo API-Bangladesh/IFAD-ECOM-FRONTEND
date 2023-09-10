@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import Link from "next/link";
 import {IoIosArrowRoundForward} from "react-icons/io";
 import {fetchComboCategories, fetchComboCategory} from "../../../../services/ComboCategoryServices";
 import {useRouter} from "next/router";
 import {fetchCombosByCategory} from "../../../../services/ComboServices";
-import {getStoragePath} from "../../../../utils/helpers";
+import {getStoragePath, makeTitle} from "../../../../utils/helpers";
 import ScrollToTopButton from "../../../../components/common/ScrollToTopButton";
 import CustomPagination from "../../../../components/Modules/pagination/CustomPagination";
 import ComboProductCard from "../../../../components/common/ComboProductCard";
+import Head from "next/head";
 
 const ComboCategoryPage = () => {
     const router = useRouter();
@@ -70,6 +71,10 @@ const ComboCategoryPage = () => {
     }, [page]);
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle(comboCategory?.name || "Combo Category Products")}</title>
+            </Head>
         <section>
 
             {/*Category Banner*/}
@@ -149,6 +154,7 @@ const ComboCategoryPage = () => {
 
             <ScrollToTopButton/>
         </section>
+        </Fragment>
     )
 }
 

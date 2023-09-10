@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import ScrollToTopButton from '../../components/common/ScrollToTopButton'
 import {fetchSearchInventories} from "../../services/InventoryServices";
 import ProductCard from "../../components/common/ProductCard";
-import {getStoragePath} from "../../utils/helpers";
+import {getStoragePath, makeTitle} from "../../utils/helpers";
 import CustomPagination from "../../components/common/CustomPagination";
+import Head from "next/head";
 
 const SearchInventories = ({keyword}) => {
 
@@ -46,6 +47,10 @@ const SearchInventories = ({keyword}) => {
     }, [page]);
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle(keyword || 'Search')}</title>
+            </Head>
         <section>
 
             {/*Category Banner*/}
@@ -111,6 +116,7 @@ const SearchInventories = ({keyword}) => {
 
             <ScrollToTopButton/>
         </section>
+        </Fragment>
     )
 }
 

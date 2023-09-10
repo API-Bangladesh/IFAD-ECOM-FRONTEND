@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {Col, Container} from "react-bootstrap";
 import {verificationNotificationCustomer} from "../../../services/AuthServices";
-import {tostify} from "../../../utils/helpers";
+import {makeTitle, tostify} from "../../../utils/helpers";
 import {toast} from "react-toastify";
+import Head from "next/head";
 
 const VerificationNotificationPage = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +21,10 @@ const VerificationNotificationPage = () => {
     };
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle("Verify Email")}</title>
+            </Head>
         <section className="login-bg">
             <Container>
                 <div className="py-5 d-flex justify-content-center">
@@ -41,6 +46,7 @@ const VerificationNotificationPage = () => {
                 </div>
             </Container>
         </section>
+        </Fragment>
     );
 }
 

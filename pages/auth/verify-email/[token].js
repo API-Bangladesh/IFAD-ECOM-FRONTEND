@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {verifyEmailCustomer} from "../../../services/AuthServices";
-import {tostify} from "../../../utils/helpers";
+import {makeTitle, tostify} from "../../../utils/helpers";
 import {toast} from "react-toastify";
 import {useRouter} from "next/router";
 import {RotatingLines} from "react-loader-spinner";
+import Head from "next/head";
 
 const VerifyPage = () => {
     const router = useRouter();
@@ -24,6 +25,10 @@ const VerifyPage = () => {
     }, [token]);
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle("Verify Email Process")}</title>
+            </Head>
         <section className="login-bg">
             <div className="d-flex justify-content-center" style={{padding: "150px 0"}}>
                 <RotatingLines
@@ -35,6 +40,7 @@ const VerifyPage = () => {
                 />
             </div>
         </section>
+        </Fragment>
     );
 }
 

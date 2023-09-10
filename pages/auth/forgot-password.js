@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import Link from "next/link";
-import {tostify} from "../../utils/helpers";
+import {makeTitle, tostify} from "../../utils/helpers";
 import {toast} from "react-toastify";
 import {forgotPasswordCustomer} from "../../services/AuthServices";
 import {Col, Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import Head from "next/head";
 
 function ForgotPasswordPage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +31,10 @@ function ForgotPasswordPage() {
     }
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle("Forgot Password")}</title>
+            </Head>
         <section className="login-bg">
             <Container>
                 <div className="py-5 d-flex justify-content-center">
@@ -63,6 +68,7 @@ function ForgotPasswordPage() {
                 </div>
             </Container>
         </section>
+        </Fragment>
     );
 }
 

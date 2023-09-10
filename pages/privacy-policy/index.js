@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {Fragment, useEffect, useState} from "react"
 import PrivacyBanner from "../../public/privacy-policy.jpg"
 import Image from "next/image"
 import Container from "react-bootstrap/Container"
@@ -7,6 +7,8 @@ import Col from "react-bootstrap/Col"
 import ListGroup from "react-bootstrap/ListGroup";
 import parse from 'html-react-parser'
 import {fetchPrivacyPolicy} from "../../services/CommonServices";
+import {makeTitle} from "../../utils/helpers";
+import Head from "next/head";
 
 const PrivacyPolicyPage = () => {
     const [info, setInfo] = useState();
@@ -18,25 +20,30 @@ const PrivacyPolicyPage = () => {
     }, []);
 
     return (
-        <section>
-            <div className="terms-banner-div">
-                <Image src={PrivacyBanner} alt="" className="terms-banner"/>
-            </div>
-            <Container>
-                {info?.map((item, index) => (
-                    <Row className="justify-content-center" key={index}>
-                        <Col xs={12} md={10} xxl={9}>
-                            <h1 className="text-capitalize text-center font-jost font-30 fw-bold py-4">
-                                {item?.item_name}
-                            </h1>
-                            <ListGroup as="ol" className="pb-5" numbered>
-                                {parse(item?.item_long_desc)}
-                            </ListGroup>
-                        </Col>
-                    </Row>
-                ))}
-            </Container>
-        </section>
+        <Fragment>
+            <Head>
+                <title>{makeTitle("Privacy Policy")}</title>
+            </Head>
+            <section>
+                <div className="terms-banner-div">
+                    <Image src={PrivacyBanner} alt="" className="terms-banner"/>
+                </div>
+                <Container>
+                    {info?.map((item, index) => (
+                        <Row className="justify-content-center" key={index}>
+                            <Col xs={12} md={10} xxl={9}>
+                                <h1 className="text-capitalize text-center font-jost font-30 fw-bold py-4">
+                                    {item?.item_name}
+                                </h1>
+                                <ListGroup as="ol" className="pb-5" numbered>
+                                    {parse(item?.item_long_desc)}
+                                </ListGroup>
+                            </Col>
+                        </Row>
+                    ))}
+                </Container>
+            </section>
+        </Fragment>
     )
 }
 

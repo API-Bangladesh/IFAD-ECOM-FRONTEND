@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import Link from 'next/link';
 import Button from "react-bootstrap/Button";
 import {Col, Container} from "react-bootstrap";
@@ -8,6 +8,8 @@ import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 import {login, setToken} from "../../utils/auth";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/router";
+import Head from "next/head";
+import {makeTitle} from "../../utils/helpers";
 
 function RegisterPage() {
     const router = useRouter();
@@ -55,6 +57,10 @@ function RegisterPage() {
     }
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle("Register")}</title>
+            </Head>
         <section className="login-bg">
             <Container>
                 <div className="py-5 d-flex justify-content-center">
@@ -117,6 +123,7 @@ function RegisterPage() {
                 </div>
             </Container>
         </section>
+        </Fragment>
     );
 }
 

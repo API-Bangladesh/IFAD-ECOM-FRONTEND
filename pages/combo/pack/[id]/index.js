@@ -1,18 +1,18 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, {Fragment, useEffect, useState} from "react";
+import {useRouter} from "next/router";
 import moment from "moment";
-import { getStoragePath, tostify } from "../../../../utils/helpers";
-import { toast } from "react-toastify";
+import {getStoragePath, makeTitle, tostify} from "../../../../utils/helpers";
+import {toast} from "react-toastify";
 import Button from "react-bootstrap/Button";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { SET_CART_ITEM } from "../../../../store/slices/CartSlice";
-import { randomInt } from "next/dist/shared/lib/bloom-filter/utils";
+import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
+import {useDispatch, useSelector} from "react-redux";
+import {SET_CART_ITEM} from "../../../../store/slices/CartSlice";
+import {randomInt} from "next/dist/shared/lib/bloom-filter/utils";
 import Timer from "../../../../components/common/Timer";
-import { fetchCombo } from "../../../../services/ComboServices";
+import {fetchCombo} from "../../../../services/ComboServices";
 import ComboImageSection from "../../../../components/combo/ComboImageSection";
 import ComboProductDescription from "../../../../components/combo/ComboProductDescription";
-import Offer_shape from "../../../../public/offer_shape.png";
+import Head from "next/head";
 
 const SingleComboPage = () => {
   const dispatch = useDispatch();
@@ -122,6 +122,10 @@ const SingleComboPage = () => {
   };
 
   return (
+      <Fragment>
+        <Head>
+          <title>{makeTitle(combo?.title || "Combo Product")}</title>
+        </Head>
     <section className="view-single-pro">
       {combo?.lifestyle_image && (
         <div className="product-banner">
@@ -246,6 +250,7 @@ const SingleComboPage = () => {
         </div>
       </div>
     </section>
+      </Fragment>
   );
 };
 
