@@ -56,3 +56,53 @@ export const updateCustomer = async (data, setErrors) => {
         makeInputErrors(error, setErrors);
     }
 }
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const forgotPasswordCustomer = async (data, setErrors) => {
+    try {
+        return await axios.post(`/ecom/forgot-password`, data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+        makeInputErrors(error, setErrors);
+    }
+}
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const resetPasswordCustomer = async (data, setErrors) => {
+    try {
+        return await axios.post(`/ecom/reset-password`, data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+        makeInputErrors(error, setErrors);
+    }
+}
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const verificationNotificationCustomer = async () => {
+    try {
+        return await axios.post(`/ecom/verification-notification`);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const verifyEmailCustomer = async (token) => {
+    try {
+        return await axios.post(`/ecom/verify-email/${token}`);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
