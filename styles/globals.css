@@ -1015,7 +1015,7 @@ banner css starts
 }
 .offer_text {
   position: absolute;
-  top: 42px;
+  top: 43px;
   left: 5%;
   height: 60px;
   width: 60px;
@@ -1023,7 +1023,7 @@ banner css starts
 .round_offer .offer_percent {
   position: absolute;
   margin-top: -6px !important;
-  padding-left: 15px;
+  padding-left: 18px;
 }
 .single_pro_offer {
   position: absolute;

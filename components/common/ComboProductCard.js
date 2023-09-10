@@ -132,8 +132,8 @@ const ComboProductCard = ({
         <div className="round_offer">
           <img src="./offer_shape.png" alt="" className="offer_round_shape" />
           <div className="offer_text">
-            <p className="text-uppercase fw-bold font-italic font-14 d-flex justify-content-center text-white m-0 p-0 offer_text_tab">save</p>
-            <span className="font-poppins font-italic font-14 d-flex justify-content-center text-white fw-semibold m-0 offer_percent">
+            <p className="text-uppercase fw-bold font-14 d-flex justify-content-center text-white m-0 p-0 offer_text_tab">save</p>
+            <span className="font-poppins font-14 d-flex justify-content-center text-white fw-semibold m-0 offer_percent">
             {salePrice && offerPrice && salePrice > offerPrice ? (
           <div className="position-absolute offer-token text-center ps-4">
             <span className="text-white veri-align fw-semibold font-14 pt-2">
