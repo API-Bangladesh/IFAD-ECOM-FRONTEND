@@ -2604,9 +2604,15 @@ Responsive part end
   border-right: 0 solid #000;
 }
 
+.footer .dropdown-menu .dropdown-item:hover {
+  background: rgb(246, 132, 34);
+  color: white;
+}
+
 .footer-soical-link {
   color: rgb(246, 132, 34);
 }
+
 
 .c-shadow {
   box-shadow: 0 0.35rem 0.75rem rgba(0, 0, 0, 0.15) !important;

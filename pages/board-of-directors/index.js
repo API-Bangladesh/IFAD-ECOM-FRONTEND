@@ -11,13 +11,19 @@ import TeamOne from "../../public/bod/teamone.jpg";
 import TeamTwo from "../../public/bod/teamtwo.jpg";
 import TeamThree from "../../public/bod/teamthree.jpg";
 import TeamFour from "../../public/bod/teamfour.jpg";
-import TeamFive from "../../public/bod/teamfive.jpg";
 import TeamSix from "../../public/bod/teamsix.png";
 import TeamSeven from "../../public/bod/teamseven.jpg";
 import TeamEight from "../../public/bod/teameight.jpg";
+import Head from "next/head";
+import {makeTitle} from "../../utils/helpers";
+import React, {Fragment} from "react";
 
 const BoardOfDirectors = () => {
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle("Board of Directors")}</title>
+            </Head>
         <section>
             <div className="">
                 <Image src={Directors} alt="" className="bod-img"/>
@@ -139,6 +145,7 @@ const BoardOfDirectors = () => {
                 </div>
             </div>
         </section>
+        </Fragment>
     );
 };
 

@@ -7,6 +7,8 @@ import TermsBanner from "../../public/terms-conditions.png"
 import Image from "next/image"
 import axios from "axios"
 import {API_URL} from "../../utils/constants"
+import {makeTitle} from "../../utils/helpers";
+import Head from "next/head";
 
 const Conditions = () => {
     const [info, setInfo] = useState()
@@ -29,6 +31,9 @@ const Conditions = () => {
 
     return (
         <Fragment>
+            <Head>
+                <title>{makeTitle('Terms & Conditions')}</title>
+            </Head>
             <section>
                 <div className="terms-banner-div">
                     <Image src={TermsBanner} alt="" className="terms-banner"/>

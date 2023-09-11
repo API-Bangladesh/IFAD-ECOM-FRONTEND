@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import ScrollToTopButton from '../../../components/common/ScrollToTopButton'
 import {useRouter} from "next/router";
 import {fetchCategories, fetchCategory} from "../../../services/CategoryServices";
@@ -6,8 +6,8 @@ import {fetchInventoriesByCategory} from "../../../services/InventoryServices";
 import Link from "next/link";
 import {IoIosArrowRoundForward} from "react-icons/io";
 import ProductCard from "../../../components/common/ProductCard";
-import {getStoragePath} from "../../../utils/helpers";
-import CustomPagination from "../../../components/common/CustomPagination";
+import {getStoragePath, makeTitle} from "../../../utils/helpers";
+import Head from "next/head";
 
 const CategoryPage = () => {
     const router = useRouter();
@@ -74,6 +74,10 @@ const CategoryPage = () => {
     }, [page]);
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle(category?.name || "Category Products")}</title>
+            </Head>
         <section>
 
             {/*Category Banner*/}
@@ -152,6 +156,7 @@ const CategoryPage = () => {
 
             <ScrollToTopButton/>
         </section>
+        </Fragment>
     )
 }
 

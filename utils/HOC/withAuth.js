@@ -10,7 +10,7 @@ const withAuth = (Component) => {
 
         useEffect(() => {
             if (!isAuthenticated) {
-                router.push('/auth/login');
+                location.href = '/auth/login';
             }
         }, []);
 

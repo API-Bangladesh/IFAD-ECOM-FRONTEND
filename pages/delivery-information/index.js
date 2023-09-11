@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {Fragment, useEffect, useState} from "react"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
@@ -8,6 +8,8 @@ import DeliveryTNC from "../../public/dtnc.png"
 import DeliveryBanner from "../../public/delivery.jpg"
 import axios from "axios"
 import {API_URL} from "../../utils/constants"
+import {makeTitle} from "../../utils/helpers";
+import Head from "next/head";
 
 const DeliverInformationPage = () => {
     const [info, setInfo] = useState();
@@ -28,6 +30,10 @@ const DeliverInformationPage = () => {
     }, [])
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle("Delivery Information")}</title>
+            </Head>
         <section>
             <div className="terms-banner-div">
                 <Image src={DeliveryBanner} alt="" className="terms-banner"/>
@@ -55,6 +61,7 @@ const DeliverInformationPage = () => {
                 ))}
             </Container>
         </section>
+        </Fragment>
     )
 }
 

@@ -3,7 +3,8 @@ import Image from "next/image";
 import CompanyRev from "../../public/Factory.jpg";
 import {Container, Row} from "react-bootstrap";
 import {fetchAboutInfo, fetchMissionVision, fetchValues} from "../../services/CommonServices";
-import {getStoragePath} from "../../utils/helpers";
+import {getStoragePath, makeTitle} from "../../utils/helpers";
+import Head from "next/head";
 
 const CompanyReview = () => {
     const [aboutInfo, setAboutInfo] = useState([]);
@@ -39,6 +40,9 @@ const CompanyReview = () => {
 
     return (
         <Fragment>
+            <Head>
+                <title>{makeTitle("Company Profile")}</title>
+            </Head>
             <section>
                 <div className="review-banner">
                     <Image src={CompanyRev} alt="" className="review-img"/>

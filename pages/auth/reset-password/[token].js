@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 
 import {useRouter} from "next/router";
-import {tostify} from "../../../utils/helpers";
+import {makeTitle, tostify} from "../../../utils/helpers";
 import {toast} from "react-toastify";
 import {resetPasswordCustomer} from "../../../services/AuthServices";
 import {Col, Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import Head from "next/head";
 
 function ResetPasswordPage() {
     const router = useRouter()
@@ -43,6 +44,10 @@ function ResetPasswordPage() {
     }, [router.query.email]);
 
     return (
+        <Fragment>
+            <Head>
+                <title>{makeTitle("Reset Password")}</title>
+            </Head>
         <section className="login-bg">
             <Container>
                 <div className="py-5 d-flex justify-content-center">
@@ -82,6 +87,7 @@ function ResetPasswordPage() {
                 </div>
             </Container>
         </section>
+        </Fragment>
     );
 }
 

@@ -7,10 +7,15 @@ import StepOne from "../../public/howtobuy/1.jpg"
 import StepTwo from "../../public/howtobuy/2.jpg"
 import StepThree from "../../public/howtobuy/3.jpg"
 import StepFour from "../../public/howtobuy/4.jpg"
+import {makeTitle} from "../../utils/helpers";
+import Head from "next/head";
 
 const HowToBuy = () => {
     return (
         <Fragment>
+            <Head>
+                <title>{makeTitle("How to Buy")}</title>
+            </Head>
             <Container>
                 <div className="my-3">
                     <Row>
