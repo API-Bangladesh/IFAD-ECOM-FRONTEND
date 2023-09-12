@@ -121,6 +121,10 @@ const SingleComboPage = () => {
     }
   };
 
+  const calculateDiscount = (sale, offer) => {
+    return Math.round(((sale - offer) / sale) * 100);
+  };
+
   return (
       <Fragment>
         <Head>
@@ -178,13 +182,17 @@ const SingleComboPage = () => {
                   <Fragment>Price: {combo?.sale_price} Tk.</Fragment>
                 )}
               </p>
+              {combo?.sale_price && combo?.offer_price && combo?.offer_price < combo?.sale_price && (
               <div className="single_pro_offer" >
                 <img src="/offer_shape.png" alt="" className="single_pro_offer_img"/>
                 <div className="single_offer_text">
                   <p className="save_offer text-white font-italic">save</p>
-                  <p className="save_offer_percent text-white fw-semibold font-italic">80%</p>
+                  <p className="save_offer_percent text-white fw-semibold font-italic">
+                    {calculateDiscount(combo?.sale_price, combo?.offer_price)}%
+                  </p>
                 </div>
               </div>
+              )}
             </div>
 
             <div className="d-flex justify-content-start align-items-center counter mt-3">

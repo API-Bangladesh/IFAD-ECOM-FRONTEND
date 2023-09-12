@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import Image from "next/image";
 import Api from "../../public/API-footer-logo.png";
 import Link from "next/link";
-import {FaFacebookF, FaLinkedinIn, FaYoutube} from "react-icons/fa";
+import {FaFacebookF, FaLinkedinIn, FaYoutube, FaTwitter, FaLink} from "react-icons/fa";
 import {AiOutlineInstagram} from "react-icons/ai";
 import {fetchSocial} from "../../services/CommonServices";
 import {BiChevronDown} from "react-icons/bi";
@@ -18,6 +18,15 @@ export default function Footer() {
       }
     });
   }, []);
+
+  const linkIconMap = {
+    'facebook': <FaFacebookF size="25px" className="footer-soical-link ms-2" />,
+    'twitter': <FaTwitter size="25px" className="footer-soical-link ms-2" />,
+    'linkedin': <FaLinkedinIn size="25px" className="footer-soical-link ms-2" />,
+    'youtube': <FaYoutube size="25px" className="footer-soical-link ms-2" />,
+    'instagram': <AiOutlineInstagram size="25px" className="footer-soical-link ms-2" />,
+    'default': <FaLink size="25px" className="footer-soical-link ms-2" />,
+  };
 
   return (
       <Fragment>
@@ -143,30 +152,11 @@ export default function Footer() {
                                 href={social?.item_link}
                                 target="_blank"
                             >
-                              {index === 0 && (
-                                  <FaFacebookF
-                                      size={"25px"}
-                                      className="footer-soical-link ms-2"
-                                  />
-                              )}
-                              {index === 1 && (
-                                  <FaLinkedinIn
-                                      size={"25px"}
-                                      className="footer-soical-link ms-2"
-                                  />
-                              )}
-                              {index === 2 && (
-                                  <FaYoutube
-                                      size={"25px"}
-                                      className="footer-soical-link ms-2"
-                                  />
-                              )}
-                              {index === 3 && (
-                                  <AiOutlineInstagram
-                                      size={"25px"}
-                                      className="footer-soical-link ms-2"
-                                  />
-                              )}
+                              {linkIconMap[social?.item_link.includes('facebook.com') ? 'facebook' :
+                                social?.item_link.includes('linkedin.com') ? 'linkedin' :
+                                social?.item_link.includes('twitter.com') ? 'twitter' :
+                                social?.item_link.includes('youtube.com') ? 'youtube' :
+                                social?.item_link.includes('instagram.com') ? 'instagram' : 'default']}
                             </Link>
                         ))}
                       </div>
