@@ -186,10 +186,10 @@ const SingleComboPage = () => {
               <div className="single_pro_offer" >
                 <img src="/offer_shape.png" alt="" className="single_pro_offer_img"/>
                 <div className="single_offer_text">
-                  <p className="save_offer text-white font-italic">save</p>
-                  <p className="save_offer_percent text-white fw-semibold font-italic">
+                  <p className="text-uppercase fw-bold font-16 d-flex justify-content-center text-white m-0 p-0 offer_text_tab">save</p>
+                  <span className="text-white veri-align fw-semibold font-16">
                     {calculateDiscount(combo?.sale_price, combo?.offer_price)}%
-                  </p>
+                  </span>
                 </div>
               </div>
               )}

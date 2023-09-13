@@ -1037,8 +1037,15 @@ banner css starts
 }
 .single_offer_text {
   position: absolute;
-  top: 12px;
-  left: 20px;
+  top: 0;
+  left: 0;
+  line-height: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 .save_offer {
   font-size: 18px;
