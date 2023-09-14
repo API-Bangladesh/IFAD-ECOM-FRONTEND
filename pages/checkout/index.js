@@ -130,7 +130,9 @@ const CheckoutPage = () => {
     if (cart.paymentMethodId === "1") {
       makePayment({
         shipping_address: getAddressToString(cart.shippingAddress),
+        shipping_address_json: cart.shippingAddress,
         billing_address: getAddressToString(cart.billingAddress),
+        billing_address_json: cart.billingAddress,
         cart: cart.items,
         sub_total: cart.subTotal,
         discount: cart.discount,
@@ -152,7 +154,9 @@ const CheckoutPage = () => {
     } else {
       saveOrder({
         shipping_address: getAddressToString(cart.shippingAddress),
+        shipping_address_json: cart.shippingAddress,
         billing_address: getAddressToString(cart.billingAddress),
+        billing_address_json: cart.billingAddress,
         cart: cart.items,
         sub_total: cart.subTotal,
         discount: cart.discount,
