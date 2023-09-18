@@ -81,11 +81,11 @@ export const useCart = (initialValue) => {
                 item.items.forEach((i) => {
                     // console.log(i);
                     const obj = {
-                        // variant_quantity:
-                        //   i.inventory_variants?.[0]?.variant_option?.name || "0gm",
-                        // quantity: (i?.quantity || 1) * (item?.quantity || 1),
-                        variant_quantity: "100gm",
-                        quantity: 1,
+                        variant_quantity:
+                          i.inventory_variants?.[0]?.variant_option?.name || "0gm",
+                        quantity: (i?.quantity || 1) * (item?.quantity || 1),
+                        // variant_quantity: "100gm",
+                        // quantity: 1,
                     };
                     items.push(obj);
                 });
@@ -107,7 +107,7 @@ export const useCart = (initialValue) => {
         } else if (
             cart.shippingAddress?.district?.name?.trim().toLowerCase() === "dhaka"
         ) {
-            baseCharge = 75;
+            baseCharge = 60;
         } else {
             baseCharge = 120;
         }
