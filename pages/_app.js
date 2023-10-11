@@ -2,7 +2,7 @@ import '@/styles/globals.css'
 import '../styles/normalize.css';
 import '../styles/main.css';
 import '../styles/footer.css';
-import '../styles/TopManu.css'; 
+import '../styles/TopManu.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'tailwindcss/tailwind.css'
 import "slick-carousel/slick/slick.css";
@@ -22,6 +22,7 @@ import Layout from "../layouts/Layout";
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from "../store";
+import MessengerChatBot from "../components/common/MessengerChatBot";
 
 export default function App({Component, pageProps}) {
 
@@ -51,6 +52,8 @@ export default function App({Component, pageProps}) {
                         autoClose={2500}
                         position="bottom-right"
                     />
+
+                    <MessengerChatBot />
                 </Layout>
             </SSRProvider>
         </Fragment>
