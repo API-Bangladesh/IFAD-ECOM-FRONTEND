@@ -119,7 +119,8 @@ const UserInfoTab = () => {
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label htmlFor="" className="form-label text-capitalize">
-								Date of Birth<span className="text-danger"> *</span>
+								Date of Birth
+                {/* <span className="text-danger"> *</span> */}
 							</Form.Label>
 							<Form.Control
 								type="date"
@@ -127,7 +128,7 @@ const UserInfoTab = () => {
 								value={formData?.date_of_birth}
 								onChange={handleChange}
 								className="form-padd rounded-0 form-deco"
-								required={true}
+								// required={true}
 							/>
 						</Form.Group>
 
