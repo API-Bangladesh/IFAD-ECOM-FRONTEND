@@ -29,19 +29,23 @@ export const tostify = (toast, type, error, options = {}) => {
 
     if (type === 'success') {
         return toast.success(message, {
-            ...options
+            ...options,
+            hideProgressBar: true
         });
     } else if (type === 'info') {
         return toast.info(message, {
-            ...options
+            ...options,
+            hideProgressBar: true
         });
     } else if (type === 'warning') {
         return toast.warn(message, {
-            ...options
+            ...options,
+            hideProgressBar: true
         });
     } else if (type === 'error') {
         return toast.error(message, {
-            ...options
+            ...options,
+            hideProgressBar: true
         });
     }
 }
