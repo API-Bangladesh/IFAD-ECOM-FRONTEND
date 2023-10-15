@@ -2,13 +2,13 @@ import '@/styles/globals.css'
 import '../styles/normalize.css';
 import '../styles/main.css';
 import '../styles/footer.css';
-import '../styles/TopManu.css'; 
+import '../styles/TopManu.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'tailwindcss/tailwind.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {SSRProvider} from 'react-bootstrap';
-import NextNProgress from 'nextjs-progressbar';
+// import NextNProgress from 'nextjs-progressbar';
 /*import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -22,6 +22,7 @@ import Layout from "../layouts/Layout";
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from "../store";
+import MessengerChatBot from "../components/common/MessengerChatBot";
 
 export default function App({Component, pageProps}) {
 
@@ -39,7 +40,7 @@ export default function App({Component, pageProps}) {
         <Fragment>
             <SSRProvider>
                 <Layout>
-                    <NextNProgress options={{easing: 'ease', speed: 500}}/>
+                    {/* <NextNProgress options={{easing: 'ease', speed: 500}}/> */}
 
                     <Provider store={store}>
                         <PersistGate loading={null} persistor={persistor}>
@@ -51,6 +52,8 @@ export default function App({Component, pageProps}) {
                         autoClose={2500}
                         position="bottom-right"
                     />
+
+                    <MessengerChatBot />
                 </Layout>
             </SSRProvider>
         </Fragment>

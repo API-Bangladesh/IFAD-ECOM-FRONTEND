@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useRouter} from "next/router";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -13,6 +14,8 @@ import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 
 const UserInfoTab = () => {
 	const dispatch = useDispatch();
+  const router = useRouter();
+  const {prev} = router.query;
 	const auth = useSelector((state) => state.auth);
 
 	const [errors, setErrors] = useState({});
@@ -76,10 +79,35 @@ const UserInfoTab = () => {
 						phone_number: customer?.phone_number,
 						old_image: customer?.image,
 					});
+
+          if (prev && prev === "register") {
+            router.push({
+              pathname: '/my-account',
+              query: {
+                  'tab': 'address'
+              }
+            });
+          }
 				}
 			}
 		});
 	};
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        setSelectedImage(e.target.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
 
 	return (
 		<div className="user-information">
@@ -89,15 +117,23 @@ const UserInfoTab = () => {
 					<Col lg={3}>
 						<div className="d-flex justify-content-center">
 							<Image
-								src={formData?.old_image ? `${API_URL}/${formData.old_image}` : '/user/man.png'}
+								// src={formData?.old_image ? `${API_URL}/${formData.old_image}` : '/user/man.png'}
+                src={selectedImage ? selectedImage : formData?.old_image ? `${API_URL}/${formData.old_image}` : '/user/man.png'}
 								alt="profile" height="200" weight="200" className="profile-picture mb-3"/>
 						</div>
 						<Form.Group controlId="formFile" className="mb-3">
 							<Form.Control
 								name="img"
 								type="file"
+                accept="image/*"
 								className="rounded-0 form-deco"
-								onChange={(e) => setFormData({...formData, image: e.target.files[0]})}/>
+								onChange={
+                  (e) => {
+                    setFormData({...formData, image: e.target.files[0]})
+                    handleImageUpload(e)
+                  }
+                }
+              />
 							<small className="text-muted text-lowercase">Max size 2MB and type jpg, png & gif
 								format.</small>
 							{errors?.image && (
@@ -119,7 +155,8 @@ const UserInfoTab = () => {
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label htmlFor="" className="form-label text-capitalize">
-								Date of Birth<span className="text-danger"> *</span>
+								Date of Birth
+                {/* <span className="text-danger"> *</span> */}
 							</Form.Label>
 							<Form.Control
 								type="date"
@@ -127,7 +164,7 @@ const UserInfoTab = () => {
 								value={formData?.date_of_birth}
 								onChange={handleChange}
 								className="form-padd rounded-0 form-deco"
-								required={true}
+								// required={true}
 							/>
 						</Form.Group>
 
