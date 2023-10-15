@@ -54,11 +54,11 @@ export default function Header() {
           <Container className="">
             <div>
               <ul className="font-poppins manu-font-one text-white d-flex justify-content-end align-items-center py-1">
-                {/*<li className="pe-3">
-                                    <Link href="/how-to-buy" className="text-light">
-                                        How to buy
-                                    </Link>
-                                </li>*/}
+                <li className="pe-3">
+                    <Link href="/how-to-buy" className="text-light">
+                        How to buy
+                    </Link>
+                </li>
                 <li className="pe-3">
                   <Link href="/b2b" className="text-light">
                     B2B Sales

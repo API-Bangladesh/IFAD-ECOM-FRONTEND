@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useRouter} from "next/router";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -13,6 +14,8 @@ import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 
 const UserInfoTab = () => {
 	const dispatch = useDispatch();
+  const router = useRouter();
+  const {prev} = router.query;
 	const auth = useSelector((state) => state.auth);
 
 	const [errors, setErrors] = useState({});
@@ -76,6 +79,15 @@ const UserInfoTab = () => {
 						phone_number: customer?.phone_number,
 						old_image: customer?.image,
 					});
+
+          if (prev && prev === "register") {
+            router.push({
+              pathname: '/my-account',
+              query: {
+                  'tab': 'address'
+              }
+            });
+          }
 				}
 			}
 		});

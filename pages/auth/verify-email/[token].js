@@ -17,7 +17,7 @@ const VerifyPage = () => {
                     tostify(toast, 'success', response);
 
                     setTimeout(() => {
-                        location.href = '/my-account';
+                        location.href = '/my-account?prev=register';
                     }, 1500);
                 }
             });
