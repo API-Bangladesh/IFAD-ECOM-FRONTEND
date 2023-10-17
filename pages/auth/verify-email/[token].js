@@ -13,19 +13,13 @@ const VerifyPage = () => {
     useEffect(() => {
         if (token) {
             verifyEmailCustomer(token).then((response) => {
-              tostify(toast, 'success', response);
+                if (response?.data?.message) {
+                    tostify(toast, 'success', response);
 
-              setTimeout(() => {
-                  location.href = '/my-account?prev=register';
-              }, 1500);
-
-                // if (response?.data?.message) {
-                //     tostify(toast, 'success', response);
-
-                //     setTimeout(() => {
-                //         location.href = '/my-account?prev=register';
-                //     }, 1500);
-                // }
+                    setTimeout(() => {
+                        location.href = '/my-account?prev=register';
+                    }, 1500);
+                }
             });
         }
     }, [token]);
