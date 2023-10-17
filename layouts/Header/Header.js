@@ -55,9 +55,10 @@ export default function Header() {
             <div>
               <ul className="font-poppins manu-font-one text-white d-flex justify-content-end align-items-center py-1">
                 <li className="pe-3">
-                    <Link href="/how-to-buy" className="text-light">
+                  <a className="text-light" href="/docs/login-flowchart.pdf" target="_blank" rel="noopener noreferrer">How to buy</a>
+                    {/* <Link href="/how-to-buy" className="text-light">
                         How to buy
-                    </Link>
+                    </Link> */}
                 </li>
                 <li className="pe-3">
                   <Link href="/b2b" className="text-light">
