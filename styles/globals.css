@@ -94,9 +94,11 @@ a {
 .font-jost {
   font-family: "Jost", sans-serif !important;
 }
+
 .font-italic {
   font-style: italic;
 }
+
 .sec-height {
   height: 500px !important;
 }
@@ -208,6 +210,17 @@ header css starts
   box-shadow: none !important;
   border: 1px solid #f38120 !important;
 }
+
+.google-login-btn {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+}
+
+.google-login-btn:hover {
+  border-color: var(--bs-primary);
+}
+
 
 /* .auth-form-center{
 	margin-left: 50%;
@@ -399,7 +412,7 @@ button#dropdown-basic-button {
   transform: translate(-42%, -192px) !important;
   border: 0;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
-    rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 .main-manu .dropdown-menu[data-bs-popper] {
@@ -1004,6 +1017,7 @@ banner css starts
   color: #fff !important;
   background: #f38120 !important;
 }
+
 .offer_round_shape {
   position: absolute;
   /* background-image: url(../public/offer_shape.png)no-repeat center; */
@@ -1013,6 +1027,7 @@ banner css starts
   width: 55px;
   /* z-index: 9999; */
 }
+
 .offer_text {
   position: absolute;
   top: 43px;
@@ -1020,21 +1035,25 @@ banner css starts
   height: 60px;
   width: 60px;
 }
+
 .round_offer .offer_percent {
   position: absolute;
   margin-top: -6px !important;
   padding-left: 18px;
 }
+
 .single_pro_offer {
   position: absolute;
   left: 55%;
   bottom: 5px;
 }
+
 .single_pro_offer_img {
   top: 0;
   right: 0;
   height: 70px;
 }
+
 .single_offer_text {
   position: absolute;
   top: 0;
@@ -1047,13 +1066,16 @@ banner css starts
   width: 100%;
   height: 100%;
 }
+
 .save_offer {
   font-size: 18px;
 }
+
 .save_offer_percent {
   font-size: 18px;
   margin-top: -10px !important;
 }
+
 /*===============
  combo-pack css ends
 =================*/
@@ -1503,6 +1525,7 @@ product part css start
   margin-left: 50% !important;
   transform: translate(-50%);
 }
+
 /* .single_product_shape{
   background-image: url(../public/offer_shape.png);
 } */
@@ -1871,9 +1894,11 @@ tr {
   background: red;
   transition: all linear 0.3s;
 }
+
 .place_order_border {
   border: 1px dashed #f38120;
 }
+
 .order-icon-bg:hover {
   color: #fff !important;
   background: red;
@@ -2035,21 +2060,25 @@ button.navbar-toggler {
     display: none;
   }
 }
-@media (min-width: 768px) and (max-width: 992px){
+
+@media (min-width: 768px) and (max-width: 992px) {
   .offer_round_shape {
     top: 23%;
     left: 2%;
     height: 45px;
     width: 45px;
+  }
+
+  .offer_text {
+    top: 45px;
+    left: -1%;
+  }
+
+  .offer_text_tab {
+    font-size: 12px !important;
+  }
 }
-.offer_text {
-  top: 45px;
-  left: -1%;
-}
-.offer_text_tab{
-  font-size: 12px!important;
-}
-}
+
 @media (max-width: 992px) {
 
   .category-img-one {
@@ -2057,6 +2086,7 @@ button.navbar-toggler {
     width: 100%;
     object-fit: cover !important;
   }
+
   .footer_manu_list {
     display: -webkit-inline-box !important;
     padding-top: 10px;
@@ -2066,30 +2096,37 @@ button.navbar-toggler {
 
 @media (max-width: 767px) {
   .offer_text_tab {
-    font-size: 12px!important;
+    font-size: 12px !important;
   }
+
   .offer_round_shape {
     top: 21%;
     left: 6%;
-    height: 47px!important;
-    width: 47px!important;
-}
-.offer_text {
-  left: 4%;
-}
+    height: 47px !important;
+    width: 47px !important;
+  }
+
+  .offer_text {
+    left: 4%;
+  }
+
   .single_pro_offer {
     left: 60% !important;
   }
+
   .overlay-div {
     opacity: 1 !important;
   }
+
   .category-img-one {
     height: auto !important;
     object-fit: cover !important;
   }
+
   .category-title {
     font-size: 25px !important;
   }
+
   .screen-opacity {
     display: none;
   }
@@ -2161,6 +2198,7 @@ button.navbar-toggler {
   .responsive_form {
     display: block !important;
   }
+
   .screen-opacity {
     display: none;
   }
@@ -2241,40 +2279,50 @@ button.navbar-toggler {
   .offer_round_shape {
     top: 21%;
     left: 6%;
-    height: 55px!important;
-    width: 55px!important;
-}
-.offer_text {
-  left: 5%;
-  top: 44px;
-}
+    height: 55px !important;
+    width: 55px !important;
+  }
+
+  .offer_text {
+    left: 5%;
+    top: 44px;
+  }
+
   .single_pro_offer {
     left: 67% !important;
-}
+  }
+
   .home-cat-title {
     font-size: 18px !important;
   }
+
   .billing_details {
     font-size: 20px !important;
   }
+
   .card-border {
     padding-left: 20px !important;
   }
+
   .category-img-one {
     height: auto !important;
     width: 100%;
     object-fit: cover !important;
   }
+
   .support-icons {
     height: 50px !important;
     width: 50px !important;
   }
+
   .phone_res {
     font-size: 16px !important;
   }
+
   .responsive_form {
     display: block !important;
   }
+
   .overlay-div {
     opacity: 1 !important;
   }
@@ -2287,6 +2335,7 @@ button.navbar-toggler {
     font-size: 12px !important;
     margin-left: 8px;
   }
+
   button#controlled-tab-Specification {
     font-size: 12px !important;
     margin-left: 8px;
@@ -2628,10 +2677,12 @@ Responsive part end
 .auth-terms-link {
   color: inherit;
 }
+
 .auth-terms-link:hover {
   text-decoration: underline;
   color: #f38120;
 }
+
 .auth-bottom-link span {
   margin-right: 0.25em;
 }
@@ -2774,7 +2825,7 @@ Responsive part end
 .invoice-box.rtl {
   direction: rtl;
   font-family: Tahoma, "Helvetica Neue", "Helvetica", Helvetica, Arial,
-    sans-serif;
+  sans-serif;
 }
 
 .invoice-box.rtl table {
@@ -2811,26 +2862,33 @@ Responsive part end
 .serial_number {
   width: 10%;
 }
+
 .items {
   width: 50%;
 }
+
 .quantity {
   width: 10%;
 }
+
 .prices {
   width: 30%;
 }
+
 .order_id {
   text-align: right !important;
 }
+
 /* responsive part here */
 @media (max-width: 576px) {
   .d-flex.justify-content-end.mb-2.pay_now {
     justify-content: center !important;
   }
+
   p.fw-bold.order_id {
     text-align: center !important;
   }
+
   .invoice_card {
     width: 200px !important;
     margin-left: 50%;

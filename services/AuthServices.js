@@ -106,3 +106,29 @@ export const verifyEmailCustomer = async (token) => {
         tostify(toast, 'error', error);
     }
 }
+
+/**
+ *
+ * @return {Promise<AxiosResponse<any>>}
+ */
+export const googleLogin = async () => {
+    try {
+        return await axios.get(`/ecom/login/google`);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+/**
+ *
+ * @return {Promise<AxiosResponse<any>>}
+ */
+export const googleLoginCallback = async (params = {}) => {
+    try {
+        return await axios.get(`/ecom/login/google/callback`, {
+            params: params
+        });
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
