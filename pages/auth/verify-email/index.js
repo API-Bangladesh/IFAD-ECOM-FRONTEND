@@ -32,16 +32,15 @@ const VerificationNotificationPage = () => {
                              className="login-form-center shadow px-4 py-5 rounded-1 bg-white">
                             <h4 className="font-30 pb-4 font-lato fw-semibold text-capitalize">Verify Email</h4>
                             <p className="mb-4">
-                                Please check your email and click on the verification link button. If you haven't
-                                received
-                                the email, please click "Resend Verification Link."
+                                Please click the 'Send Verification Link' button to receive an email with the
+                                verification link.
                             </p>
 
                             <button type="button"
                                     className="font-poppins btn btn-warning submit-btn w-100 rounded-0 px-5 py-2 text-capitalize"
                                     onClick={(event) => handleSubmit(event)}
                                     disabled={isLoading}>
-                                Resend Verification Link
+                                Send Verification Link
                             </button>
                         </Col>
                     </div>

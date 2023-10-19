@@ -2,7 +2,7 @@ import React, {Fragment, useState} from 'react';
 import Link from 'next/link';
 import {Col, Container} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import {loginCustomer} from "../../services/AuthServices";
+import {googleLogin, loginCustomer} from "../../services/AuthServices";
 import {login, setToken} from "../../utils/auth";
 import {useDispatch} from "react-redux";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
@@ -52,6 +52,16 @@ const LoginPage = () => {
         });
     };
 
+    const handleGoogleLogin = (event) => {
+        event.preventDefault();
+
+        googleLogin().then((response) => {
+            if (response?.data?.url) {
+                window.location.href = response.data.url;
+            }
+        });
+    }
+
     return (
         <Fragment>
             <Head>
@@ -100,6 +110,12 @@ const LoginPage = () => {
                                     <Link href="/auth/forgot-password">
                                         Forgot Password?
                                     </Link>
+                                </div>
+
+                                <div className="mt-4 d-flex justify-content-center">
+                                    <img src="/google-login-btn.png"
+                                         className="google-login-btn" width={280}
+                                         onClick={(event) => handleGoogleLogin(event)} alt="google-login-btn"/>
                                 </div>
                             </Form>
                         </Col>
