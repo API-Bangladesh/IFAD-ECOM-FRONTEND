@@ -55,7 +55,7 @@ export default function Header() {
             <div>
               <ul className="font-poppins manu-font-one text-white d-flex justify-content-end align-items-center py-1">
                 <li className="pe-3">
-                  <a className="text-light" href="/docs/login-flowchart.pdf" target="_blank" rel="noopener noreferrer">How to buy</a>
+                  <a className="text-light" href="/docs/how-to-buy.pdf" target="_blank" rel="noopener noreferrer">How to buy</a>
                     {/* <Link href="/how-to-buy" className="text-light">
                         How to buy
                     </Link> */}
@@ -89,7 +89,7 @@ export default function Header() {
                   <Fragment>
                     <li className="pe-3 login-modal">
                       <Link href="/auth/login" className="text-light">
-                        Login
+                        Sign In
                       </Link>
                     </li>
                     <li className="">
