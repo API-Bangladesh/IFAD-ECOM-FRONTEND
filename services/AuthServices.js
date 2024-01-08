@@ -32,6 +32,32 @@ export const loginCustomer = async (data, setErrors) => {
  *
  * @return {Promise<void>}
  */
+export const sendOtpToCustomer = async (data, setErrors) => {
+    try {
+        return await axios.post('/ecom/send-otp', data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+        makeInputErrors(error, setErrors);
+    }
+}
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const verifyOtpToCustomer = async (data, setErrors) => {
+    try {
+        return await axios.post('/ecom/verify-otp', data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+        makeInputErrors(error, setErrors);
+    }
+}
+
+/**
+ *
+ * @return {Promise<void>}
+ */
 export const logoutCustomer = async () => {
     try {
         await axios.post('/ecom/logout');
