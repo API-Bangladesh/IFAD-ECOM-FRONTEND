@@ -32,32 +32,6 @@ export const loginCustomer = async (data, setErrors) => {
  *
  * @return {Promise<void>}
  */
-export const sendOtpToCustomer = async (data, setErrors) => {
-    try {
-        return await axios.post('/ecom/send-otp', data);
-    } catch (error) {
-        tostify(toast, 'error', error);
-        makeInputErrors(error, setErrors);
-    }
-}
-
-/**
- *
- * @return {Promise<void>}
- */
-export const verifyOtpToCustomer = async (data, setErrors) => {
-    try {
-        return await axios.post('/ecom/verify-otp', data);
-    } catch (error) {
-        tostify(toast, 'error', error);
-        makeInputErrors(error, setErrors);
-    }
-}
-
-/**
- *
- * @return {Promise<void>}
- */
 export const logoutCustomer = async () => {
     try {
         await axios.post('/ecom/logout');
@@ -158,3 +132,67 @@ export const googleLoginCallback = async (params = {}) => {
         tostify(toast, 'error', error);
     }
 }
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const sendOtpViaEmail = async data => {
+    try {
+        return await axios.post('/ecom/send-otp-via-email', data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const verifyOtpViaEmail = async (data, setErrors) => {
+    try {
+        return await axios.post('/ecom/verify-otp-via-email', data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+        makeInputErrors(error, setErrors);
+    }
+}
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const sendOtpViaPhone = async data => {
+    try {
+        return await axios.post('/ecom/send-otp-via-phone', data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+    }
+}
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const verifyOtpViaPhone = async (data, setErrors) => {
+    try {
+        return await axios.post('/ecom/verify-otp-via-phone', data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+        makeInputErrors(error, setErrors);
+    }
+}
+
+/**
+ *
+ * @return {Promise<void>}
+ */
+export const verifyPasswordWithPhone = async (data, setErrors) => {
+    try {
+        return await axios.post('/ecom/verify-password-with-phone', data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+        makeInputErrors(error, setErrors);
+    }
+}
+

@@ -14,14 +14,15 @@ import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 
 const UserInfoTab = () => {
 	const dispatch = useDispatch();
-  const router = useRouter();
-  const {prev} = router.query;
+	const router = useRouter();
+	const {prev} = router.query;
 	const auth = useSelector((state) => state.auth);
 
 	const [errors, setErrors] = useState({});
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
+		phone: "",
 		date_of_birth: "",
 		gender: "",
 		phone_number: "",
@@ -34,6 +35,7 @@ const UserInfoTab = () => {
 			setFormData({
 				name: auth?.name,
 				email: auth?.email,
+				phone: auth?.phone,
 				date_of_birth: auth?.date_of_birth,
 				gender: auth?.gender,
 				phone_number: auth?.phone_number,
@@ -74,40 +76,41 @@ const UserInfoTab = () => {
 					setFormData({
 						name: customer?.name,
 						email: customer?.email,
+						phone: customer?.phone,
 						date_of_birth: customer?.date_of_birth,
 						gender: customer?.gender,
 						phone_number: customer?.phone_number,
 						old_image: customer?.image,
 					});
 
-          if (prev && prev === "register") {
-            router.push({
-              pathname: '/my-account',
-              query: {
-                  'tab': 'address'
-              }
-            });
-          }
+					if (prev && prev === "register") {
+						router.push({
+							pathname: '/my-account',
+							query: {
+								'tab': 'address'
+							}
+						});
+					}
 				}
 			}
 		});
 	};
 
-  const [selectedImage, setSelectedImage] = useState(null);
+	const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
+	const handleImageUpload = (event) => {
+		const file = event.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
+		if (file) {
+			const reader = new FileReader();
 
-      reader.onload = (e) => {
-        setSelectedImage(e.target.result);
-      };
+			reader.onload = (e) => {
+				setSelectedImage(e.target.result);
+			};
 
-      reader.readAsDataURL(file);
-    }
-  }
+			reader.readAsDataURL(file);
+		}
+	}
 
 	return (
 		<div className="user-information">
@@ -118,22 +121,22 @@ const UserInfoTab = () => {
 						<div className="d-flex justify-content-center">
 							<Image
 								// src={formData?.old_image ? `${API_URL}/${formData.old_image}` : '/user/man.png'}
-                src={selectedImage ? selectedImage : formData?.old_image ? `${API_URL}/${formData.old_image}` : '/user/man.png'}
+								src={selectedImage ? selectedImage : formData?.old_image ? `${API_URL}/${formData.old_image}` : '/user/man.png'}
 								alt="profile" height="200" weight="200" className="profile-picture mb-3"/>
 						</div>
 						<Form.Group controlId="formFile" className="mb-3">
 							<Form.Control
 								name="img"
 								type="file"
-                accept="image/*"
+								accept="image/*"
 								className="rounded-0 form-deco"
 								onChange={
-                  (e) => {
-                    setFormData({...formData, image: e.target.files[0]})
-                    handleImageUpload(e)
-                  }
-                }
-              />
+									(e) => {
+										setFormData({...formData, image: e.target.files[0]})
+										handleImageUpload(e)
+									}
+								}
+							/>
 							<small className="text-muted text-lowercase">Max size 2MB and type jpg, png & gif
 								format.</small>
 							{errors?.image && (
@@ -148,15 +151,28 @@ const UserInfoTab = () => {
 										  value={formData.name} onChange={handleChange}
 										  className="form-padd rounded-0 form-deco" required={true}/>
 						</Form.Group>
-						<Form.Group className="mb-3" controlId="formBasicEmail">
-							<Form.Label>Email<span className="text-danger"> *</span></Form.Label>
-							<Form.Control name="email" type="email" value={formData.email}
-										  className="form-padd rounded-0 form-deco" readOnly={true} disabled={true}/>
-						</Form.Group>
+						<div className="row">
+							<div className="col">
+								<Form.Group className="mb-3" controlId="formBasicEmail">
+									<Form.Label>Email<span className="text-danger"> *</span></Form.Label>
+									<Form.Control name="email" type="email" value={formData.email}
+												  className="form-padd rounded-0 form-deco" readOnly={true}
+												  disabled={true}/>
+								</Form.Group>
+							</div>
+							<div className="col">
+								<Form.Group className="mb-3" controlId="formBasicEmail">
+									<Form.Label>Phone<span className="text-danger"> *</span></Form.Label>
+									<Form.Control name="phone" type="text" value={formData.phone}
+												  className="form-padd rounded-0 form-deco" readOnly={true}
+												  disabled={true}/>
+								</Form.Group>
+							</div>
+						</div>
 						<Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label htmlFor="" className="form-label text-capitalize">
 								Date of Birth
-                {/* <span className="text-danger"> *</span> */}
+								{/* <span className="text-danger"> *</span> */}
 							</Form.Label>
 							<Form.Control
 								type="date"
