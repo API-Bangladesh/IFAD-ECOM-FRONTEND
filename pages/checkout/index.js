@@ -173,8 +173,8 @@ const CheckoutPage = () => {
           setIsLoading(false);
 
           setTimeout(() => {
-            router.push("/my-account?tab=order");
-          }, 2500);
+            router.push("/my-account?tab=order&order_status=success");
+          }, 1000);
         }
       });
     }
