@@ -43,7 +43,7 @@ export default function App({Component, pageProps}) {
       // Delay showing the popup after 2 seconds
       const delay = setTimeout(() => {
         // Check if the user has visited the site before
-        const hasVisited = localStorage.getItem('hasVisited');
+        const hasVisited = localStorage.getItem('hasVisited') || true;
 
         // If not, show the popup
         if (hasVisited) {
