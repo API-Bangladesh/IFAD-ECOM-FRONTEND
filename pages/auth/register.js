@@ -53,7 +53,9 @@ function RegisterPage() {
                     location.href = '/auth/verify-email';
                 }
             }
-        }).finally(() => {
+
+            setIsLoading(false);
+        }).catch(() => {
             setIsLoading(false);
         });
     }
@@ -108,9 +110,8 @@ function RegisterPage() {
                                         <Fragment>
                                             <InputGroup.Text className="bg-transparent rounded-0 px-2">
                                                 <select value={code} onChange={e => setCode(e.target.value)}
-                                                        className="bg-transparent">
+                                                        className="bg-transparent outline-0">
                                                     <option selected value="+880">BD</option>
-                                                    <option selected value="+970">IN</option>
                                                 </select>
                                             </InputGroup.Text>
                                             <InputGroup.Text className="bg-transparent rounded-0 px-2">
@@ -160,7 +161,7 @@ function RegisterPage() {
                                 <Button type="submit"
                                         className="btn btn-primary w-100 submit-btn rounded-0 px-5 py-2 text-capitalize font-poppins"
                                         disabled={isLoading}>
-                                    Register
+                                    {isLoading ? 'Loading...' : 'Register'}
                                 </Button>
 
                                 <div className="pt-3 d-flex justify-content-center auth-bottom-link">

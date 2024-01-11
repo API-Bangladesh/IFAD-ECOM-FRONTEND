@@ -239,9 +239,9 @@ const LoginPage = () => {
                                                 </InputGroup.Text>
                                                 <InputGroup.Text className="bg-transparent rounded-0 px-2">
                                                     <select value={code} onChange={e => setCode(e.target.value)}
-                                                            className="bg-transparent">
+                                                            className="bg-transparent outline-0"
+                                                            disabled={passedNextStep}>
                                                         <option selected value="+880">BD</option>
-                                                        <option selected value="+970">IN</option>
                                                     </select>
                                                 </InputGroup.Text>
                                                 <InputGroup.Text className="bg-transparent rounded-0 px-2">
@@ -256,7 +256,7 @@ const LoginPage = () => {
 
                                         <Form.Control type="text" name='text' value={emailOrPhone}
                                                       onChange={e => handleChangeEmailOrPhone(e)}
-                                                      placeholder="Email or Phone"
+                                                      placeholder="Email or Phone" disabled={passedNextStep}
                                                       className="rounded-0 login-form" id="emailOrPhone"
                                                       required={true}/>
                                     </InputGroup>
