@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import Link from 'next/link';
 import Button from "react-bootstrap/Button";
-import {Col, Container} from "react-bootstrap";
+import {Col, Container, InputGroup} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import {googleLogin, registerCustomer} from "../../services/AuthServices";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
@@ -17,9 +17,12 @@ function RegisterPage() {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [agree, setAgree] = useState(false);
+
+    const [code, setCode] = useState('+880');
 
     const [errors, setErrors] = useState({});
 
@@ -31,6 +34,7 @@ function RegisterPage() {
         registerCustomer({
             name: name,
             email: email,
+            phone: code + '' + phone,
             password: password,
             password_confirmation: confirmPassword,
             agree: agree,
@@ -49,7 +53,9 @@ function RegisterPage() {
                     location.href = '/auth/verify-email';
                 }
             }
-        }).finally(() => {
+
+            setIsLoading(false);
+        }).catch(() => {
             setIsLoading(false);
         });
     }
@@ -90,6 +96,39 @@ function RegisterPage() {
                                                   onChange={e => setEmail(e.target.value)}
                                                   placeholder="Enter email address"
                                                   className="rounded-0 login-form" required={true}/>
+                                    {errors?.email && (
+                                        <small className="text-danger">
+                                            {errors.email}
+                                        </small>
+                                    )}
+                                </Form.Group>
+                                <Form.Group className="mb-3 flex-grow-1" controlId="emailOrPhone">
+                                    <Form.Label>
+                                        Phone Number: <span className="text-danger">*</span>
+                                    </Form.Label>
+                                    <InputGroup>
+                                        <Fragment>
+                                            <InputGroup.Text className="bg-transparent rounded-0 px-2">
+                                                <select value={code} onChange={e => setCode(e.target.value)}
+                                                        className="bg-transparent outline-0">
+                                                    <option selected value="+880">BD</option>
+                                                </select>
+                                            </InputGroup.Text>
+                                            <InputGroup.Text className="bg-transparent rounded-0 px-2">
+                                                {code}
+                                            </InputGroup.Text>
+                                        </Fragment>
+                                        <Form.Control type="text" name='phone' value={phone}
+                                                      onChange={e => setPhone(e.target.value)}
+                                                      placeholder="Enter phone number"
+                                                      className="rounded-0 login-form" id="phone"
+                                                      required={true}/>
+                                    </InputGroup>
+                                    {errors?.phone && (
+                                        <small className="text-danger">
+                                            {errors.phone}
+                                        </small>
+                                    )}
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="">
@@ -105,6 +144,11 @@ function RegisterPage() {
                                                   onChange={e => setConfirmPassword(e.target.value)}
                                                   placeholder="Enter confirm password"
                                                   className="rounded-0 login-form" required={true}/>
+                                    {errors?.password && (
+                                        <small className="text-danger">
+                                            {errors.password}
+                                        </small>
+                                    )}
                                 </Form.Group>
                                 <Form.Group className="mb-3 text-secondary d-flex" controlId="">
                                     <Form.Check type="checkbox" label="Agree"
@@ -117,7 +161,7 @@ function RegisterPage() {
                                 <Button type="submit"
                                         className="btn btn-primary w-100 submit-btn rounded-0 px-5 py-2 text-capitalize font-poppins"
                                         disabled={isLoading}>
-                                    Register
+                                    {isLoading ? 'Loading...' : 'Register'}
                                 </Button>
 
                                 <div className="pt-3 d-flex justify-content-center auth-bottom-link">
