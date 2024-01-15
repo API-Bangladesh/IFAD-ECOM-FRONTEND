@@ -16,7 +16,7 @@ import Head from "next/head";
 
 const MyAccountPage = () => {
     const router = useRouter();
-    const {tab} = router.query;
+    const {tab, order_status} = router.query;
 
     const [activeKey, setActiveKey] = useState('account-info');
 
@@ -115,7 +115,7 @@ const MyAccountPage = () => {
                                             <WishlistTab/>
                                         </Tab.Pane>
                                         <Tab.Pane eventKey="order" className="text-capitalize font-16 font-lato">
-                                            <OrdersTab/>
+                                            <OrdersTab orderStatus={order_status} />
                                         </Tab.Pane>
                                         <Tab.Pane eventKey="change-password"
                                                   className="text-capitalize font-16 font-lato">

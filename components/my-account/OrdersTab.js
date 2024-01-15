@@ -4,7 +4,7 @@ import {fetchOrders} from "../../services/OrderServices";
 import {currency, getOrderStatusName, getPaymentStatusName} from "../../utils/helpers";
 import Link from "next/link";
 
-const OrdersTab = () => {
+const OrdersTab = ({orderStatus}) => {
     const [orders, setOrders] = useState([]);
 
     const fetchOrdersData = () => {
@@ -22,9 +22,27 @@ const OrdersTab = () => {
         fetchOrdersData();
     }, []);
 
+    const [showStatus, setShowStatus] = useState(true);
+
+    const handleCloseButtonClick = () => {
+      setShowStatus(false);
+    };
+
     return (
         <Fragment>
+           {orderStatus && orderStatus === 'success' && showStatus && (
+              <div className="mb-4 text-success order-success-message">
+                <h2>Thanks for placing your order.</h2>
+                <button
+                  className="close"
+                  onClick={handleCloseButtonClick}
+                >
+                  ×
+                </button>
+              </div>
+            )}
             <Row>
+
                 <h1 className="text-capitalize font-32 fw-bolder font-jost pb-4 ">
                     Ordered Products
                 </h1>

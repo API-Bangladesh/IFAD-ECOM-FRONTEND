@@ -10,6 +10,7 @@ import FeatureSection from "../../components/home/FeatureSection";
 import {fetchHomeBanners} from "../../services/CommonServices";
 import AddBanner from "../../components/common/AddBanner";
 import ComboProductScroll from "../../components/home/ComboProductScroll";
+// import DiscountedProductScroll from "../../components/home/DiscountedProductScroll";
 import {makeTitle} from "../../utils/helpers";
 import Head from "next/head";
 
@@ -57,7 +58,7 @@ const HomePage = () => {
 
 			{banners && banners.length && <AddBanner imagePath={banners?.[0]?.item_image}/>}
 
-			
+
 
 			{categories.map((category, key) => {
 				return (

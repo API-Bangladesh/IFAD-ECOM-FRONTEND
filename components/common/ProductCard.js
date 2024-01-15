@@ -11,6 +11,7 @@ import {useRouter} from "next/router";
 
 const ProductCard = ({
                          id,
+                         categoryId,
                          title,
                          salePrice,
                          offerPrice,
@@ -47,11 +48,11 @@ const ProductCard = ({
         try {
             dispatch(SET_CART_ITEM({
                 id: randomInt(11111111, 999999999),
+                categoryId,
                 inventory_id: id,
                 quantity: 1,
                 unit_price: isRunningOffer ? offerPrice : salePrice,
                 total: isRunningOffer ? offerPrice : salePrice,
-
                 type: 'product',
                 sku: sku,
                 title: title,

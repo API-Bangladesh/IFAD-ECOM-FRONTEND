@@ -17,7 +17,7 @@ import {
 } from "../../services/AddressServices";
 import {getAddressToString, makeTitle, tostify} from "../../utils/helpers";
 import {toast} from "react-toastify";
-import {makePayment, saveOrder} from "../../services/OrderServices";
+import {makePayment, saveOrder, checkCoupon} from "../../services/OrderServices";
 import {fetchPaymentMethods} from "../../services/PaymentMethodServices";
 import {
   RESET_CART,
@@ -36,6 +36,7 @@ const CheckoutPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const auth = useSelector((state) => state.auth);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -173,8 +174,8 @@ const CheckoutPage = () => {
           setIsLoading(false);
 
           setTimeout(() => {
-            router.push("/my-account?tab=order");
-          }, 2500);
+            router.push("/my-account?tab=order&order_status=success");
+          }, 1000);
         }
       });
     }
@@ -190,6 +191,86 @@ const CheckoutPage = () => {
       });
     }
   };
+
+  const [coupon, setCoupon] = useState({
+    code: "",
+    isChecking: false,
+    isApplied: false,
+    discount: 0,
+  })
+
+  const handleSendCoupon = (e) => {
+    e.preventDefault()
+    setCoupon(prev => ({
+      ...prev,
+      isChecking: true
+    }))
+
+    let items = [];
+
+    cart.items.forEach((item) => {
+        if (item.hasOwnProperty("type") && item["type"] === "combo") {
+          const obj = {
+            type: item?.type,
+            combo_id: item?.combo_id,
+            quantity: item?.quantity,
+            unit_price: item?.unit_price,
+            total: item?.total,
+            category_id: item?.categoryId
+          }
+          items.push(obj);
+        } else {
+          const obj = {
+            type: item?.type,
+            inventory_id: item?.inventory_id,
+            quantity: item?.quantity,
+            unit_price: item?.unit_price,
+            total: item?.total,
+            category_id: item?.categoryId
+          }
+          items.push(obj);
+        }
+    });
+
+    checkCoupon({
+      coupon_code: coupon?.code,
+      sub_total: cart.subTotal,
+      shipping_charge: totalShippingCharge,
+      grand_total: cart.subTotal + totalShippingCharge,
+      customer_id: auth?.id,
+      cart: items,
+      shipping_address: getAddressToString(cart.shippingAddress),
+      shipping_address_json: cart.shippingAddress,
+      billing_address: getAddressToString(cart.billingAddress),
+      billing_address_json: cart.billingAddress,
+      tax: cart.tax,
+      total_weight: totalWeight,
+    }).then((response) => {
+      console.log(response)
+      setTimeout(() => {
+        setCoupon(prev => ({
+          ...prev,
+          code: "",
+          isChecking: false
+        }))
+        if (response?.data?.discount_coupon_amount) {
+          setCoupon(prev => ({
+            ...prev,
+            discount: response?.data?.discount_coupon_amount
+          }))
+
+          // dispatch(RESET_CART());
+          // setIsLoading(false);
+
+          // window.location.href = response?.data?.GatewayPageURL;
+        } else {
+          tostify(toast, "error", response || {
+            message: "Invalid coupon"
+          });
+        }
+      }, 2000)
+    });
+  }
 
   return (
       <Fragment>
@@ -556,27 +637,37 @@ const CheckoutPage = () => {
                     </tbody>
                   </table>
                   <div className="">
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-between">
                       <p className="font-lato text-capitalize font-20 pe-2 phone_res">
                         subtotal :{" "}
                       </p>
                       <p className=" font-20 phone_res ">{cart.subTotal} Tk</p>
                     </div>
-                    <div className="d-flex justify-content-center">
+
+                    {coupon?.discount && coupon?.discount > 0 ?
+                    <div className="d-flex justify-content-between">
                       <p className="font-lato text-capitalize font-20 pe-2 phone_res">
-                        shipping charge :{" "}
+                        Discount ({coupon?.code}) :{" "}
+                      </p>
+                      <p className=" font-20 phone_res ">{coupon?.discount} Tk</p>
+                    </div> : ""
+                    }
+
+                    <div className="d-flex justify-content-between">
+                      <p className="font-lato text-capitalize font-20 pe-2 phone_res">
+                        shipping charge ({totalWeight.toFixed(2)} kg):{" "}
                       </p>
                       <p className=" font-20  phone_res">
-                        {totalShippingCharge} Tk ({totalWeight.toFixed(2)} kg)
+                        {totalShippingCharge} Tk
                       </p>
                     </div>
 
-                    <div className="d-flex justify-content-center">
-                      <p className="font-lato text-warning text-capitalize font-20 pe-2 phone_res">
+                    <div className="d-flex justify-content-between">
+                      <p className="font-lato text-capitalize font-20 pe-2 phone_res theme-text">
                         total :{" "}
                       </p>
                       <p className="font-20 theme-text phone_res">
-                        {cart.subTotal + totalShippingCharge || 0} Tk
+                        {cart.subTotal + (totalShippingCharge || 0) - (coupon?.discount || 0)} Tk
                       </p>
                     </div>
                   </div>
@@ -635,6 +726,46 @@ const CheckoutPage = () => {
                         Privacy policy
                       </Link>
                     </Form.Group>
+                  </div>
+
+                  <div className="coupon mb-4 mt-4">
+                    <label className="mb-2" htmlFor="coupon">Have a coupon?</label>
+                    <div className="coupon_input">
+                      <input
+                        id="coupon"
+                        type="search"
+                        name="coupon"
+                        placeholder="Enter coupon code"
+                        onChange={e => setCoupon(prev => ({
+                          ...prev,
+                          code: e.target.value
+                        }))}
+                        disabled={coupon?.isChecking}
+                      />
+                      <button
+                        type="button"
+                        // className="d-flex align-items-center justify-content-center text-capitalize place_order_border cursor-pointer font-16 w-100 place-order mt-4 font-lato fw-bold theme-text"
+                        onClick={(e) => handleSendCoupon(e)}
+                        disabled={coupon?.isChecking}
+                    >
+                      {coupon?.isChecking && (
+                          <span className="me-2">
+                            <Oval
+                                height={18}
+                                width={18}
+                                color="#f38120"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                                visible={true}
+                                ariaLabel='oval-loading'
+                                secondaryColor="#f38120"
+                                strokeWidth={6}
+                                strokeWidthSecondary={6}
+                            />
+                          </span>
+                      )} Apply
+                    </button>
+                    </div>
                   </div>
 
                   <div className="">

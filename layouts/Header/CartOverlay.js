@@ -1,4 +1,4 @@
-import {Fragment, useState} from "react";
+import {Fragment, useState, useEffect} from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import {IoMdCart} from "react-icons/io";
@@ -59,10 +59,34 @@ function CartOverlay() {
     }
   };
 
+  const [isFixed, setIsFixed] = useState(false); // State to track whether the button should be fixed
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check the scroll position and update the state accordingly
+      if (window.scrollY > 100) {
+        setIsFixed(true);
+      } else {
+        setIsFixed(false);
+      }
+    };
+
+    // Add the scroll event listener when the component mounts
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); // Empty dependency array ensures that the effect runs only once
+
+  // Additional class for styling when the button is fixed
+  const additionalClass = isFixed ? 'floating-cart-fixed' : '';
+
   return (
       <Fragment>
         <Search/>
-        <Button onClick={handleShow} className="me-2 off-canvas text-danger">
+        <Button onClick={handleShow} className={`floating-cart-btn me-2 off-canvas text-danger ${additionalClass}`}>
           <div className="d-flex">
             <IoMdCart className="off-canvas-icon"/>
             <span

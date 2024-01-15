@@ -1898,6 +1898,8 @@ tr {
 
 .place_order_border {
   border: 1px dashed #f38120;
+  background-color: #f38120 !important;
+  color: #fff !important;
 }
 
 .order-icon-bg:hover {
@@ -2895,4 +2897,110 @@ Responsive part end
     margin-left: 50%;
     transform: translate(-50%);
   }
+}
+
+/* popup banner */
+.onload-modal {}
+.onload-popup {
+  width: 100%;
+}
+.onload-popup-img {
+  width: 100%;
+  height: 0;
+  padding-top: 66%;
+  position: relative;
+}
+.onload-popup-img img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  object-position: top center;
+}
+.onload-modal .close {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  opacity: 1;
+  position: absolute;
+  right: 0.75rem;
+  top: 1rem;
+  cursor: pointer;
+}
+.close  svg {
+  /* fill: #000; */
+  fill: #111;
+}
+
+/* floating-cart-btn */
+.floating-cart-btn {
+  /* position: fixed;
+  right: 0;
+  top: 50%;
+  background-color: #fff !important;
+  z-index: 999;
+  box-shadow: 0 0 10px #ddd;
+  padding: 16px 10px !important; */
+}
+.floating-cart-fixed {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff !important;
+  z-index: 999;
+  box-shadow: 0 0 10px #ddd;
+  padding: 16px 10px !important;
+}
+
+.order-success-message {
+  background-color: #D9EEE1;
+  padding: 20px 20px;
+  font-size: 24px;
+  position: relative;
+  font-weight: bold;
+  text-transform: none;
+  text-align: center;
+}
+.order-success-message .close {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* coupon */
+.coupon {}
+.coupon_input {
+  position: relative;
+  width: calc(100% - 100px - 10px);
+}
+.coupon_input input {
+  border: 1px dashed #f38120;
+  width: 100%;
+  line-height: 22px;
+  padding: 10px 14px;
+}
+.coupon_input input:focus {
+  border: 1px solid #f38120;
+  outline: none;
+}
+.coupon_input button {
+  position: absolute;
+  right: -10px;
+  top: 0;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  transform: translateX(100%);
+  background-color: transparent;
+  border: 1px dashed #f38120;
+  color: #f38120;
+  font-weight: bold;
 }

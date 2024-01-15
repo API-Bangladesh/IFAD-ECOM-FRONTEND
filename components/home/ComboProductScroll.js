@@ -91,6 +91,7 @@ const ComboProductScroll = ({title}) => {
                                             <div className="ms-3 me-3 mb-3">
                                                 <ComboProductCard
                                                     id={combo.id}
+                                                    categoryId={combo.combo_category_id}
                                                     title={combo.title}
                                                     salePrice={combo.sale_price}
                                                     offerPrice={combo.offer_price}

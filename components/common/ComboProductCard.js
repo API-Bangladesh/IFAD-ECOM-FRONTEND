@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 
 const ComboProductCard = ({
   id,
+  categoryId,
   title,
   salePrice,
   offerPrice,
@@ -49,6 +50,7 @@ const ComboProductCard = ({
       dispatch(
         SET_CART_ITEM({
           id: randomInt(11111111, 999999999),
+          categoryId,
           combo_id: id,
           quantity: 1,
           unit_price: isRunningOffer ? offerPrice : salePrice,

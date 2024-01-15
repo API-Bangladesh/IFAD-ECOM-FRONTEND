@@ -14,7 +14,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';*/
 import AOS from "aos";
-import {Fragment, useEffect} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import "aos/dist/aos.css";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
@@ -23,6 +23,7 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from "../store";
 import MessengerChatBot from "../components/common/MessengerChatBot";
+import PopupBanner from '../components/common/PopupBanner';
 
 export default function App({Component, pageProps}) {
 
@@ -35,6 +36,30 @@ export default function App({Component, pageProps}) {
     }, []);
 
     // https://www.npmjs.com/package/nextjs-progressbar
+
+    const [showPopup, setShowPopup] = useState(false);
+
+    useEffect(() => {
+      // Delay showing the popup after 2 seconds
+      const delay = setTimeout(() => {
+        // Check if the user has visited the site before
+        const hasVisited = localStorage.getItem('hasVisited') || true;
+
+        // If not, show the popup
+        if (hasVisited) {
+          setShowPopup(true);
+
+          // Mark the user as visited
+          localStorage.setItem('hasVisited', 'true');
+        }
+      }, 2000);
+
+      return () => clearTimeout(delay);
+    }, []);
+
+    const closePopup = () => {
+      setShowPopup(false);
+    };
 
     return (
         <Fragment>
@@ -54,6 +79,8 @@ export default function App({Component, pageProps}) {
                     />
 
                     <MessengerChatBot />
+
+                    <PopupBanner show={showPopup} onClose={closePopup} />
                 </Layout>
             </SSRProvider>
         </Fragment>
