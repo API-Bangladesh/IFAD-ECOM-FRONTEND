@@ -211,16 +211,17 @@ header css starts
   border: 1px solid #f38120 !important;
 }
 
-.google-login-btn {
+.google-login-btn,
+.facebook-login-btn {
   cursor: pointer;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
 }
 
-.google-login-btn:hover {
+.google-login-btn:hover,
+.facebook-login-btn:hover {
   border-color: var(--bs-primary);
 }
-
 
 /* .auth-form-center{
 	margin-left: 50%;
