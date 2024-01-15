@@ -126,6 +126,7 @@ const CategoryPage = () => {
                                     <div className="col-lg-4 col-md-6 text-center mb-4" key={key}>
                                         <ProductCard
                                             id={inventory.id}
+                                            categoryId={inventory?.product.category_id}
                                             title={inventory.title}
                                             sku={inventory.sku}
                                             categoryName={inventory?.product?.category?.name}

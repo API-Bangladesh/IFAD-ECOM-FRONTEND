@@ -1897,6 +1897,8 @@ tr {
 
 .place_order_border {
   border: 1px dashed #f38120;
+  background-color: #f38120 !important;
+  color: #fff !important;
 }
 
 .order-icon-bg:hover {
@@ -2967,4 +2969,37 @@ Responsive part end
   right: 20px;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+/* coupon */
+.coupon {}
+.coupon_input {
+  position: relative;
+  width: calc(100% - 100px - 10px);
+}
+.coupon_input input {
+  border: 1px dashed #f38120;
+  width: 100%;
+  line-height: 22px;
+  padding: 10px 14px;
+}
+.coupon_input input:focus {
+  border: 1px solid #f38120;
+  outline: none;
+}
+.coupon_input button {
+  position: absolute;
+  right: -10px;
+  top: 0;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  transform: translateX(100%);
+  background-color: transparent;
+  border: 1px dashed #f38120;
+  color: #f38120;
+  font-weight: bold;
 }

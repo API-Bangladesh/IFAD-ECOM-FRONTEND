@@ -91,6 +91,7 @@ const CategoryProductScroll = ({title, categoryId}) => {
                                             <div className="ms-3 me-3 mb-3">
                                                 <ProductCard
                                                     id={inventory.id}
+                                                    categoryId={inventory?.product.category_id}
                                                     title={inventory.title}
                                                     salePrice={inventory.sale_price}
                                                     offerPrice={inventory.offer_price}

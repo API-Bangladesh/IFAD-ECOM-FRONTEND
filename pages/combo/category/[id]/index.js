@@ -127,6 +127,7 @@ const ComboCategoryPage = () => {
                                     <div className="col-lg-4 col-md-6 text-center mb-4" key={key}>
                                         <ComboProductCard
                                             id={combo.id}
+                                            categoryId={combo.combo_category_id}
                                             title={combo.title}
                                             sku={combo.sku}
                                             categoryName={combo?.combo_category?.name}

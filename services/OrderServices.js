@@ -59,3 +59,11 @@ export const makePaymentInvoice = async (orderId, data = {}) => {
         tostify(toast, 'error', error);
     }
 }
+
+export const checkCoupon = async (data = {}) => {
+  try {
+      return await axios.post(`/ecom/coupon`, data);
+  } catch (error) {
+      tostify(toast, 'error', error);
+  }
+}
