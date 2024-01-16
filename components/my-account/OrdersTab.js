@@ -3,8 +3,10 @@ import {Fragment, useEffect, useState} from "react";
 import {fetchOrders} from "../../services/OrderServices";
 import {currency, getOrderStatusName, getPaymentStatusName} from "../../utils/helpers";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const OrdersTab = ({orderStatus}) => {
+    const router = useRouter();
     const [orders, setOrders] = useState([]);
 
     const fetchOrdersData = () => {
@@ -26,6 +28,16 @@ const OrdersTab = ({orderStatus}) => {
 
     const handleCloseButtonClick = () => {
       setShowStatus(false);
+
+      // Remove the order_status query parameter
+      const { pathname, query } = router;
+      delete query.order_status;
+
+      // Push the updated query to the router
+      router.push({
+        pathname,
+        query,
+      });
     };
 
     return (

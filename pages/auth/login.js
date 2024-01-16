@@ -59,7 +59,7 @@ const LoginPage = () => {
         if (parseFloat(value)) {
             setIsPhone(true);
             setIsPassword(true);
-            setCode('+880');
+            setCode('88');
 
             setIsEmail(false);
             setIsOtp(false);
@@ -241,7 +241,7 @@ const LoginPage = () => {
                                                     <select value={code} onChange={e => setCode(e.target.value)}
                                                             className="bg-transparent outline-0"
                                                             disabled={passedNextStep}>
-                                                        <option selected value="+880">BD</option>
+                                                        <option selected value="88">BD</option>
                                                     </select>
                                                 </InputGroup.Text>
                                                 <InputGroup.Text className="bg-transparent rounded-0 px-2">
