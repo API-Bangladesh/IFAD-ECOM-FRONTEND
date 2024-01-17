@@ -9,6 +9,7 @@ import {
     verifyOtpViaEmail,
     verifyOtpViaPhone,
     verifyPasswordWithPhone,
+    verifyPassword,
 } from "../../services/AuthServices";
 import {login, setToken} from "../../utils/auth";
 import {useDispatch} from "react-redux";
@@ -58,17 +59,15 @@ const LoginPage = () => {
 
         if (parseFloat(value)) {
             setIsPhone(true);
-            setIsPassword(true);
+            // setIsPassword(true);
             setCode('88');
-
             setIsEmail(false);
-            setIsOtp(false);
+            // setIsOtp(false);
         } else {
             setIsEmail(true);
-            setIsOtp(true);
-
+            // setIsOtp(false);
             setIsPhone(false);
-            setIsPassword(false);
+            // setIsPassword(true);
         }
 
         setEmailOrPhone(value);
@@ -77,33 +76,39 @@ const LoginPage = () => {
     const handleNext = (e) => {
         e.preventDefault();
 
-        if (isEmail && emailOrPhone) {
-            setIsLoading(true)
+        // if (isEmail && emailOrPhone) {
+        //     setIsLoading(true)
 
-            sendOtpViaEmail({
-                email: emailOrPhone
-            }).then((response) => {
-                setIsOtp(true);
-                setPassedNextStep(true);
-                setIsLoading(false);
-            }).catch(() => {
-                setIsLoading(false);
-            });
-        }
+        //     sendOtpViaEmail({
+        //         email: emailOrPhone
+        //     }).then((response) => {
+        //         setIsOtp(false);
+        //         setIsPassword(true);
+        //         setPassedNextStep(true);
+        //         setIsLoading(false);
+        //     }).catch(() => {
+        //         setIsLoading(false);
+        //     });
+        // }
 
-        if (isPhone && emailOrPhone) {
-            setIsLoading(true)
+        // if (isPhone && emailOrPhone) {
+        //     setIsLoading(true)
 
-            sendOtpViaPhone({
-                phone: code + '' + emailOrPhone
-            }).then((response) => {
-                setIsPassword(true);
-                setPassedNextStep(true);
-                setIsLoading(false);
-            }).catch(() => {
-                setIsLoading(false);
-            });
-        }
+        //     sendOtpViaPhone({
+        //         phone: code + '' + emailOrPhone
+        //     }).then((response) => {
+        //       setIsOtp(false);
+        //         setIsPassword(true);
+        //         setPassedNextStep(true);
+        //         setIsLoading(false);
+        //     }).catch(() => {
+        //         setIsLoading(false);
+        //     });
+        // }
+
+        setIsOtp(false);
+        setIsPassword(true);
+        setPassedNextStep(true);
     }
 
     const handleLogin = (e) => {
@@ -137,33 +142,33 @@ const LoginPage = () => {
             });
         }
 
-        if (isPhone && isPassword) {
-            setIsLoading(true);
+        // if (isPhone && isPassword) {
+        //     setIsLoading(true);
 
-            verifyPasswordWithPhone({
-                phone: code + '' + emailOrPhone,
-                password: password,
-            }, setErrors).then((response) => {
-                if (response?.data?.data) {
-                    const {customer, token} = response.data.data;
+        //     verifyPasswordWithPhone({
+        //         phone: code + '' + emailOrPhone,
+        //         password: password,
+        //     }, setErrors).then((response) => {
+        //         if (response?.data?.data) {
+        //             const {customer, token} = response.data.data;
 
-                    if (customer) {
-                        dispatch(SET_AUTH_DATA(customer));
-                    }
+        //             if (customer) {
+        //                 dispatch(SET_AUTH_DATA(customer));
+        //             }
 
-                    if (customer?.email_verified_at) {
-                        login(token);
-                    } else {
-                        setToken(token);
-                        location.href = '/auth/verify-email';
-                    }
-                }
+        //             if (customer?.email_verified_at) {
+        //                 login(token);
+        //             } else {
+        //                 setToken(token);
+        //                 location.href = '/auth/verify-email';
+        //             }
+        //         }
 
-                setIsLoading(false);
-            }).catch(() => {
-                setIsLoading(false);
-            });
-        }
+        //         setIsLoading(false);
+        //     }).catch(() => {
+        //         setIsLoading(false);
+        //     });
+        // }
 
         if (isPhone && isOtp) {
             setIsLoading(true);
@@ -192,12 +197,53 @@ const LoginPage = () => {
                 setIsLoading(false);
             });
         }
+
+        if (isPassword && !isOtp) {
+          setIsLoading(true);
+
+          verifyPassword({
+              email: emailOrPhone,
+              phone: code + '' + emailOrPhone,
+              password: password,
+          }, setErrors).then((response) => {
+              if (response?.data?.data) {
+                  const {customer, token} = response.data.data;
+
+                  if (customer) {
+                      dispatch(SET_AUTH_DATA(customer));
+                  }
+
+                  if (customer?.email_verified_at) {
+                      login(token);
+                  } else {
+                      setToken(token);
+                      location.href = '/auth/verify-email';
+                  }
+              }
+
+              setIsLoading(false);
+          }).catch(() => {
+              setIsLoading(false);
+          });
+      }
     }
 
     const handleLoginWIthOTP = (e) => {
         e.preventDefault();
 
-        if (isPhone && code && emailOrPhone) {
+        if (isEmail && emailOrPhone) {
+            setIsLoading2(true);
+
+            sendOtpViaEmail({
+              email: emailOrPhone
+            }).then((response) => {
+                setIsOtp(true);
+                setIsPassword(false);
+                setIsLoading2(false);
+            }).catch(() => {
+              setIsLoading2(false);
+            });
+        } else if (isPhone && code && emailOrPhone) {
             setIsLoading2(true);
 
             sendOtpViaPhone({
@@ -268,7 +314,7 @@ const LoginPage = () => {
                                 </Form.Group>
                             </div>
 
-                            {isPhone && isPassword && code && !isOtp && passedNextStep && (
+                            {isPassword && !isOtp && passedNextStep && (
                                 <Form.Group className="mb-3" controlId="">
                                     <Form.Label>
                                         Password: <span className="text-danger">*</span>
@@ -285,7 +331,7 @@ const LoginPage = () => {
                                 </Form.Group>
                             )}
 
-                            {isOtp && passedNextStep && (
+                            {!isPassword && isOtp && passedNextStep && (
                                 <Form.Group className="mb-3" controlId="">
                                     <Form.Label>
                                         OTP Code: <span className="text-danger">*</span>
@@ -302,11 +348,22 @@ const LoginPage = () => {
                                 </Form.Group>
                             )}
 
-                            <Form.Group className="mb-3" controlId="remember">
+                            <div className="mb-3 d-flex justify-content-between align-items-center">
+                            <Form.Group controlId="remember">
                                 <Form.Check type="checkbox" name="remember" label="Remember Me"
                                             id="remember" checked={remember}
                                             onChange={(event) => setRemember(event.target.checked)}/>
                             </Form.Group>
+
+                            {passedNextStep ? (
+                              <button type="button"
+                                      className="btn-link"
+                                      disabled={isLoading} onClick={(e) => handleLoginWIthOTP(e)}>
+                                  {isLoading2 ? 'Loading...' : isOtp ? 'Resend OTP' : 'Login with OTP'}
+                              </button>
+                            ) : ""}
+
+                            </div>
 
                             {passedNextStep ? (
                                 <div className="text-center">
@@ -316,13 +373,13 @@ const LoginPage = () => {
                                         {isLoading ? 'Loading...' : 'Login'}
                                     </button>
 
-                                    {isPhone && code && emailOrPhone && (
+                                    {/* {isPhone && code && emailOrPhone && (
                                         <button type="button"
                                                 className="font-poppins btn btn-link mt-1 no-underline fs-5 text-black"
                                                 disabled={isLoading} onClick={(e) => handleLoginWIthOTP(e)}>
                                             {isLoading2 ? 'Loading...' : 'Login with OTP'}
                                         </button>
-                                    )}
+                                    )} */}
                                 </div>
                             ) : (
                                 <button type="button"

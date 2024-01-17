@@ -196,3 +196,12 @@ export const verifyPasswordWithPhone = async (data, setErrors) => {
     }
 }
 
+export const verifyPassword = async (data, setErrors) => {
+    try {
+        return await axios.post('/ecom/verify-password-with-phone', data);
+    } catch (error) {
+        tostify(toast, 'error', error);
+        makeInputErrors(error, setErrors);
+    }
+}
+

@@ -136,10 +136,11 @@ const CheckoutPage = () => {
         billing_address_json: cart.billingAddress,
         cart: cart.items,
         sub_total: cart.subTotal,
-        discount: cart.discount,
+        // discount: cart.discount,
+        discount: discount,
         shipping_charge: totalShippingCharge,
         tax: cart.tax,
-        grand_total: cart.subTotal + totalShippingCharge,
+        grand_total: cart.subTotal + totalShippingCharge - discount,
         payment_method_id: cart.paymentMethodId,
         total_weight: totalWeight,
       }).then((response) => {
@@ -160,10 +161,11 @@ const CheckoutPage = () => {
         billing_address_json: cart.billingAddress,
         cart: cart.items,
         sub_total: cart.subTotal,
-        discount: cart.discount,
+        // discount: cart.discount,
+        discount: discount,
         shipping_charge: totalShippingCharge,
         tax: cart.tax,
-        grand_total: cart.subTotal + totalShippingCharge,
+        grand_total: cart.subTotal + totalShippingCharge - discount,
         payment_method_id: cart.paymentMethodId,
         total_weight: totalWeight,
       }).then((response) => {
@@ -194,6 +196,7 @@ const CheckoutPage = () => {
 
   const [coupon, setCoupon] = useState({
     code: "",
+    appliedCode: "",
     isChecking: false,
     isApplied: false,
     discount: 0,
@@ -254,10 +257,23 @@ const CheckoutPage = () => {
           isChecking: false
         }))
         if (response?.data?.discount_coupon_amount) {
-          setCoupon(prev => ({
-            ...prev,
-            discount: response?.data?.discount_coupon_amount
-          }))
+          const match = response?.data?.discount_coupon_amount.match(/\d+/);
+          const d =  match ? parseInt(match[0], 10) : 0;
+          if (response?.data?.coupon_discount_type === "Percentage wise Discount") {
+            if (d > coupon?.discount) {
+              setCoupon(prev => ({
+                ...prev,
+                discount: d
+              }))
+            }
+          } else {
+            if (d > coupon?.discount) {
+              setCoupon(prev => ({
+                ...prev,
+                discount: response?.data?.discount_coupon_amount
+              }))
+            }
+          }
 
           // dispatch(RESET_CART());
           // setIsLoading(false);
