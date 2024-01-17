@@ -24,6 +24,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from "../store";
 import MessengerChatBot from "../components/common/MessengerChatBot";
 import PopupBanner from '../components/common/PopupBanner';
+import { fetchPopupData } from '../services/CommonServices';
 
 export default function App({Component, pageProps}) {
 
@@ -36,26 +37,33 @@ export default function App({Component, pageProps}) {
     }, []);
 
     // https://www.npmjs.com/package/nextjs-progressbar
+    const [popupData, setPopupData] = useState(null);
+    const [dataLoaded, setDataLoaded] = useState(false);
+
+    useEffect(() => {
+      fetchPopupData().then((response) => {
+        if (response?.data) {
+          // console.log(response.data[0]?.content_item)
+          setPopupData(response.data[0]?.content_item);
+          setDataLoaded(true);
+        }
+      });
+    }, []);
 
     const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
-      // Delay showing the popup after 2 seconds
       const delay = setTimeout(() => {
-        // Check if the user has visited the site before
-        const hasVisited = localStorage.getItem('hasVisited') || true;
+        const hasVisited = localStorage.getItem('hasVisited');
 
-        // If not, show the popup
-        if (hasVisited) {
+        if (!hasVisited && dataLoaded) {
           setShowPopup(true);
-
-          // Mark the user as visited
-          localStorage.setItem('hasVisited', 'true');
+          localStorage.setItem('hasVisited', true);
         }
-      }, 2000);
+      }, 5000);
 
       return () => clearTimeout(delay);
-    }, []);
+    }, [dataLoaded]);
 
     const closePopup = () => {
       setShowPopup(false);
@@ -80,7 +88,11 @@ export default function App({Component, pageProps}) {
 
                     <MessengerChatBot />
 
-                    <PopupBanner show={showPopup} onClose={closePopup} />
+                    <PopupBanner
+                      show={showPopup && dataLoaded}
+                      onClose={closePopup}
+                      popupData={popupData}
+                    />
                 </Layout>
             </SSRProvider>
         </Fragment>

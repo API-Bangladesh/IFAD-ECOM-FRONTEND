@@ -62,3 +62,10 @@ export const fetchPrivacyPolicy = async () => {
     }
 }
 
+export const fetchPopupData = async () => {
+  try {
+      return await axios.get(`/content-module/29`);
+  } catch (error) {
+      tostify(toast, 'error', error);
+  }
+}
