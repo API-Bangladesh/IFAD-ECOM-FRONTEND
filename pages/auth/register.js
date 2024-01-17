@@ -22,7 +22,7 @@ function RegisterPage() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [agree, setAgree] = useState(false);
 
-    const [code, setCode] = useState('+880');
+    const [code, setCode] = useState('88');
 
     const [errors, setErrors] = useState({});
 
@@ -111,7 +111,7 @@ function RegisterPage() {
                                             <InputGroup.Text className="bg-transparent rounded-0 px-2">
                                                 <select value={code} onChange={e => setCode(e.target.value)}
                                                         className="bg-transparent outline-0">
-                                                    <option selected value="+880">BD</option>
+                                                    <option selected value="88">BD</option>
                                                 </select>
                                             </InputGroup.Text>
                                             <InputGroup.Text className="bg-transparent rounded-0 px-2">

@@ -201,11 +201,17 @@ const LoginPage = () => {
         if (isPassword && !isOtp) {
           setIsLoading(true);
 
-          verifyPassword({
-              email: emailOrPhone,
-              phone: code + '' + emailOrPhone,
-              password: password,
-          }, setErrors).then((response) => {
+          const data = isEmail && !isPhone
+          ? {
+            email: emailOrPhone,
+            password: password,
+          }
+          : {
+            phone: code + '' + emailOrPhone,
+            password: password,
+          };
+
+          verifyPassword(data, setErrors).then((response) => {
               if (response?.data?.data) {
                   const {customer, token} = response.data.data;
 
