@@ -2,6 +2,7 @@ import React, {Fragment, useState} from 'react';
 import Link from 'next/link';
 import {Col, Container, InputGroup} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import {toast} from "react-toastify";
 import {
     googleLogin,
     sendOtpViaEmail,
@@ -17,7 +18,7 @@ import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 import isAuth from "../../utils/HOC/isAuth";
 import {useRouter} from "next/router";
 import Head from "next/head";
-import {makeTitle} from "../../utils/helpers";
+import {makeTitle, tostify} from "../../utils/helpers";
 import {FaPhoneAlt, FaRegEnvelope} from "react-icons/fa";
 
 const LoginPage = () => {
@@ -41,6 +42,25 @@ const LoginPage = () => {
     const [passedNextStep, setPassedNextStep] = useState(false);
 
     const [errors, setErrors] = useState({});
+
+    const [resendTimer, setResendTimer] = useState(300);
+    const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+    const startResendTimer = () => {
+      setIsTimerRunning(true);
+      setResendTimer(300); // Reset timer to 10 seconds
+
+      const timerInterval = setInterval(() => {
+        setResendTimer(prevTimer => {
+          if (prevTimer === 1) {
+            clearInterval(timerInterval);
+            setIsTimerRunning(false);
+            return 0;
+          }
+          return prevTimer - 1;
+        });
+      }, 1000);
+    };
 
     const handleGoogleLogin = (event) => {
         event.preventDefault();
@@ -95,7 +115,7 @@ const LoginPage = () => {
         //     setIsLoading(true)
 
         //     sendOtpViaPhone({
-        //         phone: code + '' + emailOrPhone
+        //         phone_number: code + '' + emailOrPhone
         //     }).then((response) => {
         //       setIsOtp(false);
         //         setIsPassword(true);
@@ -106,9 +126,19 @@ const LoginPage = () => {
         //     });
         // }
 
-        setIsOtp(false);
-        setIsPassword(true);
-        setPassedNextStep(true);
+        // Email validation using a simple regex pattern
+        const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailOrPhone);
+        const isPhoneValid = /^01\d{9}$/.test(emailOrPhone);
+
+        if ((isEmail && isEmailValid) || (isPhone && isPhoneValid)) {
+          setIsOtp(false);
+          setIsPassword(true);
+          setPassedNextStep(true);
+        } else {
+          tostify(toast, "error", {
+            message: isEmail ? "Invalid email" : "Invalid phone number"
+          });
+        }
     }
 
     const handleLogin = (e) => {
@@ -146,7 +176,7 @@ const LoginPage = () => {
         //     setIsLoading(true);
 
         //     verifyPasswordWithPhone({
-        //         phone: code + '' + emailOrPhone,
+        //         phone_number: code + '' + emailOrPhone,
         //         password: password,
         //     }, setErrors).then((response) => {
         //         if (response?.data?.data) {
@@ -174,7 +204,7 @@ const LoginPage = () => {
             setIsLoading(true);
 
             verifyOtpViaPhone({
-                phone: code + '' + emailOrPhone,
+              phone_number: code + '' + emailOrPhone,
                 otp: otp,
             }, setErrors).then((response) => {
                 if (response?.data?.data) {
@@ -207,7 +237,7 @@ const LoginPage = () => {
             password: password,
           }
           : {
-            phone: code + '' + emailOrPhone,
+            phone_number: code + '' + emailOrPhone,
             password: password,
           };
 
@@ -246,6 +276,7 @@ const LoginPage = () => {
                 setIsOtp(true);
                 setIsPassword(false);
                 setIsLoading2(false);
+                startResendTimer(); // Start the resend timer
             }).catch(() => {
               setIsLoading2(false);
             });
@@ -253,11 +284,12 @@ const LoginPage = () => {
             setIsLoading2(true);
 
             sendOtpViaPhone({
-                phone: code + '' + emailOrPhone
+                phone_number: code + '' + emailOrPhone
             }).then(res => {
                 setIsOtp(true)
                 setIsPassword(false);
                 setIsLoading2(false);
+                startResendTimer(); // Start the resend timer
             }).catch(() => {
                 setIsLoading2(false);
             });
@@ -271,7 +303,7 @@ const LoginPage = () => {
             </Head>
             <section className="login-bg">
                 <Container>
-                    <div className="py-5 d-flex justify-content-center">
+                    <Form className="py-5 d-flex justify-content-center" method='POST' onSubmit={e => e.preventDefault()}>
                         <Col data-aos="fade-up" data-aos-duration="500" lg={4}
                              className="login-form-center shadow px-4 py-5 rounded-1 bg-white">
                             <h3 className="font-30 pb-4 font-lato fw-semibold">
@@ -361,13 +393,47 @@ const LoginPage = () => {
                                             onChange={(event) => setRemember(event.target.checked)}/>
                             </Form.Group>
 
-                            {passedNextStep ? (
+                            {/* {passedNextStep ? (
                               <button type="button"
                                       className="btn-link"
                                       disabled={isLoading} onClick={(e) => handleLoginWIthOTP(e)}>
                                   {isLoading2 ? 'Loading...' : isOtp ? 'Resend OTP' : 'Login with OTP'}
                               </button>
-                            ) : ""}
+                            ) : ""} */}
+
+                            {/* {passedNextStep && (
+                              <div className="text-center">
+                                <button type="button"
+                                        className="font-poppins btn btn-link mt-1 no-underline fs-5 text-black"
+                                        disabled={resendTimer > 0}
+                                        onClick={(e) => handleLoginWIthOTP(e)}>
+                                  {resendTimer > 0
+                                    ? `Resend OTP in ${Math.floor(resendTimer / 60)}:${(resendTimer % 60)
+                                        .toString()
+                                        .padStart(2, '0')}`
+                                    : 'Resend OTP'}
+                                </button>
+                              </div>
+                            )} */}
+
+                            {passedNextStep ? (
+                              <button
+                                type="button"
+                                className="btn-link"
+                                disabled={isLoading2 || isTimerRunning}
+                                onClick={(e) => handleLoginWIthOTP(e)}
+                              >
+                                {isLoading2
+                                  ? 'Sending OTP...'
+                                  : isOtp
+                                  ? isTimerRunning
+                                    ? `Resend OTP in ${Math.floor(resendTimer / 60)}:${(resendTimer % 60)
+                                        .toString()
+                                        .padStart(2, '0')}`
+                                    : 'Resend OTP'
+                                  : 'Login with OTP'}
+                              </button>
+                            ) : null}
 
                             </div>
 
@@ -414,7 +480,7 @@ const LoginPage = () => {
                                      onClick={(event) => handleGoogleLogin(event)} alt="google-login-btn"/>
                             </div>
                         </Col>
-                    </div>
+                    </Form>
                 </Container>
             </section>
         </Fragment>

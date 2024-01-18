@@ -34,7 +34,7 @@ function RegisterPage() {
         registerCustomer({
             name: name,
             email: email,
-            phone: code + '' + phone,
+            phone_number: code + '' + phone,
             password: password,
             password_confirmation: confirmPassword,
             agree: agree,

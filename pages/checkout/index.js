@@ -47,6 +47,22 @@ const CheckoutPage = () => {
   const [paymentMethods, setPaymentMethods] = useState([]);
   const {totalShippingCharge, totalWeight} = useCart(null);
 
+  const [coupon, setCoupon] = useState({
+    code: "",
+    appliedCode: "",
+    isChecking: false,
+    isApplied: false,
+    discount: cart?.discount || 0,
+    shipping_charge: totalShippingCharge,
+  })
+
+  useEffect(() => {
+    setCoupon(prevCoupon => ({
+      ...prevCoupon,
+      shipping_charge: totalShippingCharge,
+    }));
+  }, [totalShippingCharge]);
+
   useEffect(() => {
     fetchPaymentMethods().then((response) => {
       if (response?.data) {
@@ -129,6 +145,27 @@ const CheckoutPage = () => {
     setIsLoading(true);
 
     if (cart.paymentMethodId === "1") {
+      //  console.log({
+      //   shipping_address: getAddressToString(cart.shippingAddress),
+      //   shipping_address_json: cart.shippingAddress,
+      //   billing_address: getAddressToString(cart.billingAddress),
+      //   billing_address_json: cart.billingAddress,
+      //   cart: cart.items,
+      //   sub_total: cart.subTotal,
+      //   // discount: cart.discount,
+      //   discount: coupon?.discount,
+      //   // shipping_charge: totalShippingCharge,
+      //   shipping_charge: coupon?.shipping_charge,
+      //   tax: cart.tax,
+      //   grand_total: cart.subTotal + coupon?.shipping_charge - coupon?.discount,
+      //   payment_method_id: cart.paymentMethodId,
+      //   total_weight: totalWeight,
+      //   coupon_code: coupon?.appliedCode || "",
+      //   customer_id: auth?.id,
+      // })
+      // setIsLoading(false);
+      // return;
+
       makePayment({
         shipping_address: getAddressToString(cart.shippingAddress),
         shipping_address_json: cart.shippingAddress,
@@ -137,12 +174,15 @@ const CheckoutPage = () => {
         cart: cart.items,
         sub_total: cart.subTotal,
         // discount: cart.discount,
-        discount: discount,
-        shipping_charge: totalShippingCharge,
+        discount: coupon?.discount,
+        // shipping_charge: totalShippingCharge,
+        shipping_charge: coupon?.shipping_charge,
         tax: cart.tax,
-        grand_total: cart.subTotal + totalShippingCharge - discount,
+        grand_total: cart.subTotal + coupon?.shipping_charge - coupon?.discount,
         payment_method_id: cart.paymentMethodId,
         total_weight: totalWeight,
+        coupon_code: coupon?.appliedCode || "",
+        customer_id: auth?.id,
       }).then((response) => {
         if (response?.data?.GatewayPageURL) {
           // tostify(toast, 'success', response);
@@ -154,6 +194,28 @@ const CheckoutPage = () => {
         }
       });
     } else {
+      // console.log({
+      //   shipping_address: getAddressToString(cart.shippingAddress),
+      //   shipping_address_json: cart.shippingAddress,
+      //   billing_address: getAddressToString(cart.billingAddress),
+      //   billing_address_json: cart.billingAddress,
+      //   cart: cart.items,
+      //   sub_total: cart.subTotal,
+      //   // discount: cart.discount,
+      //   discount: coupon?.discount,
+      //   // shipping_charge: totalShippingCharge,
+      //   shipping_charge: coupon?.shipping_charge,
+      //   tax: cart.tax,
+      //   // grand_total: cart.subTotal + totalShippingCharge - coupon?.discount,
+      //   grand_total: cart.subTotal + coupon?.shipping_charge - coupon?.discount,
+      //   payment_method_id: cart.paymentMethodId,
+      //   total_weight: totalWeight,
+      //   coupon_code: coupon?.appliedCode || "",
+      //   customer_id: auth?.id,
+      // })
+      // setIsLoading(false);
+      // return;
+
       saveOrder({
         shipping_address: getAddressToString(cart.shippingAddress),
         shipping_address_json: cart.shippingAddress,
@@ -162,12 +224,16 @@ const CheckoutPage = () => {
         cart: cart.items,
         sub_total: cart.subTotal,
         // discount: cart.discount,
-        discount: discount,
-        shipping_charge: totalShippingCharge,
+        discount: coupon?.discount,
+        // shipping_charge: totalShippingCharge,
+        shipping_charge: coupon?.shipping_charge,
         tax: cart.tax,
-        grand_total: cart.subTotal + totalShippingCharge - discount,
+        // grand_total: cart.subTotal + totalShippingCharge - coupon?.discount,
+        grand_total: cart.subTotal + coupon?.shipping_charge - coupon?.discount,
         payment_method_id: cart.paymentMethodId,
         total_weight: totalWeight,
+        coupon_code: coupon?.appliedCode || "",
+        customer_id: auth?.id,
       }).then((response) => {
         if (response?.data?.status) {
           tostify(toast, "success", response);
@@ -193,14 +259,6 @@ const CheckoutPage = () => {
       });
     }
   };
-
-  const [coupon, setCoupon] = useState({
-    code: "",
-    appliedCode: "",
-    isChecking: false,
-    isApplied: false,
-    discount: 0,
-  })
 
   const handleSendCoupon = (e) => {
     e.preventDefault()
@@ -251,26 +309,47 @@ const CheckoutPage = () => {
     }).then((response) => {
       console.log(response)
       setTimeout(() => {
-        setCoupon(prev => ({
-          ...prev,
-          code: "",
-          isChecking: false
-        }))
         if (response?.data?.discount_coupon_amount) {
-          const match = response?.data?.discount_coupon_amount.match(/\d+/);
-          const d =  match ? parseInt(match[0], 10) : 0;
           if (response?.data?.coupon_discount_type === "Percentage wise Discount") {
-            if (d > coupon?.discount) {
+            const dis = response?.data?.previous_subtotal - response?.data?.sub_total;
+            const shippingCharge = response?.data?.shipping_charge;
+            if ((dis - shippingCharge) > (coupon?.discount - coupon?.shipping_charge)) {
               setCoupon(prev => ({
                 ...prev,
-                discount: d
+                code: "",
+                appliedCode: prev?.code,
+                discount: Math.floor(dis),
+                isChecking: false,
+                isApplied: true,
+                shipping_charge: shippingCharge
+              }))
+            } else {
+              setCoupon(prev => ({
+                ...prev,
+                code: "",
+                isChecking: false
               }))
             }
           } else {
-            if (d > coupon?.discount) {
+            const match = response?.data?.discount_coupon_amount.match(/\d+/);
+            const dis =  match ? parseInt(match[0], 10) : 0;
+            const shippingCharge = response?.data?.shipping_charge;
+
+            if ((dis - shippingCharge) > (coupon?.discount - coupon?.shipping_charge)) {
               setCoupon(prev => ({
                 ...prev,
-                discount: response?.data?.discount_coupon_amount
+                code: "",
+                appliedCode: prev?.code,
+                discount: Math.floor(dis),
+                isChecking: false,
+                isApplied: true,
+                shipping_charge: shippingCharge
+              }))
+            } else {
+              setCoupon(prev => ({
+                ...prev,
+                code: "",
+                isChecking: false
               }))
             }
           }
@@ -280,12 +359,27 @@ const CheckoutPage = () => {
 
           // window.location.href = response?.data?.GatewayPageURL;
         } else {
-          tostify(toast, "error", response || {
-            message: "Invalid coupon"
-          });
+          setCoupon(prev => ({
+            ...prev,
+            isChecking: false
+          }))
+          tostify(toast, "error", response);
         }
       }, 2000)
     });
+  }
+
+  const handleRemoveCoupon = (e) => {
+    e.preventDefault();
+    setCoupon(prev => ({
+      ...prev,
+      code: "",
+      appliedCode: "",
+      isChecking: false,
+      isApplied: false,
+      discount: cart?.discount || 0,
+      shipping_charge: totalShippingCharge,
+    }))
   }
 
   return (
@@ -655,15 +749,32 @@ const CheckoutPage = () => {
                   <div className="">
                     <div className="d-flex justify-content-between">
                       <p className="font-lato text-capitalize font-20 pe-2 phone_res">
-                        subtotal :{" "}
+                        subtotal:{" "}
                       </p>
                       <p className=" font-20 phone_res ">{cart.subTotal} Tk</p>
                     </div>
 
-                    {coupon?.discount && coupon?.discount > 0 ?
+                    {coupon?.isApplied ?
                     <div className="d-flex justify-content-between">
-                      <p className="font-lato text-capitalize font-20 pe-2 phone_res">
-                        Discount ({coupon?.code}) :{" "}
+                      <p className="font-lato text-capitalize font-20 pe-2 phone_res d-flex justify-content-start align-items-center">
+                        Discount ({coupon?.appliedCode})
+                        (<span
+                          className="remove-coupon"
+                          onClick={handleRemoveCoupon}
+                        >
+                          {/* <svg
+                            width='23'
+                            height='22'
+                            viewBox='0 0 23 22'
+                            fill='none'
+                            xmlns='http://www.w3.org/2000/svg'
+                            className='close-icon'
+                          >
+                            <path d='M5.48881 15.5962L16.0954 4.98963L17.5096 6.40384L6.90302 17.0104L5.48881 15.5962Z' fill='%23000'/>
+                            <path d='M16.0954 17.7176L4.7817 6.40384L6.19592 4.98963L17.5096 16.3033L16.0954 17.7176Z' fill='%23000'/>
+                          </svg> */}
+                          Remove
+                        </span>):
                       </p>
                       <p className=" font-20 phone_res ">{coupon?.discount} Tk</p>
                     </div> : ""
@@ -674,16 +785,16 @@ const CheckoutPage = () => {
                         shipping charge ({totalWeight.toFixed(2)} kg):{" "}
                       </p>
                       <p className=" font-20  phone_res">
-                        {totalShippingCharge} Tk
+                        {coupon?.shipping_charge} Tk
                       </p>
                     </div>
 
                     <div className="d-flex justify-content-between">
                       <p className="font-lato text-capitalize font-20 pe-2 phone_res theme-text">
-                        total :{" "}
+                        total:{" "}
                       </p>
                       <p className="font-20 theme-text phone_res">
-                        {cart.subTotal + (totalShippingCharge || 0) - (coupon?.discount || 0)} Tk
+                        {cart.subTotal + (coupon?.shipping_charge || 0) - (coupon?.discount || 0)} Tk
                       </p>
                     </div>
                   </div>
@@ -752,6 +863,7 @@ const CheckoutPage = () => {
                         type="search"
                         name="coupon"
                         placeholder="Enter coupon code"
+                        value={coupon?.code}
                         onChange={e => setCoupon(prev => ({
                           ...prev,
                           code: e.target.value
@@ -812,7 +924,7 @@ const CheckoutPage = () => {
 
                 <div className="">
                   <p className="text-capitalize py-3 font-16">
-                    online payment by SSLCommerz :
+                    online payment by SSLCommerz:
                   </p>
                   <div className="row">
                     <Col lg={4} md={4} sm={4} className="mb-3">

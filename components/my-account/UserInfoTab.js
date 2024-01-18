@@ -61,6 +61,7 @@ const UserInfoTab = () => {
 			name: formData.name,
 			date_of_birth: formData.date_of_birth,
 			gender: formData.gender,
+      email: formData.email,
 			phone_number: formData.phone_number,
 			old_image: formData.old_image,
 			image: formData.image,
@@ -155,17 +156,21 @@ const UserInfoTab = () => {
 							<div className="col">
 								<Form.Group className="mb-3" controlId="formBasicEmail">
 									<Form.Label>Email<span className="text-danger"> *</span></Form.Label>
-									<Form.Control name="email" type="email" value={formData.email}
-												  className="form-padd rounded-0 form-deco" readOnly={true}
-												  disabled={true}/>
+									<Form.Control name="email" type="email" value={formData.email} onChange={handleChange}
+												  className="form-padd rounded-0 form-deco"
+                          // readOnly={true}
+												  // disabled={true}
+                          />
 								</Form.Group>
 							</div>
 							<div className="col">
 								<Form.Group className="mb-3" controlId="formBasicEmail">
 									<Form.Label>Phone<span className="text-danger"> *</span></Form.Label>
-									<Form.Control name="phone" type="text" value={formData.phone}
-												  className="form-padd rounded-0 form-deco" readOnly={true}
-												  disabled={true}/>
+									<Form.Control name="phone_number" type="text" value={formData.phone_number} onChange={handleChange}
+												  className="form-padd rounded-0 form-deco"
+                          // readOnly={true}
+												  // disabled={true}
+                          />
 								</Form.Group>
 							</div>
 						</div>
@@ -196,12 +201,12 @@ const UserInfoTab = () => {
 							</Form.Select>
 						</Form.Group>
 
-						<Form.Group className="mb-3" controlId="formBasicEmail">
+						{/* <Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label>Phone number<span className="text-danger"> *</span></Form.Label>
 							<Form.Control name="phone_number" type="number" placeholder="Enter number"
 										  value={formData.phone_number} onChange={handleChange}
 										  className="form-padd rounded-0 form-deco" required={true}/>
-						</Form.Group>
+						</Form.Group> */}
 						<Button type="submit" variant="primary"
 								className="text-capitalize font-18 px-5 mb-4 user-sub-btn rounded-0 font-lato">submit</Button>{" "}
 					</Col>
