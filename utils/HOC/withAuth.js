@@ -10,9 +10,12 @@ const withAuth = (Component) => {
 
         useEffect(() => {
             if (!isAuthenticated) {
-                location.href = '/auth/login';
+                const currentPath = router.asPath.replace(/^\//, '');
+                localStorage.setItem('redirectTo', currentPath);
+                // location.href = '/auth/login';
+                router.push('/auth/login');
             }
-        }, []);
+    }, [isAuthenticated, router.asPath]);
 
         return isAuthenticated ? <Component {...props} /> : null;
     };

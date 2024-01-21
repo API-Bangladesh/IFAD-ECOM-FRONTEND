@@ -135,6 +135,32 @@ export const googleLoginCallback = async (params = {}) => {
 
 /**
  *
+ * @return {Promise<AxiosResponse<any>>}
+ */
+export const facebookLogin = async () => {
+  try {
+      return await axios.get(`/ecom/login/facebook`);
+  } catch (error) {
+      tostify(toast, 'error', error);
+  }
+}
+
+/**
+*
+* @return {Promise<AxiosResponse<any>>}
+*/
+export const facebookLoginCallback = async (params = {}) => {
+  try {
+      return await axios.get(`/ecom/login/facebook/callback`, {
+          params: params
+      });
+  } catch (error) {
+      tostify(toast, 'error', error);
+  }
+}
+
+/**
+ *
  * @return {Promise<void>}
  */
 export const sendOtpViaEmail = async data => {

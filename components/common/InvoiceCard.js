@@ -111,16 +111,16 @@ const InvoiceCard = ({ orderDetails }) => {
             <div className="px-2 py-2 prices text-end fw-bold"> Price</div>
           </div>
 
-          {orderDetails?.order_items?.map((item, index) => 
+          {orderDetails?.order_items?.map((item, index) =>
             <div className="d-flex justify-content-center">
               <div className="px-2 py-2 serial_number">{index + 1}</div>
-              {item.type === "product" ? 
+              {item.type === "product" ?
               <>
                 <div className="px-2 py-2 items">{item?.inventory?.title}</div>
                 <div className="px-2 py-2 quantity">{item?.quantity}</div>
                 <div className="px-2 py-2 prices text-end"> {item?.unit_price * item?.quantity || 1}/-</div>
               </>
-              : 
+              :
               <>
                 <div className="px-2 py-2 items">{item?.combo?.title}</div>
                 <div className="px-2 py-2 quantity">{item?.quantity}</div>
@@ -131,8 +131,8 @@ const InvoiceCard = ({ orderDetails }) => {
           )}
 
 
-         
-          
+
+
           <div className="d-flex justify-content-end border-top border-bottom">
             <div className="px-2 py-2 text-end text-capitalize fw-bold"> sub-total: {orderDetails?.sub_total}/-</div>
           </div>
@@ -163,13 +163,15 @@ const InvoiceCard = ({ orderDetails }) => {
                   <span className="text-black me-4">SubTotal</span>{" "}
                   <span>{orderDetails?.sub_total}/-</span>
                 </li>
+                {orderDetails?.discount &&
+                  <li className="text-muted ms-3 d-flex justify-content-between">
+                    <span className="text-black me-4">Discount{orderDetails?.coupon_code ? ` (${orderDetails?.coupon_code})` : ""}</span>{" "}
+                    <span>{orderDetails?.discount}/-</span>
+                  </li>
+                }
                 <li className="text-muted ms-3 d-flex justify-content-between">
                   <span className="text-black me-4">Shipping & Handling</span>{" "}
                   <span>{orderDetails?.shipping_charge}/-</span>
-                </li>
-                <li className="text-muted ms-3 d-flex justify-content-between">
-                  <span className="text-black me-4">Discount</span>{" "}
-                  <span>{orderDetails?.discount}/-</span>
                 </li>
                 <hr />
                 <li className="text-muted ms-3 d-flex justify-content-between font-bold">
@@ -181,7 +183,7 @@ const InvoiceCard = ({ orderDetails }) => {
             <hr/>
           </div>
 
-          
+
 
           <div className="row mt-4">
             <div className="col-xl-12 bg-light p-3 mr-20">

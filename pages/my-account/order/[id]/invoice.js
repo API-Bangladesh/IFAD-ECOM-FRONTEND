@@ -4,6 +4,7 @@ import {fetchOrder} from "../../../../services/OrderServices";
 import InvoiceCard from "../../../../components/common/InvoiceCard";
 import {makeTitle} from "../../../../utils/helpers";
 import Head from "next/head";
+import withAuth from "../../../../utils/HOC/withAuth";
 
 const Invoice = () => {
 
@@ -51,4 +52,5 @@ const Invoice = () => {
     )
 }
 
-export default Invoice;
+// export default Invoice;
+export default withAuth(Invoice);

@@ -41,10 +41,11 @@ export const login = (token = '') => {
         const redirectTo = localStorage.getItem('redirectTo');
 
         if (redirectTo) {
-            location.href = redirectTo;
+            location.href = `/${redirectTo}`;
 
             setTimeout(() => {
-                localStorage.setItem('redirectTo', '');
+                // localStorage.setItem('redirectTo', '');
+                localStorage.removeItem('redirectTo');
             });
         } else {
             location.href = '/my-account';

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Button from "react-bootstrap/Button";
 import {Col, Container, InputGroup} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import {googleLogin, registerCustomer} from "../../services/AuthServices";
+import {googleLogin, facebookLogin, registerCustomer} from "../../services/AuthServices";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 import {login, setToken} from "../../utils/auth";
 import {useDispatch} from "react-redux";
@@ -28,8 +28,23 @@ function RegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        const isPhoneValid = /^01\d{9}$/.test(phone);
+
+        if (!isPhoneValid) {
+          setErrors(prev => ({
+            ...prev,
+            phone: "Invalid phone number"
+          }))
+          return;
+        }
+
         setErrors({});
         setIsLoading(true);
+
+        // console.log(code + '' + phone)
+        // return
 
         registerCustomer({
             name: name,
@@ -70,6 +85,16 @@ function RegisterPage() {
         });
     }
 
+    const handleFacebookLogin = (event) => {
+        event.preventDefault();
+
+        facebookLogin().then((response) => {
+            if (response?.data?.url) {
+                window.location.href = response.data.url;
+            }
+        });
+    }
+
     return (
         <Fragment>
             <Head>
@@ -83,14 +108,14 @@ function RegisterPage() {
                              className="login-form-center shadow px-4 py-5 rounded-1 bg-white">
                             <h4 className="font-30 pb-4 ps-3 font-lato fw-semibold text-capitalize">sign up</h4>
                             <Form className="px-3" onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" controlId="">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Name<span className="text-danger"> *</span></Form.Label>
                                     <Form.Control type="text" name='name' value={name}
                                                   onChange={e => setName(e.target.value)}
                                                   placeholder="Enter your name"
                                                   className="rounded-0 login-form" required={true}/>
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Email Address<span className="text-danger"> *</span></Form.Label>
                                     <Form.Control type="email" name='email' value={email}
                                                   onChange={e => setEmail(e.target.value)}
@@ -102,7 +127,7 @@ function RegisterPage() {
                                         </small>
                                     )}
                                 </Form.Group>
-                                <Form.Group className="mb-3 flex-grow-1" controlId="emailOrPhone">
+                                <Form.Group className="mb-3 flex-grow-1">
                                     <Form.Label>
                                         Phone Number: <span className="text-danger">*</span>
                                     </Form.Label>
@@ -111,7 +136,7 @@ function RegisterPage() {
                                             <InputGroup.Text className="bg-transparent rounded-0 px-2">
                                                 <select value={code} onChange={e => setCode(e.target.value)}
                                                         className="bg-transparent outline-0">
-                                                    <option selected value="88">BD</option>
+                                                    <option value="88">BD</option>
                                                 </select>
                                             </InputGroup.Text>
                                             <InputGroup.Text className="bg-transparent rounded-0 px-2">
@@ -119,7 +144,13 @@ function RegisterPage() {
                                             </InputGroup.Text>
                                         </Fragment>
                                         <Form.Control type="text" name='phone' value={phone}
-                                                      onChange={e => setPhone(e.target.value)}
+                                                      onChange={e => {
+                                                        setErrors(prev => ({
+                                                          ...prev,
+                                                          phone: ""
+                                                        }))
+                                                        setPhone(e.target.value)
+                                                      }}
                                                       placeholder="Enter phone number"
                                                       className="rounded-0 login-form" id="phone"
                                                       required={true}/>
@@ -131,14 +162,14 @@ function RegisterPage() {
                                     )}
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Password<span className="text-danger"> *</span></Form.Label>
                                     <Form.Control type="password" name='password' value={password}
                                                   onChange={e => setPassword(e.target.value)}
                                                   placeholder="Enter password"
                                                   className="rounded-0 login-form" required={true}/>
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Confirm Password<span className="text-danger"> *</span></Form.Label>
                                     <Form.Control type="password" name='confirmPassword' value={confirmPassword}
                                                   onChange={e => setConfirmPassword(e.target.value)}
@@ -150,7 +181,7 @@ function RegisterPage() {
                                         </small>
                                     )}
                                 </Form.Group>
-                                <Form.Group className="mb-3 text-secondary d-flex" controlId="">
+                                <Form.Group className="mb-3 text-secondary d-flex">
                                     <Form.Check type="checkbox" label="Agree"
                                                 onChange={(event) => setAgree(event.target.checked)}/>
                                     <span className="mr-1"></span>
@@ -172,9 +203,16 @@ function RegisterPage() {
                                 </div>
 
                                 <div className="mt-4 d-flex justify-content-center">
-                                    <img src="/google-login-btn.png"
+                                <div className="d-flex justify-content-center">
+                                    <img src="/google-login-btn-new.png"
                                          className="google-login-btn" width={280}
                                          onClick={(event) => handleGoogleLogin(event)} alt="google-login-btn"/>
+                                </div>
+                                <div className="ms-2 d-flex justify-content-center">
+                                    <img src="/facebook-login-btn-new.png"
+                                         className="facebook-login-btn" width={280}
+                                         onClick={(event) => handleFacebookLogin(event)} alt="facebook-login-btn"/>
+                                </div>
                                 </div>
                             </Form>
                         </Col>

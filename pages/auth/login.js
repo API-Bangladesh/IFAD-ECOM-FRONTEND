@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import {toast} from "react-toastify";
 import {
     googleLogin,
+    facebookLogin,
     sendOtpViaEmail,
     sendOtpViaPhone,
     verifyOtpViaEmail,
@@ -16,13 +17,11 @@ import {login, setToken} from "../../utils/auth";
 import {useDispatch} from "react-redux";
 import {SET_AUTH_DATA} from "../../store/slices/AuthSlice";
 import isAuth from "../../utils/HOC/isAuth";
-import {useRouter} from "next/router";
 import Head from "next/head";
 import {makeTitle, tostify} from "../../utils/helpers";
 import {FaPhoneAlt, FaRegEnvelope} from "react-icons/fa";
 
 const LoginPage = () => {
-    const router = useRouter();
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -66,6 +65,16 @@ const LoginPage = () => {
         event.preventDefault();
 
         googleLogin().then((response) => {
+            if (response?.data?.url) {
+                window.location.href = response.data.url;
+            }
+        });
+    }
+
+    const handleFacebookLogin = (event) => {
+        event.preventDefault();
+
+        facebookLogin().then((response) => {
             if (response?.data?.url) {
                 window.location.href = response.data.url;
             }
@@ -474,10 +483,17 @@ const LoginPage = () => {
                                 </Link>
                             </div>
 
-                            <div className="mt-4 d-flex justify-content-center">
-                                <img src="/google-login-btn.png"
-                                     className="google-login-btn" width={280}
-                                     onClick={(event) => handleGoogleLogin(event)} alt="google-login-btn"/>
+                            <div class="d-flex mt-4 justify-content-center">
+                              <div className="d-flex justify-content-center">
+                                  <img src="/google-login-btn-new.png"
+                                      className="google-login-btn" width={280}
+                                      onClick={(event) => handleGoogleLogin(event)} alt="google-login-btn"/>
+                              </div>
+                              <div className="ms-2 d-flex justify-content-center">
+                                  <img src="/facebook-login-btn-new.png"
+                                      className="facebook-login-btn" width={280}
+                                      onClick={(event) => handleFacebookLogin(event)} alt="facebook-login-btn"/>
+                              </div>
                             </div>
                         </Col>
                     </Form>
