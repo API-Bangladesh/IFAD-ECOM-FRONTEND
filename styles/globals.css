@@ -2928,6 +2928,7 @@ Responsive part end
   right: 0.75rem;
   top: 1rem;
   cursor: pointer;
+  z-index: 99;
 }
 .close  svg {
   fill: #111;
@@ -2937,6 +2938,14 @@ Responsive part end
 }
 .close:hover .close-icon {
   transform: rotate(180deg);
+}
+.onload-popup-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
 }
 
 /* floating-cart-btn */

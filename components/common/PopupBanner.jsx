@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Modal from 'react-bootstrap/Modal';
 import { getStoragePath } from '../../utils/helpers';
 
@@ -7,7 +8,7 @@ const PopupBanner = ({ show, onClose, popupData }) => {
 
   useEffect(() => {
     const image = new Image();
-    image.src = getStoragePath(popupData?.item_image || "category-image/Noodles-600X600-143527.jpg");
+    image.src = getStoragePath(popupData?.[0]?.item_image || "category-image/Noodles-600X600-143527.jpg");
 
     image.onload = () => {
       setImageLoaded(true);
@@ -16,7 +17,7 @@ const PopupBanner = ({ show, onClose, popupData }) => {
     return () => {
       image.onload = null;
     };
-  }, [popupData?.item_image]);
+  }, [popupData?.[0]?.item_image]);
 
   return (
     <Modal
@@ -30,7 +31,7 @@ const PopupBanner = ({ show, onClose, popupData }) => {
       <div className="onload-popup">
         <div className="onload-popup-img">
           <img
-            src={getStoragePath(popupData?.item_image || "category-image/Noodles-600X600-143527.jpg")}
+            src={getStoragePath(popupData?.[0]?.item_image || "category-image/Noodles-600X600-143527.jpg")}
             alt="Popup Image"
           />
         </div>
@@ -48,6 +49,7 @@ const PopupBanner = ({ show, onClose, popupData }) => {
           <path d='M16.0954 17.7176L4.7817 6.40384L6.19592 4.98963L17.5096 16.3033L16.0954 17.7176Z' fill='%23000'/>
         </svg>
       </span>
+      {popupData?.[0]?.item_link ? <Link href={new URL(popupData?.[0]?.item_link).pathname} className="onload-popup-link" onClick={onClose}></Link> : ""}
     </Modal>
   );
 };
