@@ -168,9 +168,9 @@ const LoginPage = () => {
                     }
 
                     if (customer?.email_verified_at) {
-                        login(token);
+                        login(token, remember);
                     } else {
-                        setToken(token);
+                        setToken(token, remember);
                         location.href = '/auth/verify-email';
                     }
                 }
@@ -224,9 +224,9 @@ const LoginPage = () => {
                     }
 
                     if (customer?.email_verified_at) {
-                        login(token);
+                        login(token, remember);
                     } else {
-                        setToken(token);
+                        setToken(token, remember);
                         location.href = '/auth/verify-email';
                     }
                 }
@@ -259,9 +259,9 @@ const LoginPage = () => {
                   }
 
                   if (customer?.email_verified_at) {
-                      login(token);
+                      login(token, remember);
                   } else {
-                      setToken(token);
+                      setToken(token, remember);
                       location.href = '/auth/verify-email';
                   }
               }
