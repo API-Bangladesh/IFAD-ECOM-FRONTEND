@@ -413,7 +413,7 @@ button#dropdown-basic-button {
   transform: translate(-42%, -192px) !important;
   border: 0;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
-  rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 .main-manu .dropdown-menu[data-bs-popper] {
@@ -1762,6 +1762,13 @@ payment part css start
   border-color: #ffa500 !important;
   /* outline:0!important; */
 }
+.form-deco:disabled:focus {
+  box-shadow: none !important;
+  border-color: #ffa500 !important;
+}
+.form-deco:disabled {
+  background-color: unset !important;
+}
 
 .payment-card {
   border: 1px solid #ffa500;
@@ -2083,7 +2090,6 @@ button.navbar-toggler {
 }
 
 @media (max-width: 992px) {
-
   .category-img-one {
     height: auto;
     width: 100%;
@@ -2672,7 +2678,6 @@ Responsive part end
   color: rgb(246, 132, 34);
 }
 
-
 .c-shadow {
   box-shadow: 0 0.35rem 0.75rem rgba(0, 0, 0, 0.15) !important;
 }
@@ -2828,7 +2833,7 @@ Responsive part end
 .invoice-box.rtl {
   direction: rtl;
   font-family: Tahoma, "Helvetica Neue", "Helvetica", Helvetica, Arial,
-  sans-serif;
+    sans-serif;
 }
 
 .invoice-box.rtl table {
@@ -2900,7 +2905,8 @@ Responsive part end
 }
 
 /* popup banner */
-.onload-modal {}
+.onload-modal {
+}
 .onload-popup {
   width: 100%;
 }
@@ -2930,7 +2936,7 @@ Responsive part end
   cursor: pointer;
   z-index: 99;
 }
-.close  svg {
+.close svg {
   fill: #111;
 }
 .close-icon {
@@ -2969,7 +2975,7 @@ Responsive part end
   transition: color 250ms ease-in-out;
 }
 .order-success-message {
-  background-color: #D9EEE1;
+  background-color: #d9eee1;
   padding: 20px 20px;
   font-size: 24px;
   position: relative;
@@ -2986,7 +2992,8 @@ Responsive part end
 }
 
 /* coupon */
-.coupon {}
+.coupon {
+}
 .coupon_input {
   position: relative;
   width: calc(100% - 100px - 10px);

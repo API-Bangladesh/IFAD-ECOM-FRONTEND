@@ -34,6 +34,7 @@ import Link from "next/link";
 import { useCart } from "../../utils/hooks/useCart";
 import Head from "next/head";
 import { Oval } from "react-loader-spinner";
+import { saveAddress, editAddress } from "../../services/AddressServices";
 import withAuth from "../../utils/HOC/withAuth";
 import { API_URL } from "../../utils/constants";
 
@@ -582,6 +583,171 @@ const CheckoutPage = () => {
     setIsShippingSameAsBilling((current) => !current);
   };
 
+  const [isAddressUpdating, setIsAddressUpdating] = useState({
+    billing: false,
+    shipping: false,
+  });
+
+  const [isEditingAddress, setIsEditingAddress] = useState({
+    billing: false,
+    shipping: false,
+  });
+
+  const [isCreatingAddress, setIsCreatingAddress] = useState({
+    billing: addresses && addresses.length === 0 ? true : false,
+    shipping: addresses && addresses.length === 0 ? true : false,
+  });
+
+  const handleCancelClick = (e, addressType) => {
+    e.preventDefault();
+
+    addressType === "billing"
+      ? setIsAddressUpdating((prev) => ({
+          ...prev,
+          billing: false,
+        }))
+      : setIsAddressUpdating((prev) => ({
+          ...prev,
+          shipping: false,
+        }));
+    return;
+  };
+
+  const handleEditClick = (e, addressType) => {
+    e.preventDefault();
+
+    addressType === "billing"
+      ? setIsAddressUpdating((prev) => ({
+          ...prev,
+          billing: true,
+        }))
+      : setIsAddressUpdating((prev) => ({
+          ...prev,
+          shipping: true,
+        }));
+    return;
+  };
+
+  const handleSaveClick = (e, addressType) => {
+    e.preventDefault();
+
+    let data;
+
+    if (addressType === "billing") {
+      data = {
+        id: billingAddress.id,
+        // title: billingAddress.title,
+        title: isCreatingAddress ? "Home" : billingAddress.title,
+        name: billingAddress.name,
+        address_line_1: billingAddress.address_line_1,
+        address_line_2: billingAddress.address_line_2,
+        division_id: parseInt(billingAddress?.division?.id),
+        district_id: parseInt(billingAddress?.district?.id),
+        upazila_id: parseInt(billingAddress?.upazila?.id),
+        postcode: billingAddress.postcode,
+        phone: billingAddress.phone,
+        email: billingAddress.email,
+      };
+    } else {
+      data = {
+        id: shippingAddress.id,
+        // title: billingAddress.title,
+        title: isCreatingAddress ? "Home" : shippingAddress.title,
+        name: shippingAddress.name,
+        address_line_1: shippingAddress.address_line_1,
+        address_line_2: shippingAddress.address_line_2,
+        division_id: parseInt(shippingAddress?.division?.id),
+        district_id: parseInt(shippingAddress?.district?.id),
+        upazila_id: parseInt(shippingAddress?.upazila?.id),
+        postcode: shippingAddress.postcode,
+        phone: shippingAddress.phone,
+        email: shippingAddress.email,
+      };
+    }
+
+    // console.log(data, addressType);
+    // return;
+
+    if (
+      isAddressUpdating[addressType] === true &&
+      isEditingAddress[addressType] === true &&
+      isCreatingAddress[addressType] === false
+    ) {
+      try {
+        editAddress(data).then((res) => {
+          // const updatedAddress = addresses.map((item) => (item.id === data.id ? data : item));
+          // setAddresses(updatedAddress);
+
+          // showSuccessNotification("Success", "Address updated.")
+
+          tostify(toast, "success", res);
+          // tostify(toast, 'error', {
+          //   message: 'Fields must not be empty!'
+          // });
+
+          // setIsEditingAddress({
+          //   billing: false,
+          //   shipping: false,
+          // });
+
+          setIsAddressUpdating({
+            billing: false,
+            shipping: false,
+          });
+
+          fetchAddresses().then((response) => {
+            if (response?.data) {
+              setAddresses(response.data);
+              // set(defaultAddress);
+              // handleClose();
+            }
+          });
+        });
+      } catch (err) {
+        // showErrorNotification("Error", err.message);
+      }
+    } else if (
+      isAddressUpdating[addressType] === true &&
+      isEditingAddress[addressType] === false &&
+      isCreatingAddress[addressType] === true
+    ) {
+      try {
+        saveAddress(data).then((res) => {
+          tostify(toast, "success", res);
+          // tostify(toast, 'error', {
+          //   message: 'Fields must not be empty!'
+          // });
+
+          setIsCreatingAddress({
+            billing: false,
+            shipping: false,
+          });
+
+          setIsEditingAddress({
+            billing: true,
+            shipping: true,
+          });
+
+          setIsAddressUpdating({
+            billing: false,
+            shipping: false,
+          });
+
+          fetchAddresses().then((response) => {
+            if (response?.data) {
+              setAddresses(response.data);
+              // setMyAddress(defaultAddress);
+              // handleClose();
+            }
+          });
+        });
+      } catch (err) {
+        // showErrorNotification("Error", err.message);
+      }
+    }
+    return;
+  };
+
   return (
     <Fragment>
       <Head>
@@ -644,7 +810,7 @@ const CheckoutPage = () => {
                       placeholder=""
                       className="rounded-0 form-deco"
                       value={billingAddress.name}
-                      // readOnly={true}
+                      readOnly={isAddressUpdating?.billing === false}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -662,7 +828,7 @@ const CheckoutPage = () => {
                       placeholder=""
                       className="rounded-0 form-deco"
                       value={billingAddress.address_line_1}
-                      // readOnly={true}
+                      readOnly={isAddressUpdating?.billing === false}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -680,7 +846,7 @@ const CheckoutPage = () => {
                       placeholder=""
                       className="rounded-0 form-deco"
                       value={billingAddress.address_line_2}
-                      // readOnly={true}
+                      readOnly={isAddressUpdating?.billing === false}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -700,12 +866,13 @@ const CheckoutPage = () => {
                       onChange={(e) => {
                         const selectedDivisionId = e.target.value;
                         const selectedDivision = divisions.find(
-                          (item) => item.id === selectedDivisionId
+                          (item) => item.id === parseInt(selectedDivisionId)
                         );
 
                         handleDivisionBillingChange(e, selectedDivision);
                       }}
                       value={billingAddress?.division?.id}
+                      disabled={isAddressUpdating?.billing === false}
                     >
                       <option>Select division</option>
                       {divisions &&
@@ -726,11 +893,12 @@ const CheckoutPage = () => {
                       onChange={(e) => {
                         const selectedDistrictId = e.target.value;
                         const selectedDistrict = districtsBilling.find(
-                          (item) => item.id === selectedDistrictId
+                          (item) => item.id === parseInt(selectedDistrictId)
                         );
                         handleDistrictBillingChange(e, selectedDistrict);
                       }}
                       value={billingAddress?.district?.id}
+                      disabled={isAddressUpdating?.billing === false}
                     >
                       <option>Select district</option>
                       {districtsBilling &&
@@ -751,11 +919,12 @@ const CheckoutPage = () => {
                       onChange={(e) => {
                         const selectedUpazilaId = e.target.value;
                         const selectedUpazila = upazilasBilling.find(
-                          (item) => item.id === selectedUpazilaId
+                          (item) => item.id === parseInt(selectedUpazilaId)
                         );
                         handleUpazilaBillingChange(e, selectedUpazila);
                       }}
                       value={billingAddress?.upazila?.id}
+                      disabled={isAddressUpdating?.billing === false}
                     >
                       <option>Select upazila</option>
                       {upazilasBilling &&
@@ -775,7 +944,7 @@ const CheckoutPage = () => {
                       placeholder=""
                       className="rounded-0 form-deco"
                       value={billingAddress.postcode}
-                      // readOnly={true}
+                      readOnly={isAddressUpdating?.billing === false}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -793,7 +962,7 @@ const CheckoutPage = () => {
                       placeholder=""
                       className="rounded-0 form-deco"
                       value={billingAddress.phone}
-                      // readOnly={true}
+                      readOnly={isAddressUpdating?.billing === false}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -811,7 +980,7 @@ const CheckoutPage = () => {
                       placeholder=""
                       className="rounded-0 form-deco"
                       value={billingAddress.email}
-                      // readOnly={true}
+                      readOnly={isAddressUpdating?.billing === false}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -820,6 +989,42 @@ const CheckoutPage = () => {
                       }
                     />
                   </Form.Group>
+                </Col>
+
+                <Col
+                  lg={12}
+                  md={12}
+                  className="d-flex justify-end col-4 text-end"
+                >
+                  {isAddressUpdating?.billing ? (
+                    <div className="text-end">
+                      <button
+                        className="btn btn-link m-0 p-0"
+                        onClick={(e) => handleCancelClick(e, "billing")}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="btn btn-primary m-0 p-0 ms-2"
+                        onClick={(e) => handleSaveClick(e, "billing")}
+                      >
+                        {isCreatingAddress?.billing === true
+                          ? "Create"
+                          : "Save"}
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      className="btn btn-link m-0 p-0"
+                      onClick={(e) => handleEditClick(e, "billing")}
+                    >
+                      {isCreatingAddress?.billing === true
+                        ? "Create"
+                        : isAddressUpdating?.billing === true
+                        ? "Edit"
+                        : ""}
+                    </button>
+                  )}
                 </Col>
               </Row>
 
@@ -887,8 +1092,7 @@ const CheckoutPage = () => {
                         placeholder=""
                         className="rounded-0 form-deco"
                         value={shippingAddress.name}
-                        // readOnly={true}
-                        readOnly={isShippingSameAsBilling}
+                        readOnly={isAddressUpdating?.shipping === false}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -906,8 +1110,7 @@ const CheckoutPage = () => {
                         placeholder=""
                         className="rounded-0 form-deco"
                         value={shippingAddress.address_line_1}
-                        // readOnly={true}
-                        readOnly={isShippingSameAsBilling}
+                        readOnly={isAddressUpdating?.shipping === false}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -925,8 +1128,7 @@ const CheckoutPage = () => {
                         placeholder=""
                         className="rounded-0 form-deco"
                         value={shippingAddress.address_line_2}
-                        // readOnly={true}
-                        readOnly={isShippingSameAsBilling}
+                        readOnly={isAddressUpdating?.shipping === false}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -1004,12 +1206,13 @@ const CheckoutPage = () => {
                         onChange={(e) => {
                           const selectedDivisionId = e.target.value;
                           const selectedDivision = divisions.find(
-                            (item) => item.id === selectedDivisionId
+                            (item) => item.id === parseInt(selectedDivisionId)
                           );
 
                           handleDivisionShippingChange(e, selectedDivision);
                         }}
                         value={shippingAddress?.division?.id}
+                        disabled={isAddressUpdating?.shipping === false}
                       >
                         <option>Select division</option>
                         {divisions &&
@@ -1030,11 +1233,12 @@ const CheckoutPage = () => {
                         onChange={(e) => {
                           const selectedDistrictId = e.target.value;
                           const selectedDistrict = districtsShipping.find(
-                            (item) => item.id === selectedDistrictId
+                            (item) => item.id === parseInt(selectedDistrictId)
                           );
                           handleDistrictShippingChange(e, selectedDistrict);
                         }}
                         value={shippingAddress?.district?.id}
+                        disabled={isAddressUpdating?.shipping === false}
                       >
                         <option>Select district</option>
                         {districtsShipping &&
@@ -1055,11 +1259,12 @@ const CheckoutPage = () => {
                         onChange={(e) => {
                           const selectedUpazilaId = e.target.value;
                           const selectedUpazila = upazilasShipping.find(
-                            (item) => item.id === selectedUpazilaId
+                            (item) => item.id === parseInt(selectedUpazilaId)
                           );
                           handleUpazilaShippingChange(e, selectedUpazila);
                         }}
                         value={shippingAddress?.upazila?.id}
+                        disabled={isAddressUpdating?.shipping === false}
                       >
                         <option>Select upazila</option>
                         {upazilasShipping &&
@@ -1080,8 +1285,7 @@ const CheckoutPage = () => {
                         placeholder=""
                         className="rounded-0 form-deco"
                         value={shippingAddress.postcode}
-                        // readOnly={true}
-                        readOnly={isShippingSameAsBilling}
+                        readOnly={isAddressUpdating?.shipping === false}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -1099,8 +1303,7 @@ const CheckoutPage = () => {
                         placeholder=""
                         className="rounded-0 form-deco"
                         value={shippingAddress.phone}
-                        // readOnly={true}
-                        readOnly={isShippingSameAsBilling}
+                        readOnly={isAddressUpdating?.shipping === false}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -1120,8 +1323,7 @@ const CheckoutPage = () => {
                         placeholder=""
                         className="rounded-0 form-deco"
                         value={shippingAddress.email}
-                        // readOnly={true}
-                        readOnly={isShippingSameAsBilling}
+                        readOnly={isAddressUpdating?.shipping === false}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -1130,6 +1332,41 @@ const CheckoutPage = () => {
                         }
                       />
                     </Form.Group>
+                  </Col>
+                  <Col
+                    lg={12}
+                    md={12}
+                    className="d-flex justify-end col-4 text-end"
+                  >
+                    {isAddressUpdating?.shipping ? (
+                      <div className="text-end">
+                        <button
+                          className="btn btn-link m-0 p-0"
+                          onClick={(e) => handleCancelClick(e, "shipping")}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="btn btn-primary m-0 p-0 ms-2"
+                          onClick={(e) => handleSaveClick(e, "shipping")}
+                        >
+                          {isCreatingAddress?.shipping === false
+                            ? "Create"
+                            : "Save"}
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        className="btn btn-link m-0 p-0"
+                        onClick={(e) => handleEditClick(e, "shipping")}
+                      >
+                        {isCreatingAddress?.shipping === true
+                          ? "Create"
+                          : isAddressUpdating?.shipping === true
+                          ? "Edit"
+                          : ""}
+                      </button>
+                    )}
                   </Col>
                 </Row>
               )}
