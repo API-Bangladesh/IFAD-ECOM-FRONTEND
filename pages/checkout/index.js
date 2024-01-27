@@ -124,6 +124,12 @@ const CheckoutPage = () => {
           fetchAddressesData();
         }
       });
+    } else {
+      setBillingAddress({});
+      setAddressStatus((prev) => ({
+        ...prev,
+        billing: { ...prev.billing, isCreatable: true, isEditable: false },
+      }));
     }
   };
 
@@ -137,6 +143,12 @@ const CheckoutPage = () => {
           fetchAddressesData();
         }
       });
+    } else {
+      setShippingAddress({});
+      setAddressStatus((prev) => ({
+        ...prev,
+        shipping: { ...prev.shipping, isCreatable: true, isEditable: false },
+      }));
     }
   };
 
@@ -583,169 +595,129 @@ const CheckoutPage = () => {
     setIsShippingSameAsBilling((current) => !current);
   };
 
-  const [isAddressUpdating, setIsAddressUpdating] = useState({
-    billing: false,
-    shipping: false,
+  const [addressStatus, setAddressStatus] = useState({
+    billing: {
+      isCreatable: addresses && addresses.length === 0,
+      isEditable: !(addresses && addresses.length === 0),
+      isUpdating: false,
+    },
+    shipping: {
+      isCreatable: addresses && addresses.length === 0,
+      isEditable: !(addresses && addresses.length === 0),
+      isUpdating: false,
+    },
   });
 
-  const [isEditingAddress, setIsEditingAddress] = useState({
-    billing: false,
-    shipping: false,
-  });
-
-  const [isCreatingAddress, setIsCreatingAddress] = useState({
-    billing: addresses && addresses.length === 0 ? true : false,
-    shipping: addresses && addresses.length === 0 ? true : false,
-  });
+  useEffect(() => {
+    setAddressStatus({
+      billing: {
+        isCreatable:
+          (addresses && addresses.length === 0) || billingAddress?.id === "",
+        isEditable: !(
+          (addresses && addresses.length === 0) ||
+          billingAddress?.id === ""
+        ),
+        isUpdating: false,
+      },
+      shipping: {
+        isCreatable:
+          (addresses && addresses.length === 0) || shippingAddress?.id === "",
+        isEditable: !(
+          (addresses && addresses.length === 0) ||
+          shippingAddress?.id === ""
+        ),
+        isUpdating: false,
+      },
+    });
+  }, [addresses]);
 
   const handleCancelClick = (e, addressType) => {
     e.preventDefault();
-
-    addressType === "billing"
-      ? setIsAddressUpdating((prev) => ({
-          ...prev,
-          billing: false,
-        }))
-      : setIsAddressUpdating((prev) => ({
-          ...prev,
-          shipping: false,
-        }));
-    return;
+    setAddressStatus((prev) => ({
+      ...prev,
+      [addressType]: { ...prev[addressType], isUpdating: false },
+    }));
   };
 
   const handleEditClick = (e, addressType) => {
     e.preventDefault();
-
-    addressType === "billing"
-      ? setIsAddressUpdating((prev) => ({
-          ...prev,
-          billing: true,
-        }))
-      : setIsAddressUpdating((prev) => ({
-          ...prev,
-          shipping: true,
-        }));
-    return;
+    setAddressStatus((prev) => ({
+      ...prev,
+      [addressType]: { ...prev[addressType], isUpdating: true },
+    }));
   };
 
-  const handleSaveClick = (e, addressType) => {
+  const handleSaveClick = async (e, addressType) => {
     e.preventDefault();
 
-    let data;
+    try {
+      const getAddressData = (address) => ({
+        id: address.id,
+        title: addressStatus[addressType]?.isCreatable ? "Home" : address.title,
+        name: address.name,
+        address_line_1: address.address_line_1,
+        address_line_2: address.address_line_2,
+        division_id: parseInt(address?.division?.id),
+        district_id: parseInt(address?.district?.id),
+        upazila_id: parseInt(address?.upazila?.id),
+        postcode: address.postcode,
+        phone: address.phone,
+        email: address.email,
+      });
 
-    if (addressType === "billing") {
-      data = {
-        id: billingAddress.id,
-        // title: billingAddress.title,
-        title: isCreatingAddress ? "Home" : billingAddress.title,
-        name: billingAddress.name,
-        address_line_1: billingAddress.address_line_1,
-        address_line_2: billingAddress.address_line_2,
-        division_id: parseInt(billingAddress?.division?.id),
-        district_id: parseInt(billingAddress?.district?.id),
-        upazila_id: parseInt(billingAddress?.upazila?.id),
-        postcode: billingAddress.postcode,
-        phone: billingAddress.phone,
-        email: billingAddress.email,
-      };
-    } else {
-      data = {
-        id: shippingAddress.id,
-        // title: billingAddress.title,
-        title: isCreatingAddress ? "Home" : shippingAddress.title,
-        name: shippingAddress.name,
-        address_line_1: shippingAddress.address_line_1,
-        address_line_2: shippingAddress.address_line_2,
-        division_id: parseInt(shippingAddress?.division?.id),
-        district_id: parseInt(shippingAddress?.district?.id),
-        upazila_id: parseInt(shippingAddress?.upazila?.id),
-        postcode: shippingAddress.postcode,
-        phone: shippingAddress.phone,
-        email: shippingAddress.email,
-      };
-    }
+      let data;
 
-    // console.log(data, addressType);
-    // return;
-
-    if (
-      isAddressUpdating[addressType] === true &&
-      isEditingAddress[addressType] === true &&
-      isCreatingAddress[addressType] === false
-    ) {
-      try {
-        editAddress(data).then((res) => {
-          // const updatedAddress = addresses.map((item) => (item.id === data.id ? data : item));
-          // setAddresses(updatedAddress);
-
-          // showSuccessNotification("Success", "Address updated.")
-
-          tostify(toast, "success", res);
-          // tostify(toast, 'error', {
-          //   message: 'Fields must not be empty!'
-          // });
-
-          // setIsEditingAddress({
-          //   billing: false,
-          //   shipping: false,
-          // });
-
-          setIsAddressUpdating({
-            billing: false,
-            shipping: false,
-          });
-
-          fetchAddresses().then((response) => {
-            if (response?.data) {
-              setAddresses(response.data);
-              // set(defaultAddress);
-              // handleClose();
-            }
-          });
-        });
-      } catch (err) {
-        // showErrorNotification("Error", err.message);
+      if (addressType === "billing") {
+        data = getAddressData(billingAddress);
+      } else {
+        data = getAddressData(shippingAddress);
       }
-    } else if (
-      isAddressUpdating[addressType] === true &&
-      isEditingAddress[addressType] === false &&
-      isCreatingAddress[addressType] === true
-    ) {
-      try {
-        saveAddress(data).then((res) => {
-          tostify(toast, "success", res);
-          // tostify(toast, 'error', {
-          //   message: 'Fields must not be empty!'
-          // });
 
-          setIsCreatingAddress({
-            billing: false,
-            shipping: false,
-          });
+      if (addressStatus[addressType].isEditable) {
+        const response = await editAddress(data);
 
-          setIsEditingAddress({
-            billing: true,
-            shipping: true,
+        if (response?.status) {
+          setAddressStatus((prev) => ({
+            ...prev,
+            [addressType]: {
+              isCreatable: false,
+              isEditable: true,
+              isUpdating: false,
+            },
+          }));
+          tostify(toast, "success", {
+            message: "Address updated successfully",
           });
-
-          setIsAddressUpdating({
-            billing: false,
-            shipping: false,
+        }
+      } else if (addressStatus[addressType].isCreatable) {
+        const response = await saveAddress(data);
+        // console.log(response);
+        // return;
+        if (response?.status) {
+          // Display success toast if saveAddress is successful
+          setAddressStatus((prev) => ({
+            ...prev,
+            [addressType]: {
+              isCreatable: false,
+              isEditable: true,
+              isUpdating: false,
+            },
+          }));
+          tostify(toast, "success", {
+            message: "Address created successfully",
           });
-
-          fetchAddresses().then((response) => {
-            if (response?.data) {
-              setAddresses(response.data);
-              // setMyAddress(defaultAddress);
-              // handleClose();
-            }
-          });
-        });
-      } catch (err) {
-        // showErrorNotification("Error", err.message);
+        }
       }
+
+      // Fetch addresses after successful save/edit
+      const response = await fetchAddresses();
+      if (response?.data) {
+        setAddresses(response.data);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+      tostify(toast, "error", { message: error.message });
     }
-    return;
   };
 
   return (
@@ -773,7 +745,7 @@ const CheckoutPage = () => {
                   <div className="text-end">
                     <select
                       className="form-select"
-                      value={billingAddress.id}
+                      value={billingAddress?.id || ""}
                       onChange={(event) =>
                         handleSetDefaultBillingAddress(
                           event,
@@ -781,9 +753,7 @@ const CheckoutPage = () => {
                         )
                       }
                     >
-                      <option value="" selected>
-                        Set Default Billing
-                      </option>
+                      <option value="">Set Default Billing</option>
                       {addresses &&
                         addresses.length > 0 &&
                         addresses.map((address, key) => (
@@ -809,8 +779,8 @@ const CheckoutPage = () => {
                       type="text"
                       placeholder=""
                       className="rounded-0 form-deco"
-                      value={billingAddress.name}
-                      readOnly={isAddressUpdating?.billing === false}
+                      value={billingAddress?.name || ""}
+                      readOnly={!addressStatus?.billing?.isUpdating}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -827,8 +797,8 @@ const CheckoutPage = () => {
                       type="text"
                       placeholder=""
                       className="rounded-0 form-deco"
-                      value={billingAddress.address_line_1}
-                      readOnly={isAddressUpdating?.billing === false}
+                      value={billingAddress?.address_line_1 || ""}
+                      readOnly={!addressStatus?.billing?.isUpdating}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -845,8 +815,8 @@ const CheckoutPage = () => {
                       type="text"
                       placeholder=""
                       className="rounded-0 form-deco"
-                      value={billingAddress.address_line_2}
-                      readOnly={isAddressUpdating?.billing === false}
+                      value={billingAddress?.address_line_2 || ""}
+                      readOnly={!addressStatus?.billing?.isUpdating}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -871,8 +841,8 @@ const CheckoutPage = () => {
 
                         handleDivisionBillingChange(e, selectedDivision);
                       }}
-                      value={billingAddress?.division?.id}
-                      disabled={isAddressUpdating?.billing === false}
+                      value={billingAddress?.division?.id || ""}
+                      disabled={!addressStatus?.billing?.isUpdating}
                     >
                       <option>Select division</option>
                       {divisions &&
@@ -897,8 +867,8 @@ const CheckoutPage = () => {
                         );
                         handleDistrictBillingChange(e, selectedDistrict);
                       }}
-                      value={billingAddress?.district?.id}
-                      disabled={isAddressUpdating?.billing === false}
+                      value={billingAddress?.district?.id || ""}
+                      disabled={!addressStatus?.billing?.isUpdating}
                     >
                       <option>Select district</option>
                       {districtsBilling &&
@@ -923,8 +893,8 @@ const CheckoutPage = () => {
                         );
                         handleUpazilaBillingChange(e, selectedUpazila);
                       }}
-                      value={billingAddress?.upazila?.id}
-                      disabled={isAddressUpdating?.billing === false}
+                      value={billingAddress?.upazila?.id || ""}
+                      disabled={!addressStatus?.billing?.isUpdating}
                     >
                       <option>Select upazila</option>
                       {upazilasBilling &&
@@ -943,8 +913,8 @@ const CheckoutPage = () => {
                       type="text"
                       placeholder=""
                       className="rounded-0 form-deco"
-                      value={billingAddress.postcode}
-                      readOnly={isAddressUpdating?.billing === false}
+                      value={billingAddress?.postcode || ""}
+                      readOnly={!addressStatus?.billing?.isUpdating}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -961,8 +931,8 @@ const CheckoutPage = () => {
                       type="text"
                       placeholder=""
                       className="rounded-0 form-deco"
-                      value={billingAddress.phone}
-                      readOnly={isAddressUpdating?.billing === false}
+                      value={billingAddress?.phone || ""}
+                      readOnly={!addressStatus?.billing?.isUpdating}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -979,8 +949,8 @@ const CheckoutPage = () => {
                       type="email"
                       placeholder=""
                       className="rounded-0 form-deco"
-                      value={billingAddress.email}
-                      readOnly={isAddressUpdating?.billing === false}
+                      value={billingAddress?.email || ""}
+                      readOnly={!addressStatus?.billing?.isUpdating}
                       onChange={(e) =>
                         setBillingAddress((prev) => ({
                           ...prev,
@@ -996,7 +966,7 @@ const CheckoutPage = () => {
                   md={12}
                   className="d-flex justify-end col-4 text-end"
                 >
-                  {isAddressUpdating?.billing ? (
+                  {addressStatus?.billing?.isUpdating ? (
                     <div className="text-end">
                       <button
                         className="btn btn-link m-0 p-0"
@@ -1008,7 +978,7 @@ const CheckoutPage = () => {
                         className="btn btn-primary m-0 p-0 ms-2"
                         onClick={(e) => handleSaveClick(e, "billing")}
                       >
-                        {isCreatingAddress?.billing === true
+                        {addressStatus?.billing?.isCreatable
                           ? "Create"
                           : "Save"}
                       </button>
@@ -1018,9 +988,9 @@ const CheckoutPage = () => {
                       className="btn btn-link m-0 p-0"
                       onClick={(e) => handleEditClick(e, "billing")}
                     >
-                      {isCreatingAddress?.billing === true
+                      {addressStatus?.billing?.isCreatable
                         ? "Create"
-                        : isAddressUpdating?.billing === true
+                        : addressStatus?.billing?.isEditable
                         ? "Edit"
                         : ""}
                     </button>
@@ -1053,7 +1023,7 @@ const CheckoutPage = () => {
                   <div className="col-4 text-end">
                     <select
                       className="form-select"
-                      value={shippingAddress.id}
+                      value={shippingAddress?.id || ""}
                       onChange={(event) =>
                         handleSetDefaultShippingAddress(
                           event,
@@ -1062,9 +1032,7 @@ const CheckoutPage = () => {
                       }
                       disabled={isShippingSameAsBilling}
                     >
-                      <option value="" selected>
-                        Set Default Shipping
-                      </option>
+                      <option value="">Set Default Shipping</option>
                       {addresses &&
                         addresses.length > 0 &&
                         addresses.map((address, key) => (
@@ -1091,8 +1059,8 @@ const CheckoutPage = () => {
                         type="text"
                         placeholder=""
                         className="rounded-0 form-deco"
-                        value={shippingAddress.name}
-                        readOnly={isAddressUpdating?.shipping === false}
+                        value={shippingAddress?.name || ""}
+                        readOnly={!addressStatus?.shipping?.isUpdating}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -1109,8 +1077,8 @@ const CheckoutPage = () => {
                         type="text"
                         placeholder=""
                         className="rounded-0 form-deco"
-                        value={shippingAddress.address_line_1}
-                        readOnly={isAddressUpdating?.shipping === false}
+                        value={shippingAddress?.address_line_1 || ""}
+                        readOnly={!addressStatus?.shipping?.isUpdating}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -1127,8 +1095,8 @@ const CheckoutPage = () => {
                         type="text"
                         placeholder=""
                         className="rounded-0 form-deco"
-                        value={shippingAddress.address_line_2}
-                        readOnly={isAddressUpdating?.shipping === false}
+                        value={shippingAddress?.address_line_2 || ""}
+                        readOnly={!addressStatus?.shipping?.isUpdating}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -1211,8 +1179,8 @@ const CheckoutPage = () => {
 
                           handleDivisionShippingChange(e, selectedDivision);
                         }}
-                        value={shippingAddress?.division?.id}
-                        disabled={isAddressUpdating?.shipping === false}
+                        value={shippingAddress?.division?.id || ""}
+                        disabled={!addressStatus?.shipping?.isUpdating}
                       >
                         <option>Select division</option>
                         {divisions &&
@@ -1237,8 +1205,8 @@ const CheckoutPage = () => {
                           );
                           handleDistrictShippingChange(e, selectedDistrict);
                         }}
-                        value={shippingAddress?.district?.id}
-                        disabled={isAddressUpdating?.shipping === false}
+                        value={shippingAddress?.district?.id || ""}
+                        disabled={!addressStatus?.shipping?.isUpdating}
                       >
                         <option>Select district</option>
                         {districtsShipping &&
@@ -1263,8 +1231,8 @@ const CheckoutPage = () => {
                           );
                           handleUpazilaShippingChange(e, selectedUpazila);
                         }}
-                        value={shippingAddress?.upazila?.id}
-                        disabled={isAddressUpdating?.shipping === false}
+                        value={shippingAddress?.upazila?.id || ""}
+                        disabled={!addressStatus?.shipping?.isUpdating}
                       >
                         <option>Select upazila</option>
                         {upazilasShipping &&
@@ -1284,8 +1252,8 @@ const CheckoutPage = () => {
                         type="text"
                         placeholder=""
                         className="rounded-0 form-deco"
-                        value={shippingAddress.postcode}
-                        readOnly={isAddressUpdating?.shipping === false}
+                        value={shippingAddress?.postcode || ""}
+                        readOnly={!addressStatus?.shipping?.isUpdating}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -1302,8 +1270,8 @@ const CheckoutPage = () => {
                         type="text"
                         placeholder=""
                         className="rounded-0 form-deco"
-                        value={shippingAddress.phone}
-                        readOnly={isAddressUpdating?.shipping === false}
+                        value={shippingAddress?.phone || ""}
+                        readOnly={!addressStatus?.shipping?.isUpdating}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -1322,8 +1290,8 @@ const CheckoutPage = () => {
                         type="email"
                         placeholder=""
                         className="rounded-0 form-deco"
-                        value={shippingAddress.email}
-                        readOnly={isAddressUpdating?.shipping === false}
+                        value={shippingAddress?.email || ""}
+                        readOnly={!addressStatus?.shipping?.isUpdating}
                         onChange={(e) =>
                           setShippingAddress((prev) => ({
                             ...prev,
@@ -1338,7 +1306,7 @@ const CheckoutPage = () => {
                     md={12}
                     className="d-flex justify-end col-4 text-end"
                   >
-                    {isAddressUpdating?.shipping ? (
+                    {addressStatus?.shipping?.isUpdating ? (
                       <div className="text-end">
                         <button
                           className="btn btn-link m-0 p-0"
@@ -1350,7 +1318,7 @@ const CheckoutPage = () => {
                           className="btn btn-primary m-0 p-0 ms-2"
                           onClick={(e) => handleSaveClick(e, "shipping")}
                         >
-                          {isCreatingAddress?.shipping === false
+                          {addressStatus?.shipping?.isCreatable
                             ? "Create"
                             : "Save"}
                         </button>
@@ -1360,9 +1328,9 @@ const CheckoutPage = () => {
                         className="btn btn-link m-0 p-0"
                         onClick={(e) => handleEditClick(e, "shipping")}
                       >
-                        {isCreatingAddress?.shipping === true
+                        {addressStatus?.shipping?.isCreatable
                           ? "Create"
-                          : isAddressUpdating?.shipping === true
+                          : addressStatus?.shipping?.isEditable
                           ? "Edit"
                           : ""}
                       </button>
@@ -1375,7 +1343,7 @@ const CheckoutPage = () => {
               <br />
               <h1 className="text-uppercase font-24 fw-bold mb-3">NOTE</h1>
               <textarea
-                className="form-control"
+                className="form-control form-deco"
                 rows={5}
                 placeholder="Write some note here.."
               />
