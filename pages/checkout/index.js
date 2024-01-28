@@ -657,8 +657,12 @@ const CheckoutPage = () => {
         postcode: address.postcode,
         phone: address.phone,
         email: address.email,
-        // is_default_billing: 1,
-        // is_default_shipping: 1,
+        is_default_billing: addressStatus[addressType]?.isCreatable
+          ? "1"
+          : null,
+        is_default_shipping: addressStatus[addressType]?.isCreatable
+          ? "1"
+          : null,
       });
 
       let data;
