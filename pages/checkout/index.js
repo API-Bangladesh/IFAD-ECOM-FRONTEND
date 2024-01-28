@@ -124,13 +124,14 @@ const CheckoutPage = () => {
           fetchAddressesData();
         }
       });
-    } else {
-      setBillingAddress({});
-      setAddressStatus((prev) => ({
-        ...prev,
-        billing: { ...prev.billing, isCreatable: true, isEditable: false },
-      }));
     }
+    // else {
+    //   setBillingAddress({});
+    //   setAddressStatus((prev) => ({
+    //     ...prev,
+    //     billing: { ...prev.billing, isCreatable: true, isEditable: false },
+    //   }));
+    // }
   };
 
   const handleSetDefaultShippingAddress = (event, id) => {
@@ -143,13 +144,14 @@ const CheckoutPage = () => {
           fetchAddressesData();
         }
       });
-    } else {
-      setShippingAddress({});
-      setAddressStatus((prev) => ({
-        ...prev,
-        shipping: { ...prev.shipping, isCreatable: true, isEditable: false },
-      }));
     }
+    // else {
+    //   setShippingAddress({});
+    //   setAddressStatus((prev) => ({
+    //     ...prev,
+    //     shipping: { ...prev.shipping, isCreatable: true, isEditable: false },
+    //   }));
+    // }
   };
 
   const handlePlaceOrder = (event) => {
@@ -611,21 +613,13 @@ const CheckoutPage = () => {
   useEffect(() => {
     setAddressStatus({
       billing: {
-        isCreatable:
-          (addresses && addresses.length === 0) || billingAddress?.id === "",
-        isEditable: !(
-          (addresses && addresses.length === 0) ||
-          billingAddress?.id === ""
-        ),
+        isCreatable: addresses && addresses.length === 0,
+        isEditable: !(addresses && addresses.length === 0),
         isUpdating: false,
       },
       shipping: {
-        isCreatable:
-          (addresses && addresses.length === 0) || shippingAddress?.id === "",
-        isEditable: !(
-          (addresses && addresses.length === 0) ||
-          shippingAddress?.id === ""
-        ),
+        isCreatable: addresses && addresses.length === 0,
+        isEditable: !(addresses && addresses.length === 0),
         isUpdating: false,
       },
     });
@@ -663,6 +657,8 @@ const CheckoutPage = () => {
         postcode: address.postcode,
         phone: address.phone,
         email: address.email,
+        // is_default_billing: 1,
+        // is_default_shipping: 1,
       });
 
       let data;
@@ -688,6 +684,11 @@ const CheckoutPage = () => {
           tostify(toast, "success", {
             message: "Address updated successfully",
           });
+
+          const response = await fetchAddresses();
+          if (response?.data) {
+            setAddresses(response.data);
+          }
         }
       } else if (addressStatus[addressType].isCreatable) {
         const response = await saveAddress(data);
@@ -706,13 +707,15 @@ const CheckoutPage = () => {
           tostify(toast, "success", {
             message: "Address created successfully",
           });
-        }
-      }
 
-      // Fetch addresses after successful save/edit
-      const response = await fetchAddresses();
-      if (response?.data) {
-        setAddresses(response.data);
+          const response = await fetchAddresses();
+          if (response?.data) {
+            // console.log(response?.data);
+            setAddresses(response.data);
+            setBillingAddress(response?.data[0]);
+            setShippingAddress(response?.data[0]);
+          }
+        }
       }
     } catch (error) {
       console.error("Error:", error.message);
@@ -745,7 +748,7 @@ const CheckoutPage = () => {
                   <div className="text-end">
                     <select
                       className="form-select"
-                      value={billingAddress?.id || ""}
+                      value={billingAddress?.id}
                       onChange={(event) =>
                         handleSetDefaultBillingAddress(
                           event,
@@ -1023,7 +1026,7 @@ const CheckoutPage = () => {
                   <div className="col-4 text-end">
                     <select
                       className="form-select"
-                      value={shippingAddress?.id || ""}
+                      value={shippingAddress?.id}
                       onChange={(event) =>
                         handleSetDefaultShippingAddress(
                           event,
