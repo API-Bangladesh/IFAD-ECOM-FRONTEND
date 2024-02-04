@@ -50,6 +50,7 @@ const CheckoutPage = () => {
   const [addresses, setAddresses] = useState([]);
   const [billingAddress, setBillingAddress] = useState({});
   const [shippingAddress, setShippingAddress] = useState({});
+  const [isShippingSameAsBilling, setIsShippingSameAsBilling] = useState(true);
   const [paymentMethods, setPaymentMethods] = useState([]);
   const { totalShippingCharge, totalWeight } = useCart(null);
 
@@ -65,9 +66,12 @@ const CheckoutPage = () => {
   useEffect(() => {
     setCoupon((prevCoupon) => ({
       ...prevCoupon,
-      shipping_charge: totalShippingCharge,
+      shipping_charge:
+        shippingAddress && Object.keys(shippingAddress).length !== 0
+          ? totalShippingCharge
+          : null,
     }));
-  }, [totalShippingCharge]);
+  }, [totalShippingCharge, shippingAddress, isShippingSameAsBilling]);
 
   useEffect(() => {
     fetchPaymentMethods().then((response) => {
@@ -101,7 +105,15 @@ const CheckoutPage = () => {
             upazilasBilling: false,
           }));
         }
-        if (address.is_default_shipping) {
+        if (address.is_default_billing && isShippingSameAsBilling) {
+          setShippingAddress(address);
+          dispatch(UPDATE_SHIPPING_ADDRESS(address));
+          setIsFetched((prev) => ({
+            ...prev,
+            districtsShipping: false,
+            upazilasShipping: false,
+          }));
+        } else if (!isShippingSameAsBilling && address.is_default_shipping) {
           setShippingAddress(address);
           dispatch(UPDATE_SHIPPING_ADDRESS(address));
           setIsFetched((prev) => ({
@@ -320,8 +332,12 @@ const CheckoutPage = () => {
       grand_total: cart.subTotal + totalShippingCharge,
       customer_id: auth?.id,
       cart: items,
-      shipping_address: getAddressToString(shippingAddress),
-      shipping_address_json: shippingAddress,
+      shipping_address: isShippingSameAsBilling
+        ? getAddressToString(billingAddress)
+        : getAddressToString(shippingAddress),
+      shipping_address_json: isShippingSameAsBilling
+        ? billingAddress
+        : shippingAddress,
       billing_address: getAddressToString(billingAddress),
       billing_address_json: billingAddress,
       tax: cart.tax,
@@ -591,10 +607,14 @@ const CheckoutPage = () => {
     }));
   };
 
-  const [isShippingSameAsBilling, setIsShippingSameAsBilling] = useState(true);
-
   const handleShippingSameAsBilling = (e) => {
-    setIsShippingSameAsBilling((current) => !current);
+    setIsShippingSameAsBilling((current) => {
+      if (!current) {
+        setShippingAddress(billingAddress);
+        dispatch(UPDATE_SHIPPING_ADDRESS(billingAddress));
+      }
+      return !current;
+    });
   };
 
   const [addressStatus, setAddressStatus] = useState({
@@ -615,12 +635,12 @@ const CheckoutPage = () => {
       billing: {
         isCreatable: addresses && addresses.length === 0,
         isEditable: !(addresses && addresses.length === 0),
-        isUpdating: false,
+        isUpdating: addresses && addresses.length === 0,
       },
       shipping: {
         isCreatable: addresses && addresses.length === 0,
         isEditable: !(addresses && addresses.length === 0),
-        isUpdating: false,
+        isUpdating: addresses && addresses.length === 0,
       },
     });
   }, [addresses]);
@@ -1438,15 +1458,16 @@ const CheckoutPage = () => {
                   ) : (
                     ""
                   )}
-
-                  <div className="d-flex justify-content-between">
-                    <p className="font-lato text-capitalize font-20 pe-2 phone_res">
-                      shipping charge ({totalWeight.toFixed(2)} kg):{" "}
-                    </p>
-                    <p className=" font-20  phone_res">
-                      {coupon?.shipping_charge} Tk
-                    </p>
-                  </div>
+                  {coupon?.shipping_charge && (
+                    <div className="d-flex justify-content-between">
+                      <p className="font-lato text-capitalize font-20 pe-2 phone_res">
+                        shipping charge ({totalWeight.toFixed(2)} kg):{" "}
+                      </p>
+                      <p className=" font-20  phone_res">
+                        {coupon?.shipping_charge} Tk
+                      </p>
+                    </div>
+                  )}
 
                   <div className="d-flex justify-content-between">
                     <p className="font-lato text-capitalize font-20 pe-2 phone_res theme-text">

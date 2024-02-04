@@ -54,11 +54,11 @@ export default function App({Component, pageProps}) {
 
     useEffect(() => {
       const delay = setTimeout(() => {
-        const hasVisited = localStorage.getItem('hasVisited');
+        const hasVisited = sessionStorage.getItem('hasVisited');
 
         if (!hasVisited && dataLoaded) {
           setShowPopup(true);
-          localStorage.setItem('hasVisited', true);
+          sessionStorage.setItem('hasVisited', 'visited');
         }
       }, 5000);
 
