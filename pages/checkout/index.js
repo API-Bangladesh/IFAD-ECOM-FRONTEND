@@ -74,6 +74,18 @@ const CheckoutPage = () => {
   }, [totalShippingCharge, shippingAddress, isShippingSameAsBilling]);
 
   useEffect(() => {
+    setCoupon((prev) => ({
+      ...prev,
+      code: "",
+      appliedCode: "",
+      isChecking: false,
+      isApplied: false,
+      discount: cart?.discount || 0,
+      shipping_charge: totalShippingCharge,
+    }));
+  }, [cart?.items]);
+
+  useEffect(() => {
     fetchPaymentMethods().then((response) => {
       if (response?.data) {
         setPaymentMethods(response.data);
@@ -134,6 +146,15 @@ const CheckoutPage = () => {
         if (response.status) {
           tostify(toast, "success", response);
           fetchAddressesData();
+          setCoupon((prev) => ({
+            ...prev,
+            code: "",
+            appliedCode: "",
+            isChecking: false,
+            isApplied: false,
+            discount: cart?.discount || 0,
+            shipping_charge: totalShippingCharge,
+          }));
         }
       });
     }
@@ -154,6 +175,15 @@ const CheckoutPage = () => {
         if (response.status) {
           tostify(toast, "success", response);
           fetchAddressesData();
+          setCoupon((prev) => ({
+            ...prev,
+            code: "",
+            appliedCode: "",
+            isChecking: false,
+            isApplied: false,
+            discount: cart?.discount || 0,
+            shipping_charge: totalShippingCharge,
+          }));
         }
       });
     }
@@ -294,6 +324,22 @@ const CheckoutPage = () => {
 
   const handleSendCoupon = (e) => {
     e.preventDefault();
+
+    if (cart.items && cart.items.length < 1) {
+      alert("The cart shouldn't be empty!");
+      return;
+    }
+
+    if (!billingAddress || Object.keys(billingAddress).length === 0) {
+      alert("Please select a billing address");
+      return;
+    }
+
+    if (!shippingAddress || Object.keys(shippingAddress).length === 0) {
+      alert("Please select a shipping address");
+      return;
+    }
+
     setCoupon((prev) => ({
       ...prev,
       isChecking: true,
@@ -346,7 +392,9 @@ const CheckoutPage = () => {
       setTimeout(() => {
         if (response?.data?.discount_coupon_amount) {
           if (
-            response?.data?.coupon_discount_type === "Percentage wise Discount"
+            response?.data?.coupon_discount_type ===
+              "Percentage_wise_Discount" ||
+            response?.data?.coupon_discount_type === "Fixed_Product_Discount"
           ) {
             const dis =
               response?.data?.previous_subtotal - response?.data?.sub_total;
@@ -371,7 +419,9 @@ const CheckoutPage = () => {
                 isChecking: false,
               }));
             }
-          } else {
+          } else if (
+            response?.data?.coupon_discount_type === "Fixed_Amount_Discount"
+          ) {
             const match = response?.data?.discount_coupon_amount.match(/\d+/);
             const dis = match ? parseInt(match[0], 10) : 0;
             const shippingCharge = response?.data?.shipping_charge;
@@ -607,11 +657,13 @@ const CheckoutPage = () => {
     }));
   };
 
-  const handleShippingSameAsBilling = (e) => {
+  const handleShippingSameAsBilling = async (e) => {
     setIsShippingSameAsBilling((current) => {
       if (!current) {
         setShippingAddress(billingAddress);
         dispatch(UPDATE_SHIPPING_ADDRESS(billingAddress));
+      } else {
+        fetchAddressesData();
       }
       return !current;
     });
@@ -705,6 +757,17 @@ const CheckoutPage = () => {
               isUpdating: false,
             },
           }));
+
+          setCoupon((prev) => ({
+            ...prev,
+            code: "",
+            appliedCode: "",
+            isChecking: false,
+            isApplied: false,
+            discount: cart?.discount || 0,
+            shipping_charge: totalShippingCharge,
+          }));
+
           tostify(toast, "success", {
             message: "Address updated successfully",
           });
@@ -728,6 +791,17 @@ const CheckoutPage = () => {
               isUpdating: false,
             },
           }));
+
+          setCoupon((prev) => ({
+            ...prev,
+            code: "",
+            appliedCode: "",
+            isChecking: false,
+            isApplied: false,
+            discount: cart?.discount || 0,
+            shipping_charge: totalShippingCharge,
+          }));
+
           tostify(toast, "success", {
             message: "Address created successfully",
           });
