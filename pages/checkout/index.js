@@ -1532,7 +1532,7 @@ const CheckoutPage = () => {
                   ) : (
                     ""
                   )}
-                  {coupon?.shipping_charge && (
+                  {coupon?.shipping_charge ? (
                     <div className="d-flex justify-content-between">
                       <p className="font-lato text-capitalize font-20 pe-2 phone_res">
                         shipping charge ({totalWeight.toFixed(2)} kg):{" "}
@@ -1541,6 +1541,8 @@ const CheckoutPage = () => {
                         {coupon?.shipping_charge} Tk
                       </p>
                     </div>
+                  ) : (
+                    ""
                   )}
 
                   <div className="d-flex justify-content-between">
