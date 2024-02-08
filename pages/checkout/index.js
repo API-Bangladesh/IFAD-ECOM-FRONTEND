@@ -21,6 +21,7 @@ import {
   makePayment,
   saveOrder,
   checkCoupon,
+  fetchConditionalDiscounts
 } from "../../services/OrderServices";
 import { fetchPaymentMethods } from "../../services/PaymentMethodServices";
 import {
@@ -44,6 +45,8 @@ const CheckoutPage = () => {
   const cart = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
 
+  console.log(auth)
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [agree, setAgree] = useState(false);
@@ -62,6 +65,108 @@ const CheckoutPage = () => {
     discount: cart?.discount || 0,
     shipping_charge: totalShippingCharge,
   });
+
+  // {
+  //   condition_name: "",
+  //   condition_exp_date: "",
+  //   condition_type: "",
+  //   customer_group: [],
+  //   discount_amount: 0,
+  //   district_id: [],
+  //   upazila_id: [],
+  //   is_exclude_sale: "",
+  //   min_spend: "",
+  //   max_spend: "",
+  // }
+
+  const [conditionalDiscount, setConditionalDiscount] = useState([]);
+
+  useEffect(() => {
+    fetchConditionalDiscounts().then((response) => {
+      if (response?.data) {
+        console.log(response.data)
+        setConditionalDiscount(
+          response.data.map(item => ({
+            condition_name: item.condition_name,
+            condition_exp_date: item.condition_exp_date,
+            condition_type: item.condition_type,
+            customer_group: item.customer_group,
+            discount_amount: item.discount_amount,
+            district_id: item.district_id,
+            upazila_id: item.upazila_id,
+            is_exclude_sale: item.is_exclude_sale,
+            min_spend: item.min_spend,
+            max_spend: item.max_spend,
+          }))
+        );
+      }
+    });
+  }, []);
+
+  const applyDiscount = (subtotal, shippingCharge, districtId, upazilaId, customerGroups) => {
+    let discount = 0;
+
+    // Iterate through each discount condition
+    conditionalDiscount.forEach((condition) => {
+      // Check if the condition is still valid (i.e., not expired)
+      const currentDate = new Date();
+      const expiryDate = new Date(condition.condition_exp_date);
+      if (currentDate <= expiryDate) {
+        // Check if the conditions match
+        const districtIds = JSON.parse(condition.district_id);
+        const upazilaIds = JSON.parse(condition.upazila_id);
+        const minSpend = condition.min_spend
+          ? parseFloat(condition.min_spend)
+          : 0;
+        const maxSpend = condition.max_spend
+          ? parseFloat(condition.max_spend)
+          : Infinity;
+        const conditionCustomerGroups = JSON.parse(condition.customer_group);
+
+          // districtId && districtIds.includes(districtId.toString()) ? console.log("district included") : console.log(districtIds, districtId.toString())
+
+          // upazilaId && upazilaIds.includes(upazilaId.toString()) ? console.log("Upazila included") : console.log(upazilaIds, upazilaId.toString())
+
+
+
+          // console.log(conditionCustomerGroups && customerGroups && conditionCustomerGroups.some(group => customerGroups.some(cGroup => cGroup.id.toString() === group)))
+
+        if (
+          districtId && districtIds.includes(districtId.toString()) &&
+          upazilaId && upazilaIds.includes(upazilaId.toString()) &&
+          subtotal >= minSpend &&
+          subtotal <= maxSpend &&
+          conditionCustomerGroups.some(group => customerGroups.some(cGroup => cGroup.id.toString() === group))
+        ) {
+          // Apply discount based on the condition type
+          if (condition.condition_type === "fixed_percentage_discount") {
+            const percentageDiscount = parseFloat(condition.discount_amount);
+            discount +=
+              (subtotal + shippingCharge) * (percentageDiscount / 100);
+          } else if (condition.condition_type === "fixed_amount_discount") {
+            discount += parseFloat(condition.discount_amount);
+          }
+          console.log("discount: ", discount)
+        }
+      }
+    });
+
+    return discount;
+  };
+
+  useEffect(() => {
+    const subtotal = cart.subTotal;
+    const totalShippingCharge = coupon?.shipping_charge;
+    const districtId = shippingAddress?.district?.id;
+    const upazilaId = shippingAddress?.upazila?.id;
+
+    // Calculate the discount based on the conditions
+    const additionalDiscount = applyDiscount(subtotal, totalShippingCharge, districtId, upazilaId, auth.group);
+
+    console.log(additionalDiscount)
+  }, [conditionalDiscount, shippingAddress])
+
+
 
   useEffect(() => {
     setCoupon((prevCoupon) => ({

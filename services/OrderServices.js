@@ -67,3 +67,12 @@ export const checkCoupon = async (data = {}) => {
       tostify(toast, 'error', error);
   }
 }
+
+export const fetchConditionalDiscounts = async () => {
+  try {
+    const response = await axios.get(`/ecom/conditional_discount`);
+    return response
+  } catch (error) {
+      tostify(toast, 'error', error);
+  }
+}
