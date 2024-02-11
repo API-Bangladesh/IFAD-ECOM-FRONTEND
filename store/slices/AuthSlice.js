@@ -7,7 +7,7 @@ const AuthSlice = createSlice({
     },
     reducers: {
         SET_AUTH_DATA: (state, action) => {
-            return action.payload
+            return {...state, ...action.payload}
         }
     }
 })

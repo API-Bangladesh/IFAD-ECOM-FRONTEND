@@ -45,8 +45,6 @@ const CheckoutPage = () => {
   const cart = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
 
-  console.log(auth)
-
   const [isLoading, setIsLoading] = useState(false);
 
   const [agree, setAgree] = useState(false);
@@ -66,25 +64,23 @@ const CheckoutPage = () => {
     shipping_charge: totalShippingCharge,
   });
 
-  // {
-  //   condition_name: "",
-  //   condition_exp_date: "",
-  //   condition_type: "",
-  //   customer_group: [],
-  //   discount_amount: 0,
-  //   district_id: [],
-  //   upazila_id: [],
-  //   is_exclude_sale: "",
-  //   min_spend: "",
-  //   max_spend: "",
-  // }
+  // const [discount, setDiscount] = useState({
+  //   conditionName: "",
+  //   conditionType: "",
+  //   discountDescription: "",
+  //   discountAmount: 0,
+  //   shippingCharge: 0,
+  //   isApplied: false,
+  // });
+
+  const [discount, setDiscount] = useState([]);
 
   const [conditionalDiscount, setConditionalDiscount] = useState([]);
 
   useEffect(() => {
     fetchConditionalDiscounts().then((response) => {
       if (response?.data) {
-        console.log(response.data)
+        // console.log(response.data)
         setConditionalDiscount(
           response.data.map(item => ({
             condition_name: item.condition_name,
@@ -104,7 +100,8 @@ const CheckoutPage = () => {
   }, []);
 
   const applyDiscount = (subtotal, shippingCharge, districtId, upazilaId, customerGroups) => {
-    let discount = 0;
+    // console.log(conditionalDiscount)
+    let discount = [];
 
     // Iterate through each discount condition
     conditionalDiscount.forEach((condition) => {
@@ -123,30 +120,47 @@ const CheckoutPage = () => {
           : Infinity;
         const conditionCustomerGroups = JSON.parse(condition.customer_group);
 
-          // districtId && districtIds.includes(districtId.toString()) ? console.log("district included") : console.log(districtIds, districtId.toString())
+          const customerGroupsIds = customerGroups?.length ? new Set(customerGroups.map(item => item.id)) : [];
 
-          // upazilaId && upazilaIds.includes(upazilaId.toString()) ? console.log("Upazila included") : console.log(upazilaIds, upazilaId.toString())
+          const conditionCustomerGroupsIntegers = new Set(conditionCustomerGroups.map(idStr => parseInt(idStr, 10)));
 
-
-
-          // console.log(conditionCustomerGroups && customerGroups && conditionCustomerGroups.some(group => customerGroups.some(cGroup => cGroup.id.toString() === group)))
+          const commonIds = [...customerGroupsIds].filter(id => conditionCustomerGroupsIntegers.has(id));
 
         if (
           districtId && districtIds.includes(districtId.toString()) &&
           upazilaId && upazilaIds.includes(upazilaId.toString()) &&
           subtotal >= minSpend &&
           subtotal <= maxSpend &&
-          conditionCustomerGroups.some(group => customerGroups.some(cGroup => cGroup.id.toString() === group))
+          commonIds.length > 0
         ) {
           // Apply discount based on the condition type
           if (condition.condition_type === "fixed_percentage_discount") {
             const percentageDiscount = parseFloat(condition.discount_amount);
-            discount +=
-              (subtotal + shippingCharge) * (percentageDiscount / 100);
+            let obj = {
+              conditionName: condition.condition_name,
+              conditionType: condition.condition_type,
+              discountDescription: condition.condition_name,
+              discountAmount: (subtotal) * (percentageDiscount / 100),
+            }
+            discount.push(obj)
           } else if (condition.condition_type === "fixed_amount_discount") {
-            discount += parseFloat(condition.discount_amount);
+            let obj = {
+              conditionName: condition.condition_name,
+              conditionType: condition.condition_type,
+              discountDescription: condition.condition_name,
+              discountAmount: parseFloat(condition.discount_amount),
+            }
+            discount.push(obj)
+          } else if (condition.condition_type === "free_delivery") {
+            let obj = {
+              conditionName: condition.condition_name,
+              conditionType: condition.condition_type,
+              discountDescription: condition.condition_name,
+              discountAmount: 0,
+              shippingCharge: 0,
+            }
+            discount.push(obj)
           }
-          console.log("discount: ", discount)
         }
       }
     });
@@ -162,11 +176,8 @@ const CheckoutPage = () => {
 
     // Calculate the discount based on the conditions
     const additionalDiscount = applyDiscount(subtotal, totalShippingCharge, districtId, upazilaId, auth.group);
-
-    console.log(additionalDiscount)
-  }, [conditionalDiscount, shippingAddress])
-
-
+    setDiscount(additionalDiscount)
+  }, [cart?.items, conditionalDiscount, shippingAddress])
 
   useEffect(() => {
     setCoupon((prevCoupon) => ({
@@ -336,11 +347,12 @@ const CheckoutPage = () => {
       //   cart: cart.items,
       //   sub_total: cart.subTotal,
       //   // discount: cart.discount,
-      //   discount: coupon?.discount,
+      //   discount: coupon?.discount + totalDiscount || 0,
       //   // shipping_charge: totalShippingCharge,
-      //   shipping_charge: coupon?.shipping_charge,
+      //   shipping_charge: hasFreeShipping ? 0 : coupon?.shipping_charge,
       //   tax: cart.tax,
-      //   grand_total: cart.subTotal + coupon?.shipping_charge - coupon?.discount,
+      //   grand_total: cart.subTotal + (hasFreeShipping ? 0 : coupon?.shipping_charge || 0) - (coupon?.discount + totalDiscount || 0),
+      //   // grand_total: cart.subTotal + coupon?.shipping_charge - coupon?.discount,
       //   payment_method_id: cart.paymentMethodId,
       //   total_weight: totalWeight,
       //   coupon_code: coupon?.appliedCode || "",
@@ -360,11 +372,12 @@ const CheckoutPage = () => {
         cart: cart.items,
         sub_total: cart.subTotal,
         // discount: cart.discount,
-        discount: coupon?.discount,
+        discount: coupon?.discount + totalDiscount || 0,
         // shipping_charge: totalShippingCharge,
-        shipping_charge: coupon?.shipping_charge,
+        shipping_charge: hasFreeShipping ? 0 : coupon?.shipping_charge,
         tax: cart.tax,
-        grand_total: cart.subTotal + coupon?.shipping_charge - coupon?.discount,
+        grand_total: cart.subTotal + (hasFreeShipping ? 0 : coupon?.shipping_charge || 0) - (coupon?.discount + totalDiscount || 0),
+        // grand_total: cart.subTotal + coupon?.shipping_charge - coupon?.discount,
         payment_method_id: cart.paymentMethodId,
         total_weight: totalWeight,
         coupon_code: coupon?.appliedCode || "",
@@ -392,12 +405,15 @@ const CheckoutPage = () => {
         cart: cart.items,
         sub_total: cart.subTotal,
         // discount: cart.discount,
-        discount: coupon?.discount,
+        // discount: coupon?.discount,
+        discount: coupon?.discount + totalDiscount || 0,
         // shipping_charge: totalShippingCharge,
-        shipping_charge: coupon?.shipping_charge,
+        // shipping_charge: coupon?.shipping_charge,
+        shipping_charge: hasFreeShipping ? 0 : coupon?.shipping_charge,
         tax: cart.tax,
         // grand_total: cart.subTotal + totalShippingCharge - coupon?.discount,
-        grand_total: cart.subTotal + coupon?.shipping_charge - coupon?.discount,
+        // grand_total: cart.subTotal + coupon?.shipping_charge - coupon?.discount,
+        grand_total: cart.subTotal + (hasFreeShipping ? 0 : coupon?.shipping_charge || 0) - (coupon?.discount + totalDiscount || 0),
         payment_method_id: cart.paymentMethodId,
         total_weight: totalWeight,
         coupon_code: coupon?.appliedCode || "",
@@ -925,6 +941,9 @@ const CheckoutPage = () => {
       tostify(toast, "error", { message: error.message });
     }
   };
+
+  const hasFreeShipping = discount?.some(item => item.shippingCharge === 0);
+  const totalDiscount = discount.reduce((total, item) => total + item.discountAmount, 0);
 
   return (
     <Fragment>
@@ -1637,28 +1656,39 @@ const CheckoutPage = () => {
                   ) : (
                     ""
                   )}
+
                   {coupon?.shipping_charge ? (
                     <div className="d-flex justify-content-between">
                       <p className="font-lato text-capitalize font-20 pe-2 phone_res">
                         shipping charge ({totalWeight.toFixed(2)} kg):{" "}
                       </p>
                       <p className=" font-20  phone_res">
-                        {coupon?.shipping_charge} Tk
+                        {hasFreeShipping ? 0 : coupon?.shipping_charge} Tk
                       </p>
                     </div>
                   ) : (
                     ""
                   )}
 
+                  {discount?.length ? discount.map(d => {
+                     return !(d?.shippingCharge === 0) ? (
+                      <div className="d-flex justify-content-between">
+                      <p className="font-lato text-capitalize font-20 pe-2 phone_res">
+                        Discount ({d.discountDescription}):
+                      </p>
+                      <p className=" font-20  phone_res">
+                        {d?.discountAmount} Tk
+                      </p>
+                    </div>
+                    ) : ""
+                  }) : ""}
+
                   <div className="d-flex justify-content-between">
                     <p className="font-lato text-capitalize font-20 pe-2 phone_res theme-text">
                       total:{" "}
                     </p>
                     <p className="font-20 theme-text phone_res">
-                      {cart.subTotal +
-                        (coupon?.shipping_charge || 0) -
-                        (coupon?.discount || 0)}{" "}
-                      Tk
+                      {cart.subTotal + (hasFreeShipping ? 0 : coupon?.shipping_charge || 0) - (coupon?.discount + totalDiscount || 0)}{" "}Tk
                     </p>
                   </div>
                 </div>

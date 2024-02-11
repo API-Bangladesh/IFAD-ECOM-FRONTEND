@@ -18,10 +18,12 @@ const FacebookCallbackPage = () => {
         if (query?.code) {
             facebookLoginCallback(query).then((response) => {
                 if (response?.data?.data) {
-                    const {customer, token} = response.data.data;
+                    const {customer, token, group} = response.data.data;
 
                     if (customer) {
-                        dispatch(SET_AUTH_DATA(customer));
+                        dispatch(SET_AUTH_DATA({
+                          ...customer, group: group || []
+                        }));
                     }
 
                     if (customer?.email_verified_at) {

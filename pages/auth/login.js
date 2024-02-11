@@ -164,7 +164,9 @@ const LoginPage = () => {
                     const {customer, token, group} = response.data.data;
 
                     if (customer) {
-                        dispatch(SET_AUTH_DATA({...customer, group: {...group}}));
+                        dispatch(SET_AUTH_DATA({
+                          ...customer, group: group || []
+                        }));
                     }
 
                     if (customer?.email_verified_at) {
@@ -220,7 +222,9 @@ const LoginPage = () => {
                     const {customer, token, group} = response.data.data;
 
                     if (customer) {
-                        dispatch(SET_AUTH_DATA({...customer, group: {...group}}));
+                        dispatch(SET_AUTH_DATA({
+                          ...customer, group: group || []
+                        }));
                     }
 
                     if (customer?.email_verified_at) {
@@ -255,7 +259,9 @@ const LoginPage = () => {
                   const {customer, token, group} = response.data.data;
 
                   if (customer) {
-                      dispatch(SET_AUTH_DATA({...customer, group: [...group]}));
+                      dispatch(SET_AUTH_DATA({
+                        ...customer, group: group || []
+                      }));
                   }
 
                   if (customer?.email_verified_at) {
