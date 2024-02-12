@@ -181,7 +181,7 @@ export default function Footer() {
         <footer className="text-center shadow-inner footer-bg  ">
           <div className="d-flex justify-content-center position-relative footer_width">
             <p className="text-center text-light p-0 mt-3 mb-3 pe-2 font-lato copyrights">
-              © 2023 IFAD Group. All Rights Reserved | Developed by{" "}
+              © {new Date().getFullYear()} IFAD Group. All Rights Reserved | Developed by{" "}
             </p>
             <Link href="https://apisolutionsltd.com/" target="_blank" className="api_logo">
               <Image src={Api} alt="" className="logo-resize "/>

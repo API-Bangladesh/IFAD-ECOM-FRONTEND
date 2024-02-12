@@ -79,7 +79,7 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     fetchConditionalDiscounts().then((response) => {
-      if (response?.data) {
+      if (response?.data?.length) {
         // console.log(response.data)
         setConditionalDiscount(
           response.data.map(item => ({
