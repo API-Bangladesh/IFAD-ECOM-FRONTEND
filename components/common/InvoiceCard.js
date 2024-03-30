@@ -163,11 +163,11 @@ const InvoiceCard = ({ orderDetails }) => {
                   <span className="text-black me-4">SubTotal</span>{" "}
                   <span>{orderDetails?.sub_total}/-</span>
                 </li>
-                {orderDetails?.discount &&
+                {orderDetails?.discount ?
                   <li className="text-muted ms-3 d-flex justify-content-between">
                     <span className="text-black me-4">Discount{orderDetails?.coupon_code ? ` (${orderDetails?.coupon_code})` : ""}</span>{" "}
                     <span>{orderDetails?.discount}/-</span>
-                  </li>
+                  </li> : ""
                 }
                 <li className="text-muted ms-3 d-flex justify-content-between">
                   <span className="text-black me-4">Shipping & Handling</span>{" "}
