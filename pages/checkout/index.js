@@ -110,12 +110,12 @@ const CheckoutPage = () => {
       const expiryDate = new Date(condition.condition_exp_date);
       if (currentDate <= expiryDate) {
         // Check if the conditions match
-        const districtIds = JSON.parse(condition.district_id);
-        const upazilaIds = JSON.parse(condition.upazila_id);
-        const minSpend = condition.min_spend
+        const districtIds = JSON.parse(condition?.district_id);
+        const upazilaIds = JSON.parse(condition?.upazila_id);
+        const minSpend = condition?.min_spend
           ? parseFloat(condition.min_spend)
           : 0;
-        const maxSpend = condition.max_spend
+        const maxSpend = condition?.max_spend
           ? parseFloat(condition.max_spend)
           : Infinity;
         const conditionCustomerGroups = JSON.parse(condition.customer_group);
@@ -127,15 +127,15 @@ const CheckoutPage = () => {
           const commonIds = [...customerGroupsIds].filter(id => conditionCustomerGroupsIntegers.has(id));
 
         if (
-          districtId && districtIds.includes(districtId.toString()) &&
-          upazilaId && upazilaIds.includes(upazilaId.toString()) &&
+          (districtIds.length === 0 || (districtId && districtIds.includes(districtId.toString()))) &&
+          (upazilaIds.length === 0 || (upazilaId && upazilaIds.includes(upazilaId.toString()))) &&
           subtotal >= minSpend &&
           subtotal <= maxSpend &&
-          commonIds.length > 0
+          (conditionCustomerGroups?.length === 0 || commonIds.length > 0)
         ) {
           // Apply discount based on the condition type
           if (condition.condition_type === "fixed_percentage_discount") {
-            const percentageDiscount = parseFloat(condition.discount_amount);
+            const percentageDiscount = parseFloat(condition?.discount_amount || 0);
             let obj = {
               conditionName: condition.condition_name,
               conditionType: condition.condition_type,
