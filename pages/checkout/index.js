@@ -1810,12 +1810,12 @@ const CheckoutPage = () => {
                         <Oval
                           height={18}
                           width={18}
-                          color="#f38120"
+                          color="#ffffff"
                           wrapperStyle={{}}
                           wrapperClass=""
                           visible={true}
                           ariaLabel="oval-loading"
-                          secondaryColor="#f38120"
+                          secondaryColor="#ffffff"
                           strokeWidth={6}
                           strokeWidthSecondary={6}
                         />
