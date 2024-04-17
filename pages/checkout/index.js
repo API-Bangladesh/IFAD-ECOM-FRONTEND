@@ -1775,7 +1775,7 @@ const CheckoutPage = () => {
                   </Form.Group>
                 </div>
 
-                <div className="coupon mb-4 mt-4">
+                {/* <div className="coupon mb-4 mt-4">
                   <label className="mb-2" htmlFor="coupon">
                     Have a coupon?
                   </label>
@@ -1819,7 +1819,7 @@ const CheckoutPage = () => {
                       Apply
                     </button>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="">
                   <button
