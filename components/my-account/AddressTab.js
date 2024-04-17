@@ -115,6 +115,10 @@ const AddressTab = () => {
         showErrorNotification("Error", err.message);
       }
     } else {
+      if (addresses?.length === 0) {
+        data.is_default_billing = 1;
+        data.is_default_shipping = 1;
+      }
       try {
         saveAddress(data).then((res) => {
 

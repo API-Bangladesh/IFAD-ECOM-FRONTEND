@@ -61,7 +61,7 @@ const CheckoutPage = () => {
     isChecking: false,
     isApplied: false,
     discount: cart?.discount || 0,
-    shipping_charge: totalShippingCharge,
+    shipping_charge: totalShippingCharge !== null ? totalShippingCharge : 0,
   });
 
   // const [discount, setDiscount] = useState({
@@ -329,6 +329,29 @@ const CheckoutPage = () => {
 
     if (!cart?.paymentMethodId) {
       alert("Please choose a payment method!");
+      return;
+    }
+
+    // console.log(billingAddress, shippingAddress)
+    // return
+
+    if (!Object.keys(billingAddress).length > 0) {
+      alert("Please select a billing address!");
+      return;
+    }
+
+    if (Object.keys(billingAddress).length > 0 && addresses.length === 0) {
+      alert("Please select a billing address!");
+      return;
+    }
+
+    if (!Object.keys(shippingAddress).length > 0) {
+      alert("Please select a shipping address!");
+      return;
+    }
+
+    if (Object.keys(shippingAddress).length > 0 && addresses.length === 0) {
+      alert("Please select a shipping address!");
       return;
     }
 
